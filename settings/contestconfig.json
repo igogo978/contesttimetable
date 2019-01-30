@@ -1,0 +1,23 @@
+{
+	"setting": [{
+			"priority": 1,
+			"contestgroup": ["scratch"],
+			"description": "4/10(二)上午9:00-12:00 "
+		},
+		{
+			"priority": 2,
+			"contestgroup": ["電腦打字"],
+			"description": "4/10(二)下午13:30-14:10 "
+		},
+		{
+			"priority": 3,
+			"contestgroup": ["電腦繪圖國小", "專題簡報國小"],
+			"description": "4/11(三)上午9:00-12:00"
+		},
+		{
+			"priority": 4,
+			"contestgroup": ["電腦繪圖國中", "電腦繪圖高中職", "專題簡報高中職", "專題簡報國中"],
+			"description": "4/11(三)下午13:30-16:30"
+		}
+	]
+}
