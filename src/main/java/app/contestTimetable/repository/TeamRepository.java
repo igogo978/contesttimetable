@@ -9,4 +9,7 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 
 
 //    List<Team> findBySchoolnameContaining(String schoolname);
+    List<Team> findByContestgroupContaining(String contestgroup);
+    List<Team> findByContestgroupContainingAndContestgroupContaining(String contestgroup, String level);
+
 }

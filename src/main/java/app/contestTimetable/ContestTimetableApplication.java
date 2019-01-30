@@ -113,6 +113,18 @@ public class ContestTimetableApplication implements CommandLineRunner {
         }
 
 
+        //find contest group
+        System.out.println("find out contestgroup...");
+
+        Contestconfig contestgroup = contestconfigrepository.findById(3).orElse(null);
+        contestgroup.getContestgroup().forEach(g -> System.out.println(g));
+
+////        System.out.println(teamrepository.findByContestgroupContainingAndContestgroupContaining("SCRATCH".toUpperCase(),"國中").size());
+//        teamrepository.findByContestgroupContainingAndContestgroupContaining("SCRATCH".toUpperCase(),"國中").forEach(t->{
+//            System.out.println(t.getContestgroup());
+//        });
+
+
     }
 }
 
