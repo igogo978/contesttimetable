@@ -1,9 +1,6 @@
 package app.contestTimetable;
 
-import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.Location;
-import app.contestTimetable.model.School;
-import app.contestTimetable.model.Team;
+import app.contestTimetable.model.*;
 import app.contestTimetable.repository.ContestconfigRepository;
 import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.SchoolRepository;
@@ -130,6 +127,18 @@ public class ContestTimetableApplication implements CommandLineRunner {
         locations.forEach(location -> {
             locationrepository.save(location);
         });
+
+//        SchoolTeam team = new SchoolTeam();
+//        team.setMembers(1);
+//        team.setSchoolid("123456");
+        ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
+//        schoolteams.add(team);
+
+//         SchoolTeam schoolteam = schoolteams.stream().filter(schoolTeam -> schoolTeam.getSchoolid().equals("123456"))
+//         .findFirst().get();
+
+         Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolid().equals("1234567"));
+        System.out.println(isExist);
 
         System.out.println("服务成功启动");
 //        //find contest group

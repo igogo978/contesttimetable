@@ -8,6 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class Team {
 
+    //参赛队伍, 竞赛项目区分
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
