@@ -10,7 +10,7 @@ import java.util.Set;
 public class Contestconfig {
 
     @Id
-    private Integer priority;
+    private Integer id;
 
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    private Integer id;
@@ -24,12 +24,12 @@ public class Contestconfig {
     public Contestconfig() {
     }
 
-    public Integer getPriority() {
-        return priority;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPriority(Integer priority) {
-        this.priority = priority;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<String> getContestgroup() {

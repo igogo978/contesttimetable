@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface SchoolRepository extends CrudRepository<School, String> {
 
+    School findBySchoolname(String schoolname);
+
 
 }

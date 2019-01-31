@@ -1,9 +1,11 @@
 package app.contestTimetable;
 
 import app.contestTimetable.model.Contestconfig;
+import app.contestTimetable.model.Location;
 import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.repository.ContestconfigRepository;
+import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.SchoolRepository;
 import app.contestTimetable.repository.TeamRepository;
 import app.contestTimetable.service.ReadXlsxService;
@@ -41,6 +43,9 @@ public class ContestTimetableApplication implements CommandLineRunner {
     SchoolRepository schoolrepository;
 
     @Autowired
+    LocationRepository locationrepository;
+
+    @Autowired
     ContestconfigRepository contestconfigrepository;
 
 
@@ -55,6 +60,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         String cwd = System.getProperty("user.dir");
         String docPath = String.format("%s/docs", cwd);
+        String settingPath = String.format("%s/settings", cwd);
 
         //读取参赛队伍
         ArrayList<Team> teams = new ArrayList<>();
@@ -69,7 +75,6 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
 
         //读取台中市学校名单
-        String settingPath = String.format("%s/settings", cwd);
         String tcschool = String.format("%s/%s", settingPath, "tcschool.xlsx");
 
         ArrayList<School> schools = new ArrayList<>();
@@ -88,7 +93,6 @@ public class ContestTimetableApplication implements CommandLineRunner {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root;
 
-        //確認設定檔
         if (new File(contestconfigfile).isFile()) {
             //create ObjectMapper instance
             System.out.println("读取设定档");
@@ -99,10 +103,10 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
             for (JsonNode subnode : node) {
                 Contestconfig contestconfig = new Contestconfig();
-                Integer priority = subnode.get("priority").asInt();
+                Integer id = subnode.get("id").asInt();
 
                 String description = subnode.get("description").asText();
-                contestconfig.setPriority(priority);
+                contestconfig.setId(id);
                 contestconfig.setDescription(description);
                 subnode.get("contestgroup").forEach(element -> {
                     contestconfig.getContestgroup().add(element.asText());
@@ -112,12 +116,27 @@ public class ContestTimetableApplication implements CommandLineRunner {
             }
         }
 
+        //读取场地
+        String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
+        ArrayList<Location> locations = new ArrayList<>();
+        locations = readxlsx.getLocations(locationfile);
 
-        //find contest group
-        System.out.println("find out contestgroup...");
+        locations.forEach(location -> {
+            School school = schoolrepository.findBySchoolname(location.getLocationname());
+            location.setSchoolid(school.getSchoolid());
+        });
 
-        Contestconfig contestgroup = contestconfigrepository.findById(3).orElse(null);
-        contestgroup.getContestgroup().forEach(g -> System.out.println(g));
+        //存入location
+        locations.forEach(location -> {
+            locationrepository.save(location);
+        });
+
+        System.out.println("服务成功启动");
+//        //find contest group
+//        System.out.println("find out contestgroup...");
+//
+//        Contestconfig contestgroup = contestconfigrepository.findById(1).orElse(null);
+//        contestgroup.getContestgroup().forEach(g -> System.out.println(g));
 
 ////        System.out.println(teamrepository.findByContestgroupContainingAndContestgroupContaining("SCRATCH".toUpperCase(),"國中").size());
 //        teamrepository.findByContestgroupContainingAndContestgroupContaining("SCRATCH".toUpperCase(),"國中").forEach(t->{

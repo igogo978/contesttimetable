@@ -1,5 +1,6 @@
 package app.contestTimetable.service;
 
+import app.contestTimetable.model.Location;
 import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -21,171 +22,220 @@ import java.util.stream.Stream;
 @Service
 public class ReadXlsxService {
 
-        public ArrayList<Team> getTeams(String docPath) throws IOException {
-            ArrayList<Team> allitems = new ArrayList<>();
-            ArrayList<List<Team>> groupitems = new ArrayList<>();
-            List<Path> xlsxPaths = new ArrayList<>();
-            try (Stream<Path> paths = Files.walk(Paths.get(docPath))) {
-                paths.filter(Files::isRegularFile)
-                        .filter(p -> p.toString().endsWith(".xlsx"))
-                        .forEach(xlsxPaths::add);
-            }
+    public ArrayList<Team> getTeams(String docPath) throws IOException {
+        ArrayList<Team> allitems = new ArrayList<>();
+        ArrayList<List<Team>> groupitems = new ArrayList<>();
+        List<Path> xlsxPaths = new ArrayList<>();
+        try (Stream<Path> paths = Files.walk(Paths.get(docPath))) {
+            paths.filter(Files::isRegularFile)
+                    .filter(p -> p.toString().endsWith(".xlsx"))
+                    .forEach(xlsxPaths::add);
+        }
 
-            xlsxPaths.forEach(xlsx -> {
+        xlsxPaths.forEach(xlsx -> {
 //            System.out.println(xlsx.toString());
-                // String to be scanned to find the pattern.
-                String pattern = ".*(專題簡報).*";
+            // String to be scanned to find the pattern.
+            String pattern = ".*(專題簡報).*";
 
-                // Create a Pattern object
-                Pattern r = Pattern.compile(pattern);
+            // Create a Pattern object
+            Pattern r = Pattern.compile(pattern);
 
-                // Now create matcher object.
-                Matcher m = r.matcher(xlsx.toString());
+            // Now create matcher object.
+            Matcher m = r.matcher(xlsx.toString());
 
 
-                try {
-                    if (m.find()) {
-                        //簡報多一隊員欄位
-                        groupitems.add(readPresentationTeams(xlsx.toString()));
+            try {
+                if (m.find()) {
+                    //簡報多一隊員欄位
+                    groupitems.add(readPresentationTeams(xlsx.toString()));
 
-                    } else {
-                        groupitems.add(readGroupTeams(xlsx.toString()));
+                } else {
+                    groupitems.add(readGroupTeams(xlsx.toString()));
 
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-                //打散塞進allitems裡
-                groupitems.forEach(items -> {
-                    items.forEach(team -> allitems.add(team));
-                });
-                groupitems.clear();
+            //打散塞進allitems裡
+            groupitems.forEach(items -> {
+                items.forEach(team -> allitems.add(team));
             });
-            return allitems;
-        }
+            groupitems.clear();
+        });
+        return allitems;
+    }
 
-        ArrayList<Team> readPresentationTeams(String xlsPath) throws IOException, InvalidFormatException {
-            //讀取檔案內容
-            ArrayList<Team> teams = new ArrayList<>();
+    ArrayList<Team> readPresentationTeams(String xlsPath) throws IOException, InvalidFormatException {
+        //讀取檔案內容
+        ArrayList<Team> teams = new ArrayList<>();
 
 
-            Workbook workbook = WorkbookFactory.create(new File(xlsPath));
+        Workbook workbook = WorkbookFactory.create(new File(xlsPath));
 
-            // Return first sheet from the XLSX  workbook
-            Sheet sheet = workbook.getSheetAt(0);
+        // Return first sheet from the XLSX  workbook
+        Sheet sheet = workbook.getSheetAt(0);
 
-            // Get iterator to all the rows in current sheet
-            Iterator<Row> rowIterator = sheet.iterator();
+        // Get iterator to all the rows in current sheet
+        Iterator<Row> rowIterator = sheet.iterator();
 
-            //讀列
-            while (rowIterator.hasNext()) {
-                Team team = new Team();
-                Row row = rowIterator.next();
+        //讀列
+        while (rowIterator.hasNext()) {
+            Team team = new Team();
+            Row row = rowIterator.next();
 
-                if (row.getRowNum() == 0) {  //ommit first row
-                    continue;
-                }
+            if (row.getRowNum() == 0) {  //ommit first row
+                continue;
+            }
 
-                //讀欄 For each row, iterate through each columns
-                Iterator<Cell> cellIterator = row.cellIterator();
-                String value = "";
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
-                    cell.setCellType(CellType.STRING);
+            //讀欄 For each row, iterate through each columns
+            Iterator<Cell> cellIterator = row.cellIterator();
+            String value = "";
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                cell.setCellType(CellType.STRING);
 
-                    switch (cell.getColumnIndex()) {
-                        case 0:    //第一個欄位, 流水號
+                switch (cell.getColumnIndex()) {
+                    case 0:    //第一個欄位, 流水號
 //                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
 //                            System.out.println(new String(byteArray, "UTF-8"));
 //                        System.out.println(String.valueOf(cell.getStringCellValue()));
-                            break;
-                        case 1:    //第二個欄位, 競賽項目
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setContestgroup(value);
-                            break;
-                        case 2:    //第三個欄位, 學校
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setSchoolname(value);
-                            break;
-                        case 3:    //第三個欄位, 姓名
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setUsername(value);
-                            break;
-                        case 4:    //第4個欄位, 組員
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setMember(value);
-                            break;
-                        case 5:    //第四個欄位, 指導
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setInstructor(value);
-                            break;
-                        default:
-                    }
-                } //結束讀欄
-                teams.add(team);
-            }
-
-            return teams;
+                        break;
+                    case 1:    //第二個欄位, 競賽項目
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setContestgroup(value);
+                        break;
+                    case 2:    //第三個欄位, 學校
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setSchoolname(value);
+                        break;
+                    case 3:    //第三個欄位, 姓名
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setUsername(value);
+                        break;
+                    case 4:    //第4個欄位, 組員
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setMember(value);
+                        break;
+                    case 5:    //第四個欄位, 指導
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setInstructor(value);
+                        break;
+                    default:
+                }
+            } //結束讀欄
+            teams.add(team);
         }
 
-        ArrayList<Team> readGroupTeams(String xlsPath) throws IOException, InvalidFormatException {
-            //讀取檔案內容
-            ArrayList<Team> teams = new ArrayList<>();
+        return teams;
+    }
 
-            Workbook workbook = WorkbookFactory.create(new File(xlsPath));
+    ArrayList<Team> readGroupTeams(String xlsPath) throws IOException, InvalidFormatException {
+        //讀取檔案內容
+        ArrayList<Team> teams = new ArrayList<>();
 
-            // Return first sheet from the XLSX  workbook
-            Sheet sheet = workbook.getSheetAt(0);
+        Workbook workbook = WorkbookFactory.create(new File(xlsPath));
 
-            // Get iterator to all the rows in current sheet
-            Iterator<Row> rowIterator = sheet.iterator();
+        // Return first sheet from the XLSX  workbook
+        Sheet sheet = workbook.getSheetAt(0);
 
-            //讀列
-            while (rowIterator.hasNext()) {
-                Team team = new Team();
-                Row row = rowIterator.next();
+        // Get iterator to all the rows in current sheet
+        Iterator<Row> rowIterator = sheet.iterator();
 
-                if (row.getRowNum() == 0) {  //ommit first row
-                    continue;
-                }
+        //讀列
+        while (rowIterator.hasNext()) {
+            Team team = new Team();
+            Row row = rowIterator.next();
 
-                //讀欄 For each row, iterate through each columns
-                Iterator<Cell> cellIterator = row.cellIterator();
-                String value = "";
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
-                    cell.setCellType(CellType.STRING);
+            if (row.getRowNum() == 0) {  //ommit first row
+                continue;
+            }
 
-                    switch (cell.getColumnIndex()) {
-                        case 0:    //第一個欄位, 流水號
+            //讀欄 For each row, iterate through each columns
+            Iterator<Cell> cellIterator = row.cellIterator();
+            String value = "";
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                cell.setCellType(CellType.STRING);
+
+                switch (cell.getColumnIndex()) {
+                    case 0:    //第一個欄位, 流水號
 //                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
 //                            System.out.println(new String(byteArray, "UTF-8"));
 //                        System.out.println(String.valueOf(cell.getStringCellValue()));
-                            break;
-                        case 1:    //第二個欄位, 競賽項目
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setContestgroup(value);
-                            break;
-                        case 2:    //第三個欄位, 學校
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setSchoolname(value);
-                            break;
-                        case 3:    //第三個欄位, 姓名
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setUsername(value);
-                            break;
-                        case 4:    //第四個欄位, 指導
-                            value = String.valueOf(cell.getStringCellValue());
-                            team.setInstructor(value);
-                            break;
-                        default:
-                    }
-                } //結束讀欄
-                teams.add(team);
-            }
-            return teams;
+                        break;
+                    case 1:    //第二個欄位, 競賽項目
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setContestgroup(value);
+                        break;
+                    case 2:    //第三個欄位, 學校
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setSchoolname(value);
+                        break;
+                    case 3:    //第三個欄位, 姓名
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setUsername(value);
+                        break;
+                    case 4:    //第四個欄位, 指導
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setInstructor(value);
+                        break;
+                    default:
+                }
+            } //結束讀欄
+            teams.add(team);
         }
+        return teams;
+    }
+
+
+    public ArrayList<Location> getLocations(String docPath) throws IOException, InvalidFormatException {
+        //讀取檔案內容
+        ArrayList<Location> locations = new ArrayList<>();
+        Workbook workbook = WorkbookFactory.create(new File(docPath));
+
+        // Return first sheet from the XLSX  workbook
+        Sheet sheet = workbook.getSheetAt(0);
+
+        // Get iterator to all the rows in current sheet
+        Iterator<Row> rowIterator = sheet.iterator();
+
+        //讀列
+        while (rowIterator.hasNext()) {
+            Location location = new Location();
+            Row row = rowIterator.next();
+
+            if (row.getRowNum() == 0) {  //ommit first row
+                continue;
+            }
+
+            //讀欄 For each row, iterate through each columns
+            Iterator<Cell> cellIterator = row.cellIterator();
+            String value = "";
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                cell.setCellType(CellType.STRING);
+
+                switch (cell.getColumnIndex()) {
+                    case 0:    //第一個欄位, 场地名
+                        value = String.valueOf(cell.getStringCellValue());
+                        location.setLocationname(value);
+                        break;
+                    case 1:    //第二個欄位, 容纳人数
+                        value = String.valueOf(cell.getStringCellValue());
+                        location.setCapacity(Integer.valueOf(value));
+                        break;
+
+
+                    default:
+                }
+            } //結束讀欄
+
+            locations.add(location);
+        }
+        return locations;
+
+    }
 
 
     public ArrayList<School> getSchools(String docPath) throws IOException, InvalidFormatException {
