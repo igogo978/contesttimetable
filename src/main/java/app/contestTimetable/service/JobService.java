@@ -1,16 +1,15 @@
 package app.contestTimetable.service;
 
 import app.contestTimetable.model.*;
-import app.contestTimetable.repository.ContestconfigRepository;
-import app.contestTimetable.repository.LocationRepository;
-import app.contestTimetable.repository.SchoolRepository;
-import app.contestTimetable.repository.TeamRepository;
+import app.contestTimetable.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 @Service
@@ -26,6 +25,9 @@ public class JobService {
     SchoolRepository schoolrepository;
 
     @Autowired
+    JobRepository jobrepository;
+
+    @Autowired
     LocationRepository locationrepository;
 
     @Autowired
@@ -35,6 +37,7 @@ public class JobService {
     public Job getJob(Integer id) {
         Job job = new Job();
 
+
         //取出竞赛项目
         Contestconfig contestconfig = contestconfigrepository.findById(id).get();
 
@@ -43,12 +46,68 @@ public class JobService {
         ArrayList<Location> locations = new ArrayList<>();
         locationrepository.findAll().forEach(location -> locations.add(location));
 
+
+        ArrayList<SchoolTeam> schoolteams = getSchoolteams(id);
+
+
         //分群, priorityorder为优先群，例如主场，已经拿到门票者
         //group1 大群组, group2 第二群组
+        //分群
+        List<SchoolTeam> teamgroup1 = new ArrayList<>();
+        List<SchoolTeam> teamgroup2 = new ArrayList<>();
+        StringBuilder locationorder = new StringBuilder();
         StringBuilder priorityorder = new StringBuilder();
         StringBuilder group1order = new StringBuilder();
         StringBuilder group2order = new StringBuilder();
 
+        schoolteams.forEach(team -> {
+            if (locationrepository.existsById(team.getSchoolid())) {
+                //承办学校,已经拿到ticket的学校优先列入排序
+                priorityorder.append(String.format("%s-", team.getSchoolid()));
+
+            } else if (team.getMembers() > 4) {
+                teamgroup1.add(team);
+            } else {
+                teamgroup2.add(team);
+            }
+        });
+
+
+        Collections.shuffle(locations);
+
+        //打乱场地顺序
+        locations.forEach(location -> {
+            locationorder.append(String.format("%s-", location.getSchoolid()));
+        });
+
+        job.setLocationorder(locationorder.toString());
+
+        //决定群组1的顺序
+        Collections.shuffle(teamgroup1);
+
+        //jobid是场地顺序加大群顺序的hash值, 指派工作后交给client 排序group2, 为识别工作是否已派出,避免重复
+        String jobid = org.apache.commons.codec.digest.DigestUtils.sha256Hex(String.format("%s,%s", locationorder.toString(), group1order.toString()));
+
+        //工作已派出,请client再次请求
+        if (jobrepository.existsById(jobid)) {
+            jobid="";
+        }
+        job.setJobid(jobid);
+
+        teamgroup1.forEach(team -> {
+            group1order.append(String.format("%s-", team.getSchoolid()));
+
+        });
+
+
+        teamgroup2.forEach(team -> {
+            group2order.append(String.format("%s-", team.getSchoolid()));
+        });
+
+        job.setGroup1order(String.format("%s%s", priorityorder.toString(), group1order.toString()));
+        job.setGroup2order(group2order.toString());
+
+        job.setCalculatejobs(2);
 
         return job;
     }
@@ -71,7 +130,7 @@ public class JobService {
             String schoolname = team.getSchoolname();
 
             Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolname().equals(schoolname));
-            logger.info(String.format("%s,%s", schoolname, isExist));
+//            logger.info(String.format("%s,%s", schoolname, isExist));
 
             if (isExist) {
                 schoolteams.forEach(schoolteam -> {
@@ -88,7 +147,7 @@ public class JobService {
                 schoolteam.setSchoolid(school.getSchoolid());
                 schoolteam.setMembers(1);
                 schoolteam.setSchoolname(schoolname);
-                schoolteam.setContestgroup(String.join(",",contestconfig.getContestgroup()));
+                schoolteam.setContestgroup(String.join(",", contestconfig.getContestgroup()));
                 schoolteams.add(schoolteam);
 
             }

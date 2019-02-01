@@ -137,8 +137,8 @@ public class ContestTimetableApplication implements CommandLineRunner {
 //         SchoolTeam schoolteam = schoolteams.stream().filter(schoolTeam -> schoolTeam.getSchoolid().equals("123456"))
 //         .findFirst().get();
 
-         Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolid().equals("1234567"));
-        System.out.println(isExist);
+//         Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolid().equals("1234567"));
+//        System.out.println(isExist);
 
         System.out.println("服务成功启动");
 //        //find contest group

@@ -1,5 +1,6 @@
 package app.contestTimetable.controller;
 
+import app.contestTimetable.model.Job;
 import app.contestTimetable.model.SchoolTeam;
 import app.contestTimetable.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,8 @@ public class JobController {
     JobService jobservice;
 
     @GetMapping(value = "/job/{id}")
-    public String getId(@PathVariable("id") int id) {
-        jobservice.getJob(Integer.valueOf(id));
-        return "id:" + id;
+    public Job getId(@PathVariable("id") int id) {
+        return jobservice.getJob(Integer.valueOf(id));
     }
 
 
