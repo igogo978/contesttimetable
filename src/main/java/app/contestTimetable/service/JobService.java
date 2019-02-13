@@ -90,7 +90,7 @@ public class JobService {
 
         //工作已派出,请client再次请求
         if (jobrepository.existsById(jobid)) {
-            jobid="";
+            jobid = "";
         }
         job.setJobid(jobid);
 
@@ -99,10 +99,14 @@ public class JobService {
 
         });
 
+        job.setGroup1count(teamgroup1.size());
+
 
         teamgroup2.forEach(team -> {
             group2order.append(String.format("%s-", team.getSchoolid()));
         });
+
+        job.setGroup2count(teamgroup2.size());
 
         job.setGroup1order(String.format("%s%s", priorityorder.toString(), group1order.toString()));
         job.setGroup2order(group2order.toString());
@@ -143,7 +147,7 @@ public class JobService {
             } else {
                 SchoolTeam schoolteam = new SchoolTeam();
                 School school = schoolrepository.findBySchoolname(team.getSchoolname());
-                logger.info(school.getSchoolid());
+//                logger.info(school.getSchoolid());
                 schoolteam.setSchoolid(school.getSchoolid());
                 schoolteam.setMembers(1);
                 schoolteam.setSchoolname(schoolname);

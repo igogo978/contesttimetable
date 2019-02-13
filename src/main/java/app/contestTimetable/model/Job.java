@@ -22,8 +22,8 @@ public class Job {
     @Column(length = 10000)
     private String group2order;
 
-    private Integer group1numbers;
-    private Integer group2numbers;
+    private Integer group1count;
+    private Integer group2count;
 
 
     private long calculatejobs;
@@ -64,20 +64,20 @@ public class Job {
         this.group2order = group2order;
     }
 
-    public Integer getGroup1numbers() {
-        return group1numbers;
+    public Integer getGroup1count() {
+        return group1count;
     }
 
-    public void setGroup1numbers(Integer group1numbers) {
-        this.group1numbers = group1numbers;
+    public void setGroup1count(Integer group1count) {
+        this.group1count = group1count;
     }
 
-    public Integer getGroup2numbers() {
-        return group2numbers;
+    public Integer getGroup2count() {
+        return group2count;
     }
 
-    public void setGroup2numbers(Integer group2numbers) {
-        this.group2numbers = group2numbers;
+    public void setGroup2count(Integer group2count) {
+        this.group2count = group2count;
     }
 
     public long getCalculatejobs() {
