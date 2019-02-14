@@ -11,7 +11,8 @@ public class Report {
     @Id
     private String uuid;
 
-    private  String contestpriority;
+
+    private Integer contestid;
 
 
     @Column( columnDefinition = "text")
@@ -27,12 +28,12 @@ public class Report {
         this.uuid = uuid;
     }
 
-    public String getContestpriority() {
-        return contestpriority;
+    public Integer getContestid() {
+        return contestid;
     }
 
-    public void setContestpriority(String contestpriority) {
-        this.contestpriority = contestpriority;
+    public void setContestid(Integer contestid) {
+        this.contestid = contestid;
     }
 
     public String getReport() {

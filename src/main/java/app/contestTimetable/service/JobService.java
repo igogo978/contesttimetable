@@ -120,6 +120,7 @@ public class JobService {
         ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
 
         //取出竞赛项目
+        logger.info("jobid:" + String.valueOf(id));
         Contestconfig contestconfig = contestconfigrepository.findById(id).get();
 
         //取出人数 以校为单位
