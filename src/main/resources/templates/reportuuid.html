@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>VIEW</title>
+    <title>VIEWUUID</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -23,20 +23,34 @@
             
 
             <div>
+                   
                     <table class="table">
                         <thead>
-                            <td>order</td>
-                            <td>distance</td>
-                            <td>more</td>
+                            <td> 場次:{{contestid}} Location</td>
+                            <td>尚有可用電腦</td>
+                            <td>參賽隊-人數-距離</td>
+                            <td>
+                                    <a :href="updateUrl" class="btn btn-primary active" role="button" aria-pressed="true">選定場地</a>
+
+                            </td>
                         </thead>
                         <tbody>
-                        <tr v-for="(item, index) in items">
-                            <td>{{index+1}}</td>
-                            <td>{{parseInt(item.distance)}}</td>
-                            <td>
-                                    <a :href="'/report/uuid/'+item.uuid" target="_blank">more</a>
-                                
-                            </td>
+                        <tr v-for="item in items">
+                        <td>
+                            {{item.location.name}}
+                        </td>
+                        <td>
+                            {{item.location.capacity}}
+                        </td>
+                        <td>
+                            <ul class="list-group">
+                                <li v-for="team in item.teams">
+                                    {{team.name}}({{team.members}}) - {{parseInt(team.distance)}}
+                                </li>
+                            </ul>
+                        </td>
+                        
+                           
                         </tr>
                         </tbody>
                     </table>
@@ -56,17 +70,23 @@
         var app = new Vue({
             el: '#app',
             data: {
-                msg: 'Hello Vue!',
-                contestid: /*[[${contestid}]]*/ 'default',
-                items: {}
+                uuid: /*[[${uuid}]]*/ 'default',
+                contestid: "",
+                items: {},
+                updateUrl: ""
             },
             created: function() {
                 let vm = this;
-                let url =  "/api/report/" + this.contestid;
+                let url =  "/api/report/uuid/" + this.uuid;
 
                 this.$http.get(url, config).then((response) => {
-                    vm.items = response.data;
-                    console.log(response.data);
+                    vm.items = JSON.parse(response.data.report);
+                    vm.contestid = response.data.contestid;
+                vm.updateUrl = "/report/" + vm.contestid + "/lock/" + vm.uuid;
+
+                   console.log(vm.contestid);
+                   console.log(vm.items.length);
+                    // console.log(response.data.report);
 
                 }, (response) => {
                     // error callback

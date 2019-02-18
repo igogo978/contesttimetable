@@ -128,6 +128,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
             locationrepository.save(location);
         });
 
+
 //        SchoolTeam team = new SchoolTeam();
 //        team.setMembers(1);
 //        team.setSchoolid("123456");

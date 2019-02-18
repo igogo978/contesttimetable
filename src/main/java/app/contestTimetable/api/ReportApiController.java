@@ -1,8 +1,10 @@
 package app.contestTimetable.api;
 
 import app.contestTimetable.model.Report;
+import app.contestTimetable.model.Selectedreport;
 import app.contestTimetable.model.Ticket;
 import app.contestTimetable.repository.ReportRepository;
+import app.contestTimetable.repository.SelectedreportRepository;
 import app.contestTimetable.repository.TicketRepository;
 import app.contestTimetable.service.ReportService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,16 +32,26 @@ public class ReportApiController {
     TicketRepository ticketrepository;
 
     @Autowired
+    SelectedreportRepository selectedreportrepository;
+
+    @Autowired
     ReportService reportservice;
 
 
     @GetMapping(value = "/api/report/{contestid}")
-    public ArrayList<Report> getReport(@PathVariable("contestid") int contestid) {
+    public ArrayList<Report> getReports(@PathVariable("contestid") int contestid) {
         ArrayList<Report> reports = new ArrayList<>();
-        reports = reportrepository.findByContestid(contestid);
+        reports = reportrepository.findTop10ByContestidOrderByDistanceAsc(contestid);
 
 
         return reports;
+
+    }
+
+    @GetMapping(value = "/api/report/uuid/{uuid}")
+    public Report getReport(@PathVariable("uuid") String uuid) {
+
+        return reportrepository.findByUuid(uuid);
 
     }
 
@@ -56,19 +68,35 @@ public class ReportApiController {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
 
-            root.forEach(candidate -> {
-                String locationid = candidate.get("location").get("schoolid").asText();
-                JsonNode node = candidate.get("teams");
-                node.forEach(school -> {
-                    String teamschoolid = school.get("schoolid").asText();
-                    Ticket ticket = new Ticket();
-                    ticket.setLocation(locationid);
-                    ticket.setSchoolid(teamschoolid);
+            //contesid==1, update ticket
+            if (contestid == 1) {
+                root.forEach(candidate -> {
+                    String locationid = candidate.get("location").get("schoolid").asText();
+                    JsonNode node = candidate.get("teams");
+                    node.forEach(school -> {
+                        String teamschoolid = school.get("schoolid").asText();
+                        Ticket ticket = new Ticket();
+                        ticket.setLocation(locationid);
+                        ticket.setSchoolid(teamschoolid);
 
-                    ticketrepository.save(ticket);
+                        ticketrepository.save(ticket);
 
+                    });
                 });
-            });
+
+            }
+
+            //update selected report
+            if (selectedreportrepository.countByContestid(contestid) == 0) {
+                Selectedreport selectedreport = new Selectedreport();
+                selectedreport.setContestid(contestid);
+                selectedreport.setReport(report.getReport());
+                selectedreport.setDistance(report.getDistance());
+
+                selectedreportrepository.save(selectedreport);
+            }
+
+
 
 
         } else {

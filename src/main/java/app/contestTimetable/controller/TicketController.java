@@ -26,14 +26,14 @@ public class TicketController {
     public ArrayList<Ticket> getTickets() {
 
         tickerrepository.deleteAll();
-        Ticket ticket = new Ticket();
+//        Ticket ticket = new Ticket();
 
-        ticket.setLocation("064652");
-        ticket.setSchoolid("064510");
-        tickerrepository.save(ticket);
-        ticket.setSchoolid("123456");
-        ticket.setLocation("123456");
-        tickerrepository.save(ticket);
+//        ticket.setLocation("064652");
+//        ticket.setSchoolid("064510");
+//        tickerrepository.save(ticket);
+//        ticket.setSchoolid("123456");
+//        ticket.setLocation("123456");
+//        tickerrepository.save(ticket);
 
         return ticketservice.getAll();
 
