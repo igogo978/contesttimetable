@@ -21,6 +21,8 @@ public class Team {
     private String member;
     private String instructor;
 
+    private String location;
+
 
     public Team() {
     }
@@ -63,5 +65,13 @@ public class Team {
 
     public void setInstructor(String instructor) {
         this.instructor = instructor;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
