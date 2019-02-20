@@ -27,9 +27,11 @@ public class JobController {
     @Autowired
     ReportRepository reportrepository;
 
-    @GetMapping(value = "/job/{id}")
-    public Job getId(@PathVariable("id") int id) {
-        return jobservice.getJob(Integer.valueOf(id));
+    @GetMapping(value = "/job/{contestid}")
+    public Job getId(@PathVariable("contestid") int contestid, @RequestParam(value = "action", required = false, defaultValue = "false") String action) {
+
+        logger.info("action:"+action);
+        return jobservice.getJob(Integer.valueOf(contestid),action);
     }
 
 

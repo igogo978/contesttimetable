@@ -25,16 +25,16 @@
             <div>
                     <table class="table">
                         <thead>
-                            <td>order</td>
-                            <td>distance</td>
-                            <td>more</td>
+                            <td> </td>
+                            <td>總里程</td>
+                            <td></td>
                         </thead>
                         <tbody>
                         <tr v-for="(item, index) in items">
                             <td>{{index+1}}</td>
                             <td>{{parseInt(item.distance)}}</td>
                             <td>
-                                    <a :href="'/report/uuid/'+item.uuid" target="_blank">more</a>
+                                    <a :href="'/report/uuid/'+item.uuid" target="_blank">詳細資料</a>
                                 
                             </td>
                         </tr>

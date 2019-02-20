@@ -34,12 +34,12 @@ public class JobService {
     ContestconfigRepository contestconfigrepository;
 
 
-    public Job getJob(Integer id) {
+    public Job getJob(Integer contestid, String action) {
         Job job = new Job();
-
+        Boolean flag = Boolean.TRUE;
 
         //取出竞赛项目
-        Contestconfig contestconfig = contestconfigrepository.findById(id).get();
+        Contestconfig contestconfig = contestconfigrepository.findById(contestid).get();
 
 
         //取出场地
@@ -47,7 +47,7 @@ public class JobService {
         locationrepository.findAll().forEach(location -> locations.add(location));
 
 
-        ArrayList<SchoolTeam> schoolteams = getSchoolteams(id);
+        ArrayList<SchoolTeam> schoolteams = getSchoolteams(contestid);
 
 
         //分群, priorityorder为优先群，例如主场，已经拿到门票者
@@ -73,26 +73,31 @@ public class JobService {
         });
 
 
-        Collections.shuffle(locations);
+        String jobid = "";
+        while (flag) {
+            Collections.shuffle(locations);
 
-        //打乱场地顺序
-        locations.forEach(location -> {
-            locationorder.append(String.format("%s-", location.getSchoolid()));
-        });
+            //打乱场地顺序
+            locations.forEach(location -> {
+                locationorder.append(String.format("%s-", location.getSchoolid()));
+            });
 
-        job.setLocationorder(locationorder.toString());
+            job.setLocationorder(locationorder.toString());
 
-        //决定群组1的顺序
-        Collections.shuffle(teamgroup1);
+            //决定群组1的顺序
+            Collections.shuffle(teamgroup1);
 
-        //jobid是场地顺序加大群顺序的hash值, 指派工作后交给client 排序group2, 为识别工作是否已派出,避免重复
-        String jobid = org.apache.commons.codec.digest.DigestUtils.sha256Hex(String.format("%s,%s", locationorder.toString(), group1order.toString()));
+            //jobid是场地顺序加大群顺序的hash值, 指派工作后交给client, 为识别工作是否已派出,避免重复指派
+            jobid = org.apache.commons.codec.digest.DigestUtils.sha256Hex(String.format("%s,%s", locationorder.toString(), group1order.toString()));
 
-        //工作已派出,请client再次请求
-        if (jobrepository.existsById(jobid)) {
-            jobid = "";
+            //工作已派出,请client再次请求
+            if (!jobrepository.existsById(jobid)) {
+                flag = Boolean.FALSE;
+                job.setJobid(jobid);
+            }
+
         }
-        job.setJobid(jobid);
+
 
         teamgroup1.forEach(team -> {
             group1order.append(String.format("%s-", team.getSchoolid()));
@@ -111,7 +116,11 @@ public class JobService {
         job.setGroup1order(String.format("%s%s", priorityorder.toString(), group1order.toString()));
         job.setGroup2order(group2order.toString());
 
-        job.setCalculatejobs(2);
+        job.setCalculatejob(contestconfig.getCalculatejob());
+
+        if (action.equals("true")) {
+            jobrepository.save(job);
+        }
 
         return job;
     }

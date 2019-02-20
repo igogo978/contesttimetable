@@ -94,12 +94,14 @@ public class ContestTimetableApplication implements CommandLineRunner {
             //create ObjectMapper instance
             System.out.println("读取设定档");
             root = mapper.readTree(new File(contestconfigfile));
+            Contestconfig contestconfig = new Contestconfig();
+            contestconfig.setCalculatejob(root.get("calculatejob").asInt());
 
             JsonNode node = root.get("setting");
 
 
             for (JsonNode subnode : node) {
-                Contestconfig contestconfig = new Contestconfig();
+
                 Integer id = subnode.get("id").asInt();
 
                 String description = subnode.get("description").asText();

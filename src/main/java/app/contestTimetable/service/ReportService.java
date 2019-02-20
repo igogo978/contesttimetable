@@ -64,16 +64,15 @@ public class ReportService {
         });
 
 
-
         root.forEach(node -> {
             String location = node.get("location").get("name").asText();
 //            logger.info(node.get("location").get("name").asText());
             node.get("teams").forEach(school -> {
-                logger.info(String.format("%s,%s",school.get("name").asText(),location));
+//                logger.info(String.format("%s,%s",school.get("name").asText(),location));
                 teams.forEach(team -> {
                     if (team.getSchoolname().equals(school.get("name").asText())) {
                         team.setLocation(location);
-                        logger.info("save location for team");
+//                        logger.info("save location for team");
                         teamrepository.save(team);
                     }
                 });

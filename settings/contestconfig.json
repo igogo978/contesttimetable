@@ -1,4 +1,5 @@
 {
+	"calculatejob" : 2,
 	"setting": [{
 			"id": 1,
 			"contestgroup": ["scratch"],

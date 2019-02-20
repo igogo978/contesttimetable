@@ -8,8 +8,12 @@ import java.util.List;
 public interface TeamRepository extends CrudRepository<Team, Long> {
 
 
-//    List<Team> findBySchoolnameContaining(String schoolname);
-    List<Team> findByContestgroupContaining(String contestgroup);
+    List<Team> findByContestgroupContaining(String schoolname);
+
+    List<Team> findByContestgroupContainingOrderBySchoolnameDesc(String contestgroup);
 //    List<Team> findByContestgroupContainingAndContestgroupContaining(String contestgroup, String level);
+
+    List<Team> findByContestgroupContainingOrderByLocationDesc(String contestgroup);
+
 
 }

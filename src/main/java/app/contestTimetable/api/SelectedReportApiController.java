@@ -21,7 +21,16 @@ public class SelectedReportApiController {
     public ArrayList<Team> getSelectedReportsByTeam(@PathVariable("contestid") int contestid) throws IOException {
 
 
-        return selectedreportservice.selectedReportByteam(contestid);
+        return selectedreportservice.selectedReportByTeam(contestid);
+
+    }
+
+
+    @GetMapping(value = "/report/selected/bylocation/{contestid}")
+    public ArrayList<Team> getSelectedReportsByLocation(@PathVariable("contestid") int contestid) throws IOException {
+
+
+        return selectedreportservice.selectedReportByLocation(contestid);
 
     }
 }

@@ -33,7 +33,7 @@ public class SelectedReportService {
     TeamRepository teamrepository;
 
 
-    public ArrayList<Team> selectedReportByteam(Integer contestid) throws IOException {
+    public ArrayList<Team> selectedReportByTeam(Integer contestid) throws IOException {
         ArrayList<Team> teams = new ArrayList<>();
         Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
         logger.info(selectedreport.getReport());
@@ -43,27 +43,27 @@ public class SelectedReportService {
         Contestconfig config = contestconfigrepository.findById(1).get();
         List<String> contestgroup = config.getContestgroup();
         contestgroup.forEach(groupname -> {
-            teamrepository.findByContestgroupContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
+            teamrepository.findByContestgroupContainingOrderBySchoolnameDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
         });
-
-
-//        root.forEach(node -> {
-//            String location = node.get("location").get("name").asText();
-////            logger.info(node.get("location").get("name").asText());
-//            node.get("teams").forEach(school -> {
-////                logger.info(String.format("%s,%s",school.get("name").asText(),location));
-//                teams.forEach(team -> {
-//                    if (team.getSchoolname().equals(school.get("name").asText())) {
-//                        team.setLocation(location);
-//                        teamrepository.save(team);
-//                    }
-//                });
-//
-//            });
-//        });
 
         return teams;
 
+    }
+
+    public ArrayList<Team> selectedReportByLocation(Integer contestid) throws IOException {
+        ArrayList<Team> teams = new ArrayList<>();
+        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
+        logger.info(selectedreport.getReport());
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(selectedreport.getReport());
+
+        Contestconfig config = contestconfigrepository.findById(1).get();
+        List<String> contestgroup = config.getContestgroup();
+        contestgroup.forEach(groupname -> {
+            teamrepository.findByContestgroupContainingOrderByLocationDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
+        });
+
+        return teams;
 
     }
 

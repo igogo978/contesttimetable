@@ -21,8 +21,12 @@ public class Contestconfig {
 
     private String description;
 
+    private Integer calculatejob;
+
     public Contestconfig() {
     }
+
+
 
     public Integer getId() {
         return id;
@@ -42,5 +46,13 @@ public class Contestconfig {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCalculatejob() {
+        return calculatejob;
+    }
+
+    public void setCalculatejob(Integer calculatejob) {
+        this.calculatejob = calculatejob;
     }
 }

@@ -26,7 +26,7 @@ public class Job {
     private Integer group2count;
 
 
-    private long calculatejobs;
+    private long calculatejob;
 
     public Job() {
     }
@@ -80,11 +80,11 @@ public class Job {
         this.group2count = group2count;
     }
 
-    public long getCalculatejobs() {
-        return calculatejobs;
+    public long getCalculatejob() {
+        return calculatejob;
     }
 
-    public void setCalculatejobs(long calculatejobs) {
-        this.calculatejobs = calculatejobs;
+    public void setCalculatejob(long calculatejob) {
+        this.calculatejob = calculatejob;
     }
 }
