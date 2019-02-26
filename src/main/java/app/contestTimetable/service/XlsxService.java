@@ -5,6 +5,12 @@ import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -20,7 +26,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @Service
-public class ReadXlsxService {
+public class XlsxService {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     public ArrayList<Team> getTeams(String docPath) throws IOException {
         ArrayList<Team> allitems = new ArrayList<>();
@@ -294,6 +303,72 @@ public class ReadXlsxService {
             schools.add(school);
         }
         return schools;
+
+    }
+
+
+    public XSSFWorkbook create(ArrayList<String> teams) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+
+        //設定標題列
+//        row = sheet.createRow(0);
+//        cell = row.createCell(0);
+//        cell.setCellValue("姓名");
+//
+//        cell = row.createCell(1);
+//        cell.setCellValue("使用者識別碼");
+//
+//        cell = row.createCell(2);
+//        cell.setCellValue("學年");
+//
+//        cell = row.createCell(3);
+//        cell.setCellValue("學期");
+//
+//        cell = row.createCell(4);
+//        cell.setCellValue("年級");
+//
+//        cell = row.createCell(5);
+//        cell.setCellValue("班級");
+//
+//        cell = row.createCell(6);
+//        cell.setCellValue("班級名稱");
+//
+//        cell = row.createCell(7);
+//        cell.setCellValue("職稱1");
+
+        for (int i = 0; i < teams.size(); i++) {
+            String[] team = teams.get(i).split(",");
+
+            row = sheet.createRow(i);
+
+            cell = row.createCell(0);
+            cell.setCellValue(team[0]);
+
+            cell = row.createCell(1);
+            cell.setCellValue(team[1]);
+
+            cell = row.createCell(2);
+            cell.setCellValue(team[2]);
+
+
+            //team under location
+            if (team.length > 3) {
+                cell = row.createCell(3);
+                cell.setCellValue(team[3]);
+
+                cell = row.createCell(4);
+                cell.setCellValue(team[4]);
+
+            }
+
+        }
+
+        return wb;
 
     }
 

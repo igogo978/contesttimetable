@@ -1,10 +1,7 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.Report;
-import app.contestTimetable.model.Selectedreport;
-import app.contestTimetable.model.Team;
+import app.contestTimetable.model.*;
 import app.contestTimetable.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,6 +76,35 @@ public class ReportService {
 
             });
         });
+
+
+    }
+
+    public ArrayList<String> getReport(Report report) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+//        logger.info(mapper.writeValueAsString(report.getReport()));
+        ArrayList<String> teams = new ArrayList<>();
+        String contestid = String.format("contestid,%s,   ",report.getContestid());
+        teams.add(contestid);
+        JsonNode root = mapper.readTree(report.getReport());
+        root.forEach(location -> {
+            String locationname = String.format("%s,%s,%s", location.get("location").get("schoolid").asText(), location.get("location").get("name").asText(), location.get("location").get("capacity").asInt());
+            teams.add(String.format("%s", locationname));
+            location.get("teams").forEach(school -> {
+//                logger.info(school.get("name").asText());
+                SchoolTeam schoolteam = new SchoolTeam();
+                schoolteam.setSchoolname(school.get("name").asText());
+                schoolteam.setSchoolid(school.get("schoolid").asText());
+                schoolteam.setMembers(school.get("members").asInt());
+                schoolteam.setDistance(school.get("distance").asDouble());
+
+                String team = String.format("%s,%s,%s,%s,%s", "-", schoolteam.getSchoolid(), schoolteam.getSchoolname(), schoolteam.getMembers(), Integer.valueOf(schoolteam.getDistance().intValue()));
+                teams.add(team);
+            });
+
+        });
+
+        return teams;
 
 
     }

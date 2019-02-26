@@ -7,6 +7,7 @@ public class SchoolTeam {
 
     private String contestgroup;
     private Integer members;
+    private Double distance;
 
 
     public SchoolTeam() {
@@ -42,5 +43,13 @@ public class SchoolTeam {
 
     public void setMembers(Integer members) {
         this.members = members;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 }
