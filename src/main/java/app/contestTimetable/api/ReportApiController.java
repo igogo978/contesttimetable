@@ -125,20 +125,6 @@ public class ReportApiController {
             if (contestid == 1) {
                 ticketservice.updateTicket(report);
 
-//                root.forEach(candidate -> {
-//                    String locationid = candidate.get("location").get("schoolid").asText();
-//                    JsonNode node = candidate.get("teams");
-//                    node.forEach(school -> {
-//                        String teamschoolid = school.get("schoolid").asText();
-//                        Ticket ticket = new Ticket();
-//                        ticket.setLocation(locationid);
-//                        ticket.setSchoolid(teamschoolid);
-//
-//                        ticketrepository.save(ticket);
-//
-//                    });
-//                });
-
             }
 
             //update selected report

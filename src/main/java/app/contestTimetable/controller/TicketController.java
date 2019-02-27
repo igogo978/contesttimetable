@@ -25,7 +25,7 @@ public class TicketController {
     @GetMapping(value = "/ticket")
     public ArrayList<Ticket> getTickets() {
 
-        tickerrepository.deleteAll();
+
 //        Ticket ticket = new Ticket();
 
 //        ticket.setLocation("064652");

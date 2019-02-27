@@ -124,12 +124,21 @@ public class XlsxService {
                         break;
                     case 4:    //第4個欄位, 組員
                         value = String.valueOf(cell.getStringCellValue());
-                        team.setMember(value);
+                        team.setMembername(value);
                         break;
-                    case 5:    //第四個欄位, 指導
+                    case 5:    //第5個欄位, 指導
                         value = String.valueOf(cell.getStringCellValue());
                         team.setInstructor(value);
                         break;
+                    case 6:    //第四個欄位, 帐号
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setAccount(value);
+                        break;
+                    case 7:    //第四個欄位, 密码
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setPasswd(value);
+                        break;
+
                     default:
                 }
             } //結束讀欄
@@ -188,6 +197,14 @@ public class XlsxService {
                     case 4:    //第四個欄位, 指導
                         value = String.valueOf(cell.getStringCellValue());
                         team.setInstructor(value);
+                        break;
+                    case 5:    //第5個欄位, 帐号
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setAccount(value);
+                        break;
+                    case 6:    //第6個欄位, 密码
+                        value = String.valueOf(cell.getStringCellValue());
+                        team.setPasswd(value);
                         break;
                     default:
                 }

@@ -6,6 +6,8 @@ import app.contestTimetable.model.Ticket;
 import app.contestTimetable.repository.TicketRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ import java.util.ArrayList;
 
 @Service
 public class TicketService {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Autowired
     TicketRepository ticketrepository;
@@ -29,6 +34,8 @@ public class TicketService {
 
 
     public void updateTicket(Report report) throws IOException {
+
+        logger.info("update ticket");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(report.getReport());
 

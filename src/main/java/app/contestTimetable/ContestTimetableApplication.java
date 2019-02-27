@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ContestTimetableApplication implements CommandLineRunner {
@@ -106,12 +107,20 @@ public class ContestTimetableApplication implements CommandLineRunner {
             }
         }
 
+//        Contestconfig config = contestconfigrepository.findById(2).get();
+//
+//        List<String> contestgroup = config.getContestgroup();
+//        System.out.println("contestgroup");
+//        System.out.println(contestgroup.toString());
+
         //读取场地
+        System.out.println("设定场地资料");
         String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
         ArrayList<Location> locations = new ArrayList<>();
         locations = readxlsx.getLocations(locationfile);
 
         locations.forEach(location -> {
+            System.out.println(location.getLocationname());
             School school = schoolrepository.findBySchoolname(location.getLocationname());
             location.setSchoolid(school.getSchoolid());
         });

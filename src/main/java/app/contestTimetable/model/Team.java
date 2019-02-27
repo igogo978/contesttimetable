@@ -11,15 +11,18 @@ public class Team {
     //参赛队伍, 竞赛项目区分
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String contestgroup;
     private String schoolname;
     private String username;
 
-    private String member;
+    private String membername;
     private String instructor;
+
+    private String account;
+    private String passwd;
 
     private String location;
 
@@ -51,12 +54,12 @@ public class Team {
         this.username = username;
     }
 
-    public String getMember() {
-        return member;
+    public String getMembername() {
+        return membername;
     }
 
-    public void setMember(String member) {
-        this.member = member;
+    public void setMembername(String membername) {
+        this.membername = membername;
     }
 
     public String getInstructor() {
@@ -73,5 +76,21 @@ public class Team {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 }

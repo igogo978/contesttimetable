@@ -125,11 +125,13 @@ public class JobService {
         return job;
     }
 
+
+
     public ArrayList<SchoolTeam> getSchoolteams(Integer id) {
         ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
 
         //取出竞赛项目
-        logger.info("jobid:" + String.valueOf(id));
+        logger.info("取出竞赛项目 jobid:" + String.valueOf(id));
         Contestconfig contestconfig = contestconfigrepository.findById(id).get();
 
         //取出人数 以校为单位
@@ -140,12 +142,12 @@ public class JobService {
             });
         });
 
+
         teams.forEach(team -> {
             String schoolname = team.getSchoolname();
 
             Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolname().equals(schoolname));
 //            logger.info(String.format("%s,%s", schoolname, isExist));
-
             if (isExist) {
                 schoolteams.forEach(schoolteam -> {
 
@@ -156,6 +158,7 @@ public class JobService {
 
             } else {
                 SchoolTeam schoolteam = new SchoolTeam();
+//                logger.info(team.getSchoolname());
                 School school = schoolrepository.findBySchoolname(team.getSchoolname());
 //                logger.info(school.getSchoolid());
                 schoolteam.setSchoolid(school.getSchoolid());

@@ -23,8 +23,7 @@ public class SelectedReportService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    SelectedreportRepository selectedreportrepository;
+//p
 
     @Autowired
     ContestconfigRepository contestconfigrepository;
@@ -35,10 +34,10 @@ public class SelectedReportService {
 
     public ArrayList<Team> selectedReportByTeam(Integer contestid) throws IOException {
         ArrayList<Team> teams = new ArrayList<>();
-        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
-        logger.info(selectedreport.getReport());
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(selectedreport.getReport());
+//        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
+//        logger.info(selectedreport.getReport());
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode root = mapper.readTree(selectedreport.getReport());
 
         Contestconfig config = contestconfigrepository.findById(1).get();
         List<String> contestgroup = config.getContestgroup();
@@ -52,10 +51,10 @@ public class SelectedReportService {
 
     public ArrayList<Team> selectedReportByLocation(Integer contestid) throws IOException {
         ArrayList<Team> teams = new ArrayList<>();
-        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
-        logger.info(selectedreport.getReport());
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(selectedreport.getReport());
+//        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
+//        logger.info(selectedreport.getReport());
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode root = mapper.readTree(selectedreport.getReport());
 
         Contestconfig config = contestconfigrepository.findById(1).get();
         List<String> contestgroup = config.getContestgroup();

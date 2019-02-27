@@ -50,7 +50,6 @@ public class FileSystemStorageService implements StorageService {
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
-//            throw new StorageException("提醒您, 您沒有選擇檔案喔 ");
 
         }
     }

@@ -63,7 +63,8 @@ public class JobController {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(payload);
         report.setUuid(node.get("uuid").asText());
-//        logger.info(mapper.writeValueAsString(node.get("candidateList")));
+        logger.info("save return report:");
+        logger.info(mapper.writeValueAsString(node.get("candidateList")));
         report.setReport(mapper.writeValueAsString(node.get("candidateList")));
         report.setDistance(node.get("totaldistance").asDouble());
         report.setContestid(Integer.valueOf(id));
