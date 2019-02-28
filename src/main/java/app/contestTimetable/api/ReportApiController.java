@@ -121,11 +121,9 @@ public class ReportApiController {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
 
-            //contesid==1, update ticket
-            if (contestid == 1) {
-                ticketservice.updateTicket(report);
+            //update ticket
+            ticketservice.updateTicket(report);
 
-            }
 
             //update selected report
             if (selectedreportrepository.countByContestid(contestid) == 0) {

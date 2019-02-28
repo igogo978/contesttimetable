@@ -35,7 +35,6 @@ public class TicketService {
 
     public void updateTicket(Report report) throws IOException {
 
-        logger.info("update ticket");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(report.getReport());
 
@@ -43,12 +42,18 @@ public class TicketService {
             String locationid = candidate.get("location").get("schoolid").asText();
             JsonNode node = candidate.get("teams");
             node.forEach(school -> {
-                String teamschoolid = school.get("schoolid").asText();
-                Ticket ticket = new Ticket();
-                ticket.setLocation(locationid);
-                ticket.setSchoolid(teamschoolid);
+                String schoolid = school.get("schoolid").asText();
 
-                ticketrepository.save(ticket);
+                if (ticketrepository.countBySchoolid(schoolid) == 0) {
+                    logger.info(String.format("schoolid: %s  update ticket", schoolid));
+                    Ticket ticket = new Ticket();
+                    ticket.setLocation(locationid);
+                    ticket.setSchoolid(schoolid);
+
+                    ticketrepository.save(ticket);
+
+                }
+
 
             });
         });
