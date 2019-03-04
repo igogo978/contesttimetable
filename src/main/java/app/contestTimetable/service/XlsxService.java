@@ -63,6 +63,7 @@ public class XlsxService {
                     groupitems.add(readPresentationTeams(xlsx.toString()));
 
                 } else if (matchPainting.find()) {
+                    //绘画多一使用软体栏位
                     groupitems.add(readPaintingTeams(xlsx.toString()));
                 } else {
                     groupitems.add(readGroupTeams(xlsx.toString()));
@@ -111,7 +112,7 @@ public class XlsxService {
                 cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
-                    case 0:    //第1個欄位, 流水號
+                    case 0:    //第0個欄位, 流水號
 
                         break;
                     case 1:    //第1個欄位, 競賽項目
@@ -130,15 +131,15 @@ public class XlsxService {
                         value = String.valueOf(cell.getStringCellValue());
                         team.setInstructor(value);
                         break;
-                    case 5:    //第5個欄位, 指導
-                        value = String.valueOf(cell.getStringCellValue());
-                        team.setDescription(value);
+                    case 5:    //第5個欄位, painting tools
+//                        value = String.valueOf(cell.getStringCellValue());
+//                        team.setDescription(value);
                         break;
-                    case 6:    //第四個欄位, 帐号
+                    case 6:    //第6個欄位, 帐号
                         value = String.valueOf(cell.getStringCellValue());
                         team.setAccount(value);
                         break;
-                    case 7:    //第四個欄位, 密码
+                    case 7:    //第7個欄位, 密码
                         value = String.valueOf(cell.getStringCellValue());
                         team.setPasswd(value);
                         break;
@@ -401,7 +402,7 @@ public class XlsxService {
     }
 
 
-    public XSSFWorkbook createSelectedReport(ArrayList<Team> teams) {
+    public XSSFWorkbook createSelectedReport(List<Team> teams) {
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet("Sheet1");
 
@@ -440,7 +441,69 @@ public class XlsxService {
             cell.setCellValue(teams.get(i).getSchoolname());
 
             cell = row.createCell(4);
-            cell.setCellValue(teams.get(i).getUsername());
+            String members = teams.get(i).getUsername();
+            if (teams.get(i).getMembername() != null) {
+                members = String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername());
+            }
+            cell.setCellValue(members);
+
+        }
+
+
+        return wb;
+    }
+
+
+    public XSSFWorkbook createSelectedReportByLocation(List<Team> teams) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+        cell.setCellValue("序");
+
+        cell = row.createCell(1);
+        cell.setCellValue("學校");
+
+        cell = row.createCell(2);
+        cell.setCellValue("項目類別");
+
+        cell = row.createCell(3);
+        cell.setCellValue(" 姓名 ");
+
+        cell = row.createCell(4);
+        cell.setCellValue("試場");
+
+        cell = row.createCell(5);
+        cell.setCellValue("時間");
+
+        for (int i = 0; i < teams.size(); i++) {
+            row = sheet.createRow(i + 1);
+
+            cell = row.createCell(0);
+            cell.setCellValue(i + 1);
+
+
+            cell = row.createCell(1);
+            cell.setCellValue(teams.get(i).getSchoolname());
+
+
+            cell = row.createCell(2);
+            cell.setCellValue(teams.get(i).getContestgroup());
+
+            cell = row.createCell(3);
+            String members = teams.get(i).getUsername();
+            if (teams.get(i).getMembername() != null) {
+                members = String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername());
+            }
+            cell.setCellValue(members);
+
+            cell = row.createCell(4);
+            cell.setCellValue(teams.get(i).getLocation());
+
+            cell = row.createCell(5);
+            cell.setCellValue(teams.get(i).getDescription());
 
         }
 

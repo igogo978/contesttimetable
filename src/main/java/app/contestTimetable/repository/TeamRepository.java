@@ -15,5 +15,7 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 
     List<Team> findByContestgroupContainingOrderByLocationDesc(String contestgroup);
 
+    List<Team> findAllByOrderBySchoolname();
+    List<Team> findAllByOrderByLocation();
 
 }

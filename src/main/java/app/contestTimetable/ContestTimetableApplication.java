@@ -51,31 +51,6 @@ public class ContestTimetableApplication implements CommandLineRunner {
         String docPath = String.format("%s/docs", cwd);
         String settingPath = String.format("%s/settings", cwd);
 
-        //读取参赛队伍
-        ArrayList<Team> teams = new ArrayList<>();
-        teams = readxlsx.getTeams(docPath);
-
-        //empty all
-        teamrepository.deleteAll();
-
-        teams.forEach(team -> {
-            teamrepository.save(team);
-        });
-
-
-        //读取台中市学校名单
-        String tcschool = String.format("%s/%s", settingPath, "tcschool.xlsx");
-
-        ArrayList<School> schools = new ArrayList<>();
-        schools = readxlsx.getSchools(tcschool);
-
-        ArrayList<School> tcschools = new ArrayList<>();
-
-
-        schools.forEach(school -> {
-            schoolrepository.save(school);
-        });
-
 
         //读取竞赛设定档
         String contestconfigfile = String.format("%s/%s", settingPath, "contestconfig.json");
@@ -109,6 +84,46 @@ public class ContestTimetableApplication implements CommandLineRunner {
                 contestconfig.getContestgroup().clear();
             }
         }
+
+
+        //读取参赛队伍
+        ArrayList<Team> teams = new ArrayList<>();
+        teams = readxlsx.getTeams(docPath);
+
+        //empty all
+        teamrepository.deleteAll();
+
+
+        teams.forEach(team -> {
+            teamrepository.save(team);
+        });
+
+
+        //update contesttime in team.description
+        contestconfigrepository.findAll().forEach(contestconfig -> {
+            contestconfig.getContestgroup().forEach(contestgroup -> {
+                        teamrepository.findByContestgroupContaining(contestgroup).forEach(team -> {
+                            team.setDescription(contestconfig.getDescription());
+                            teamrepository.save(team);
+                        });
+                    }
+            );
+        });
+
+
+        //读取台中市学校名单
+        String tcschool = String.format("%s/%s", settingPath, "tcschool.xlsx");
+
+        ArrayList<School> schools = new ArrayList<>();
+        schools = readxlsx.getSchools(tcschool);
+
+        ArrayList<School> tcschools = new ArrayList<>();
+
+
+        schools.forEach(school -> {
+            schoolrepository.save(school);
+        });
+
 
 //        Contestconfig config = contestconfigrepository.findById(2).get();
 //

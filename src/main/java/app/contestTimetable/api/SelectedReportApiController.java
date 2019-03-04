@@ -53,24 +53,79 @@ public class SelectedReportApiController {
 
     }
 
-
     @GetMapping(value = "/report/selected/bylocation/{contestid}")
     public ArrayList<Team> getSelectedReportsByLocation(@PathVariable("contestid") int contestid) throws IOException {
-
 
         return selectedreportservice.selectedReportByLocation(contestid);
 
     }
 
 
-    @GetMapping(value = "/report/selected/bylocation/{contestid}/excel")
-    public ResponseEntity<Resource> downloadReport(@PathVariable("contestid") Integer contestid) throws IOException {
+    @GetMapping(value = "/report/selected/byteam")
+    public ResponseEntity<Resource> downloadAllReportByteam() throws IOException {
 
-        ArrayList<Team> teams = new ArrayList<>();
+
+        List<Team> teams = teamrepository.findAllByOrderBySchoolname();
+        String filename = "byschool-All";
+        //直接輸出
+        XSSFWorkbook wb = createxlsx.createSelectedReport(teams);
+
+        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+        wb.write(resourceStream);
+        wb.close();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
+        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        return ResponseEntity.ok().headers(headers).body(resource);
+    }
+
+
+    @GetMapping(value = "/report/selected/bylocation")
+    public ResponseEntity<Resource> downloadAllReportBylocation() throws IOException {
+
+
+        List<Team> teams = teamrepository.findAllByOrderByLocation();
+        String filename = "bylocation-All";
+
+        //save contesttime in team.description
+
+
+        //直接輸出
+        XSSFWorkbook wb = createxlsx.createSelectedReportByLocation(teams);
+
+        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+        wb.write(resourceStream);
+        wb.close();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
+        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        return ResponseEntity.ok().headers(headers).body(resource);
+    }
+
+
+    @GetMapping(value = "/report/selected/byteam/{contestid}/excel")
+    public ResponseEntity<Resource> downloadReportByteam(@PathVariable("contestid") Integer contestid) throws IOException {
+
+
+        List<Team> teams = new ArrayList<>();
+
+
         //find contestgroup
         Contestconfig contestconfig = contestconfigrepository.findById(contestid).get();
         contestconfig.getContestgroup().forEach(contestgroup -> {
-            teamrepository.findByContestgroupContainingOrderByLocationDesc(contestgroup).forEach(team -> {
+            teamrepository.findByContestgroupContainingOrderBySchoolnameDesc(contestgroup).forEach(team -> {
                 teams.add(team);
             });
         });
@@ -79,7 +134,7 @@ public class SelectedReportApiController {
 //        ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
 
-        String filename = "report";
+        String filename = "byschool場次" + contestid;
         //直接輸出
         XSSFWorkbook wb = createxlsx.createSelectedReport(teams);
 
@@ -97,6 +152,40 @@ public class SelectedReportApiController {
         Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);
 
+    }
+
+
+    @GetMapping(value = "/report/selected/bylocation/{contestid}/excel")
+    public ResponseEntity<Resource> downloadReportByLocation(@PathVariable("contestid") Integer contestid) throws IOException {
+
+        ArrayList<Team> teams = new ArrayList<>();
+        //find contestgroup
+        Contestconfig contestconfig = contestconfigrepository.findById(contestid).get();
+        contestconfig.getContestgroup().forEach(contestgroup -> {
+            teamrepository.findByContestgroupContainingOrderByLocationDesc(contestgroup).forEach(team -> {
+                teams.add(team);
+            });
+        });
+
+
+        String filename = "bylocation場次" + contestid;
+        ;
+        //直接輸出
+        XSSFWorkbook wb = createxlsx.createSelectedReport(teams);
+
+        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+        wb.write(resourceStream);
+        wb.close();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
+        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        return ResponseEntity.ok().headers(headers).body(resource);
 
     }
 }
