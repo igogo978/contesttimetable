@@ -38,6 +38,9 @@ public class ReportService {
     @Autowired
     TeamRepository teamrepository;
 
+    @Autowired
+    TicketService ticketservice;
+
     public Boolean isExistUuid(String uuid) {
 
         if (reportrepository.countByUuid(uuid) == 0) {
@@ -49,7 +52,7 @@ public class ReportService {
     }
 
 
-    public void updateTeamLocation(String manualreport) throws IOException, InvalidFormatException {
+    public void updateTeamLocationAndTicket(String manualreport) throws IOException, InvalidFormatException {
         ArrayList<Team> teams = new ArrayList<>();
         //read manual report from xlsx
         Workbook workbook = WorkbookFactory.create(new File(manualreport));
@@ -61,8 +64,12 @@ public class ReportService {
         Iterator<Row> rowIterator = sheet.iterator();
         String contestid = null;
 
-        String locationname = "";
-        String schoolname = "";
+        String level = "";
+
+        Location location = new Location();
+        SchoolTeam schoolteam = new SchoolTeam();
+
+
         //讀列
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
@@ -104,7 +111,6 @@ public class ReportService {
                 Iterator<Cell> cellIterator = row.cellIterator();
                 String value = "";
 
-                String level = "";
                 while (cellIterator.hasNext()) {
 
                     Cell cell = cellIterator.next();
@@ -116,6 +122,10 @@ public class ReportService {
                             value = String.valueOf(cell.getStringCellValue());
                             if (value.length() == 6) {
                                 level = "location";
+//                                logger.info("locationid:" + value);
+                                location.setSchoolid(value);
+                                //declare a new schoolteam
+                                schoolteam = new SchoolTeam();
                             } else {
                                 level = "schoolteam";
                             }
@@ -125,7 +135,12 @@ public class ReportService {
                         case 1:
                             value = String.valueOf(cell.getStringCellValue());
                             if (level.equals("location")) {
-                                locationname = value;
+                                location.setLocationname(value);
+                            }
+                            if (level.equals("schoolteam")) {
+                                schoolteam.setSchoolid(value);
+
+
                             }
 
                             break;
@@ -133,7 +148,7 @@ public class ReportService {
                         case 2:    //find team schoolname
                             value = String.valueOf(cell.getStringCellValue());
                             if (level.equals("schoolteam")) {
-                                schoolname = value;
+                                schoolteam.setSchoolname(value);
 
                             }
                             break;
@@ -143,17 +158,19 @@ public class ReportService {
                     }
 
 
-                } //change row
-//                logger.info(String.format("%s:%s,%s", row.getRowNum(),locationname,schoolname));
-                for (Team team : teams) {
-                    if (team.getSchoolname().equals(schoolname)) {
-//                        logger.info(String.format("%s,%s,%s", locationname, team.getSchoolname(),team.getContestgroup()));
-                        team.setLocation(locationname);
-                    }
+                } //read column end
 
+
+                if (level.equals("schoolteam")) {
+                    for (Team team : teams) {
+                        if (team.getSchoolname().equals(schoolteam.getSchoolname())) {
+                            team.setLocation(location.getLocationname());
+                        }
+                    }
+//                    logger.info(String.format("%s,%s", schoolteam.getSchoolid(), location.getSchoolid()));
+                    ticketservice.updateTicket(schoolteam, location);
 
                 }
-
 
 
             }

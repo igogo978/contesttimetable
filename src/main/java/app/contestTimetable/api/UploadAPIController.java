@@ -30,7 +30,7 @@ public class UploadAPIController {
 
         String manualreport = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
 
-        reportservice.updateTeamLocation(manualreport);
+        reportservice.updateTeamLocationAndTicket(manualreport);
 
 
         return String.format("上传内容已成功写入资料库");

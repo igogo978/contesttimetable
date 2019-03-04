@@ -99,11 +99,14 @@ public class ContestTimetableApplication implements CommandLineRunner {
                 String description = subnode.get("description").asText();
                 contestconfig.setId(id);
                 contestconfig.setDescription(description);
+
+
                 subnode.get("contestgroup").forEach(element -> {
                     contestconfig.getContestgroup().add(element.asText());
                 });
 
                 contestconfigrepository.save(contestconfig);
+                contestconfig.getContestgroup().clear();
             }
         }
 
@@ -131,17 +134,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
         });
 
 
-//        SchoolTeam team = new SchoolTeam();
-//        team.setMembers(1);
-//        team.setSchoolid("123456");
         ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
-//        schoolteams.add(team);
-
-//         SchoolTeam schoolteam = schoolteams.stream().filter(schoolTeam -> schoolTeam.getSchoolid().equals("123456"))
-//         .findFirst().get();
-
-//         Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolid().equals("1234567"));
-//        System.out.println(isExist);
 
         System.out.println("服务成功启动");
 //        //find contest group

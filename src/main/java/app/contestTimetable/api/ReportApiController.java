@@ -100,7 +100,6 @@ public class ReportApiController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);
-//        return reportservice.getReport(report);
 
 
     }

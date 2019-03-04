@@ -26,6 +26,8 @@ public class Team {
 
     private String location;
 
+    private String description;
+
 
     public Team() {
     }
@@ -92,5 +94,13 @@ public class Team {
 
     public void setPasswd(String passwd) {
         this.passwd = passwd;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

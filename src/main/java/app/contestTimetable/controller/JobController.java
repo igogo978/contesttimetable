@@ -30,8 +30,8 @@ public class JobController {
     @GetMapping(value = "/job/{contestid}")
     public Job getId(@PathVariable("contestid") int contestid, @RequestParam(value = "action", required = false, defaultValue = "false") String action) {
 
-        logger.info("action:"+action);
-        return jobservice.getJob(Integer.valueOf(contestid),action);
+//        logger.info("action:" + action);
+        return jobservice.getJob(Integer.valueOf(contestid), action);
     }
 
 

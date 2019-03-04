@@ -39,7 +39,7 @@ public class SelectedReportService {
 //        ObjectMapper mapper = new ObjectMapper();
 //        JsonNode root = mapper.readTree(selectedreport.getReport());
 
-        Contestconfig config = contestconfigrepository.findById(1).get();
+        Contestconfig config = contestconfigrepository.findById(contestid).get();
         List<String> contestgroup = config.getContestgroup();
         contestgroup.forEach(groupname -> {
             teamrepository.findByContestgroupContainingOrderBySchoolnameDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
@@ -56,7 +56,7 @@ public class SelectedReportService {
 //        ObjectMapper mapper = new ObjectMapper();
 //        JsonNode root = mapper.readTree(selectedreport.getReport());
 
-        Contestconfig config = contestconfigrepository.findById(1).get();
+        Contestconfig config = contestconfigrepository.findById(contestid).get();
         List<String> contestgroup = config.getContestgroup();
         contestgroup.forEach(groupname -> {
             teamrepository.findByContestgroupContainingOrderByLocationDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));

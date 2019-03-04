@@ -1,7 +1,9 @@
 package app.contestTimetable.service;
 
 
+import app.contestTimetable.model.Location;
 import app.contestTimetable.model.Report;
+import app.contestTimetable.model.SchoolTeam;
 import app.contestTimetable.model.Ticket;
 import app.contestTimetable.repository.TicketRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -57,6 +59,19 @@ public class TicketService {
 
             });
         });
+
+    }
+
+    public void updateTicket(SchoolTeam schoolteam, Location location) throws IOException {
+        if (ticketrepository.countBySchoolid(schoolteam.getSchoolid()) == 0) {
+            Ticket ticket = new Ticket();
+            ticket.setSchoolid(schoolteam.getSchoolid());
+            ticket.setLocation(location.getSchoolid());
+//            logger.info("update ticket");
+//            logger.info(String.format("%s,%s",schoolteam.getSchoolname(),location.getSchoolid()));
+            ticketrepository.save(ticket);
+
+        }
 
     }
 }

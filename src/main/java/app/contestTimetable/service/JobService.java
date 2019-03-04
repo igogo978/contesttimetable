@@ -31,6 +31,9 @@ public class JobService {
     LocationRepository locationrepository;
 
     @Autowired
+    TicketRepository ticketrepository;
+
+    @Autowired
     ContestconfigRepository contestconfigrepository;
 
 
@@ -61,7 +64,7 @@ public class JobService {
         StringBuilder group2order = new StringBuilder();
 
         schoolteams.forEach(team -> {
-            if (locationrepository.existsById(team.getSchoolid())) {
+            if (locationrepository.existsById(team.getSchoolid()) || ticketrepository.existsById(team.getSchoolid())) {
                 //承办学校,已经拿到ticket的学校优先列入排序
                 priorityorder.append(String.format("%s-", team.getSchoolid()));
 
@@ -126,7 +129,6 @@ public class JobService {
     }
 
 
-
     public ArrayList<SchoolTeam> getSchoolteams(Integer id) {
         ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
 
@@ -134,6 +136,7 @@ public class JobService {
         logger.info("取出竞赛项目 jobid:" + String.valueOf(id));
         Contestconfig contestconfig = contestconfigrepository.findById(id).get();
 
+        System.out.println("contest groupt" + contestconfig.getContestgroup().toString());
         //取出人数 以校为单位
         ArrayList<Team> teams = new ArrayList<>();
         contestconfig.getContestgroup().forEach(item -> {
@@ -147,7 +150,7 @@ public class JobService {
             String schoolname = team.getSchoolname();
 
             Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolname().equals(schoolname));
-//            logger.info(String.format("%s,%s", schoolname, isExist));
+            logger.info(String.format("%s,%s", schoolname, isExist));
             if (isExist) {
                 schoolteams.forEach(schoolteam -> {
 
