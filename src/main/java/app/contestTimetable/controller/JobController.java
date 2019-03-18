@@ -2,7 +2,7 @@ package app.contestTimetable.controller;
 
 import app.contestTimetable.model.Job;
 import app.contestTimetable.model.Report;
-import app.contestTimetable.model.SchoolTeam;
+import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.ReportRepository;
 import app.contestTimetable.service.JobService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,49 +27,57 @@ public class JobController {
     @Autowired
     ReportRepository reportrepository;
 
-    @GetMapping(value = "/job/{contestid}")
-    public Job getId(@PathVariable("contestid") int contestid, @RequestParam(value = "action", required = false, defaultValue = "false") String action) {
+    @GetMapping(value = "/job")
+    public Job getId() {
 
 //        logger.info("action:" + action);
-        return jobservice.getJob(Integer.valueOf(contestid), action);
+        return jobservice.getJob();
     }
 
 
-    @GetMapping(value = "/job/{id}/schoolteam")
-    public ArrayList<SchoolTeam> getSchoolTeam(@PathVariable("id") int id) {
-        ArrayList<SchoolTeam> schoolteams = jobservice.getSchoolteams(Integer.valueOf(id));
-        return schoolteams;
-    }
-
-
-    @GetMapping(value = "/job/{id}/report/{uuid}")
-    public Report getReport(@PathVariable("id") int id, @PathVariable("uuid") String uuid) {
-
-        logger.info("uuid:" + uuid);
-
-        Report report = new Report();
-
-        if (reportrepository.countByUuid(uuid) != 0) {
-            report = reportrepository.findByUuid(uuid);
-        }
-        return report;
-    }
-
-    @PostMapping(value = "/job/{id}/report/{uuid}")
-    public Report postReport(@PathVariable("id") int id, @RequestBody String payload) throws IOException {
-
-        Report report = new Report();
-        logger.info("update report:" + payload);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(payload);
-        report.setUuid(node.get("uuid").asText());
-        logger.info("save return report:");
-        logger.info(mapper.writeValueAsString(node.get("candidateList")));
-        report.setReport(mapper.writeValueAsString(node.get("candidateList")));
-        report.setDistance(node.get("totaldistance").asDouble());
-        report.setContestid(Integer.valueOf(id));
-        reportrepository.save(report);
-
-        return report;
-    }
+//    @GetMapping(value = "/job/{contestid}")
+//    public Job getId(@PathVariable("contestid") int contestid, @RequestParam(value = "action", required = false, defaultValue = "false") String action) {
+//
+////        logger.info("action:" + action);
+//        return jobservice.getJob(Integer.valueOf(contestid), action);
+//    }
+//
+//
+//    @GetMapping(value = "/job/{id}/schoolteam")
+//    public ArrayList<SchoolTeam> getSchoolTeam(@PathVariable("id") int id) {
+//        ArrayList<SchoolTeam> schoolteams = jobservice.getSchoolteams(Integer.valueOf(id));
+//        return schoolteams;
+//    }
+//
+//
+//    @GetMapping(value = "/job/{id}/report/{uuid}")
+//    public Report getReport(@PathVariable("id") int id, @PathVariable("uuid") String uuid) {
+//
+//        logger.info("uuid:" + uuid);
+//
+//        Report report = new Report();
+//
+//        if (reportrepository.countByUuid(uuid) != 0) {
+//            report = reportrepository.findByUuid(uuid);
+//        }
+//        return report;
+//    }
+//
+//    @PostMapping(value = "/job/{id}/report/{uuid}")
+//    public Report postReport(@PathVariable("id") int id, @RequestBody String payload) throws IOException {
+//
+//        Report report = new Report();
+//        logger.info("update report:" + payload);
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode node = mapper.readTree(payload);
+//        report.setUuid(node.get("uuid").asText());
+//        logger.info("save return report:");
+//        logger.info(mapper.writeValueAsString(node.get("candidateList")));
+//        report.setReport(mapper.writeValueAsString(node.get("candidateList")));
+//        report.setDistance(node.get("totaldistance").asDouble());
+//        report.setContestid(Integer.valueOf(id));
+//        reportrepository.save(report);
+//
+//        return report;
+//    }
 }

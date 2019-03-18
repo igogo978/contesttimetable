@@ -1,6 +1,6 @@
 package app.contestTimetable.controller;
 
-import app.contestTimetable.model.Location;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

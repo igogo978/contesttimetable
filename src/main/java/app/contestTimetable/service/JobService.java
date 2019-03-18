@@ -1,6 +1,8 @@
 package app.contestTimetable.service;
 
 import app.contestTimetable.model.*;
+import app.contestTimetable.model.school.Location;
+import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Service
@@ -24,8 +28,6 @@ public class JobService {
     @Autowired
     SchoolRepository schoolrepository;
 
-    @Autowired
-    JobRepository jobrepository;
 
     @Autowired
     LocationRepository locationrepository;
@@ -36,22 +38,23 @@ public class JobService {
     @Autowired
     ContestconfigRepository contestconfigrepository;
 
+    @Autowired
+    SchoolTeamRepository schoolTeamRepository;
 
-    public Job getJob(Integer contestid, String action) {
+    public Job getJob() {
+        Contestconfig contestconfig = contestconfigrepository.findById(1).get();
+
+        //四个场次一起算
         Job job = new Job();
-        Boolean flag = Boolean.TRUE;
-
-        //取出竞赛项目
-        Contestconfig contestconfig = contestconfigrepository.findById(contestid).get();
-
+//        List<Integer> jobid = Arrays.asList(1,2,3,4);
+//        job.setJobid(jobid);
 
         //取出场地
         ArrayList<Location> locations = new ArrayList<>();
         locationrepository.findAll().forEach(location -> locations.add(location));
 
-
-        ArrayList<SchoolTeam> schoolteams = getSchoolteams(contestid);
-
+        //参赛学校
+        List<SchoolTeam> schoolTeams = schoolTeamRepository.findAllByOrderByMembersDesc();
 
         //分群, priorityorder为优先群，例如主场，已经拿到门票者
         //group1 大群组, group2 第二群组
@@ -63,70 +66,141 @@ public class JobService {
         StringBuilder group1order = new StringBuilder();
         StringBuilder group2order = new StringBuilder();
 
-        schoolteams.forEach(team -> {
-            if (locationrepository.existsById(team.getSchoolid()) || ticketrepository.existsById(team.getSchoolid())) {
-                //承办学校,已经拿到ticket的学校优先列入排序
-                priorityorder.append(String.format("%s-", team.getSchoolid()));
+        AtomicInteger prioritysize = new AtomicInteger(0);
+        schoolTeams.forEach(schoolTeam -> {
 
-            } else if (team.getMembers() > 4) {
-                teamgroup1.add(team);
+            if (locationrepository.existsById(schoolTeam.getSchoolid()) || ticketrepository.existsById(schoolTeam.getSchoolid())) {
+                //承办学校,已经拿到ticket的学校优先列入排序
+                priorityorder.append(String.format("%s-", schoolTeam.getSchoolid()));
+                prioritysize.set(prioritysize.incrementAndGet());
+            } else if (schoolTeam.getMembers() > 4) {
+                teamgroup1.add(schoolTeam);
             } else {
-                teamgroup2.add(team);
+                teamgroup2.add(schoolTeam);
             }
+
         });
 
+        job.setPriorityorder(priorityorder.toString());
+        job.setPrioritysize(prioritysize.get());
+        //打乱场地顺序
+        Collections.shuffle(locations);
+        locations.forEach(location -> {
+            locationorder.append(String.format("%s-", location.getSchoolid()));
+        });
+        job.setLocationorder(locationorder.toString());
 
-        String jobid = "";
-        while (flag) {
-            Collections.shuffle(locations);
-
-            //打乱场地顺序
-            locations.forEach(location -> {
-                locationorder.append(String.format("%s-", location.getSchoolid()));
-            });
-
-            job.setLocationorder(locationorder.toString());
-
-            //决定群组1的顺序
-            Collections.shuffle(teamgroup1);
-
-            //jobid是场地顺序加大群顺序的hash值, 指派工作后交给client, 为识别工作是否已派出,避免重复指派
-            jobid = org.apache.commons.codec.digest.DigestUtils.sha256Hex(String.format("%s,%s", locationorder.toString(), group1order.toString()));
-
-            //工作已派出,请client再次请求
-            if (!jobrepository.existsById(jobid)) {
-                flag = Boolean.FALSE;
-                job.setJobid(jobid);
-            }
-
-        }
-
-
+        //决定群组1的顺序
+        Collections.shuffle(teamgroup1);
         teamgroup1.forEach(team -> {
             group1order.append(String.format("%s-", team.getSchoolid()));
-
         });
+        job.setGroup1order(group1order.toString());
 
-        job.setGroup1count(teamgroup1.size());
-
-
+        //群组2直接列
         teamgroup2.forEach(team -> {
             group2order.append(String.format("%s-", team.getSchoolid()));
         });
-
-        job.setGroup2count(teamgroup2.size());
-
-        job.setGroup1order(String.format("%s%s", priorityorder.toString(), group1order.toString()));
         job.setGroup2order(group2order.toString());
 
-        job.setCalculatejob(contestconfig.getCalculatejob());
+        job.setGroup1size(teamgroup1.size());
+        job.setGroup2size(teamgroup2.size());
 
-        if (action.equals("true")) {
-            jobrepository.save(job);
-        }
+        job.setCount(contestconfig.getCount());
 
         return job;
     }
+
+//    public Job getJob(Integer contestid, String action) {
+//        Job job = new Job();
+//        Boolean flag = Boolean.TRUE;
+//
+//        //取出竞赛项目
+//        Contestconfig contestconfig = contestconfigrepository.findById(contestid).get();
+//
+//
+//        //取出场地
+//        ArrayList<Location> locations = new ArrayList<>();
+//        locationrepository.findAll().forEach(location -> locations.add(location));
+//
+//
+//        ArrayList<SchoolTeam> schoolteams = getSchoolteams(contestid);
+//
+//
+//        //分群, priorityorder为优先群，例如主场，已经拿到门票者
+//        //group1 大群组, group2 第二群组
+//        //分群
+//        List<SchoolTeam> teamgroup1 = new ArrayList<>();
+//        List<SchoolTeam> teamgroup2 = new ArrayList<>();
+//        StringBuilder locationorder = new StringBuilder();
+//        StringBuilder priorityorder = new StringBuilder();
+//        StringBuilder group1order = new StringBuilder();
+//        StringBuilder group2order = new StringBuilder();
+//
+//        schoolteams.forEach(team -> {
+//            if (locationrepository.existsById(team.getSchoolid()) || ticketrepository.existsById(team.getSchoolid())) {
+//                //承办学校,已经拿到ticket的学校优先列入排序
+//                priorityorder.append(String.format("%s-", team.getSchoolid()));
+//
+//            } else if (team.getMembers() > 4) {
+//                teamgroup1.add(team);
+//            } else {
+//                teamgroup2.add(team);
+//            }
+//        });
+//
+//
+//        String jobid = "";
+//        while (flag) {
+//            Collections.shuffle(locations);
+//
+//            //打乱场地顺序
+//            locations.forEach(location -> {
+//                locationorder.append(String.format("%s-", location.getSchoolid()));
+//            });
+//
+//            job.setLocationorder(locationorder.toString());
+//
+//            //决定群组1的顺序
+//            Collections.shuffle(teamgroup1);
+//
+//            //jobid是场地顺序加大群顺序的hash值, 指派工作后交给client, 为识别工作是否已派出,避免重复指派
+//            jobid = org.apache.commons.codec.digest.DigestUtils.sha256Hex(String.format("%s,%s", locationorder.toString(), group1order.toString()));
+//
+//            //工作已派出,请client再次请求
+//            if (!jobrepository.existsById(jobid)) {
+//                flag = Boolean.FALSE;
+//                job.setJobid(jobid);
+//            }
+//
+//        }
+//
+//
+//        teamgroup1.forEach(team -> {
+//            group1order.append(String.format("%s-", team.getSchoolid()));
+//
+//        });
+//
+//        job.setGroup1count(teamgroup1.size());
+//
+//
+//        teamgroup2.forEach(team -> {
+//            group2order.append(String.format("%s-", team.getSchoolid()));
+//        });
+//
+//        job.setGroup2count(teamgroup2.size());
+//
+//        job.setGroup1order(String.format("%s%s", priorityorder.toString(), group1order.toString()));
+//        job.setGroup2order(group2order.toString());
+//
+//        job.setCalculatejob(contestconfig.getCalculatejob());
+//
+//        if (action.equals("true")) {
+//            jobrepository.save(job);
+//        }
+//
+//        return job;
+//    }
 
 
     public ArrayList<SchoolTeam> getSchoolteams(Integer id) {
@@ -140,7 +214,7 @@ public class JobService {
         //取出人数 以校为单位
         ArrayList<Team> teams = new ArrayList<>();
         contestconfig.getContestgroup().forEach(item -> {
-            teamrepository.findByContestgroupContaining(item).forEach(team -> {
+            teamrepository.findByContestitemContaining(item).forEach(team -> {
                 teams.add(team);
             });
         });
@@ -150,7 +224,7 @@ public class JobService {
             String schoolname = team.getSchoolname();
 
             Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolname().equals(schoolname));
-            logger.info(String.format("%s,%s", schoolname, isExist));
+//            logger.info(String.format("%s,%s", schoolname, isExist));
             if (isExist) {
                 schoolteams.forEach(schoolteam -> {
 
@@ -167,13 +241,15 @@ public class JobService {
                 schoolteam.setSchoolid(school.getSchoolid());
                 schoolteam.setMembers(1);
                 schoolteam.setSchoolname(schoolname);
-                schoolteam.setContestgroup(String.join(",", contestconfig.getContestgroup()));
+//                schoolteam.setContestgroup(String.join(",", contestconfig.getContestgroup()));
                 schoolteams.add(schoolteam);
 
             }
 
 
         });
+
+        //should sort by team members, the more members the first priority they own
 
         return schoolteams;
     }

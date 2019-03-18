@@ -1,10 +1,13 @@
 package app.contestTimetable;
 
-import app.contestTimetable.model.*;
-import app.contestTimetable.repository.ContestconfigRepository;
-import app.contestTimetable.repository.LocationRepository;
-import app.contestTimetable.repository.SchoolRepository;
-import app.contestTimetable.repository.TeamRepository;
+import app.contestTimetable.model.Contestconfig;
+import app.contestTimetable.model.school.Location;
+import app.contestTimetable.model.School;
+import app.contestTimetable.model.Team;
+import app.contestTimetable.model.school.ContestItem;
+import app.contestTimetable.model.school.Contestid;
+import app.contestTimetable.model.school.SchoolTeam;
+import app.contestTimetable.repository.*;
 import app.contestTimetable.service.XlsxService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,6 +40,8 @@ public class ContestTimetableApplication implements CommandLineRunner {
     @Autowired
     ContestconfigRepository contestconfigrepository;
 
+    @Autowired
+    SchoolTeamRepository schoolTeamRepository;
 
     @Autowired
     XlsxService readxlsx;
@@ -62,7 +67,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
             System.out.println("读取设定档");
             root = mapper.readTree(new File(contestconfigfile));
             Contestconfig contestconfig = new Contestconfig();
-            contestconfig.setCalculatejob(root.get("calculatejob").asInt());
+            contestconfig.setCount(root.get("count").asInt());
 
             JsonNode node = root.get("setting");
 
@@ -102,7 +107,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
         //update contesttime in team.description
         contestconfigrepository.findAll().forEach(contestconfig -> {
             contestconfig.getContestgroup().forEach(contestgroup -> {
-                        teamrepository.findByContestgroupContaining(contestgroup).forEach(team -> {
+                        teamrepository.findByContestitemContaining(contestgroup).forEach(team -> {
                             team.setDescription(contestconfig.getDescription());
                             teamrepository.save(team);
                         });
@@ -124,24 +129,35 @@ public class ContestTimetableApplication implements CommandLineRunner {
             schoolrepository.save(school);
         });
 
-
-//        Contestconfig config = contestconfigrepository.findById(2).get();
-//
-//        List<String> contestgroup = config.getContestgroup();
-//        System.out.println("contestgroup");
-//        System.out.println(contestgroup.toString());
-
+        //empty location records
+        locationrepository.deleteAll();
         //读取场地
         System.out.println("设定场地资料");
         String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
         ArrayList<Location> locations = new ArrayList<>();
         locations = readxlsx.getLocations(locationfile);
 
+        Location pending = new Location();
+        pending.setLocationname("未知");
+        pending.setSchoolid("999999");
+        pending.setCapacity(999);
+
+        locations.add(pending);
+
         locations.forEach(location -> {
             System.out.println(location.getLocationname());
             School school = schoolrepository.findBySchoolname(location.getLocationname());
             location.setSchoolid(school.getSchoolid());
+            contestconfigrepository.findAll().forEach(contestconfig -> {
+                Contestid contestid = new Contestid();
+                contestid.setContestid(contestconfig.getId());
+                System.out.println(contestconfig.getId());
+                contestid.setMembers(location.getCapacity());
+                location.getContestids().add(contestid);
+            });
+
         });
+
 
         //存入location
         locations.forEach(location -> {
@@ -149,21 +165,73 @@ public class ContestTimetableApplication implements CommandLineRunner {
         });
 
 
-        ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
+        //取出参赛学校
+        List<SchoolTeam> schoolTeams = new ArrayList<>();
+        schoolTeams = getSchoolTeams(teams);
+
+        //取出每一所学校各个竞赛项目的人员数
+        ArrayList<Contestconfig> contestconfigs = new ArrayList<>();
+        contestconfigrepository.findAll().forEach(contestconfig -> {
+            contestconfigs.add(contestconfig);
+        });
+
+        schoolTeams.forEach(schoolTeam -> {
+            schoolTeam.setMembers(0);
+
+            contestconfigs.forEach(contestconfig -> {
+                //计算学校每一场的总人数
+                Contestid contestid = new Contestid();
+                contestid.setMembers(0);
+                contestid.setContestid(contestconfig.getId());
+
+                //处理每一场的单一竞赛项目人数
+                contestconfig.getContestgroup().forEach(item -> {
+                    int members = teamrepository.countByContestitemContainingAndSchoolname(item, schoolTeam.getSchoolname());
+                    int presentationMembers = teamrepository.countByMembernameNotNullAndContestitemContainingAndSchoolname(item, schoolTeam.getSchoolname());
+                    if (presentationMembers != 0) {
+//                        System.out.println(String.format("%s,%s:%s", schoolTeam.getSchoolname(), item, presentationMembers));
+
+                        members = members + presentationMembers;
+                    }
+                    ContestItem contestitem = new ContestItem();
+                    contestitem.setMembers(members);
+                    contestitem.setItem(item);
+                    contestitem.setContestid(contestconfig.getId());
+                    schoolTeam.getContestitems().add(contestitem);
+
+                    contestid.setMembers(contestid.getMembers() + members);
+                });
+
+                schoolTeam.getContestids().add(contestid);
+                schoolTeam.setMembers(schoolTeam.getMembers() + contestid.getMembers());
+
+            });
+            schoolTeamRepository.save(schoolTeam);
+
+        });
 
         System.out.println("服务成功启动");
-//        //find contest group
-//        System.out.println("find out contestgroup...");
-//
-//        Contestconfig contestgroup = contestconfigrepository.findById(1).orElse(null);
-//        contestgroup.getContestgroup().forEach(g -> System.out.println(g));
 
-////        System.out.println(teamrepository.findByContestgroupContainingAndContestgroupContaining("SCRATCH".toUpperCase(),"國中").size());
-//        teamrepository.findByContestgroupContainingAndContestgroupContaining("SCRATCH".toUpperCase(),"國中").forEach(t->{
-//            System.out.println(t.getContestgroup());
-//        });
+    }
 
 
+    List<SchoolTeam> getSchoolTeams(List<Team> teams) {
+        List<SchoolTeam> schoolTeams = new ArrayList<>();
+        teams.forEach(team -> {
+            Boolean isExist = schoolTeams.stream().anyMatch(schoolTeam ->
+                    schoolTeam.getSchoolname().equals(team.getSchoolname()));
+
+            if (!isExist) {
+                SchoolTeam schoolteam = new SchoolTeam();
+                School school = schoolrepository.findBySchoolname(team.getSchoolname());
+                schoolteam.setSchoolname(team.getSchoolname());
+                schoolteam.setSchoolid(school.getSchoolid());
+                schoolTeams.add(schoolteam);
+
+            }
+
+        });
+        return schoolTeams;
     }
 }
 

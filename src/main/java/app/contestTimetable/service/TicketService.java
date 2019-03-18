@@ -1,9 +1,9 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Location;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.Report;
-import app.contestTimetable.model.SchoolTeam;
+import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.model.Ticket;
 import app.contestTimetable.repository.TicketRepository;
 import com.fasterxml.jackson.databind.JsonNode;

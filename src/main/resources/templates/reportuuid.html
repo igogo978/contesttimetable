@@ -1,69 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>VIEWUUID</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>VIEWUUID</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/js/FileSaver.min.js"></script>
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/js/FileSaver.min.js"></script>
 
 
-</head>
-<body>
+    </head>
+    <body>
         <div class="container" id="app">
-            
+
 
             <div>
                 <p> 場次:{{contestid}} </p>
-                    <table class="table">
-                        <thead>
-                            <td>  場地</td>
-                            <td>尚有可用電腦</td>
-                            <td>參賽隊-人數-距離</td>
-                            <td>
-                                    <button @click="downloadReport" class="btn btn-primary active" role="button" aria-pressed="true">下载</button>
+                <table class="table">
+                    <thead>
+                        <td>location id</td>
+                        <td> 場地</td>
+                        <td>尚有可用電腦</td>
+                        <td>參賽隊-人數-距離</td>
+                        <td>
+                            <button @click="downloadReport" class="btn
+                                btn-primary active" role="button"
+                                aria-pressed="true">下载</button>
 
-                                    <a :href="updateUrl" class="btn btn-warning active" role="button" aria-pressed="true">確定寫入</a>
+                            <a :href="updateUrl" class="btn btn-warning active"
+                                role="button" aria-pressed="true">確定寫入</a>
+
+                        </td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in items">
+                            <td>{{item.location.schoolid}}
+                            </td>
+                            <td>
+                                {{item.location.name}}
+                            </td>
+                            <td>
+                                {{item.location.capacity}}
+                            </td>
+                            <td>
+                                <ul class="list-group">
+                                    <li v-for="team in item.teams">
+                                        <p v-if="(team.ticket.length==6) && (item.location.schoolid != team.ticket)" class="text-danger">
+                                           
+                                            (  {{team.ticket}}){{team.name}}({{team.members}}) -
+                                            {{parseInt(team.distance)}} 
+                                          
+                                        </p>
+                                        <p v-else class="text-info">
+                                            
+                                            {{team.name}}({{team.members}}) -
+                                            {{parseInt(team.distance)}}
+                                           
+                                        </p>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
 
                             </td>
-                        </thead>
-                        <tbody>
-                        <tr v-for="item in items">
-                        <td>
-                            {{item.location.name}}
-                        </td>
-                        <td>
-                            {{item.location.capacity}}
-                        </td>
-                        <td>
-                            <ul class="list-group">
-                                <li v-for="team in item.teams">
-                                    {{team.name}}({{team.members}}) - {{parseInt(team.distance)}}
-                                </li>
-                            </ul>
-                        </td>
-                        <td>
 
-                        </td>
-                           
                         </tr>
-                        </tbody>
-                    </table>
-        
-        </div>
+                    </tbody>
+                </table>
 
- <footer>
-        <script th:inline="javascript">
+            </div>
+
+            <footer>
+                <script th:inline="javascript">
         /*<![CDATA[*/
         Vue.prototype.$http = axios;
         let config = {
@@ -126,8 +148,8 @@
 
          /*]]>*/
         </script>
-</footer>
+            </footer>
 
 
-</body>
-</html>
+        </body>
+    </html>

@@ -42,7 +42,7 @@ public class SelectedReportService {
         Contestconfig config = contestconfigrepository.findById(contestid).get();
         List<String> contestgroup = config.getContestgroup();
         contestgroup.forEach(groupname -> {
-            teamrepository.findByContestgroupContainingOrderBySchoolnameDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
+            teamrepository.findByContestitemContainingOrderBySchoolnameDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
         });
 
         return teams;
@@ -59,7 +59,7 @@ public class SelectedReportService {
         Contestconfig config = contestconfigrepository.findById(contestid).get();
         List<String> contestgroup = config.getContestgroup();
         contestgroup.forEach(groupname -> {
-            teamrepository.findByContestgroupContainingOrderByLocationDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
+            teamrepository.findByContestitemContainingOrderByLocationDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
         });
 
         return teams;

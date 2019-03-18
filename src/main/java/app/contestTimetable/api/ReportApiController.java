@@ -56,7 +56,7 @@ public class ReportApiController {
     @GetMapping(value = "/api/report/{contestid}")
     public ArrayList<Report> getReports(@PathVariable("contestid") int contestid) {
         ArrayList<Report> reports = new ArrayList<>();
-        reports = reportrepository.findTop10ByContestidOrderByDistanceAsc(contestid);
+        reports = reportrepository.findTop30ByContestidOrderByDistanceAsc(contestid);
 
 
         return reports;

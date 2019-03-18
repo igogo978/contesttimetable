@@ -125,7 +125,7 @@ public class SelectedReportApiController {
         //find contestgroup
         Contestconfig contestconfig = contestconfigrepository.findById(contestid).get();
         contestconfig.getContestgroup().forEach(contestgroup -> {
-            teamrepository.findByContestgroupContainingOrderBySchoolnameDesc(contestgroup).forEach(team -> {
+            teamrepository.findByContestitemContainingOrderBySchoolnameDesc(contestgroup).forEach(team -> {
                 teams.add(team);
             });
         });
@@ -162,7 +162,7 @@ public class SelectedReportApiController {
         //find contestgroup
         Contestconfig contestconfig = contestconfigrepository.findById(contestid).get();
         contestconfig.getContestgroup().forEach(contestgroup -> {
-            teamrepository.findByContestgroupContainingOrderByLocationDesc(contestgroup).forEach(team -> {
+            teamrepository.findByContestitemContainingOrderByLocationDesc(contestgroup).forEach(team -> {
                 teams.add(team);
             });
         });

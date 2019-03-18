@@ -14,7 +14,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String contestgroup;
+    private String contestitem;
     private String schoolname;
     private String username;
 
@@ -32,12 +32,12 @@ public class Team {
     public Team() {
     }
 
-    public String getContestgroup() {
-        return contestgroup;
+    public String getContestitem() {
+        return contestitem;
     }
 
-    public void setContestgroup(String contestgroup) {
-        this.contestgroup = contestgroup;
+    public void setContestitem(String contestitem) {
+        this.contestitem = contestitem;
     }
 
     public String getSchoolname() {

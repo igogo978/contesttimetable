@@ -2,6 +2,8 @@ package app.contestTimetable.service;
 
 
 import app.contestTimetable.model.*;
+import app.contestTimetable.model.school.Location;
+import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -101,7 +103,7 @@ public class ReportService {
 
             List<String> contestgroup = config.getContestgroup();
             contestgroup.forEach(groupname -> {
-                teamrepository.findByContestgroupContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
+                teamrepository.findByContestitemContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
             });
 
 
@@ -199,7 +201,7 @@ public class ReportService {
 
         List<String> contestgroup = config.getContestgroup();
         contestgroup.forEach(groupname -> {
-            teamrepository.findByContestgroupContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
+            teamrepository.findByContestitemContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
         });
 
 
@@ -237,10 +239,10 @@ public class ReportService {
                 schoolteam.setSchoolname(school.get("name").asText());
                 schoolteam.setSchoolid(school.get("schoolid").asText());
                 schoolteam.setMembers(school.get("members").asInt());
-                schoolteam.setDistance(school.get("distance").asDouble());
+//                schoolteam.setDistance(school.get("distance").asDouble());
 
-                String team = String.format("%s,%s,%s,%s,%s", "-", schoolteam.getSchoolid(), schoolteam.getSchoolname(), schoolteam.getMembers(), Integer.valueOf(schoolteam.getDistance().intValue()));
-                teams.add(team);
+//                String team = String.format("%s,%s,%s,%s,%s", "-", schoolteam.getSchoolid(), schoolteam.getSchoolname(), schoolteam.getMembers(), Integer.valueOf(schoolteam.getDistance().intValue()));
+//                teams.add(team);
             });
 
         });

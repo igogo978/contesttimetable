@@ -1,7 +1,12 @@
-package app.contestTimetable.model;
+package app.contestTimetable.model.school;
 
+import app.contestTimetable.model.school.Contestid;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Location {
@@ -12,6 +17,10 @@ public class Location {
     private String locationname;
 
     private int capacity;
+
+    @ElementCollection
+    private List<Contestid> contestids = new ArrayList<Contestid>();
+
 
     public Location() {
     }
@@ -44,5 +53,9 @@ public class Location {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public List<Contestid> getContestids() {
+        return contestids;
     }
 }

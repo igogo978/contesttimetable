@@ -1,14 +1,27 @@
-package app.contestTimetable.model;
+package app.contestTimetable.model.school;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Entity
 public class SchoolTeam {
 
+    @Id
     private String schoolid;
+
     private String schoolname;
 
-    private String contestgroup;
     private Integer members;
-    private Double distance;
 
+    @ElementCollection
+    private List<ContestItem> contestitems = new ArrayList<>();
+
+    @ElementCollection
+    private List<Contestid> contestids = new ArrayList<Contestid>();
 
     public SchoolTeam() {
     }
@@ -29,13 +42,7 @@ public class SchoolTeam {
         this.schoolname = schoolname;
     }
 
-    public String getContestgroup() {
-        return contestgroup;
-    }
 
-    public void setContestgroup(String contestgroup) {
-        this.contestgroup = contestgroup;
-    }
 
     public Integer getMembers() {
         return members;
@@ -45,11 +52,11 @@ public class SchoolTeam {
         this.members = members;
     }
 
-    public Double getDistance() {
-        return distance;
+    public List<ContestItem> getContestitems() {
+        return contestitems;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public List<Contestid> getContestids() {
+        return contestids;
     }
 }

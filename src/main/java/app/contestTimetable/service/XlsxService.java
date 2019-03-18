@@ -1,6 +1,6 @@
 package app.contestTimetable.service;
 
-import app.contestTimetable.model.Location;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -117,7 +117,7 @@ public class XlsxService {
                         break;
                     case 1:    //第1個欄位, 競賽項目
                         value = String.valueOf(cell.getStringCellValue());
-                        team.setContestgroup(value);
+                        team.setContestitem(value);
                         break;
                     case 2:    //第2個欄位, 學校
                         value = String.valueOf(cell.getStringCellValue());
@@ -190,7 +190,7 @@ public class XlsxService {
                         break;
                     case 1:    //第二個欄位, 競賽項目
                         value = String.valueOf(cell.getStringCellValue());
-                        team.setContestgroup(value);
+                        team.setContestitem(value);
                         break;
                     case 2:    //第三個欄位, 學校
                         value = String.valueOf(cell.getStringCellValue());
@@ -202,6 +202,10 @@ public class XlsxService {
                         break;
                     case 4:    //第4個欄位, 組員
                         value = String.valueOf(cell.getStringCellValue());
+                        //方便利用资料库计算简报组人数, 空字串不是用notnull
+                        if (value.length() == 0) {
+                            value = null;
+                        }
                         team.setMembername(value);
                         break;
                     case 5:    //第5個欄位, 指導
@@ -213,6 +217,7 @@ public class XlsxService {
                         team.setAccount(value);
                         break;
                     case 7:    //第四個欄位, 密码
+
                         value = String.valueOf(cell.getStringCellValue());
                         team.setPasswd(value);
                         break;
@@ -262,7 +267,7 @@ public class XlsxService {
                         break;
                     case 1:    //第二個欄位, 競賽項目
                         value = String.valueOf(cell.getStringCellValue());
-                        team.setContestgroup(value);
+                        team.setContestitem(value);
                         break;
                     case 2:    //第三個欄位, 學校
                         value = String.valueOf(cell.getStringCellValue());
@@ -435,7 +440,7 @@ public class XlsxService {
 
 
             cell = row.createCell(2);
-            cell.setCellValue(teams.get(i).getContestgroup());
+            cell.setCellValue(teams.get(i).getContestitem());
 
             cell = row.createCell(3);
             cell.setCellValue(teams.get(i).getSchoolname());
@@ -490,7 +495,7 @@ public class XlsxService {
 
 
             cell = row.createCell(2);
-            cell.setCellValue(teams.get(i).getContestgroup());
+            cell.setCellValue(teams.get(i).getContestitem());
 
             cell = row.createCell(3);
             String members = teams.get(i).getUsername();
