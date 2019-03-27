@@ -9,11 +9,12 @@ public class Ticket {
     @Id
     private String schoolid;
 
-    private String location;
+    private String schoolname;
+    private String locationid;
+    private String locationname;
 
     public Ticket() {
     }
-
 
     public String getSchoolid() {
         return schoolid;
@@ -23,11 +24,27 @@ public class Ticket {
         this.schoolid = schoolid;
     }
 
-    public String getLocation() {
-        return location;
+    public String getSchoolname() {
+        return schoolname;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setSchoolname(String schoolname) {
+        this.schoolname = schoolname;
+    }
+
+    public String getLocationid() {
+        return locationid;
+    }
+
+    public void setLocationid(String locationid) {
+        this.locationid = locationid;
+    }
+
+    public String getLocationname() {
+        return locationname;
+    }
+
+    public void setLocationname(String locationname) {
+        this.locationname = locationname;
     }
 }

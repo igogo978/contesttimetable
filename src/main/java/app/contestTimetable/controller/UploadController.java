@@ -32,18 +32,37 @@ public class UploadController {
     public String uploadReportUuid() {
 
 
-        return "upload";
+        return "reportupload";
 
     }
 
     //user upload page
     @PostMapping("/report/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleReportFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         logger.info("filename:" + file.getOriginalFilename());
         String filename = file.getOriginalFilename();
         storageService.store(file);
         return "redirect:/report/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
+    }
+
+
+    @GetMapping(value = "/ticket/upload")
+    public String uploadTicket() {
+
+
+        return "ticketupload";
+
+    }
+
+    //user upload page
+    @PostMapping("/ticket/upload")
+    public String handleTicketFileUpload(@RequestParam("file") MultipartFile file,
+                                         RedirectAttributes redirectAttributes) {
+        logger.info("filename:" + file.getOriginalFilename());
+        String filename = file.getOriginalFilename();
+        storageService.store(file);
+        return "redirect:/ticket/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
     }
 
 

@@ -1,8 +1,10 @@
 package app.contestTimetable.service;
 
+import app.contestTimetable.model.Ticket;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
+import app.contestTimetable.repository.SchoolRepository;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -11,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -29,6 +32,72 @@ import java.util.stream.Stream;
 public class XlsxService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    SchoolRepository schoolRepository;
+
+    public List<Ticket> getTickets(String xlsxPath) throws IOException, InvalidFormatException {
+
+        List<Ticket> tickets = new ArrayList<>();
+
+        Workbook workbook = WorkbookFactory.create(new File(xlsxPath));
+
+        // Return first sheet from the XLSX  workbook
+        Sheet sheet = workbook.getSheetAt(0);
+
+        // Get iterator to all the rows in current sheet
+        Iterator<Row> rowIterator = sheet.iterator();
+
+        //讀列
+        while (rowIterator.hasNext()) {
+            Ticket ticket = new Ticket();
+
+            Row row = rowIterator.next();
+
+            if (row.getRowNum() == 0) {  //ommit first row
+                continue;
+            }
+
+            //讀欄 For each row, iterate through each columns
+            Iterator<Cell> cellIterator = row.cellIterator();
+            String value = "";
+            while (cellIterator.hasNext()) {
+                String schoolname = null;
+                String locationname = null;
+                String schoolid = null;
+                String locationid = null;
+                School school = new School();
+                Cell cell = cellIterator.next();
+                cell.setCellType(CellType.STRING);
+
+                switch (cell.getColumnIndex()) {
+                    case 0:    //第0個欄位, 参赛学校
+                        schoolname = String.valueOf(cell.getStringCellValue());
+//                        logger.info(schoolname);
+
+                        school = schoolRepository.findBySchoolname(schoolname);
+                        ticket.setSchoolname(schoolname);
+                        ticket.setSchoolid(school.getSchoolid());
+
+                        break;
+                    case 1:    //第1個欄位, 场地
+                        locationname = String.valueOf(cell.getStringCellValue());
+                        school = schoolRepository.findBySchoolname(locationname);
+                        ticket.setLocationid(school.getSchoolid());
+                        ticket.setLocationname(locationname);
+                        break;
+
+
+                    default:
+                }
+            } //結束讀欄
+
+            tickets.add(ticket);
+        }
+
+
+        return tickets;
+    }
 
 
     public ArrayList<Team> getTeams(String docPath) throws IOException {
@@ -152,6 +221,7 @@ public class XlsxService {
 
         return teams;
     }
+
 
     ArrayList<Team> readPresentationTeams(String xlsPath) throws IOException, InvalidFormatException {
         //讀取檔案內容

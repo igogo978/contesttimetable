@@ -1,4 +1,4 @@
-package app.contestTimetable.controller;
+package app.contestTimetable.api;
 
 
 import app.contestTimetable.model.School;

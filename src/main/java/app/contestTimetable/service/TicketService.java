@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TicketService {
@@ -34,6 +35,15 @@ public class TicketService {
         return tickets;
     }
 
+    public void updateTicket(List<Ticket> tickets) {
+        logger.info("update tickets");
+        ticketrepository.deleteAll();
+        tickets.forEach(ticket -> {
+            ticketrepository.save(ticket);
+        });
+
+    }
+
 
     public void updateTicket(Report report) throws IOException {
 
@@ -49,7 +59,7 @@ public class TicketService {
                 if (ticketrepository.countBySchoolid(schoolid) == 0) {
                     logger.info(String.format("schoolid: %s  update ticket", schoolid));
                     Ticket ticket = new Ticket();
-                    ticket.setLocation(locationid);
+                    ticket.setLocationid(locationid);
                     ticket.setSchoolid(schoolid);
 
                     ticketrepository.save(ticket);
@@ -66,7 +76,7 @@ public class TicketService {
         if (ticketrepository.countBySchoolid(schoolteam.getSchoolid()) == 0) {
             Ticket ticket = new Ticket();
             ticket.setSchoolid(schoolteam.getSchoolid());
-            ticket.setLocation(location.getSchoolid());
+            ticket.setLocationid(location.getSchoolid());
 //            logger.info("update ticket");
 //            logger.info(String.format("%s,%s",schoolteam.getSchoolname(),location.getSchoolid()));
             ticketrepository.save(ticket);
