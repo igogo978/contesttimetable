@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ContestItem {
 
-
+    //每一学校该场次占的人数
     private Integer contestid;
 
     private String item;

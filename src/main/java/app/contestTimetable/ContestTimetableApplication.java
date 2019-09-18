@@ -145,13 +145,13 @@ public class ContestTimetableApplication implements CommandLineRunner {
         locations.add(pending);
 
         locations.forEach(location -> {
-            System.out.println(location.getLocationname());
+//            System.out.println(location.getLocationname());
             School school = schoolrepository.findBySchoolname(location.getLocationname());
             location.setSchoolid(school.getSchoolid());
             contestconfigrepository.findAll().forEach(contestconfig -> {
                 Contestid contestid = new Contestid();
                 contestid.setContestid(contestconfig.getId());
-                System.out.println(contestconfig.getId());
+//                System.out.println(contestconfig.getId());
                 contestid.setMembers(location.getCapacity());
                 location.getContestids().add(contestid);
             });

@@ -19,14 +19,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ReportApiController {
@@ -53,21 +54,61 @@ public class ReportApiController {
     XlsxService createxlsx;
 
 
-    @GetMapping(value = "/api/report/{contestid}")
-    public ArrayList<Report> getReports(@PathVariable("contestid") int contestid) {
-        ArrayList<Report> reports = new ArrayList<>();
-        reports = reportrepository.findTop30ByContestidOrderByDistanceAsc(contestid);
+//    @GetMapping(value = "/api/report/{contestid}")
+//    public ArrayList<Report> getReports(@PathVariable("contestid") int contestid) {
+//        ArrayList<Report> reports = new ArrayList<>();
+//        reports = reportrepository.findTop30ByContestidOrderByDistanceAsc(contestid);
+//
+//
+//        return reports;
+//
+//    }
 
+
+    @GetMapping(value = "/api/report")
+    public List<Report> getReports() {
+        List<Report> reports = new ArrayList<>();
+        reportrepository.findAll().forEach(reports::add);
 
         return reports;
 
     }
 
+
     @GetMapping(value = "/api/report/uuid/{uuid}")
     public Report getReport(@PathVariable("uuid") String uuid) {
+        Optional<Report> report = reportrepository.findByUuid(uuid);
+        if (report.isPresent()) {
+            return report.get();
+        }
+        return new Report();
 
-        return reportrepository.findByUuid(uuid);
+    }
 
+
+    @PostMapping(value = "/api/report/uuid/{uuid}")
+    public String postReport(@RequestBody String payload) throws IOException {
+
+        Report report = new Report();
+//        logger.info("update report:" + payload);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(payload);
+        report.setUuid(node.get("uuid").asText());
+
+        DecimalFormat df = new DecimalFormat(".##");
+        report.setDistance(Double.valueOf(df.format(node.get("totaldistance").asDouble())));
+        report.setReport(mapper.writeValueAsString(node.get("candidateList")));
+        reportrepository.save(report);
+//        logger.info(mapper.writeValueAsString(node.get("candidateList")));
+
+//        logger.info("save return report:");
+//        logger.info(mapper.writeValueAsString(node.get("candidateList")));
+//        report.setReport(mapper.writeValueAsString(node.get("candidateList")));
+//        report.setDistance(node.get("totaldistance").asDouble());
+//        report.setContestid(Integer.valueOf(id));
+//        reportrepository.save(report);
+
+        return payload;
     }
 
 
@@ -77,12 +118,12 @@ public class ReportApiController {
 //        logger.info("download selected report");
 
 
-        Report report = reportrepository.findByUuid(uuid);
+        Optional<Report> report = reportrepository.findByUuid(uuid);
 
 //        ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
 
-        ArrayList<String> teams = reportservice.getReport(report);
+        ArrayList<String> teams = reportservice.getReport(report.get());
         String filename = "report";
         //直接輸出
         XSSFWorkbook wb = createxlsx.create(teams);
@@ -111,7 +152,7 @@ public class ReportApiController {
         String response = null;
         Report report = new Report();
         if (reportservice.isExistUuid(uuid)) {
-            report = reportrepository.findByUuid(uuid);
+            report = reportrepository.findByUuid(uuid).get();
 //            reportservice.updateTicket(report);
             ticketrepository.deleteAll();
 //            response = reportservice.updateTicket(report);

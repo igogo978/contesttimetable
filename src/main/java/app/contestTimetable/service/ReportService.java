@@ -227,8 +227,8 @@ public class ReportService {
         ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
         ArrayList<String> teams = new ArrayList<>();
-        String contestid = String.format("contestid,%s,   ", report.getContestid());
-        teams.add(contestid);
+//        String contestid = String.format("contestid,%s,   ", report.getContestid());
+//        teams.add(contestid);
         JsonNode root = mapper.readTree(report.getReport());
         root.forEach(location -> {
             String locationname = String.format("%s,%s,%s", location.get("location").get("schoolid").asText(), location.get("location").get("name").asText(), location.get("location").get("capacity").asInt());

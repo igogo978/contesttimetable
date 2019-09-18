@@ -21,24 +21,34 @@ public class ReportController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-
-
-
-
     @Autowired
     ReportRepository reportrepository;
 
 
-    @GetMapping(value = "/report/{contestid}")
-    public String getReportContestid(Model model, @PathVariable("contestid") int contestid) {
+//    @GetMapping(value = "/report/{contestid}")
+//    public String getReportContestid(Model model, @PathVariable("contestid") int contestid) {
+////        ArrayList<Report> reports = new ArrayList<>();
+////        reports = reportrepository.findByContestid(contestid);
+//
+//        model.addAttribute("contestid", contestid);
+//
+//        return "reportcontestid";
+//
+//    }
+
+    @GetMapping(value = "/report")
+    public String getReportContestid() {
 //        ArrayList<Report> reports = new ArrayList<>();
 //        reports = reportrepository.findByContestid(contestid);
 
-        model.addAttribute("contestid", contestid);
+//        model.addAttribute("contestid", contestid);
 
-        return "reportcontestid";
+        return "report";
 
     }
+
+
+
 
     @GetMapping(value = "/report/uuid/{uuid}")
     public String getReportUuid(Model model, @PathVariable("uuid") String uuid) {
