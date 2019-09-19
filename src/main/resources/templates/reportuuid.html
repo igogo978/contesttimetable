@@ -28,7 +28,7 @@
         <div class="container" id="app">
 
             <div> CheckedList
-             {{checked}}
+                {{checked}}
                 <table class="table">
                     <tr v-for="team in pending.teams">
                         <td>
@@ -49,81 +49,88 @@
                         <td>參賽隊-人數-距離</td>
                         <td>
 
-                            <button v-if="checked.length !=0 " @click="addPending" class="btn
+                            <button v-if="checked.length !=0"
+                                @click="addPending"
+                                class="btn
                                 btn-primary active" role="button"
-                                    aria-pressed="true">移出</button>
+                                aria-pressed="true">移出</button>
 
 
                             <!--<button @click="downloadReport" class="btn-->
-                                <!--btn-primary active" role="button"-->
-                                <!--aria-pressed="true">下载</button>-->
+                            <!--btn-primary active" role="button"-->
+                            <!--aria-pressed="true">下载</button>-->
 
-                            <a :href="updateUrl" class="btn btn-warning active"
-                                role="button" aria-pressed="true">確定寫入</a>
+                        <a :href="updateUrl" class="btn btn-warning active"
+                            role="button" aria-pressed="true">確定寫入</a>
+
+                    </td>
+                </thead>
+                <tbody>
+                    <tr v-for="item in items">
+                        <!--<td>{{item.location.schoolid}}-->
+                        <!--</td>-->
+                        <td>
+
+                            {{item.location.name}}
+                        </td>
+                        <td>
+                            <ul class="list-group">
+                                <li class="list-group-item" v-for="contest in
+                                    item.location.contestids">
+                                    ({{contest.contestid}}){{contest.members}}
+                                </li>
+                            </ul>
 
                         </td>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in items">
-                            <!--<td>{{item.location.schoolid}}-->
-                            <!--</td>-->
-                            <td>
+                        <td>
+                            <ul class="list-group">
+                                <li class="list-group-item" v-for="team in
+                                    item.teams">
+                                    <input type="radio"
+                                        v-bind:value="team.schoolid"
+                                        v-model="checked">
+                                    {{team.name}}({{team.members}})&nbsp;&nbsp;距离:{{team.distance.toFixed(2)}}公里
+                                    <table>
 
-                                {{item.location.name}}
-                            </td>
-                            <td>
-                                <ul class="list-group">
-                                    <li class="list-group-item" v-for="contest in item.location.contestids">
-                                        ({{contest.contestid}}){{contest.members}}
+                                        <tr>
+                                            <td v-for="contest in
+                                                team.contestids">
+                                                ({{contest.contestid}}){{contest.members}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!--<ul class="list-group">-->
+                                    <!--<li v-for="contest in team.contestids">-->
+                                    <!--{{contest.contestid}}:{{contest.members}}-->
+                                    <!--</li>-->
 
-                                    </li>
-                                </ul>
-
-                            </td>
-                            <td>
-                                <ul class="list-group">
-                                    <li class="list-group-item" v-for="team in item.teams">
-                                        <input type="checkbox" v-bind:value="team.schoolid" v-model="checked">
-                                        {{team.name}}({{team.members}})&nbsp;&nbsp;距离:{{team.distance.toFixed(2)}}公里
-                                        <table>
-
-                                            <tr>
-                                                <td v-for="contest in team.contestids">
-                                                    ({{contest.contestid}}){{contest.members}}
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <!--<ul class="list-group">-->
-                                            <!--<li v-for="contest in team.contestids">-->
-                                                <!--{{contest.contestid}}:{{contest.members}}-->
-                                            <!--</li>-->
-
-                                        <!--</ul>-->
-                                        <!--<p v-if="(team.ticket.length==6) && (item.location.schoolid != team.ticket)" class="text-danger">-->
-                                           <!---->
-                                            <!--(  {{team.ticket}}){{team.name}}({{team.members}}) - -->
-                                            <!--{{parseInt(team.distance)}} -->
-                                          <!---->
-                                        <!--</p>-->
-                                        <!--<p v-else class="text-info">-->
-                                            <!---->
-                                            <!--{{team.name}}({{team.members}}) - -->
-                                            <!--{{parseInt(team.distance)}}-->
-                                           <!---->
-                                        <!--</p>-->
-                                    </li>
-                                </ul>
-                            </td>
+                                    <!--</ul>-->
+                                    <!--<p v-if="(team.ticket.length==6) && (item.location.schoolid != team.ticket)" class="text-danger">-->
+                                    <!---->
+                                    <!--(  {{team.ticket}}){{team.name}}({{team.members}}) - -->
+                                    <!--{{parseInt(team.distance)}} -->
+                                    <!---->
+                                    <!--</p>-->
+                                    <!--<p v-else class="text-info">-->
+                                    <!---->
+                                    <!--{{team.name}}({{team.members}}) - -->
+                                    <!--{{parseInt(team.distance)}}-->
+                                    <!---->
+                                    <!--</p>-->
+                                </li>
+                            </ul>
+                        </td>
 
 
-                        </tr>
-                    </tbody>
-                </table>
+                    </tr>
+                </tbody>
+            </table>
 
-            </div>
+        </div>
 
-            <footer>
-                <script th:inline="javascript">
+
+        <footer>
+            <script th:inline="javascript">
         /*<![CDATA[*/
         Vue.prototype.$http = axios;
         let config = {
@@ -139,7 +146,7 @@
                 contestid: "",
                 items: [],
                 pending: [],
-                checked:[],
+                checked:"",
                 updateUrl: ""
             },
             created: function() {
@@ -147,21 +154,21 @@
                 let url =  "/api/report/uuid/" + this.uuid;
 
                 this.$http.get(url, config).then((response) => {
-                    //vm.items = JSON.parse(response.data.report);
+                    
                     JSON.parse(response.data.report).forEach(function(item){
                         if(item.location.schoolid === "999999"){
                             vm.pending.push(item.location)
                         } else {
+                           
                             vm.items.push(item);
                         }
                     })
 
 
+
                 vm.updateUrl = "/report/" + vm.contestid + "/lock/" + vm.uuid;
 
-
-
-
+          
 
                 }, (response) => {
                     // error callback
@@ -171,10 +178,28 @@
             },
             methods: {
                 addPending: function() {
-                 console.log(this.checked);
+                    let vm = this;
+                    this.items.forEach(function(item){
+                        //    console.log(item.location.name);
+                        //    console.log(item.teams.length);
+
+
+                       
+                       item.teams.forEach((team) => {
+                        //    console.log(team.schoolid);
+                        console.log(typeof vm.schoolid);
+                        console.log(vm.schoolid);
+                            // if(this.checked === team.schoolid){
+                            //     console.log(item.location.name);
+                            // }
+                       })
+
+                    })
+
                 },
                 downloadReport: function(){
                     // /api/report/download/{uuid}
+                    //
                     let config = {
                         headers: {
                             'content-type': 'application/json;CHARSET=UTF-8'
@@ -199,8 +224,8 @@
 
          /*]]>*/
         </script>
-            </footer>
+        </footer>
 
 
-        </body>
-    </html>
+    </body>
+</html>
