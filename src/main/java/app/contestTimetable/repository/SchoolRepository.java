@@ -10,5 +10,4 @@ public interface SchoolRepository extends CrudRepository<School, String> {
 
     School findBySchoolname(String schoolname);
 
-
 }

@@ -24,7 +24,7 @@ public class TicketController {
 
 
     @GetMapping(value = "/ticket")
-    public String getTickets() {
+    public String getTickets()   {
 
         return "ticket";
 

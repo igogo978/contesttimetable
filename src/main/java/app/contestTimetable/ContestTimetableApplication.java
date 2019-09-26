@@ -1,11 +1,12 @@
 package app.contestTimetable;
 
 import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.school.Location;
+import app.contestTimetable.model.Googlemap;
 import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.school.ContestItem;
 import app.contestTimetable.model.school.Contestid;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.XlsxService;
@@ -26,6 +27,9 @@ import java.util.List;
 public class ContestTimetableApplication implements CommandLineRunner {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    GooglemapRepository googlemapRepository;
 
     @Autowired
     TeamRepository teamrepository;
@@ -210,8 +214,40 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
         });
 
-        System.out.println("服务成功启动");
 
+//        Googlemap googlemap = new Googlemap();
+//        googlemap.setId("12345678");
+//        googlemap.setStartid("1234");
+//        googlemap.setStartname("起点");
+//        googlemap.setEndid("5678");
+//        googlemap.setEndname("终点");
+//        googlemap.setDistance(999.99);
+//        googlemapRepository.save(googlemap);
+
+        //update
+//        Optional<Googlemap> googlemap = googlemapRepository.findById("12345678");
+//        googlemap.get().setDistance(9999999.12345678);
+//        googlemapRepository.save(googlemap.get());
+
+        for (School school : schools) {
+            for (Location location : locations) {
+//                System.out.println(String.format("%s->%s",school.getSchoolname(),location.getLocationname()));
+
+
+                Googlemap googlemap = new Googlemap();
+                googlemap.setId(String.format("%s%s",school.getSchoolname(),location.getLocationname()));
+                googlemap.setStartname(school.getSchoolname());
+                googlemap.setStartid(school.getSchoolid());
+                googlemap.setEndid(location.getSchoolid());
+                googlemap.setEndname(location.getLocationname());
+                googlemap.setMaintainer("igogo");
+                googlemap.setDistance(999.99);
+                googlemapRepository.save(googlemap);
+
+            }
+        }
+
+        System.out.println("系统启动成功");
     }
 
 

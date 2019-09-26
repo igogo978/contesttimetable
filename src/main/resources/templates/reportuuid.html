@@ -27,12 +27,24 @@
     <body>
         <div class="container" id="app">
 
-            <div> CheckedList
-                {{checked}}
+            <div> 未排入学校
+
+                <!-- {{checked}} -->
                 <table class="table">
-                    <tr v-for="team in pending.teams">
+                    <tr>
                         <td>
-                            {{team}}
+                            {{pending.name}}
+                        </td>
+                        <td v-for="contest in pending.contestids">
+                                ({{contest.contestid}}){{contest.members}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+
                         </td>
                     </tr>
                 </table>
@@ -49,7 +61,7 @@
                         <td>參賽隊-人數-距離</td>
                         <td>
 
-                            <button v-if="checked.length !=0"
+                            <button v-if="checked !=''"
                                 @click="addPending"
                                 class="btn
                                 btn-primary active" role="button"
@@ -89,7 +101,7 @@
                                     <input type="radio"
                                         v-bind:value="team.schoolid"
                                         v-model="checked">
-                                    {{team.name}}({{team.members}})&nbsp;&nbsp;距离:{{team.distance.toFixed(2)}}公里
+                                    {{team.name}}({{team.members}})&nbsp;&nbsp;距离:{{team.distance.toFixed(2)}}公尺
                                     <table>
 
                                         <tr>
@@ -145,24 +157,26 @@
                 uuid: /*[[${uuid}]]*/ 'default',
                 contestid: "",
                 items: [],
-                pending: [],
-                checked:"",
+                pending: {},
+                checked:'',
                 updateUrl: ""
             },
             created: function() {
                 let vm = this;
                 let url =  "/api/report/uuid/" + this.uuid;
+                
 
                 this.$http.get(url, config).then((response) => {
-                    
-                    JSON.parse(response.data.report).forEach(function(item){
-                        if(item.location.schoolid === "999999"){
-                            vm.pending.push(item.location)
-                        } else {
+
+                    vm.items = JSON.parse(response.data.report);
+                    // JSON.parse(response.data.report).forEach(function(item){
+                    //     if(item.location.schoolid === "999999"){
+                    //         vm.pending.push(item.location)
+                    //     } else {
                            
-                            vm.items.push(item);
-                        }
-                    })
+                    //         vm.items.push(item);
+                    //     }
+                    // })
 
 
 
@@ -178,23 +192,73 @@
             },
             methods: {
                 addPending: function() {
+
                     let vm = this;
+                        
                     this.items.forEach(function(item){
-                        //    console.log(item.location.name);
-                        //    console.log(item.teams.length);
-
-
-                       
+                      
+                       let tmpTeams = [];
                        item.teams.forEach((team) => {
-                        //    console.log(team.schoolid);
-                        console.log(typeof vm.schoolid);
-                        console.log(vm.schoolid);
-                            // if(this.checked === team.schoolid){
-                            //     console.log(item.location.name);
-                            // }
+                       
+                            //移除选取的
+                            if(vm.checked === team.schoolid){
+                                let teamcontestid1 = 0;
+                                let teamcontestid2 = 0;
+                                let teamcontestid3 = 0;
+                                let teamcontestid4 = 0;
+                                //取出参赛队伍人数
+                                team.contestids.forEach(function(contest){
+                                    if(contest.contestid === 1){
+                                        teamcontestid1 = contest.members
+                                    }
+                                    if(contest.contestid === 2){
+                                        teamcontestid2 = contest.members
+                                    }
+                                    if(contest.contestid === 3){
+                                        teamcontestid3 = contest.members
+                                    }
+                                    if(contest.contestid === 4){
+                                        teamcontestid4 = contest.members
+                                    }
+                                })
+
+                                
+                                // console.log(location.location.name);
+                                item.location.contestids.forEach(function(contest){
+                                    //contestid:1
+                                    if(contest.contestid === 1){
+                                        // console.log(contest.members)
+                                        contest.members = contest.members + teamcontestid1
+                                    }
+                                    //contestid:2
+                                    if(contest.contestid === 2){
+                                        // console.log(contest.members)
+                                        contest.members = contest.members + teamcontestid2
+                                    }
+                                    //contestid:3
+                                    if(contest.contestid === 3){
+                                        // console.log(contest.members)
+                                        contest.members = contest.members + teamcontestid3
+                                    }
+
+                                    //contestid:4
+                                    if(contest.contestid === 4){
+                                        // console.log(contest.members)
+                                        contest.members = contest.members + teamcontestid4
+                                    }
+                                })
+                                vm.pending = team;
+                                vm.checked = '';
+
+                            } else {
+                                tmpTeams.push(team);
+                            }
                        })
+                       item.teams = tmpTeams;
 
                     })
+
+
 
                 },
                 downloadReport: function(){
