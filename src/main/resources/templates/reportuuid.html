@@ -36,7 +36,7 @@
                             {{pending.name}}
                         </td>
                         <td v-for="contest in pending.contestids">
-                                ({{contest.contestid}}){{contest.members}}
+                            ({{contest.contestid}}){{contest.members}}
                         </td>
                     </tr>
                     <tr>
@@ -159,6 +159,7 @@
                 items: [],
                 pending: {},
                 checked:'',
+                capableList: [],
                 updateUrl: ""
             },
             created: function() {
@@ -194,6 +195,10 @@
                 addPending: function() {
 
                     let vm = this;
+                    let teamcontestid1 = 0;
+                    let teamcontestid2 = 0;
+                    let teamcontestid3 = 0;
+                    let teamcontestid4 = 0;
                         
                     this.items.forEach(function(item){
                       
@@ -202,10 +207,7 @@
                        
                             //移除选取的
                             if(vm.checked === team.schoolid){
-                                let teamcontestid1 = 0;
-                                let teamcontestid2 = 0;
-                                let teamcontestid3 = 0;
-                                let teamcontestid4 = 0;
+                       
                                 //取出参赛队伍人数
                                 team.contestids.forEach(function(contest){
                                     if(contest.contestid === 1){
@@ -255,6 +257,43 @@
                             }
                        })
                        item.teams = tmpTeams;
+
+                    })
+
+                    // //重新计算可排入场地
+                    this.items.forEach((item) => {
+                        let locationcontestid1 = 0;
+                        let locationcontestid2 = 0;
+                        let locationcontestid3 = 0;
+                        let locationcontestid4 = 0;
+                        
+                        item.location.contestids.forEach(function(contest){
+                            // console.log(item.location.name);
+
+                            if(contest.contestid === 1){
+                                locationcontestid1 = contest.members;
+                            }
+
+                            if(contest.contestid === 2){
+                                locationcontestid2 = contest.members;
+                            }
+
+
+                            if(contest.contestid === 3){
+                                locationcontestid3 = contest.members;
+                            }
+
+                            if(contest.contestid === 4){
+                                locationcontestid4 = contest.members;
+                            }
+
+                        })
+
+                        // console.log(item.location.name+"1:"+locationcontestid1+",2:"+locationcontestid2+",3:"+locationcontestid3);
+                      
+                        if(locationcontestid1>=teamcontestid1 && locationcontestid2>=teamcontestid2 && locationcontestid3>=teamcontestid3 && locationcontestid4>=teamcontestid4){
+                            console.log(item.location.name);
+                        }
 
                     })
 
