@@ -27,23 +27,98 @@
     <body>
         <div class="container" id="app">
 
-            <div> 未排入学校
+        
+        
+            <a :href="updateUrl" class="btn btn-warning active float-right"
+                role="button" aria-pressed="true">寫入口袋名单</a>
+            
+            <hr>
+            <div>
 
-                <!-- {{checked}} -->
-                <table class="table">
+                <table class="table" v-if="Object.values(pending) != 0">
                     <tr>
-                        <td>
+                        <td style="width: 10%">
                             {{pending.name}}
                         </td>
-                        <td v-for="contest in pending.contestids">
-                            ({{contest.contestid}}){{contest.members}}
-                        </td>
-                    </tr>
-                    <tr>
+
                         <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item" v-for="contest in
+                                    pending.contestids">
+                                    ({{contest.contestid}}){{contest.members}}
+                                </li>
+
+                            </ul>
+
 
                         </td>
                         <td>
+                            
+                            <button v-if="checkedIn !=''"
+                            @click="addLocation"
+                            class="btn
+                            btn-primary active" role="button"
+                            aria-pressed="true">移入</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td style="width: 10%">
+                            --还可排入
+                        </td>
+
+                        <td style="width: 80%">
+                            <ul class="list-inline">
+                                <li class="list-group-item" v-for="location in
+                                    locations.capable">
+
+                                    <input type="radio"
+                                    v-bind:value="location.schoolid"
+                                    v-model="checkedIn">
+
+                                    {{location.name}}
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"
+                                            v-for="contest in
+                                            location.contestids">
+                                            ({{contest.contestid}}){{contest.members}}
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td style="width: 10%">
+                            --无法排入
+                        </td>
+
+                        <td style="width: 80%">
+                            <ul class="list-inline">
+                                <li class="list-group-item" v-for="location in
+                                    locations.notcapable">
+
+                                    <input type="radio"
+                                    v-bind:value="location.schoolid"
+                                    v-model="checkedIn">
+
+                                    {{location.name}}
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"
+                                            v-for="contest in
+                                            location.contestids">
+                                           
+                                            ({{contest.contestid}}){{contest.members}}
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
 
                         </td>
                     </tr>
@@ -52,7 +127,7 @@
 
 
             <div>
-                <!--<p> 場次:{{contestid}} </p>-->
+
                 <table class="table">
                     <thead>
                         <!--<td>代码</td>-->
@@ -60,29 +135,24 @@
                         <td>電腦数</td>
                         <td>參賽隊-人數-距離</td>
                         <td>
-
-                            <button v-if="checked !=''"
+                            <button v-if="checkedOut !=''"
                                 @click="addPending"
                                 class="btn
                                 btn-primary active" role="button"
                                 aria-pressed="true">移出</button>
 
-
                             <!--<button @click="downloadReport" class="btn-->
                             <!--btn-primary active" role="button"-->
                             <!--aria-pressed="true">下载</button>-->
 
-                        <a :href="updateUrl" class="btn btn-warning active"
-                            role="button" aria-pressed="true">確定寫入</a>
+
 
                     </td>
                 </thead>
                 <tbody>
                     <tr v-for="item in items">
-                        <!--<td>{{item.location.schoolid}}-->
-                        <!--</td>-->
-                        <td>
 
+                        <td>
                             {{item.location.name}}
                         </td>
                         <td>
@@ -100,10 +170,9 @@
                                     item.teams">
                                     <input type="radio"
                                         v-bind:value="team.schoolid"
-                                        v-model="checked">
+                                        v-model="checkedOut">
                                     {{team.name}}({{team.members}})&nbsp;&nbsp;距离:{{team.distance.toFixed(2)}}公尺
                                     <table>
-
                                         <tr>
                                             <td v-for="contest in
                                                 team.contestids">
@@ -111,27 +180,11 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <!--<ul class="list-group">-->
-                                    <!--<li v-for="contest in team.contestids">-->
-                                    <!--{{contest.contestid}}:{{contest.members}}-->
-                                    <!--</li>-->
-
-                                    <!--</ul>-->
-                                    <!--<p v-if="(team.ticket.length==6) && (item.location.schoolid != team.ticket)" class="text-danger">-->
-                                    <!---->
-                                    <!--(  {{team.ticket}}){{team.name}}({{team.members}}) - -->
-                                    <!--{{parseInt(team.distance)}} -->
-                                    <!---->
-                                    <!--</p>-->
-                                    <!--<p v-else class="text-info">-->
-                                    <!---->
-                                    <!--{{team.name}}({{team.members}}) - -->
-                                    <!--{{parseInt(team.distance)}}-->
-                                    <!---->
-                                    <!--</p>-->
+                      
                                 </li>
                             </ul>
                         </td>
+
 
 
                     </tr>
@@ -158,8 +211,9 @@
                 contestid: "",
                 items: [],
                 pending: {},
-                checked:'',
-                capableList: [],
+                checkedOut:'',
+                checkedIn:'',
+                locations: [],
                 updateUrl: ""
             },
             created: function() {
@@ -192,112 +246,142 @@
 
             },
             methods: {
+                addLocation: function(){
+                    let vm = this;
+                    this.items.forEach(function(item){
+                        if(vm.checkedIn === item.location.schoolid){
+                        console.log(vm.pending.schoolid + "加入" + item.location.schoolid);  
+
+                        }
+                    })
+
+
+
+
+                },
                 addPending: function() {
 
                     let vm = this;
-                    let teamcontestid1 = 0;
-                    let teamcontestid2 = 0;
-                    let teamcontestid3 = 0;
-                    let teamcontestid4 = 0;
+
+                    if(Object.values(vm.pending).length === 0){
+                        let teamcontestid1 = 0;
+                        let teamcontestid2 = 0;
+                        let teamcontestid3 = 0;
+                        let teamcontestid4 = 0;
                         
-                    this.items.forEach(function(item){
+                        this.items.forEach(function(item){
                       
-                       let tmpTeams = [];
-                       item.teams.forEach((team) => {
+                            let tmpTeams = [];
+                            item.teams.forEach((team) => {
                        
-                            //移除选取的
-                            if(vm.checked === team.schoolid){
+                                //移除选取的
+                                if(vm.checkedOut === team.schoolid){
                        
-                                //取出参赛队伍人数
-                                team.contestids.forEach(function(contest){
-                                    if(contest.contestid === 1){
-                                        teamcontestid1 = contest.members
-                                    }
-                                    if(contest.contestid === 2){
-                                        teamcontestid2 = contest.members
-                                    }
-                                    if(contest.contestid === 3){
-                                        teamcontestid3 = contest.members
-                                    }
-                                    if(contest.contestid === 4){
-                                        teamcontestid4 = contest.members
-                                    }
-                                })
+                                    //取出参赛队伍人数
+                                    team.contestids.forEach(function(contest){
+                                        if(contest.contestid === 1){
+                                            teamcontestid1 = contest.members
+                                        }
+                                        if(contest.contestid === 2){
+                                            teamcontestid2 = contest.members
+                                        }
+                                        if(contest.contestid === 3){
+                                            teamcontestid3 = contest.members
+                                        }
+                                        if(contest.contestid === 4){
+                                            teamcontestid4 = contest.members
+                                        }
+                                    })
 
                                 
-                                // console.log(location.location.name);
-                                item.location.contestids.forEach(function(contest){
-                                    //contestid:1
-                                    if(contest.contestid === 1){
-                                        // console.log(contest.members)
-                                        contest.members = contest.members + teamcontestid1
-                                    }
-                                    //contestid:2
-                                    if(contest.contestid === 2){
-                                        // console.log(contest.members)
-                                        contest.members = contest.members + teamcontestid2
-                                    }
-                                    //contestid:3
-                                    if(contest.contestid === 3){
-                                        // console.log(contest.members)
-                                        contest.members = contest.members + teamcontestid3
-                                    }
+                                    // console.log(location.location.name);
+                                    item.location.contestids.forEach(function(contest){
+                                        //contestid:1
+                                        if(contest.contestid === 1){
+                                            contest.members = contest.members + teamcontestid1
+                                        }
+                                        //contestid:2
+                                        if(contest.contestid === 2){
+                                            contest.members = contest.members + teamcontestid2
+                                        }
+                                        //contestid:3
+                                        if(contest.contestid === 3){
+                                            contest.members = contest.members + teamcontestid3
+                                        }
 
-                                    //contestid:4
-                                    if(contest.contestid === 4){
-                                        // console.log(contest.members)
-                                        contest.members = contest.members + teamcontestid4
-                                    }
-                                })
-                                vm.pending = team;
-                                vm.checked = '';
+                                        //contestid:4
+                                        if(contest.contestid === 4){
+                                            contest.members = contest.members + teamcontestid4
+                                        }
+                                    })
+                                    vm.pending = team;
+                                    vm.checkedOut = '';
 
-                            } else {
-                                tmpTeams.push(team);
-                            }
-                       })
-                       item.teams = tmpTeams;
+                                } else {
+                                    tmpTeams.push(team);
+                                }
+                             })
 
-                    })
+                            item.teams = tmpTeams;
 
-                    // //重新计算可排入场地
-                    this.items.forEach((item) => {
-                        let locationcontestid1 = 0;
-                        let locationcontestid2 = 0;
-                        let locationcontestid3 = 0;
-                        let locationcontestid4 = 0;
+                         })
+
+                        // //重新计算可排入场地
+                        vm.locations.capable = [];
+                        vm.locations.notcapable = [];
                         
-                        item.location.contestids.forEach(function(contest){
-                            // console.log(item.location.name);
+                        let notcapable = [];
+                        this.items.forEach((item) => {
+                            let locationcontestid1 = 0;
+                            let locationcontestid2 = 0;
+                            let locationcontestid3 = 0;
+                            let locationcontestid4 = 0;
+                            
+                            item.location.contestids.forEach(function(contest){
+                                // console.log(item.location.name);
 
-                            if(contest.contestid === 1){
-                                locationcontestid1 = contest.members;
-                            }
+                                if(contest.contestid === 1){
+                                    locationcontestid1 = contest.members;
+                                }
 
-                            if(contest.contestid === 2){
-                                locationcontestid2 = contest.members;
-                            }
+                                if(contest.contestid === 2){
+                                    locationcontestid2 = contest.members;
+                                }
 
 
-                            if(contest.contestid === 3){
-                                locationcontestid3 = contest.members;
-                            }
+                                if(contest.contestid === 3){
+                                    locationcontestid3 = contest.members;
+                                }
 
-                            if(contest.contestid === 4){
-                                locationcontestid4 = contest.members;
+                                if(contest.contestid === 4){
+                                    locationcontestid4 = contest.members;
+                                }
+
+                            })
+
+                            // console.log(item.location.name+"1:"+locationcontestid1+",2:"+locationcontestid2+",3:"+locationcontestid3);
+                        
+                            if(locationcontestid1>=teamcontestid1 && locationcontestid2>=teamcontestid2 && locationcontestid3>=teamcontestid3 && locationcontestid4>=teamcontestid4){
+                                // console.log(item.location.name);
+                                // capable.push(item.location);
+                                vm.locations.capable.push(item.location);
+                            } else {
+                                // notcapable.push(item.location);
+                                vm.locations.notcapable.push(item.location);
+
                             }
 
                         })
-
-                        // console.log(item.location.name+"1:"+locationcontestid1+",2:"+locationcontestid2+",3:"+locationcontestid3);
-                      
-                        if(locationcontestid1>=teamcontestid1 && locationcontestid2>=teamcontestid2 && locationcontestid3>=teamcontestid3 && locationcontestid4>=teamcontestid4){
-                            console.log(item.location.name);
-                        }
-
-                    })
+                    
 
 
+
+
+                    } else {
+                        console.log("pending里有学校,无法再加入");
+                    }
+                    
+                  
 
                 },
                 downloadReport: function(){
