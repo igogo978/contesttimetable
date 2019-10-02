@@ -9,6 +9,7 @@ import java.util.List;
 public interface SchoolTeamRepository extends CrudRepository<SchoolTeam, String> {
 
     List<SchoolTeam> findAllByOrderByMembersDesc();
+
     List<SchoolTeam> findByContestidsContestidAndContestidsMembers(Integer contestid, Integer members);
 
 }

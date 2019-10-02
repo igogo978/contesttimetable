@@ -27,17 +27,19 @@
     <body>
         <div class="container" id="app">
 
-        
-        
+
+
             <a :href="updateUrl" class="btn btn-warning active float-right"
                 role="button" aria-pressed="true">寫入口袋名单</a>
-            
+
             <hr>
             <div>
 
                 <table class="table" v-if="Object.values(pending) != 0">
                     <tr>
-                        <td style="width: 10%">
+                       
+                        <td style="width: 20%">
+                                                        
                             {{pending.name}}
                         </td>
 
@@ -53,29 +55,30 @@
 
                         </td>
                         <td>
-                            
+
                             <button v-if="checkedIn !=''"
-                            @click="addLocation"
-                            class="btn
-                            btn-primary active" role="button"
-                            aria-pressed="true">移入</button>
+                                @click="addLocation"
+                                class="btn
+                                btn-primary active" role="button"
+                                aria-pressed="true">移入</button>
                         </td>
 
                     </tr>
                     <tr>
+                    
 
-                        <td style="width: 10%">
+                        <td style="width: 20%">
                             --还可排入
                         </td>
 
-                        <td style="width: 80%">
+                        <td style="width: 60%">
                             <ul class="list-inline">
                                 <li class="list-group-item" v-for="location in
                                     locations.capable">
 
                                     <input type="radio"
-                                    v-bind:value="location.schoolid"
-                                    v-model="checkedIn">
+                                        v-bind:value="location.schoolid"
+                                        v-model="checkedIn">
 
                                     {{location.name}}
                                     <ul class="list-inline">
@@ -104,15 +107,14 @@
                                     locations.notcapable">
 
                                     <input type="radio"
-                                    v-bind:value="location.schoolid"
-                                    v-model="checkedIn">
+                                        v-bind:value="location.schoolid"
+                                        v-model="checkedIn">
 
                                     {{location.name}}
                                     <ul class="list-inline">
                                         <li class="list-inline-item"
                                             v-for="contest in
                                             location.contestids">
-                                           
                                             ({{contest.contestid}}){{contest.members}}
                                         </li>
 
@@ -132,7 +134,7 @@
                     <thead>
                         <!--<td>代码</td>-->
                         <td>場地</td>
-                        <td>電腦数</td>
+                        <td>尚有電腦数</td>
                         <td>參賽隊-人數-距離</td>
                         <td>
                             <button v-if="checkedOut !=''"
@@ -156,10 +158,12 @@
                             {{item.location.name}}
                         </td>
                         <td>
+                                <!-- {{item.location.contestids[0].contestid}} -->
                             <ul class="list-group">
                                 <li class="list-group-item" v-for="contest in
                                     item.location.contestids">
                                     ({{contest.contestid}}){{contest.members}}
+                                    
                                 </li>
                             </ul>
 
@@ -180,7 +184,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                      
+
                                 </li>
                             </ul>
                         </td>
@@ -220,21 +224,41 @@
                 let vm = this;
                 let url =  "/api/report/uuid/" + this.uuid;
                 
-
+                let schoolteams = 0;
                 this.$http.get(url, config).then((response) => {
 
-                    vm.items = JSON.parse(response.data.report);
-                    // JSON.parse(response.data.report).forEach(function(item){
-                    //     if(item.location.schoolid === "999999"){
-                    //         vm.pending.push(item.location)
-                    //     } else {
-                           
-                    //         vm.items.push(item);
-                    //     }
-                    // })
+                    // vm.items = JSON.parse(response.data.report);
+                    let tmpItems = JSON.parse(response.data.report);
 
+                    tmpItems.forEach(function(item){
+                        item.location.contestids = item.location.contestids.sort(function(a,b){
+                            return a.contestid > b.contestid ? 1 : -1;
+                        })
 
+                        item.teams.forEach(function(team){
+                            console.log(team.name);
+                            schoolteams += 1;
+                            team.contestids = team.contestids.sort(function(a,b){
+                                return a.contestid > b.contestid ? 1 : -1;
+                            })
+                            
+                        })
+                   
+                      
+                    })
+                    console.log("共有队数:"+schoolteams);
+                
+                    tmpItems.forEach(function(item){
+                        // item.location.contestids.forEach(function(contest){
+                        //     console.log(contest.contestid);
+                        // })
+                        // item.teams.contestids.forEach(function(contest){
+                        //     console.log(contest.contestid);
+                        // })
 
+                    })
+
+                    vm.items = tmpItems;
                 vm.updateUrl = "/report/" + vm.contestid + "/lock/" + vm.uuid;
 
           
@@ -248,10 +272,56 @@
             methods: {
                 addLocation: function(){
                     let vm = this;
+
+                    let teamcontestid1 = 0;
+                    let teamcontestid2 = 0;
+                    let teamcontestid3 = 0;
+                    let teamcontestid4 = 0;
+
+                    vm.pending.contestids.forEach(function(contest){
+                        console.log(contest.members);
+                        if(contest.contestid === 1){
+                            teamcontestid1 = contest.members;
+                        }
+                        if(contest.contestid === 2){
+                            teamcontestid2 = contest.members;
+                        }
+                        if(contest.contestid === 3){
+                            teamcontestid3 = contest.members;
+                        }
+                        if(contest.contestid === 4){
+                            teamcontestid4 = contest.members;
+                        }
+
+
+                    })
+
+
+
                     this.items.forEach(function(item){
                         if(vm.checkedIn === item.location.schoolid){
-                        console.log(vm.pending.schoolid + "加入" + item.location.schoolid);  
+                            console.log(vm.pending.schoolid + "加入" + item.location.schoolid);  
+                            item.teams.push(vm.pending);
 
+                            //整理试场人数
+                            item.location.contestids.forEach(function(contest){
+                                if(contest.contestid === 1){
+                                    contest.members = contest.members - teamcontestid1 ;
+                                }
+                                if(contest.contestid === 2){
+                                    contest.members = contest.members - teamcontestid2 ;
+                                }
+                                if(contest.contestid === 3){
+                                    contest.members = contest.members - teamcontestid3 ;
+                                }
+                                if(contest.contestid === 4){
+                                    contest.members = contest.members - teamcontestid4 ;
+                                }
+                            })
+
+
+                             
+                            vm.pending = {};
                         }
                     })
 
@@ -262,7 +332,7 @@
                 addPending: function() {
 
                     let vm = this;
-
+                    //make sure no team in pending
                     if(Object.values(vm.pending).length === 0){
                         let teamcontestid1 = 0;
                         let teamcontestid2 = 0;
@@ -373,9 +443,6 @@
 
                         })
                     
-
-
-
 
                     } else {
                         console.log("pending里有学校,无法再加入");

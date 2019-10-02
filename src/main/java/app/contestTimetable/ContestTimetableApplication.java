@@ -192,6 +192,8 @@ public class ContestTimetableApplication implements CommandLineRunner {
                 contestconfig.getContestgroup().forEach(item -> {
                     int members = teamrepository.countByContestitemContainingAndSchoolname(item, schoolTeam.getSchoolname());
                     int presentationMembers = teamrepository.countByMembernameNotNullAndContestitemContainingAndSchoolname(item, schoolTeam.getSchoolname());
+
+//                    简报可能两人一组
                     if (presentationMembers != 0) {
 //                        System.out.println(String.format("%s,%s:%s", schoolTeam.getSchoolname(), item, presentationMembers));
 
@@ -205,6 +207,8 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
                     contestid.setMembers(contestid.getMembers() + members);
                 });
+
+
 
                 schoolTeam.getContestids().add(contestid);
                 schoolTeam.setMembers(schoolTeam.getMembers() + contestid.getMembers());
@@ -229,23 +233,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
 //        googlemap.get().setDistance(9999999.12345678);
 //        googlemapRepository.save(googlemap.get());
 
-        for (School school : schools) {
-            for (Location location : locations) {
-//                System.out.println(String.format("%s->%s",school.getSchoolname(),location.getLocationname()));
 
-
-                Googlemap googlemap = new Googlemap();
-                googlemap.setId(String.format("%s%s",school.getSchoolname(),location.getLocationname()));
-                googlemap.setStartname(school.getSchoolname());
-                googlemap.setStartid(school.getSchoolid());
-                googlemap.setEndid(location.getSchoolid());
-                googlemap.setEndname(location.getLocationname());
-                googlemap.setMaintainer("igogo");
-                googlemap.setDistance(999.99);
-                googlemapRepository.save(googlemap);
-
-            }
-        }
 
         System.out.println("系统启动成功");
     }

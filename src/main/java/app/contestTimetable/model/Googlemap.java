@@ -16,7 +16,7 @@ public class Googlemap {
 
     private double distance;
 
-    private String maintainer;
+    private Integer updatedate;
 
 
     public String getId() {
@@ -67,11 +67,11 @@ public class Googlemap {
         this.distance = distance;
     }
 
-    public String getMaintainer() {
-        return maintainer;
+    public Integer getUpdatedate() {
+        return updatedate;
     }
 
-    public void setMaintainer(String maintainer) {
-        this.maintainer = maintainer;
+    public void setUpdatedate(Integer updatedate) {
+        this.updatedate = updatedate;
     }
 }
