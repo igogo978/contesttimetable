@@ -26,13 +26,14 @@
     </head>
     <body>
         <div class="container" id="app">
+            <br>
+            <br>
 
+            <button type="button" @click="updatePocketlist" class="btn btn-success active float-right"
+                role="button" aria-pressed="true">寫入口袋名单</button>
 
-
-            <a :href="updateUrl" class="btn btn-warning active float-right"
-                role="button" aria-pressed="true">寫入口袋名单</a>
-
-            <hr>
+            <br>
+            <br>
             <div>
 
                 <table class="table" v-if="Object.values(pending) != 0">
@@ -270,6 +271,27 @@
 
             },
             methods: {
+                updatePocketlist:function(){
+                    let config = {
+                        headers: {
+                            'content-type': 'application/json;CHARSET=UTF-8'
+                        }
+                        
+                    };
+                    
+                    let url = "/api/pocketlist"
+                    this.$http.post(url, JSON.stringify(this.items), config).then((response) => {
+                    // success callback
+                    console.log(response.data);
+                        
+                    }, (response) => {
+                    // error callback
+                    });
+
+
+
+
+                },
                 addLocation: function(){
                     let vm = this;
 

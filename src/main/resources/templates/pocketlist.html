@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Pocketlist</title>
+
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/js/FileSaver.min.js"></script>
+
+
+    </head>
+    <body>
+        <div class="container" id="app">
+            <br>
+            <br>
+
+            <button type="button" @click="updatePocketlist" class="btn btn-success active float-right"
+                role="button" aria-pressed="true">储存</button>
+
+            <br>
+            <br>
+
+            <div>
+                    <table class="table">
+                            <thead>
+                                <!--<td>代码</td>-->
+                                <td>場地</td>
+                                <td>尚有電腦数</td>
+                                <td>參賽隊-人數-距離</td>
+                                <td>
+                       
+        
+                                </td>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in items">
+                                <td>
+                                    {{item.location.name}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+            </div>
+
+
+
+
+        </div>
+
+
+
+        <footer>
+            <script th:inline="javascript">
+        /*<![CDATA[*/
+        Vue.prototype.$http = axios;
+        let config = {
+            headers: {
+                'content-type': 'application/json;CHARSET=UTF-8'
+            }
+        };
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                uuid: /*[[${uuid}]]*/ 'default',
+                contestid: "",
+                items: [],
+                pending: {},
+                checkedOut:'',
+                checkedIn:'',
+                locations: [],
+                updateUrl: ""
+            },
+            created: function() {
+                let vm = this;
+                let url =  "/api/pocketlist/";
+                
+                this.$http.get(url, config).then((response) => {
+                    console.log(response.data);
+                    let vm = this;
+
+                    vm.items = JSON.parse(response.data.report);
+                    // let tmpItems = JSON.parse(response.data.report);
+
+                    // tmpItems.forEach(function(item){
+                    //     item.location.contestids = item.location.contestids.sort(function(a,b){
+                    //         return a.contestid > b.contestid ? 1 : -1;
+                    //     })
+
+                    //     item.teams.forEach(function(team){
+                    //         console.log(team.name);
+                    //         schoolteams += 1;
+                    //         team.contestids = team.contestids.sort(function(a,b){
+                    //             return a.contestid > b.contestid ? 1 : -1;
+                    //         })
+                            
+                    //     })
+                   
+                      
+                    // })
+                    // console.log("共有队数:"+schoolteams);
+                
+              
+
+                }, (response) => {
+                    // error callback
+                });
+
+
+            },
+            methods: {
+                updatePocketlist:function(){
+                    let config = {
+                        headers: {
+                            'content-type': 'application/json;CHARSET=UTF-8'
+                        }
+                        
+                    };
+                    
+                    let url = "/api/pocketlist"
+                    // this.$http.put(url, JSON.stringify(this.items), config).then((response) => {
+                    // // success callback
+                    // console.log(response.data);
+                        
+                    // }, (response) => {
+                    // // error callback
+                    // });
+
+                }
+            }
+               
+        })
+
+         /*]]>*/
+        </script>
+        </footer>
+
+
+    </body>
+</html>
