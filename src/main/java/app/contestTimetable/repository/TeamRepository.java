@@ -20,6 +20,8 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 
     List<Team> findAllByOrderByLocation();
 
+    List<Team> findBySchoolname(String schoolname);
+
     Integer countByContestitemContainingAndSchoolname(String contestitem, String schoolname);
 
     //    List<Team> findByContestitemContainingAndSchoolname(String contestitem, String schoolname);

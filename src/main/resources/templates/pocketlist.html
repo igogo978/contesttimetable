@@ -29,8 +29,17 @@
             <br>
             <br>
 
-            <button type="button" @click="updatePocketlist" class="btn btn-success active float-right"
-                role="button" aria-pressed="true">储存</button>
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <a class="btn btn-primary" href="bylocation" target="_blank" role="button">依场地排序</a>
+                </div>  
+                
+                <div class="p-2 bd-highlight"> </div>
+                
+                    <div class="p-2 bd-highlight">
+                        <a class="btn btn-primary" href="pocketlist/player" target="_blank" role="button">依选手排序</a>
+                    </div>
+            </div>
 
             <br>
             <br>
@@ -43,7 +52,8 @@
                                 <td>尚有電腦数</td>
                                 <td>參賽隊-人數-距離</td>
                                 <td>
-                       
+                                    <button type="button" @click="updatePocketlist" class="btn btn-success active float-right"
+                                    role="button" aria-pressed="true">储存</button>
         
                                 </td>
                         </thead>

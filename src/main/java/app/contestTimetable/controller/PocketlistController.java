@@ -16,4 +16,11 @@ public class PocketlistController {
         return "pocketlist";
     }
 
+
+    @GetMapping(value = "/pocketlist/player")
+    public String getPlayer() {
+
+        return "pocketlistplayer";
+    }
+
 }
