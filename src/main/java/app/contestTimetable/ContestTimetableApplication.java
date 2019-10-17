@@ -133,40 +133,42 @@ public class ContestTimetableApplication implements CommandLineRunner {
             schoolrepository.save(school);
         });
 
-        //empty location records
-        locationrepository.deleteAll();
-        //读取场地
-        System.out.println("设定场地资料");
-        String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
-        ArrayList<Location> locations = new ArrayList<>();
-        locations = readxlsx.getLocations(locationfile);
-
-        Location pending = new Location();
-        pending.setLocationname("未知");
-        pending.setSchoolid("999999");
-        pending.setCapacity(999);
-
-        locations.add(pending);
-
-        locations.forEach(location -> {
-//            System.out.println(location.getLocationname());
-            School school = schoolrepository.findBySchoolname(location.getLocationname());
-            location.setSchoolid(school.getSchoolid());
-            contestconfigrepository.findAll().forEach(contestconfig -> {
-                Contestid contestid = new Contestid();
-                contestid.setContestid(contestconfig.getId());
-//                System.out.println(contestconfig.getId());
-                contestid.setMembers(location.getCapacity());
-                location.getContestids().add(contestid);
-            });
-
-        });
 
 
-        //存入location
-        locations.forEach(location -> {
-            locationrepository.save(location);
-        });
+
+//        //读取场地
+//        //empty location records
+//        locationrepository.deleteAll();
+//        System.out.println("设定场地资料");
+//        String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
+//        ArrayList<Location> locations = new ArrayList<>();
+//        locations = readxlsx.getLocations(locationfile);
+//
+//        Location pending = new Location();
+//        pending.setLocationname("未知");
+//        pending.setSchoolid("999999");
+//        pending.setCapacity(999);
+//
+//        locations.add(pending);
+//
+//        locations.forEach(location -> {
+//            School school = schoolrepository.findBySchoolname(location.getLocationname());
+//            location.setSchoolid(school.getSchoolid());
+//            contestconfigrepository.findAll().forEach(contestconfig -> {
+//                Contestid contestid = new Contestid();
+//                contestid.setContestid(contestconfig.getId());
+////                System.out.println(contestconfig.getId());
+//                contestid.setMembers(location.getCapacity());
+//                location.getContestids().add(contestid);
+//            });
+//
+//        });
+//
+//
+//        //存入location
+//        locations.forEach(location -> {
+//            locationrepository.save(location);
+//        });
 
 
         //取出参赛学校
