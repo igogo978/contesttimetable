@@ -1,12 +1,10 @@
 package app.contestTimetable;
 
 import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.Googlemap;
 import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.school.ContestItem;
 import app.contestTimetable.model.school.Contestid;
-import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.XlsxService;
@@ -22,6 +20,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SpringBootApplication
 public class ContestTimetableApplication implements CommandLineRunner {
@@ -96,16 +96,15 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
 
         //读取参赛队伍
-        ArrayList<Team> teams = new ArrayList<>();
-        teams = readxlsx.getTeams(docPath);
-
-        //empty all
-        teamrepository.deleteAll();
-
-
-        teams.forEach(team -> {
-            teamrepository.save(team);
-        });
+//        teams = readxlsx.getTeams(docPath);
+//
+//        //empty all
+//        teamrepository.deleteAll();
+//
+//
+//        teams.forEach(team -> {
+//            teamrepository.save(team);
+//        });
 
 
         //update contesttime in team.description
@@ -123,16 +122,34 @@ public class ContestTimetableApplication implements CommandLineRunner {
         //读取台中市学校名单
         String tcschool = String.format("%s/%s", settingPath, "tcschool.xlsx");
 
-        ArrayList<School> schools = new ArrayList<>();
+        List<School> schools = new ArrayList<>();
         schools = readxlsx.getSchools(tcschool);
-
         ArrayList<School> tcschools = new ArrayList<>();
 
 
         schools.forEach(school -> {
+
             schoolrepository.save(school);
         });
 
+
+//        List<String> areas = new ArrayList<>();
+//        schools.forEach(school -> {
+////            logger.info(school.getSchoolname());
+//            Pattern pattern = Pattern.compile("(.{1,3}區)");
+//            Matcher matcher = pattern.matcher(school.getSchoolname());
+//            if (matcher.find()) {
+//                if (!areas.contains(matcher.group(0))) {
+//                    areas.add(matcher.group(0));
+//                }
+//            }
+//        });
+
+//        areas.forEach(start->{
+//            areas.forEach(end->{
+//                System.out.println(String.format("%s,%s",start,end));
+//            });
+//        });
 
 
 
@@ -172,6 +189,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
 
         //取出参赛学校
+        List<Team> teams = new ArrayList<>();
         List<SchoolTeam> schoolTeams = new ArrayList<>();
         schoolTeams = getSchoolTeams(teams);
 
@@ -211,7 +229,6 @@ public class ContestTimetableApplication implements CommandLineRunner {
                 });
 
 
-
                 schoolTeam.getContestids().add(contestid);
                 schoolTeam.setMembers(schoolTeam.getMembers() + contestid.getMembers());
 
@@ -219,6 +236,17 @@ public class ContestTimetableApplication implements CommandLineRunner {
             schoolTeamRepository.save(schoolTeam);
 
         });
+
+
+//        teams = teamrepository.findAllByOrderBySchoolname();
+//        teams.forEach(team -> {
+//            Pattern pattern = Pattern.compile("(.{1,3}區)");
+//            Matcher matcher = pattern.matcher(team.getSchoolname());
+//            if (matcher.find()) {
+//                logger.info(matcher.group(0));
+//            }
+//
+//        });
 
 
 //        Googlemap googlemap = new Googlemap();
@@ -234,7 +262,6 @@ public class ContestTimetableApplication implements CommandLineRunner {
 //        Optional<Googlemap> googlemap = googlemapRepository.findById("12345678");
 //        googlemap.get().setDistance(9999999.12345678);
 //        googlemapRepository.save(googlemap.get());
-
 
 
         System.out.println("系统启动成功");
