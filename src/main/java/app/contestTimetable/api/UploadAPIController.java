@@ -106,4 +106,18 @@ public class UploadAPIController {
     }
 
 
+    //讀出ticket上傳檔案內容
+    @RequestMapping(value = "/area/upload/{filename}", method = RequestMethod.GET)
+    public RedirectView readUploadAreaFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+
+
+        String areafile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
+        logger.info(areafile);
+
+
+        return new RedirectView("/scores/area");
+
+    }
+
+
 }
