@@ -44,7 +44,7 @@ public class LocationService {
         locations = readxlsx.getLocations(xlsxfile);
 //
         Location pending = new Location();
-        pending.setLocationname("未知");
+        pending.setLocationname("未排入");
         pending.setSchoolid("999999");
         pending.setCapacity(999);
 //

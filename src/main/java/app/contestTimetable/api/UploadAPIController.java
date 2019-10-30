@@ -42,6 +42,12 @@ public class UploadAPIController {
     TeamService teamService;
 
 
+    @Autowired
+    ScoresService scoresService;
+
+    @Autowired
+    ContestconfigService contestconfigService;
+
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //讀出上傳檔案內容
@@ -115,7 +121,24 @@ public class UploadAPIController {
         logger.info(areafile);
 
 
+        scoresService.updateAreaScores(areafile);
+
         return new RedirectView("/scores/area");
+
+    }
+
+    //讀出contestconfig上傳檔案內容
+    @RequestMapping(value = "/contestconfig/upload/{filename}", method = RequestMethod.GET)
+    public RedirectView readUploadContestconfigFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+
+
+        String configfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
+        logger.info(configfile);
+
+        contestconfigService.updateContestconfig(configfile);
+//        scoresService.updateAreaScores(areafile);
+
+        return new RedirectView("/contestconfig");
 
     }
 

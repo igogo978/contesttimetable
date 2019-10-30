@@ -23,9 +23,9 @@
 
             <div class="form-group">
 
-                <h2>Area page - Upload xlsx</h2>
+                <h2>Contestconfig page - Upload xlsx</h2>
                 <form method="POST" enctype="multipart/form-data"
-                    th:action="@{'/ticket/upload'}">
+                    th:action="@{'/contestconfig/upload'}">
                     <div class="input-group mb-1">
                         <div class="custom-file">
                             <input type="file" class="form-control-file btn
@@ -43,19 +43,13 @@
             </div>
 
             <div>
-                <a href="/examples/area.xlsx" class="btn btn-primary stretched-link">范例下载</a>
+                <a href="/examples/contestconfig.json" class="btn btn-primary stretched-link">范例下载</a>
             </div>
             <div th:if="${error}">
                 <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>
             </div>
 
-            <div>
-                <br>
-                <br>
-                <img src="/examples/taichung.png" alt="taichung district area">
-
-
-            </div>
+ 
         </div>
 
 

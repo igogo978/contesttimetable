@@ -5,6 +5,7 @@ import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.school.ContestItem;
 import app.contestTimetable.model.school.Contestid;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.XlsxService;
@@ -62,37 +63,37 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
 
         //读取竞赛设定档
-        String contestconfigfile = String.format("%s/%s", settingPath, "contestconfig.json");
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root;
-
-        if (new File(contestconfigfile).isFile()) {
-            //create ObjectMapper instance
-            System.out.println("读取设定档");
-            root = mapper.readTree(new File(contestconfigfile));
-            Contestconfig contestconfig = new Contestconfig();
-            contestconfig.setCount(root.get("count").asInt());
-
-            JsonNode node = root.get("setting");
-
-
-            for (JsonNode subnode : node) {
-
-                Integer id = subnode.get("id").asInt();
-
-                String description = subnode.get("description").asText();
-                contestconfig.setId(id);
-                contestconfig.setDescription(description);
-
-
-                subnode.get("contestgroup").forEach(element -> {
-                    contestconfig.getContestgroup().add(element.asText());
-                });
-
-                contestconfigrepository.save(contestconfig);
-                contestconfig.getContestgroup().clear();
-            }
-        }
+//        String contestconfigfile = String.format("%s/%s", settingPath, "contestconfig.json");
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode root;
+//
+//        if (new File(contestconfigfile).isFile()) {
+//            //create ObjectMapper instance
+//            System.out.println("读取设定档");
+//            root = mapper.readTree(new File(contestconfigfile));
+//            Contestconfig contestconfig = new Contestconfig();
+//            contestconfig.setCount(root.get("count").asInt());
+//
+//            JsonNode node = root.get("setting");
+//
+//
+//            for (JsonNode subnode : node) {
+//
+//                Integer id = subnode.get("id").asInt();
+//
+//                String description = subnode.get("description").asText();
+//                contestconfig.setId(id);
+//                contestconfig.setDescription(description);
+//
+//
+//                subnode.get("contestgroup").forEach(element -> {
+//                    contestconfig.getContestgroup().add(element.asText());
+//                });
+//
+//                contestconfigrepository.save(contestconfig);
+//                contestconfig.getContestgroup().clear();
+//            }
+//        }
 
 
         //读取参赛队伍
@@ -155,37 +156,37 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
 //        //读取场地
 //        //empty location records
-//        locationrepository.deleteAll();
-//        System.out.println("设定场地资料");
-//        String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
-//        ArrayList<Location> locations = new ArrayList<>();
-//        locations = readxlsx.getLocations(locationfile);
+        locationrepository.deleteAll();
+        System.out.println("设定场地资料");
+        String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
+        ArrayList<Location> locations = new ArrayList<>();
+        locations = readxlsx.getLocations(locationfile);
+
+        Location pending = new Location();
+        pending.setLocationname("未知");
+        pending.setSchoolid("999999");
+        pending.setCapacity(999);
+
+        locations.add(pending);
+
+        locations.forEach(location -> {
+            School school = schoolrepository.findBySchoolname(location.getLocationname());
+            location.setSchoolid(school.getSchoolid());
+            contestconfigrepository.findAll().forEach(contestconfig -> {
+                Contestid contestid = new Contestid();
+                contestid.setContestid(contestconfig.getId());
+//                System.out.println(contestconfig.getId());
+                contestid.setMembers(location.getCapacity());
+                location.getContestids().add(contestid);
+            });
+
+        });
 //
-//        Location pending = new Location();
-//        pending.setLocationname("未知");
-//        pending.setSchoolid("999999");
-//        pending.setCapacity(999);
 //
-//        locations.add(pending);
-//
-//        locations.forEach(location -> {
-//            School school = schoolrepository.findBySchoolname(location.getLocationname());
-//            location.setSchoolid(school.getSchoolid());
-//            contestconfigrepository.findAll().forEach(contestconfig -> {
-//                Contestid contestid = new Contestid();
-//                contestid.setContestid(contestconfig.getId());
-////                System.out.println(contestconfig.getId());
-//                contestid.setMembers(location.getCapacity());
-//                location.getContestids().add(contestid);
-//            });
-//
-//        });
-//
-//
-//        //存入location
-//        locations.forEach(location -> {
-//            locationrepository.save(location);
-//        });
+        //存入location
+        locations.forEach(location -> {
+            locationrepository.save(location);
+        });
 
 
         //取出参赛学校

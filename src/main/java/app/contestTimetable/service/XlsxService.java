@@ -1,5 +1,6 @@
 package app.contestTimetable.service;
 
+import app.contestTimetable.model.Areascore;
 import app.contestTimetable.model.Ticket;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.School;
@@ -365,6 +366,62 @@ public class XlsxService {
             teams.add(team);
         }
         return teams;
+    }
+
+
+    public List<Areascore> getAreascore(String xlsx) throws IOException, InvalidFormatException {
+        List<Areascore> areas = new ArrayList<>();
+
+        Workbook workbook = WorkbookFactory.create(new File(xlsx));
+        // Return first sheet from the XLSX  workbook
+        Sheet sheet = workbook.getSheetAt(0);
+
+
+        // Get iterator to all the rows in current sheet
+        Iterator<Row> rowIterator = sheet.iterator();
+
+
+        //讀列
+        while (rowIterator.hasNext()) {
+            Areascore areascore = new Areascore();
+            Row row = rowIterator.next();
+
+            if (row.getRowNum() == 0) {  //ommit first row
+                continue;
+            }
+
+            //讀欄 For each row, iterate through each columns
+            Iterator<Cell> cellIterator = row.cellIterator();
+            String value = "";
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                cell.setCellType(CellType.STRING);
+
+                switch (cell.getColumnIndex()) {
+                    case 0:    //第一個欄位, 起
+                        value = String.valueOf(cell.getStringCellValue());
+                        areascore.setStartarea(value);
+                        break;
+                    case 1:    //第二個欄位, 迄
+                        value = String.valueOf(cell.getStringCellValue());
+                        areascore.setEndarea(value);
+                        break;
+
+                    case 2:    //第二個欄位, 得分
+                        value = String.valueOf(cell.getStringCellValue());
+                        areascore.setScores(Double.valueOf(value));
+                        break;
+
+
+                    default:
+                }
+            } //結束讀欄
+
+            areas.add(areascore);
+        }
+
+
+        return areas;
     }
 
 
