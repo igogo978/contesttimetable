@@ -25,8 +25,7 @@
                 <br>
                 <br>
 
-
-                <h2>参赛队伍资料档-zip档</h2>
+                <h2>上传试场资料档</h2>
                 <form method="POST" enctype="multipart/form-data"
                     th:action="@{'/location/upload'}">
                     <div class="input-group mb-1">
@@ -45,7 +44,7 @@
                 </form>
             </div>
             <div>
-                <a href="/examples/teams.zip" class="btn btn-primary stretched-link">范例下载</a>
+                <a href="/examples/location.xlsx" class="btn btn-primary stretched-link">范例下载</a>
             </div>
             <div th:if="${error}">
                 <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>

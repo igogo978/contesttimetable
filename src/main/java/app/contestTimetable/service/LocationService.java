@@ -42,14 +42,9 @@ public class LocationService {
 
         ArrayList<Location> locations = new ArrayList<>();
         locations = readxlsx.getLocations(xlsxfile);
-//
-        Location pending = new Location();
-        pending.setLocationname("未排入");
-        pending.setSchoolid("999999");
-        pending.setCapacity(999);
-//
-        locations.add(pending);
-//
+
+
+
         locations.forEach(location -> {
             School school = schoolRepository.findBySchoolname(location.getLocationname());
             location.setSchoolid(school.getSchoolid());
@@ -61,6 +56,25 @@ public class LocationService {
             });
 
         });
+
+
+        //设定一空试场放无法排入参赛队伍
+        Location pending = new Location();
+        pending.setLocationname("未排入");
+        pending.setSchoolid("999999");
+        pending.setCapacity(999);
+
+        contestconfigRepository.findAll().forEach(contestconfig -> {
+            Contestid contestid = new Contestid();
+            contestid.setContestid(contestconfig.getId());
+            contestid.setMembers(999);
+            pending.getContestids().add(contestid);
+        });
+
+
+        locations.add(pending);
+
+
 
         //存入location
         locations.forEach(location -> {

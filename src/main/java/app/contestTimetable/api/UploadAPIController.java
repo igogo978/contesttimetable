@@ -42,6 +42,8 @@ public class UploadAPIController {
     TeamService teamService;
 
 
+
+
     @Autowired
     ScoresService scoresService;
 
@@ -107,7 +109,7 @@ public class UploadAPIController {
         teamService.updateTeam(teamzipfile);
 
 
-        return new RedirectView("/pocketlist/player");
+        return new RedirectView("/schoolteam");
 
     }
 

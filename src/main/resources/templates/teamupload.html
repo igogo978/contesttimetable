@@ -26,7 +26,7 @@
                 <br>
 
                 <div>
-                    schoolteam 上传后,要自动统计
+                    schoolteam 上传后,要自动统计, 请使用7-zip 压缩所有档案, 加上 cu  参数
                 </div>
                 <h2>上传参赛队伍zip档</h2>
                 <form method="POST" enctype="multipart/form-data"
@@ -51,6 +51,13 @@
             </div>
             <div th:if="${error}">
                 <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>
+            </div>
+
+
+            <div> 
+                <video width="640" height="480" src="/examples/ziputf8.mp4" controls="controls">
+                    您的浏览器不支持 video 标签。
+                </video>
             </div>
         </div>
 

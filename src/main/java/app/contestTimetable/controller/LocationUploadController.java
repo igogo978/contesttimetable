@@ -30,7 +30,7 @@ public class LocationUploadController {
     }
 
     @GetMapping(value = "/location/upload")
-    public String uploadReportUuid() {
+    public String uploadLocation() {
 
 
         return "locationupload";

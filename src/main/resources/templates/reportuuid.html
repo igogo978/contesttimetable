@@ -88,7 +88,7 @@
                                                     <input type="radio"
                                                         v-bind:value="team.schoolid"
                                                         v-model="checkedOut">
-                                                    {{team.name}}({{team.members}})&nbsp;&nbsp;距离:{{team.distance.toFixed(2)}}公尺
+                                                    {{team.name}}({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
                                                     <table>
                                                         <tr>
                                                             <td v-for="contest in

@@ -2,6 +2,8 @@ package app.contestTimetable.service;
 
 
 import app.contestTimetable.model.Team;
+import app.contestTimetable.repository.ContestconfigRepository;
+import app.contestTimetable.repository.TeamRepository;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -11,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class TeamService {
@@ -20,6 +25,16 @@ public class TeamService {
 
     @Autowired
     XlsxService readxlsx;
+
+    @Autowired
+    TeamRepository teamRepository;
+
+    @Autowired
+    SchoolTeamService schoolTeamService;
+
+
+    @Autowired
+    ContestconfigRepository contestconfigRepository;
 
 
     public void updateTeam(String zipFilePath) throws IOException {
@@ -31,12 +46,14 @@ public class TeamService {
 
         // create output directory if it doesn't exist
         if (!dstDir.exists()) {
-            logger.info("mkdir /tmp/team");
+            logger.info("zip file, mkdir /tmp/team ");
             dstDir.mkdirs();
         }
 
         //clean files in this directory
         Arrays.stream(new File(dstDirPath).listFiles()).forEach(File::delete);
+
+
 
         try (ZipArchiveInputStream inputStream = getZipFile(new File(zipFilePath))) {
 
@@ -45,6 +62,7 @@ public class TeamService {
 
                 OutputStream os = null;
                 try {
+                    logger.info(entry.getName());
                     String filename = String.format("%s.%s", System.currentTimeMillis(), "xlsx");
                     os = new BufferedOutputStream(new FileOutputStream(new File(dstDir, filename)));
                     //输出文件路径信息
@@ -61,13 +79,23 @@ public class TeamService {
             ArrayList<Team> teams = new ArrayList<>();
             teams = readxlsx.getTeams(dstDirPath);
 
-
-
-
             teams.forEach(team -> {
-                logger.info(team.getSchoolname());
-//                teamrepository.save(team);
+                teamRepository.save(team);
             });
+
+            //update contesttime in team.description
+            contestconfigRepository.findAll().forEach(contestconfig -> {
+                contestconfig.getContestgroup().forEach(contestgroup -> {
+                            teamRepository.findByContestitemContaining(contestgroup).forEach(team -> {
+                                team.setDescription(contestconfig.getDescription());
+                            });
+                        }
+                );
+            });
+
+            //统计每间学校各项目参赛人数
+            logger.info("统计每间学校各项目参赛人数");
+            schoolTeamService.updateSchoolTeam();
 
 
 

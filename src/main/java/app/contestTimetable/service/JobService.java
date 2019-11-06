@@ -50,7 +50,7 @@ public class JobService {
 //        job.setJobid(jobid);
 
         //取出场地
-        ArrayList<Location> locations = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
         locationrepository.findAll().forEach(location -> locations.add(location));
 
         //参赛学校
@@ -106,7 +106,7 @@ public class JobService {
         job.setGroup1size(teamgroup1.size());
         job.setGroup2size(teamgroup2.size());
 
-        job.setCount(contestconfig.getCount());
+//        job.setCount(contestconfig.getCount());
 
         return job;
     }

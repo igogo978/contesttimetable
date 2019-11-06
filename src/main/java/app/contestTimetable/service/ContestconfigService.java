@@ -37,7 +37,7 @@ public class ContestconfigService {
             logger.info("储存设定档");
             root = mapper.readTree(new File(configfile));
             Contestconfig contestconfig = new Contestconfig();
-            contestconfig.setCount(root.get("count").asInt());
+//            contestconfig.setCount(root.get("count").asInt());
 
             JsonNode node = root.get("setting");
 

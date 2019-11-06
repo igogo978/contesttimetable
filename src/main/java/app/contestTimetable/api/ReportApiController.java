@@ -96,7 +96,7 @@ public class ReportApiController {
         report.setUuid(node.get("uuid").asText());
 
         DecimalFormat df = new DecimalFormat(".##");
-        report.setDistance(Double.valueOf(df.format(node.get("totaldistance").asDouble())));
+        report.setDistance(Double.valueOf(df.format(node.get("totalscores").asDouble())));
         report.setReport(mapper.writeValueAsString(node.get("candidateList")));
         reportrepository.save(report);
 //        logger.info(mapper.writeValueAsString(node.get("candidateList")));
