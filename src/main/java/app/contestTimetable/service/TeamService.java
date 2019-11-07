@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class TeamService {
@@ -62,9 +60,9 @@ public class TeamService {
 
                 OutputStream os = null;
                 try {
-                    logger.info(entry.getName());
-                    String filename = String.format("%s.%s", System.currentTimeMillis(), "xlsx");
-                    os = new BufferedOutputStream(new FileOutputStream(new File(dstDir, filename)));
+//                    logger.info(entry.getName());
+//                    String filename = String.format("%s.%s", System.currentTimeMillis(), "xlsx");
+                    os = new BufferedOutputStream(new FileOutputStream(new File(dstDir, entry.getName())));
                     //输出文件路径信息
                     IOUtils.copy(inputStream, os);
                 } finally {
@@ -76,7 +74,7 @@ public class TeamService {
 
         //2. read data from xlsx
             //读取参赛队伍
-            ArrayList<Team> teams = new ArrayList<>();
+            List<Team> teams = new ArrayList<>();
             teams = readxlsx.getTeams(dstDirPath);
 
             teams.forEach(team -> {

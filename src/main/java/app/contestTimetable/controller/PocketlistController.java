@@ -18,9 +18,15 @@ public class PocketlistController {
 
 
     @GetMapping(value = "/pocketlist/player")
-    public String getPlayer() {
+    public String getPocketlistByPlayer() {
 
         return "pocketlistplayer";
+    }
+
+    @GetMapping(value = "/pocketlist/location")
+    public String getPocketlistByLocation() {
+
+        return "pocketlistlocation";
     }
 
 }

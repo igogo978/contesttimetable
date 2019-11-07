@@ -69,4 +69,15 @@ public class PocketlistApiController {
     }
 
 
+    @GetMapping(value = "/api/pocket/location")
+    public List<Team> getPocketListByLocation() throws IOException {
+//        List<Pocketlist> pocketlist = new ArrayList<>();
+//        pocketlistRepository.findAll().forEach(pocketlist::add);
+        final List<Team> teams = new ArrayList<>();
+        teamRepository.findAllByOrderByLocation().forEach(teams::add);
+
+        return teams;
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package app.contestTimetable.controller;
+package app.contestTimetable.api;
 
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.LocationRepository;
@@ -18,7 +18,7 @@ public class LocationController {
     LocationRepository repository;
 
 
-    @RequestMapping("/location")
+    @RequestMapping("/api/location")
     public List<Location> getItems() {
         List<Location> items = new ArrayList<>();
 

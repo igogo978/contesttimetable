@@ -109,7 +109,7 @@ public class UploadAPIController {
         teamService.updateTeam(teamzipfile);
 
 
-        return new RedirectView("/schoolteam");
+        return new RedirectView("/api/schoolteam");
 
     }
 

@@ -16,7 +16,7 @@ public class SchoolteamController {
     @Autowired
     SchoolTeamService schoolteamservice;
 
-    @GetMapping(value = "/schoolteam")
+    @GetMapping(value = "/api/schoolteam")
     public List<SchoolTeam> getSchoolteam() {
 
         return schoolteamservice.getSchoolTeams();

@@ -101,9 +101,9 @@ public class XlsxService {
     }
 
 
-    public ArrayList<Team> getTeams(String docPath) throws IOException {
-        ArrayList<Team> allitems = new ArrayList<>();
-        ArrayList<List<Team>> groupitems = new ArrayList<>();
+    public List<Team> getTeams(String docPath) throws IOException {
+        List<Team> teams = new ArrayList<>();
+        List<List<Team>> groupitems = new ArrayList<>();
         List<Path> xlsxPaths = new ArrayList<>();
         try (Stream<Path> paths = Files.walk(Paths.get(docPath))) {
             paths.filter(Files::isRegularFile)
@@ -126,9 +126,10 @@ public class XlsxService {
             Matcher matchPresentation = presentationregex.matcher(xlsx.toString());
             Matcher matchPainting = paintingregex.matcher(xlsx.toString());
 
-
+            logger.info(xlsx.toString());
             try {
                 if (matchPresentation.find()) {
+                    logger.info("簡報:"+xlsx.toString());
                     //簡報多一隊員欄位
                     groupitems.add(readPresentationTeams(xlsx.toString()));
 
@@ -143,13 +144,13 @@ public class XlsxService {
                 e.printStackTrace();
             }
 
-            //打散塞進allitems裡
+            //打散塞進items裡
             groupitems.forEach(items -> {
-                items.forEach(team -> allitems.add(team));
+                items.forEach(team -> teams.add(team));
             });
             groupitems.clear();
         });
-        return allitems;
+        return teams;
     }
 
 

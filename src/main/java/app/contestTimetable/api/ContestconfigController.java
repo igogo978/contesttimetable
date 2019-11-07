@@ -18,7 +18,7 @@ public class ContestconfigController {
     @Autowired
     ContestconfigRepository contestconfigRepository;
 
-    @RequestMapping("/contestconfig")
+    @RequestMapping("/api/contestconfig")
     public List<Contestconfig> getContestconfig() {
         List<Contestconfig> configs = new ArrayList<>();
         contestconfigRepository.findAll().forEach(configs::add);

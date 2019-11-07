@@ -18,7 +18,7 @@ public class Report {
     @Column( columnDefinition = "text")
     private String report;
 
-    private double distance;
+    private double scores;
 
     public String getUuid() {
         return uuid;
@@ -44,11 +44,11 @@ public class Report {
         this.report = report;
     }
 
-    public double getDistance() {
-        return distance;
+    public double getScores() {
+        return scores;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setScores(double scores) {
+        this.scores = scores;
     }
 }

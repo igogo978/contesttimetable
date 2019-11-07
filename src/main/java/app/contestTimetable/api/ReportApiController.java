@@ -36,7 +36,7 @@ public class ReportApiController {
 
 
     @Autowired
-    ReportRepository reportrepository;
+    ReportRepository reportRepository;
 
     @Autowired
     TicketRepository ticketrepository;
@@ -68,16 +68,16 @@ public class ReportApiController {
     @GetMapping(value = "/api/report")
     public List<Report> getReports() {
         List<Report> reports = new ArrayList<>();
-        reportrepository.findAll().forEach(reports::add);
+//        reportrepository.findAll().forEach(reports::add);
 
-        return reports;
+        return reportRepository.findTop10ByOrderByScoresAsc();
 
     }
 
 
     @GetMapping(value = "/api/report/uuid/{uuid}")
     public Report getReport(@PathVariable("uuid") String uuid) {
-        Optional<Report> report = reportrepository.findByUuid(uuid);
+        Optional<Report> report = reportRepository.findByUuid(uuid);
         if (report.isPresent()) {
             return report.get();
         }
@@ -96,9 +96,9 @@ public class ReportApiController {
         report.setUuid(node.get("uuid").asText());
 
         DecimalFormat df = new DecimalFormat(".##");
-        report.setDistance(Double.valueOf(df.format(node.get("totalscores").asDouble())));
+        report.setScores(Double.valueOf(df.format(node.get("totalscores").asDouble())));
         report.setReport(mapper.writeValueAsString(node.get("candidateList")));
-        reportrepository.save(report);
+        reportRepository.save(report);
 //        logger.info(mapper.writeValueAsString(node.get("candidateList")));
 
 //        logger.info("save return report:");
@@ -118,7 +118,7 @@ public class ReportApiController {
 //        logger.info("download selected report");
 
 
-        Optional<Report> report = reportrepository.findByUuid(uuid);
+        Optional<Report> report = reportRepository.findByUuid(uuid);
 
 //        ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
@@ -152,7 +152,7 @@ public class ReportApiController {
         String response = null;
         Report report = new Report();
         if (reportservice.isExistUuid(uuid)) {
-            report = reportrepository.findByUuid(uuid).get();
+            report = reportRepository.findByUuid(uuid).get();
 //            reportservice.updateTicket(report);
             ticketrepository.deleteAll();
 //            response = reportservice.updateTicket(report);
@@ -170,7 +170,7 @@ public class ReportApiController {
                 Selectedreport selectedreport = new Selectedreport();
                 selectedreport.setContestid(contestid);
                 selectedreport.setReport(report.getReport());
-                selectedreport.setDistance(report.getDistance());
+                selectedreport.setDistance(report.getScores());
 
                 selectedreportrepository.save(selectedreport);
             }

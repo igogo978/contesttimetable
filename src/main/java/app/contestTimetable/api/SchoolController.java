@@ -16,7 +16,7 @@ public class SchoolController {
     @Autowired
     SchoolRepository repository;
 
-    @RequestMapping("/school")
+    @RequestMapping("/api/school")
     public List<School> getSchool() {
         List<School> items = new ArrayList<>();
 
