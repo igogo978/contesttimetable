@@ -120,18 +120,18 @@ public class ContestTimetableApplication implements CommandLineRunner {
 //        });
 
 
-        //读取台中市学校名单
-        String tcschool = String.format("%s/%s", settingPath, "tcschool.xlsx");
-
-        List<School> schools = new ArrayList<>();
-        schools = readxlsx.getSchools(tcschool);
-        ArrayList<School> tcschools = new ArrayList<>();
-
-
-        schools.forEach(school -> {
-
-            schoolrepository.save(school);
-        });
+//        //读取台中市学校名单
+//        String tcschool = String.format("%s/%s", settingPath, "tcschool.xlsx");
+//
+//        List<School> schools = new ArrayList<>();
+//        schools = readxlsx.getSchools(tcschool);
+//        ArrayList<School> tcschools = new ArrayList<>();
+//
+//
+//        schools.forEach(school -> {
+//
+//            schoolrepository.save(school);
+//        });
 
 
 //        List<String> areas = new ArrayList<>();

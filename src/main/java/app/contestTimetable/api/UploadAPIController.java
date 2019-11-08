@@ -41,6 +41,9 @@ public class UploadAPIController {
     @Autowired
     TeamService teamService;
 
+    @Autowired
+    SchoolService schoolService;
+
 
 
 
@@ -141,6 +144,20 @@ public class UploadAPIController {
 //        scoresService.updateAreaScores(areafile);
 
         return new RedirectView("/contestconfig");
+
+    }
+
+
+    //讀出contestconfig上傳檔案內容
+    @RequestMapping(value = "/school/upload/{filename}", method = RequestMethod.GET)
+    public RedirectView readUploadSchoolFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+
+
+        String csvfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
+
+        schoolService.updateSchool(csvfile);
+
+        return new RedirectView("/api/school");
 
     }
 
