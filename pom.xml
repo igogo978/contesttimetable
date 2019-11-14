@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>app</groupId>
 	<artifactId>contestTimetable</artifactId>
-	<version>server-0.13</version>
+	<version>server16</version>
 	<name>contestTimetable</name>
 	<description>Demo project for Spring Boot</description>
 

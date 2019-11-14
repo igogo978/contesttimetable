@@ -39,12 +39,12 @@ public class TicketUploadController {
 
     //user upload page
     @PostMapping("/ticket/upload")
-    public String handleTeamsFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleTicketFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         logger.info("filename:" + file.getOriginalFilename());
         String filename = file.getOriginalFilename();
         storageService.store(file);
-        return "redirect:/area/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
+        return "redirect:/ticket/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
     }
 
 

@@ -45,8 +45,6 @@ public class UploadAPIController {
     SchoolService schoolService;
 
 
-
-
     @Autowired
     ScoresService scoresService;
 
@@ -71,9 +69,12 @@ public class UploadAPIController {
 
     }
 
-    //讀出上傳檔案內容
+
+
+
+//    //讀出ticket上傳檔案內容
     @RequestMapping(value = "/ticket/upload/{filename}", method = RequestMethod.GET)
-    public List<Ticket> readUploadTicketFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+    public RedirectView readUploadTicketFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
 
 
         String ticketxlsx = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
@@ -82,8 +83,7 @@ public class UploadAPIController {
         ticketService.updateTicket(tickets);
 
 //        return String.format("上传内容已成功写入资料库");
-        return tickets;
-
+        return new RedirectView("/api/ticket");
 
     }
 
@@ -98,7 +98,7 @@ public class UploadAPIController {
         locationService.updateLocation(locationxlsx);
 
 
-        return new RedirectView("/location");
+        return new RedirectView("/api/location");
 
     }
 
@@ -128,7 +128,7 @@ public class UploadAPIController {
 
         scoresService.updateAreaScores(areafile);
 
-        return new RedirectView("/scores/area");
+        return new RedirectView("/api/scores/area");
 
     }
 
@@ -143,7 +143,7 @@ public class UploadAPIController {
         contestconfigService.updateContestconfig(configfile);
 //        scoresService.updateAreaScores(areafile);
 
-        return new RedirectView("/contestconfig");
+        return new RedirectView("/api/contestconfig");
 
     }
 

@@ -14,6 +14,8 @@ public class Report {
 
     private Integer contestid;
 
+    private String scoresfrequency;
+
 
     @Column( columnDefinition = "text")
     private String report;
@@ -50,5 +52,13 @@ public class Report {
 
     public void setScores(double scores) {
         this.scores = scores;
+    }
+
+    public String getScoresfrequency() {
+        return scoresfrequency;
+    }
+
+    public void setScoresfrequency(String scoresfrequency) {
+        this.scoresfrequency = scoresfrequency;
     }
 }

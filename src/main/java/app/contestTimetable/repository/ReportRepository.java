@@ -16,5 +16,6 @@ public interface ReportRepository extends CrudRepository<Report, String> {
     List<Report> findTop10ByOrderByScoresAsc();
 
 
+
 //    List<Report> findTop20ByContestidOrderByScoresAsc(Integer contestid);
 }

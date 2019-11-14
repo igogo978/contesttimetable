@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -223,10 +224,29 @@ public class ReportService {
 
     }
 
-    public ArrayList<String> getReport(Report report) throws IOException {
+
+
+    public HashMap<Integer,Integer> getReportScoresrange(Report report) throws IOException {
+        HashMap<Integer,Integer> scoresrange = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<String> teams = new ArrayList<>();
+
+        JsonNode root = mapper.readTree(report.getReport());
+        root.forEach(location -> {
+            location.get("teams").forEach(school -> {
+                logger.info(String.valueOf(school.get("scores").asInt()));
+            });
+        });
+
+
+        return scoresrange;
+    }
+
+
+    public List<String> getReport(Report report) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
-        ArrayList<String> teams = new ArrayList<>();
+        List<String> teams = new ArrayList<>();
 //        String contestid = String.format("contestid,%s,   ", report.getContestid());
 //        teams.add(contestid);
         JsonNode root = mapper.readTree(report.getReport());

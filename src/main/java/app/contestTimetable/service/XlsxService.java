@@ -475,9 +475,9 @@ public class XlsxService {
     }
 
 
-    public ArrayList<School> getSchools(String docPath) throws IOException, InvalidFormatException {
+    public List<School> getSchools(String docPath) throws IOException, InvalidFormatException {
         //讀取檔案內容
-        ArrayList<School> schools = new ArrayList<>();
+        List<School> schools = new ArrayList<>();
 
         Workbook workbook = WorkbookFactory.create(new File(docPath));
 
@@ -517,12 +517,12 @@ public class XlsxService {
                         school.setSchoolname(value);
                         break;
                     case 2:    //第三個欄位, 學校
-                        value = String.valueOf(cell.getStringCellValue());
-                        school.setPosition(value);
+//                        value = String.valueOf(cell.getStringCellValue());
+//                        school.setPosition(value);
                         break;
                     case 3:    //第三個欄位, 姓名
-                        value = String.valueOf(cell.getStringCellValue());
-                        school.setXyposition(value);
+//                        value = String.valueOf(cell.getStringCellValue());
+//                        school.setXyposition(value);
                         break;
 
                     default:
@@ -645,7 +645,7 @@ public class XlsxService {
     }
 
 
-    public XSSFWorkbook create(ArrayList<String> teams) {
+    public XSSFWorkbook create(List<String> teams) {
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet("Sheet1");
 

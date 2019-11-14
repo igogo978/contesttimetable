@@ -19,7 +19,7 @@ public class Area {
     @Autowired
     AreascoreRepository areascoreRepository;
 
-    @GetMapping(value = "/scores/area")
+    @GetMapping(value = "/api/scores/area")
     public List<Areascore> getScoresByArea() throws IOException {
 
         List<Areascore> areas = new ArrayList<>();

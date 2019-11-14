@@ -12,8 +12,8 @@ public class School {
     private String schoolname;
 
 
-    private String position;
-    private String xyposition;
+//    private String position;
+//    private String xyposition;
 
     public School() {
     }
@@ -34,19 +34,5 @@ public class School {
         this.schoolname = schoolname;
     }
 
-    public String getPosition() {
-        return position;
-    }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getXyposition() {
-        return xyposition;
-    }
-
-    public void setXyposition(String xyposition) {
-        this.xyposition = xyposition;
-    }
 }

@@ -26,6 +26,7 @@
     </head>
     <body>
         <div class="container-fluid" id="app">
+                <p>更新时间：{{updateDatetime}}</p>
                 <br>
                 <br>
                 <div> 
@@ -288,7 +289,8 @@
                 checkedOut:'',
                 checkedIn:'',
                 locations: [],
-                updateUrl: ""
+                updateUrl: "",
+                updateDatetime: ""
             },
             computed: {
                 
@@ -350,10 +352,11 @@
                         }
                         
                     };
-                    
+                    let vm = this;
                     let url = "/api/pocketlist"
                     this.$http.post(url, JSON.stringify(this.items), config).then((response) => {
                     // success callback
+                    vm.updateDatetime = response.data;
                     console.log(response.data);
                         
                     }, (response) => {

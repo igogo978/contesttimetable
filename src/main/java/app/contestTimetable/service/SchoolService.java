@@ -38,7 +38,7 @@ public class SchoolService {
 
         schoolRepository.deleteAll();
         schools.forEach(school -> {
-            logger.info(String.format("%s",school.getSchoolname()));
+            logger.info(String.format("%s,%s",school.getSchoolid(),school.getSchoolname()));
             schoolRepository.save(school);
         });
     }

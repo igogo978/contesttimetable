@@ -21,19 +21,38 @@
 </head>
 <body>
         <div class="container" id="app">
-            
+            {{getScoresFrequency}}
 
             <div>
                     <table class="table">
                         <thead>
                             <td> </td>
                             <td>得分</td>
+                            <td>分数统计</td>
                             <td></td>
                         </thead>
                         <tbody>
                         <tr v-for="(item, index) in items">
                             <td>{{index+1}}</td>
                             <td>{{parseInt(item.scores)}}</td>
+                            <td>
+                                <table class="table-sm table-bordered">
+                                    <tr>
+                                        <td v-for="(scores,key) in JSON.parse(item.scoresfrequency)">
+                                            {{key}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td v-for="(scores,key) in JSON.parse(item.scoresfrequency)">
+                                            {{scores}}
+                                        </td>
+                                    </tr>
+                          
+                                   
+                                 
+                                   </table>
+                            </td>
                             <td>
                                     <a :href="'/report/uuid/'+item.uuid" target="_blank">詳細資料</a>
                                 
@@ -59,7 +78,7 @@
             data: {
                 msg: 'Hello Vue!',
                 contestid: /*[[${contestid}]]*/ 'default',
-                items: {}
+                items: []
             },
             created: function() {
                 let vm = this;
@@ -74,6 +93,16 @@
                 });
 
 
+            },
+            computed: {
+                getScoresFrequency: function(){
+                    let vm = this;
+                    if(vm.items.lengh != 0){
+                      vm.items.forEach(item => {
+                        //   console.log(JSON.parse(item.scoresfrequency));
+                      });
+                    }
+                }
             }
         })
 

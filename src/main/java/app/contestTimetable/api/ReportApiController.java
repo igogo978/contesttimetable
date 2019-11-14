@@ -5,9 +5,9 @@ import app.contestTimetable.model.Selectedreport;
 import app.contestTimetable.repository.ReportRepository;
 import app.contestTimetable.repository.SelectedreportRepository;
 import app.contestTimetable.repository.TicketRepository;
-import app.contestTimetable.service.XlsxService;
 import app.contestTimetable.service.ReportService;
 import app.contestTimetable.service.TicketService;
+import app.contestTimetable.service.XlsxService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,6 +87,7 @@ public class ReportApiController {
     }
 
 
+
     @PostMapping(value = "/api/report/uuid/{uuid}")
     public String postReport(@RequestBody String payload) throws IOException {
 
@@ -95,9 +97,12 @@ public class ReportApiController {
         JsonNode node = mapper.readTree(payload);
         report.setUuid(node.get("uuid").asText());
 
-        DecimalFormat df = new DecimalFormat(".##");
+        DecimalFormat df = new DecimalFormat(".#");
         report.setScores(Double.valueOf(df.format(node.get("totalscores").asDouble())));
         report.setReport(mapper.writeValueAsString(node.get("candidateList")));
+        report.setScoresfrequency(node.get("scoresFrequency").asText());
+//        logger.info(node.get("scoresFrequency").asText());
+
         reportRepository.save(report);
 //        logger.info(mapper.writeValueAsString(node.get("candidateList")));
 
@@ -123,7 +128,7 @@ public class ReportApiController {
 //        ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
 
-        ArrayList<String> teams = reportservice.getReport(report.get());
+        List<String> teams = reportservice.getReport(report.get());
         String filename = "report";
         //直接輸出
         XSSFWorkbook wb = createxlsx.create(teams);
@@ -144,6 +149,9 @@ public class ReportApiController {
 
 
     }
+
+
+
 
 
     @GetMapping(value = "/report/{contestid}/lock/{uuid}")

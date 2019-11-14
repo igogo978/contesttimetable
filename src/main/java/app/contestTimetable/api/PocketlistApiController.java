@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,11 @@ public class PocketlistApiController {
     public String postReport(@RequestBody String payload) throws IOException {
         pocketlistService.updatePocketlist(payload);
 
-        return payload;
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+
+        return dateTime.format(formatter);
     }
 
     @GetMapping(value = "/api/pocketlist")
