@@ -563,7 +563,7 @@
                     this.$http.get(url, config)
                         .then((response) => {
                             var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-                            saveAs(blob, vm.contestid + '.xlsx');
+                            saveAs(blob, 'player.xlsx');
                         });
 
 

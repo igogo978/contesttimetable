@@ -1,10 +1,10 @@
 package app.contestTimetable.service;
 
 import app.contestTimetable.model.Areascore;
-import app.contestTimetable.model.Ticket;
-import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
+import app.contestTimetable.model.Ticket;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.SchoolRepository;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
@@ -129,7 +129,7 @@ public class XlsxService {
             logger.info(xlsx.toString());
             try {
                 if (matchPresentation.find()) {
-                    logger.info("簡報:"+xlsx.toString());
+                    logger.info("簡報:" + xlsx.toString());
                     //簡報多一隊員欄位
                     groupitems.add(readPresentationTeams(xlsx.toString()));
 
@@ -640,6 +640,63 @@ public class XlsxService {
 
         }
 
+
+        return wb;
+    }
+
+
+    public XSSFWorkbook createPocketlist(List<Team> teams) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+
+
+        //title
+        row = sheet.createRow(0);
+
+        cell = row.createCell(0);
+        cell.setCellValue("序");
+
+        cell = row.createCell(1);
+        cell.setCellValue("試場");
+
+        cell = row.createCell(2);
+        cell.setCellValue("項目類別");
+
+        cell = row.createCell(3);
+        cell.setCellValue("學校");
+
+        cell = row.createCell(4);
+        cell.setCellValue("姓名");
+
+        for (int i = 0; i < teams.size(); i++) {
+            row = sheet.createRow(i+1);
+
+            cell = row.createCell(0);
+            cell.setCellValue(i+1);
+
+            cell = row.createCell(1);
+            cell.setCellValue(teams.get(i).getLocation());
+
+            cell = row.createCell(2);
+            cell.setCellValue(teams.get(i).getContestitem());
+
+            cell = row.createCell(3);
+            cell.setCellValue(teams.get(i).getSchoolname());
+
+            cell = row.createCell(4);
+            if (teams.get(i).getMembername() != null) {
+                cell.setCellValue(String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername()));
+            } else {
+                cell.setCellValue(teams.get(i).getUsername());
+            }
+
+
+        }
 
         return wb;
     }
