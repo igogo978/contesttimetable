@@ -71,7 +71,7 @@ public class ReportApiController {
         List<Report> reports = new ArrayList<>();
 //        reportrepository.findAll().forEach(reports::add);
 
-        return reportRepository.findTop30ByOrderByScoresAsc();
+        return reportRepository.findTop50ByOrderByScoresAsc();
 
     }
 

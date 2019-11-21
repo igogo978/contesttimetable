@@ -37,16 +37,11 @@ public class ReportController {
 //    }
 
     @GetMapping(value = "/report")
-    public String getReportContestid() {
-//        ArrayList<Report> reports = new ArrayList<>();
-//        reports = reportrepository.findByContestid(contestid);
-
-//        model.addAttribute("contestid", contestid);
+    public String getReport() {
 
         return "report";
 
     }
-
 
 
 
@@ -57,6 +52,10 @@ public class ReportController {
         return "reportuuid";
 
     }
+
+
+
+
 
 
 }

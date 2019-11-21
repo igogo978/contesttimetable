@@ -13,7 +13,7 @@ public interface ReportRepository extends CrudRepository<Report, String> {
 
     Integer countByUuid(String uuid);
 
-    List<Report> findTop30ByOrderByScoresAsc();
+    List<Report> findTop50ByOrderByScoresAsc();
 
 
 

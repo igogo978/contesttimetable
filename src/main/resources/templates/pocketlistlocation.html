@@ -29,6 +29,7 @@
         <div class="container" id="app">
             <div class="text-center">
                     決賽試場_選手名單_by location
+                    <button @click="downloadReport"  type="button"  class="btn btn-primary"> 下载 </button>
             </div>
             <div>
                     <table class="table">
@@ -46,7 +47,11 @@
                                 <td> {{index+1}} </td>
                                 <td> {{item.schoolname}} </td>
                                 <td> {{item.contestitem}} </td>
-                                <td> {{item.username}},{{item.membername}} </td>
+                                <td> {{item.username}}
+                                    <div v-if="item.membername != null">
+                                            {{item.membername}} 
+                                    </div>
+                                </td>
                                 <td> {{item.location}} </td>
                                 <td> {{item.description}} </td>
                             </tr>
@@ -98,6 +103,24 @@
             methods: {
                 say:function(){
                     console.log("hello,world");
+
+                },
+                downloadReport: function(){
+                    let config = {
+                        headers: {
+                            'content-type': 'application/json;CHARSET=UTF-8'
+                        },
+                        responseType: 'arraybuffer'
+                    };
+
+                    let url = "/api/pocketlist/location/download";
+                    let vm = this;
+                    this.$http.get(url, config)
+                        .then((response) => {
+                            var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                            saveAs(blob, 'player.xlsx');
+                        });
+
 
                 }
             }

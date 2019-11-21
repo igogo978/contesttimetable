@@ -46,24 +46,26 @@
             <div>
                     <table class="table">
                             <thead>
-                                <!--<td>代码</td>-->
-                                <td>場地</td>
-                                <td>尚有電腦数</td>
-                                <td>參賽隊-人數-距離</td>
-                                <td>
+                                <!-- <td>代码</td> -->
+                                <td>试場</td>
+                                <!-- <td>尚有電腦数</td> -->
+                                <td>参赛学校</td>
+                                <!-- <td>
                                     <button type="button" @click="updatePocketlist" class="btn btn-success active float-right"
                                     role="button" aria-pressed="true">储存</button>
-        
-                                </td>
+                                </td> -->
                         </thead>
                         <tbody>
                             <tr v-for="item in items">
                                 <td>
-                                    {{item.location.name}}
+                                    {{item.locationname}}
+                                </td>
+                                <td>
+                                    {{item.schoolname}}
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> 
                 
             </div>
 
@@ -103,8 +105,8 @@
                 this.$http.get(url, config).then((response) => {
                     console.log(response.data);
                     let vm = this;
-
-                    vm.items = JSON.parse(response.data.report);
+                    vm.items = (response.data);
+                    // vm.items = JSON.parse(response.data);
                     // let tmpItems = JSON.parse(response.data.report);
 
                     // tmpItems.forEach(function(item){

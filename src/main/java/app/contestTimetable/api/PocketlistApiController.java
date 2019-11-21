@@ -76,8 +76,6 @@ public class PocketlistApiController {
 
     @GetMapping(value = "/api/pocketlist/player")
     public List<Team> getPocketListByPlayer() throws IOException {
-//        List<Pocketlist> pocketlist = new ArrayList<>();
-//        pocketlistRepository.findAll().forEach(pocketlist::add);
         final List<Team> teams = new ArrayList<>();
         teamRepository.findAllByOrderBySchoolname().forEach(teams::add);
 
@@ -91,11 +89,9 @@ public class PocketlistApiController {
         final List<Team> teams = new ArrayList<>();
         teamRepository.findAllByOrderBySchoolname().forEach(teams::add);
 
-
-
         String filename = "report";
         //直接輸出
-        XSSFWorkbook wb = xlsxService.createPocketlist(teams);
+        XSSFWorkbook wb = xlsxService.createPocketlistByPlayer(teams);
 
         ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
         wb.write(resourceStream);
@@ -115,6 +111,9 @@ public class PocketlistApiController {
     }
 
 
+
+
+
     @GetMapping(value = "/api/pocket/location")
     public List<Team> getPocketListByLocation() throws IOException {
 //        List<Pocketlist> pocketlist = new ArrayList<>();
@@ -123,6 +122,36 @@ public class PocketlistApiController {
         teamRepository.findAllByOrderByLocation().forEach(teams::add);
 
         return teams;
+    }
+
+
+    @GetMapping(value = "/api/pocketlist/location/download")
+    public ResponseEntity<Resource> downloadPocketlistReportByLocation() throws IOException {
+
+        final List<Team> teams = new ArrayList<>();
+        teamRepository.findAllByOrderByLocation().forEach(teams::add);
+
+
+
+        String filename = "report";
+        //直接輸出
+        XSSFWorkbook wb = xlsxService.createSelectedReportByLocation(teams);
+
+        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+        wb.write(resourceStream);
+        wb.close();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
+        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", "player"));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        return ResponseEntity.ok().headers(headers).body(resource);
+
+
     }
 
 

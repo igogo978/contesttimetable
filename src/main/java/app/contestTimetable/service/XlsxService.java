@@ -645,7 +645,7 @@ public class XlsxService {
     }
 
 
-    public XSSFWorkbook createPocketlist(List<Team> teams) {
+    public XSSFWorkbook createPocketlistByPlayer(List<Team> teams) {
         XSSFWorkbook wb = new XSSFWorkbook();
 
         XSSFSheet sheet = wb.createSheet("Sheet1");
@@ -700,6 +700,76 @@ public class XlsxService {
 
         return wb;
     }
+
+
+    public XSSFWorkbook createPocketlistByLocation(List<Team> teams) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+
+
+        //title
+        row = sheet.createRow(0);
+
+        cell = row.createCell(0);
+        cell.setCellValue("序");
+
+        cell = row.createCell(1);
+        cell.setCellValue("學校");
+
+        cell = row.createCell(2);
+        cell.setCellValue("項目類別");
+
+        cell = row.createCell(3);
+        cell.setCellValue("姓名");
+
+
+        cell = row.createCell(4);
+        cell.setCellValue("試場");
+
+        cell = row.createCell(5);
+        cell.setCellValue("時間");
+
+        for (int i = 0; i < teams.size(); i++) {
+            row = sheet.createRow(i+1);
+
+            cell = row.createCell(0);
+            cell.setCellValue(i+1);
+
+            cell = row.createCell(1);
+            cell.setCellValue(teams.get(i).getLocation());
+
+            cell = row.createCell(2);
+            cell.setCellValue(teams.get(i).getContestitem());
+
+            cell = row.createCell(3);
+            cell.setCellValue(teams.get(i).getSchoolname());
+
+            cell = row.createCell(4);
+            if (teams.get(i).getMembername() != null) {
+                cell.setCellValue(String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername()));
+            } else {
+                cell.setCellValue(teams.get(i).getUsername());
+            }
+
+            cell = row.createCell(5);
+            cell.setCellValue(teams.get(i).getDescription());
+
+
+        }
+
+        return wb;
+    }
+
+
+
+
+
+
 
 
     public XSSFWorkbook create(List<String> teams) {
