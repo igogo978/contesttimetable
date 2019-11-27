@@ -25,8 +25,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,23 +56,13 @@ public class ReportApiController {
     XlsxService createxlsx;
 
 
-//    @GetMapping(value = "/api/report/{contestid}")
-//    public ArrayList<Report> getReports(@PathVariable("contestid") int contestid) {
-//        ArrayList<Report> reports = new ArrayList<>();
-//        reports = reportrepository.findTop30ByContestidOrderByDistanceAsc(contestid);
-//
-//
-//        return reports;
-//
-//    }
-
 
     @GetMapping(value = "/api/report")
     public List<Report> getReports() {
         List<Report> reports = new ArrayList<>();
-//        reportrepository.findAll().forEach(reports::add);
+//        reportRepository.findAll().forEach(reports::add);
 
-        return reportRepository.findTop50ByOrderByScoresAsc();
+        return reportRepository.findAllByOrderByScoresAsc();
 
     }
 
@@ -87,12 +78,10 @@ public class ReportApiController {
     }
 
 
-
     @PostMapping(value = "/api/report/uuid/{uuid}")
     public String postReport(@RequestBody String payload) throws IOException {
 
         Report report = new Report();
-//        logger.info("update report:" + payload);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(payload);
         report.setUuid(node.get("uuid").asText());
@@ -101,17 +90,14 @@ public class ReportApiController {
         report.setScores(Double.valueOf(df.format(node.get("totalscores").asDouble())));
         report.setReport(mapper.writeValueAsString(node.get("candidateList")));
         report.setScoresfrequency(node.get("scoresFrequency").asText());
-//        logger.info(node.get("scoresFrequency").asText());
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+
+        logger.info("update a new report:" + dateTime.format(formatter));
 
         reportRepository.save(report);
-//        logger.info(mapper.writeValueAsString(node.get("candidateList")));
 
-//        logger.info("save return report:");
-//        logger.info(mapper.writeValueAsString(node.get("candidateList")));
-//        report.setReport(mapper.writeValueAsString(node.get("candidateList")));
-//        report.setDistance(node.get("totaldistance").asDouble());
-//        report.setContestid(Integer.valueOf(id));
-//        reportrepository.save(report);
 
         return payload;
     }
@@ -149,9 +135,6 @@ public class ReportApiController {
 
 
     }
-
-
-
 
 
     @GetMapping(value = "/report/{contestid}/lock/{uuid}")

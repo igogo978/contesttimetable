@@ -397,7 +397,7 @@ public class XlsxService {
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
                 cell.setCellType(CellType.STRING);
-
+                areascore.setScores(9999.9999);
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 起
                         value = String.valueOf(cell.getStringCellValue());
@@ -418,7 +418,13 @@ public class XlsxService {
                 }
             } //結束讀欄
 
-            areas.add(areascore);
+            if (areascore.getScores() != 9999.9999) {
+//                logger.info(String.format("%s,%s,%f", areascore.getStartarea(), areascore.getEndarea(), areascore.getScores()));
+                areas.add(areascore);
+            } else {
+                logger.info(String.format("%s-%s 无记录", areascore.getStartarea(), areascore.getEndarea()));
+
+            }
         }
 
 
@@ -674,10 +680,10 @@ public class XlsxService {
         cell.setCellValue("姓名");
 
         for (int i = 0; i < teams.size(); i++) {
-            row = sheet.createRow(i+1);
+            row = sheet.createRow(i + 1);
 
             cell = row.createCell(0);
-            cell.setCellValue(i+1);
+            cell.setCellValue(i + 1);
 
             cell = row.createCell(1);
             cell.setCellValue(teams.get(i).getLocation());
@@ -735,10 +741,10 @@ public class XlsxService {
         cell.setCellValue("時間");
 
         for (int i = 0; i < teams.size(); i++) {
-            row = sheet.createRow(i+1);
+            row = sheet.createRow(i + 1);
 
             cell = row.createCell(0);
-            cell.setCellValue(i+1);
+            cell.setCellValue(i + 1);
 
             cell = row.createCell(1);
             cell.setCellValue(teams.get(i).getLocation());
@@ -764,12 +770,6 @@ public class XlsxService {
 
         return wb;
     }
-
-
-
-
-
-
 
 
     public XSSFWorkbook create(List<String> teams) {
