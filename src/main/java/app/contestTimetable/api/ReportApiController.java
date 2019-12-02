@@ -56,13 +56,36 @@ public class ReportApiController {
     XlsxService createxlsx;
 
 
-
     @GetMapping(value = "/api/report")
     public List<Report> getReports() {
         List<Report> reports = new ArrayList<>();
 //        reportRepository.findAll().forEach(reports::add);
 
         return reportRepository.findAllByOrderByScoresAsc();
+
+    }
+
+    @GetMapping(value = "/api/report/download")
+    public ResponseEntity<Resource> downloadReport() throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        List<Report> reports = new ArrayList<>();
+
+        reportRepository.findAll().forEach(reports::add);
+
+        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+//        wb.write(resourceStream);
+        resourceStream.write(mapper.writeValueAsBytes(reports));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
+        headers.setContentDispositionFormData("attachment", String.format("%s.json", "reports"));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        return ResponseEntity.ok().headers(headers).body(resource);
 
     }
 

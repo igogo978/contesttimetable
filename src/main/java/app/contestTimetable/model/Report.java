@@ -12,7 +12,7 @@ public class Report {
     private String uuid;
 
 
-    private Integer contestid;
+//    private Integer contestid;
 
     private String scoresfrequency;
 
@@ -30,13 +30,13 @@ public class Report {
         this.uuid = uuid;
     }
 
-    public Integer getContestid() {
-        return contestid;
-    }
-
-    public void setContestid(Integer contestid) {
-        this.contestid = contestid;
-    }
+//    public Integer getContestid() {
+//        return contestid;
+//    }
+//
+//    public void setContestid(Integer contestid) {
+//        this.contestid = contestid;
+//    }
 
     public String getReport() {
         return report;

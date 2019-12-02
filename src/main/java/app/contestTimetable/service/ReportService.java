@@ -1,7 +1,9 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.*;
+import app.contestTimetable.model.Contestconfig;
+import app.contestTimetable.model.Report;
+import app.contestTimetable.model.Team;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
@@ -198,12 +200,12 @@ public class ReportService {
 //        JsonNode root = mapper.readTree(selectedreport.getReport());
         JsonNode root = mapper.readTree(report.getReport());
 
-        Contestconfig config = contestconfigrepository.findById(report.getContestid()).get();
+//        Contestconfig config = contestconfigrepository.findById(report.getContestid()).get();
 
-        List<String> contestgroup = config.getContestgroup();
-        contestgroup.forEach(groupname -> {
-            teamrepository.findByContestitemContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
-        });
+//        List<String> contestgroup = config.getContestgroup();
+//        contestgroup.forEach(groupname -> {
+//            teamrepository.findByContestitemContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
+//        });
 
 
         root.forEach(node -> {
