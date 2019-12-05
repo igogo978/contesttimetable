@@ -160,47 +160,55 @@ public class ReportApiController {
     }
 
 
-    @GetMapping(value = "/report/{contestid}/lock/{uuid}")
-    public String lockReportInContestid(@PathVariable("contestid") int contestid,
-                                        @PathVariable("uuid") String uuid) throws IOException {
-        String response = null;
-        Report report = new Report();
-        if (reportservice.isExistUuid(uuid)) {
-            report = reportRepository.findByUuid(uuid).get();
-//            reportservice.updateTicket(report);
-            ticketrepository.deleteAll();
-//            response = reportservice.updateTicket(report);
-            response = report.getReport();
+//    @GetMapping(value = "/report/{contestid}/lock/{uuid}")
+//    public String lockReportInContestid(@PathVariable("contestid") int contestid,
+//                                        @PathVariable("uuid") String uuid) throws IOException {
+//        String response = null;
+//        Report report = new Report();
+//        if (reportservice.isExistUuid(uuid)) {
+//            report = reportRepository.findByUuid(uuid).get();
+////            reportservice.updateTicket(report);
+//            ticketrepository.deleteAll();
+////            response = reportservice.updateTicket(report);
+//            response = report.getReport();
+//
+//            ObjectMapper mapper = new ObjectMapper();
+//            JsonNode root = mapper.readTree(response);
+//
+//            //update ticket
+//            ticketservice.updateTicket(report);
+//
+//
+//            //update selected report
+//            if (selectedreportrepository.countByContestid(contestid) == 0) {
+//                Selectedreport selectedreport = new Selectedreport();
+//                selectedreport.setContestid(contestid);
+//                selectedreport.setReport(report.getReport());
+//                selectedreport.setDistance(report.getScores());
+//
+//                selectedreportrepository.save(selectedreport);
+//            }
+//
+//            //update team's location
+//            logger.info("update team location");
+//            reportservice.updateTeamLocation(report);
+//
+//
+//        } else {
+//            response = "no uuid records";
+//        }
+//
+//
+//        return response;
+//
+//    }
 
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(response);
 
-            //update ticket
-            ticketservice.updateTicket(report);
-
-
-            //update selected report
-            if (selectedreportrepository.countByContestid(contestid) == 0) {
-                Selectedreport selectedreport = new Selectedreport();
-                selectedreport.setContestid(contestid);
-                selectedreport.setReport(report.getReport());
-                selectedreport.setDistance(report.getScores());
-
-                selectedreportrepository.save(selectedreport);
-            }
-
-            //update team's location
-            logger.info("update team location");
-            reportservice.updateTeamLocation(report);
-
-
-        } else {
-            response = "no uuid records";
-        }
-
-
-        return response;
-
+    @DeleteMapping(value = "/api/report")
+    public void deleteReports() {
+        logger.info("delete reports");
+        reportRepository.deleteAll();
     }
+
 
 }

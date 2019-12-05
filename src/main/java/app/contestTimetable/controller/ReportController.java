@@ -54,6 +54,14 @@ public class ReportController {
     }
 
 
+    @GetMapping(value = "/report/restore")
+    public String reportRestore() {
+
+        return "reportrestore";
+
+    }
+
+
 
 
 

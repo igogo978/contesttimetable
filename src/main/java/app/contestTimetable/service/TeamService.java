@@ -1,8 +1,11 @@
 package app.contestTimetable.service;
 
 
+import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Team;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.ContestconfigRepository;
+import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.TeamRepository;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
@@ -34,6 +37,9 @@ public class TeamService {
     @Autowired
     ContestconfigRepository contestconfigRepository;
 
+    @Autowired
+    LocationRepository locationRepository;
+
 
     public void updateTeam(String zipFilePath) throws IOException {
 
@@ -50,7 +56,6 @@ public class TeamService {
 
         //clean files in this directory
         Arrays.stream(new File(dstDirPath).listFiles()).forEach(File::delete);
-
 
 
         try (ZipArchiveInputStream inputStream = getZipFile(new File(zipFilePath))) {
@@ -72,7 +77,7 @@ public class TeamService {
             }
 
 
-        //2. read data from xlsx
+            //2. read data from xlsx
             //读取参赛队伍
             List<Team> teams = new ArrayList<>();
             teams = readxlsx.getTeams(dstDirPath);
@@ -96,7 +101,6 @@ public class TeamService {
             schoolTeamService.updateSchoolTeam();
 
 
-
         } catch (Exception e) {
             logger.error("[unzip] 解压zip文件出错", e);
         }
@@ -106,5 +110,8 @@ public class TeamService {
     private static ZipArchiveInputStream getZipFile(File zipFile) throws Exception {
         return new ZipArchiveInputStream(new BufferedInputStream(new FileInputStream(zipFile)));
     }
+
+
+
 
 }

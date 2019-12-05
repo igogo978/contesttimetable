@@ -70,9 +70,7 @@ public class UploadAPIController {
     }
 
 
-
-
-//    //讀出ticket上傳檔案內容
+    //    //讀出ticket上傳檔案內容
     @RequestMapping(value = "/ticket/upload/{filename}", method = RequestMethod.GET)
     public RedirectView readUploadTicketFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
 
@@ -158,6 +156,20 @@ public class UploadAPIController {
         schoolService.updateSchool(csvfile);
 
         return new RedirectView("/api/school");
+
+    }
+
+
+    //讀出reportrestore上傳檔案內容
+    @RequestMapping(value = "/report/restore/upload/{filename}", method = RequestMethod.GET)
+    public RedirectView readUploadReportRestoreFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+
+
+        String jsonfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
+
+        reportservice.restoreReportJson(jsonfile);
+
+        return new RedirectView("/report/");
 
     }
 

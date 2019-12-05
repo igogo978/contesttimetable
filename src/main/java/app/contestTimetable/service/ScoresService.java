@@ -46,7 +46,7 @@ public class ScoresService {
 
         });
 
-        //empty records
+        //delete records
         areascoreRepository.deleteAll();
         fullareas.forEach(area -> {
             areascoreRepository.save(area);

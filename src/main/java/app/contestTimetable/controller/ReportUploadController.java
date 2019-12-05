@@ -29,22 +29,32 @@ public class ReportUploadController {
         this.storageService = storageService;
     }
 
-    @GetMapping(value = "/report/upload")
-    public String uploadReportUuid() {
+//    @GetMapping(value = "/report/upload")
+//    public String uploadReportUuid() {
+//
+//
+//        return "reportupload";
+//
+//    }
+//
+//    //user upload page
+//    @PostMapping("/report/upload")
+//    public String handleReportFileUpload(@RequestParam("file") MultipartFile file,
+//                                         RedirectAttributes redirectAttributes) {
+//        logger.info("filename:" + file.getOriginalFilename());
+//        String filename = file.getOriginalFilename();
+//        storageService.store(file);
+//        return "redirect:/report/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
+//    }
 
-
-        return "reportupload";
-
-    }
-
-    //user upload page
-    @PostMapping("/report/upload")
-    public String handleReportFileUpload(@RequestParam("file") MultipartFile file,
-                                         RedirectAttributes redirectAttributes) {
+    //restore report user upload page
+    @PostMapping("/report/restore/upload")
+    public String handleReportRestoreFileUpload(@RequestParam("file") MultipartFile file,
+                                                RedirectAttributes redirectAttributes) {
         logger.info("filename:" + file.getOriginalFilename());
         String filename = file.getOriginalFilename();
         storageService.store(file);
-        return "redirect:/report/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
+        return "redirect:/report/restore/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
     }
 
 

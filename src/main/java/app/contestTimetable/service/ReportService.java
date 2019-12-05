@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ReportService {
@@ -227,9 +224,8 @@ public class ReportService {
     }
 
 
-
-    public HashMap<Integer,Integer> getReportScoresrange(Report report) throws IOException {
-        HashMap<Integer,Integer> scoresrange = new HashMap<>();
+    public HashMap<Integer, Integer> getReportScoresrange(Report report) throws IOException {
+        HashMap<Integer, Integer> scoresrange = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<String> teams = new ArrayList<>();
 
@@ -271,7 +267,15 @@ public class ReportService {
 
         return teams;
 
+    }
 
+
+    public void restoreReportJson(String jsonfile) throws IOException {
+        logger.info("report restore:" + jsonfile);
+        ObjectMapper mapper = new ObjectMapper();
+        List<Report> reports = Arrays.asList(mapper.readValue(new File(jsonfile), Report[].class));
+
+        reports.forEach(report -> reportrepository.save(report));
     }
 
 

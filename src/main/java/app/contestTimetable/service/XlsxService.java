@@ -420,11 +420,12 @@ public class XlsxService {
 
             if (areascore.getScores() != 9999.9999) {
 //                logger.info(String.format("%s,%s,%f", areascore.getStartarea(), areascore.getEndarea(), areascore.getScores()));
-                areas.add(areascore);
             } else {
                 logger.info(String.format("%s-%s 无记录", areascore.getStartarea(), areascore.getEndarea()));
 
             }
+            areas.add(areascore);
+
         }
 
 
@@ -769,6 +770,58 @@ public class XlsxService {
         }
 
         return wb;
+    }
+
+
+    public XSSFWorkbook createAreascores(List<Areascore> areas) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+
+
+        row = sheet.createRow(0);
+
+        cell = row.createCell(0);
+        cell.setCellValue("A點");
+
+        cell = row.createCell(1);
+        cell.setCellValue("B點");
+
+        cell = row.createCell(2);
+        cell.setCellValue("得分");
+
+        cell = row.createCell(2);
+        cell.setCellValue("兩點互換距離一樣，空值代表该区没有试场");
+
+        for (int i = 0; i < areas.size(); i++) {
+
+            row = sheet.createRow(i + 1);
+
+
+            cell = row.createCell(0);
+            cell.setCellValue(areas.get(i).getStartarea());
+
+            cell = row.createCell(1);
+            cell.setCellValue(areas.get(i).getEndarea());
+
+
+            //超过999代表原来得分表中没有填值,该区没有试场
+            cell = row.createCell(2);
+            if(areas.get(i).getScores() < 999){
+                cell.setCellValue(areas.get(i).getScores());
+
+            } else {
+                cell.setCellValue("");
+            }
+
+
+        }
+
+        return wb;
+
     }
 
 

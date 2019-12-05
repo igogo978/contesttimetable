@@ -151,6 +151,8 @@
                                 @click="downloadReport">备份</button>
                             <button type="button" class="btn btn-danger"
                                 @click="showAlarm">删除</button>
+                                
+                            <a class="btn btn-outline-dark" href="/report/restore" role="button" target="_blank">restore</a>
                         </td>
                     </thead>
                     <tbody>
@@ -285,11 +287,19 @@
 
                 },
                 showAlarm: function(){
-                    console.log("show alarm");
                     this.showModal = true;
                 },
                 dodelete: function() {
                     console.log("delete all");
+                    let url =  "/api/report" ;
+
+                    this.$http.delete(url, config).then((response) => {
+                       //refresh page
+                        console.log("request delete method");
+                        window.location.replace("/report");
+                    }, (response) => {
+                        // error callback
+                    });
 
                 }
             }

@@ -1,9 +1,13 @@
 package app.contestTimetable.service;
 
 
+import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Pocketlist;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.school.Contestid;
+import app.contestTimetable.model.school.Location;
+import app.contestTimetable.repository.ContestconfigRepository;
+import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.PocketlistRepository;
 import app.contestTimetable.repository.TeamRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,6 +30,14 @@ public class PocketlistService {
 
     @Autowired
     TeamRepository teamRepository;
+
+    @Autowired
+    ContestconfigRepository contestconfigRepository;
+
+
+    @Autowired
+    LocationRepository locationRepository;
+
 
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -58,6 +70,8 @@ public class PocketlistService {
 
                 pocketlist.setSchoolid(team.get("schoolid").asText());
                 pocketlist.setSchoolname(team.get("name").asText());
+//                logger.info(team.get("name").asText()+":"+team.get("scores").asInt());
+                pocketlist.setDescription(team.get("scores").asText());
                 JsonNode contestidsNode = team.get("contestids");
                 contestidsNode.forEach(contest -> {
                     Contestid contestid = new Contestid();
@@ -95,4 +109,36 @@ public class PocketlistService {
 
 
     }
+
+    public List<Team> getPocketlistByPlayer() {
+        List<Team> teams = new ArrayList<>();
+        return teams;
+    }
+
+
+    public List<Team> getPocketlistByLocation() {
+        List<Team> teams = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
+        locationRepository.findAll().forEach(locations::add);
+        List<Contestconfig> contestconfigs = contestconfigRepository.findAllByOrderByIdAsc();
+
+        locations.forEach(location -> {
+            List<String> schools = new ArrayList<>();
+            schools = teamRepository.findDistinctSchoolnameByLocation(location.getLocationname());
+            schools.forEach(schoolname -> {
+                contestconfigs.forEach(contestconfig -> {
+                    contestconfig.getContestgroup().forEach(contestitem -> {
+                        logger.info(String.format("%s,%s,%s", location.getLocationname(), schoolname, contestitem));
+                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(teams::add);
+                    });
+                });
+            });
+
+        });
+        return teams;
+    }
+
+
+
+
 }
