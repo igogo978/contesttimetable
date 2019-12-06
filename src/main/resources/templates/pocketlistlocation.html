@@ -28,32 +28,34 @@
             
         <div class="container" id="app">
             <div class="text-center">
-                    決賽試場_選手名單_by location
+                    決賽試場_選手名單
                     <button @click="downloadReport"  type="button"  class="btn btn-primary"> 下载 </button>
             </div>
             <div>
                     <table class="table">
                             <thead>
                                 <td>序</td>
-                                <td>学校</td>
-                                <td>项目类别</td>
-                                <td>姓名</td>
                                 <td>试场</td>
-                                <td>时间</td>
+                                <td>项目类别</td>
+
+                                <td>学校</td>
+                                <td>姓名</td>
+                                <!-- <td>时间</td> -->
                             </thead>
                         <tbody>
 
                             <tr v-for="(item,index) in items">
                                 <td> {{index+1}} </td>
-                                <td> {{item.schoolname}} </td>
+                                <td> {{item.location}} </td>
                                 <td> {{item.contestitem}} </td>
+
+                                <td> {{item.schoolname}} </td>
                                 <td> {{item.username}}
                                     <div v-if="item.membername != null">
                                             {{item.membername}} 
                                     </div>
                                 </td>
-                                <td> {{item.location}} </td>
-                                <td> {{item.description}} </td>
+                                <!-- <td> {{item.description}} </td> -->
                             </tr>
                         </tbody>
                     </table>
@@ -118,7 +120,7 @@
                     this.$http.get(url, config)
                         .then((response) => {
                             var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-                            saveAs(blob, 'player.xlsx');
+                            saveAs(blob, '決賽試場_選手名單.xlsx');
                         });
 
 

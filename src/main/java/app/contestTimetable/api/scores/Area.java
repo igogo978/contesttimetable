@@ -37,9 +37,9 @@ public class Area {
     @GetMapping(value = "/api/scores/area")
     public List<Areascore> getScoresByArea() throws IOException {
 
-        List<Areascore> areas = new ArrayList<>();
-        areascoreRepository.findAll().forEach(areas::add);
-        return areas;
+//        List<Areascore> areas = new ArrayList<>();
+//        areascoreRepository.findAll().forEach(areas::add);
+        return areascoreRepository.findByOrderByStartarea();
     }
 
 

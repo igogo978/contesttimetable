@@ -83,28 +83,8 @@ public class PocketlistApiController {
 
     @GetMapping(value = "/api/pocketlist/player")
     public List<Team> getPocketListByPlayer() throws IOException {
-        final List<Team> teams = new ArrayList<>();
-
-
-        //order by schoolname, then order by contestitem
-        List<Contestconfig> contestconfigs = contestconfigRepository.findAllByOrderByIdAsc();
-        List<SchoolTeam> schoolTeams = schoolTeamRepository.findAllByOrderByMembersDesc();
-
-        schoolTeams.forEach(schoolTeam -> {
-            contestconfigs.forEach(contestconfig -> {
-                contestconfig.getContestgroup().forEach(contestitem -> {
-                            logger.info(String.format("%s,%s", schoolTeam.getSchoolname(), contestitem));
-                            teamRepository.findBySchoolnameAndContestitemContaining(schoolTeam.getSchoolname(), contestitem).forEach(team -> {
-                                teams.add(team);
-                            });
-                        }
-
-                );
-
-
-            });
-        });
-
+       List<Team> teams = new ArrayList<>();
+        teams = pocketlistService.getPocketlistByPlayer();
 
         return teams;
     }
@@ -113,28 +93,11 @@ public class PocketlistApiController {
     @GetMapping(value = "/api/pocketlist/player/download")
     public ResponseEntity<Resource> downloadPocketlistReport() throws IOException {
         logger.info("download pocketlist by player");
-        final List<Team> teams = new ArrayList<>();
+        List<Team> teams = new ArrayList<>();
+        teams = pocketlistService.getPocketlistByPlayer();
 
 
-        List<Contestconfig> contestconfigs = contestconfigRepository.findAllByOrderByIdAsc();
-        List<SchoolTeam> schoolTeams = schoolTeamRepository.findAllByOrderByMembersDesc();
-
-        schoolTeams.forEach(schoolTeam -> {
-            contestconfigs.forEach(contestconfig -> {
-                contestconfig.getContestgroup().forEach(contestitem -> {
-                            teamRepository.findBySchoolnameAndContestitemContaining(schoolTeam.getSchoolname(), contestitem).forEach(team -> {
-                                teams.add(team);
-                            });
-                        }
-
-                );
-
-
-            });
-        });
-
-
-        String filename = "report";
+        String filename = "report-by-player";
         //直接輸出
         XSSFWorkbook wb = xlsxService.createPocketlistByPlayer(teams);
 
@@ -147,7 +110,7 @@ public class PocketlistApiController {
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         headers.add("charset", "utf-8");
-        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", "player"));
+        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);
@@ -161,8 +124,6 @@ public class PocketlistApiController {
         List<Team> teams = new ArrayList<>();
         teams = pocketlistService.getPocketlistByLocation();
 
-
-
         return teams;
     }
 
@@ -173,9 +134,9 @@ public class PocketlistApiController {
         List<Team> teams = new ArrayList<>();
         teams = pocketlistService.getPocketlistByLocation();
 
-        String filename = "report";
+        String filename = "report-by-location";
         //直接輸出
-        XSSFWorkbook wb = xlsxService.createSelectedReportByLocation(teams);
+        XSSFWorkbook wb = xlsxService.createPocketlistByLocation(teams);
 
         ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
         wb.write(resourceStream);
@@ -186,7 +147,7 @@ public class PocketlistApiController {
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         headers.add("charset", "utf-8");
-        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", "player"));
+        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);

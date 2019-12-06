@@ -39,7 +39,6 @@ public class PocketlistService {
     LocationRepository locationRepository;
 
 
-
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void updatePocketlist(String payload) throws IOException {
@@ -107,17 +106,12 @@ public class PocketlistService {
         });
 
 
-
     }
 
     public List<Team> getPocketlistByPlayer() {
         List<Team> teams = new ArrayList<>();
-        return teams;
-    }
 
 
-    public List<Team> getPocketlistByLocation() {
-        List<Team> teams = new ArrayList<>();
         List<Location> locations = new ArrayList<>();
         locationRepository.findAll().forEach(locations::add);
         List<Contestconfig> contestconfigs = contestconfigRepository.findAllByOrderByIdAsc();
@@ -135,10 +129,41 @@ public class PocketlistService {
             });
 
         });
+
+
         return teams;
     }
 
 
+    public List<Team> getPocketlistByLocation() {
+        List<Team> teams = new ArrayList<>();
+
+        List<Location> locations = new ArrayList<>();
+        locationRepository.findAll().forEach(locations::add);
+        List<Contestconfig> contestconfigs = contestconfigRepository.findAllByOrderByIdAsc();
+
+        locations.forEach(location -> {
+            final List<String> schools = teamRepository.findDistinctSchoolnameByLocation(location.getLocationname());
+
+            contestconfigs.forEach(contestconfig -> {
+                contestconfig.getContestgroup().forEach(contestitem -> {
+                    schools.forEach(schoolname -> {
+                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(teams::add);
+
+                    });
+                });
+            });
+
+        });
+
+
+
+
+
+
+
+        return teams;
+    }
 
 
 }

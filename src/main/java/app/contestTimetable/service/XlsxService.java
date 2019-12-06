@@ -594,7 +594,7 @@ public class XlsxService {
     }
 
 
-    public XSSFWorkbook createSelectedReportByLocation(List<Team> teams) {
+    public XSSFWorkbook createPocketlistByLocation(List<Team> teams) {
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet("Sheet1");
 
@@ -604,19 +604,19 @@ public class XlsxService {
         cell.setCellValue("序");
 
         cell = row.createCell(1);
-        cell.setCellValue("學校");
+        cell.setCellValue("試場");
 
         cell = row.createCell(2);
         cell.setCellValue("項目類別");
 
         cell = row.createCell(3);
-        cell.setCellValue(" 姓名 ");
+        cell.setCellValue("學校");
 
         cell = row.createCell(4);
-        cell.setCellValue("試場");
+        cell.setCellValue("姓名");
 
-        cell = row.createCell(5);
-        cell.setCellValue("時間");
+//        cell = row.createCell(5);
+//        cell.setCellValue("時間");
 
         for (int i = 0; i < teams.size(); i++) {
             row = sheet.createRow(i + 1);
@@ -624,26 +624,28 @@ public class XlsxService {
             cell = row.createCell(0);
             cell.setCellValue(i + 1);
 
-
             cell = row.createCell(1);
-            cell.setCellValue(teams.get(i).getSchoolname());
+            cell.setCellValue(teams.get(i).getLocation());
 
 
             cell = row.createCell(2);
             cell.setCellValue(teams.get(i).getContestitem());
 
+
             cell = row.createCell(3);
+            cell.setCellValue(teams.get(i).getSchoolname());
+
+
+            cell = row.createCell(4);
             String members = teams.get(i).getUsername();
             if (teams.get(i).getMembername() != null) {
                 members = String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername());
             }
             cell.setCellValue(members);
 
-            cell = row.createCell(4);
-            cell.setCellValue(teams.get(i).getLocation());
 
-            cell = row.createCell(5);
-            cell.setCellValue(teams.get(i).getDescription());
+//            cell = row.createCell(5);
+//            cell.setCellValue(teams.get(i).getDescription());
 
         }
 
@@ -669,64 +671,8 @@ public class XlsxService {
         cell.setCellValue("序");
 
         cell = row.createCell(1);
-        cell.setCellValue("試場");
-
-        cell = row.createCell(2);
-        cell.setCellValue("項目類別");
-
-        cell = row.createCell(3);
         cell.setCellValue("學校");
 
-        cell = row.createCell(4);
-        cell.setCellValue("姓名");
-
-        for (int i = 0; i < teams.size(); i++) {
-            row = sheet.createRow(i + 1);
-
-            cell = row.createCell(0);
-            cell.setCellValue(i + 1);
-
-            cell = row.createCell(1);
-            cell.setCellValue(teams.get(i).getLocation());
-
-            cell = row.createCell(2);
-            cell.setCellValue(teams.get(i).getContestitem());
-
-            cell = row.createCell(3);
-            cell.setCellValue(teams.get(i).getSchoolname());
-
-            cell = row.createCell(4);
-            if (teams.get(i).getMembername() != null) {
-                cell.setCellValue(String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername()));
-            } else {
-                cell.setCellValue(teams.get(i).getUsername());
-            }
-
-
-        }
-
-        return wb;
-    }
-
-
-    public XSSFWorkbook createPocketlistByLocation(List<Team> teams) {
-        XSSFWorkbook wb = new XSSFWorkbook();
-
-        XSSFSheet sheet = wb.createSheet("Sheet1");
-
-
-        XSSFRow row = sheet.createRow(0);
-        XSSFCell cell = row.createCell(0);
-
-
-        //title
-        row = sheet.createRow(0);
-
-        cell = row.createCell(0);
-        cell.setCellValue("序");
-
-        cell = row.createCell(1);
-        cell.setCellValue("學校");
 
         cell = row.createCell(2);
         cell.setCellValue("項目類別");
@@ -741,6 +687,7 @@ public class XlsxService {
         cell = row.createCell(5);
         cell.setCellValue("時間");
 
+
         for (int i = 0; i < teams.size(); i++) {
             row = sheet.createRow(i + 1);
 
@@ -748,20 +695,24 @@ public class XlsxService {
             cell.setCellValue(i + 1);
 
             cell = row.createCell(1);
-            cell.setCellValue(teams.get(i).getLocation());
+            cell.setCellValue(teams.get(i).getSchoolname());
+
 
             cell = row.createCell(2);
             cell.setCellValue(teams.get(i).getContestitem());
 
-            cell = row.createCell(3);
-            cell.setCellValue(teams.get(i).getSchoolname());
 
-            cell = row.createCell(4);
+            cell = row.createCell(3);
             if (teams.get(i).getMembername() != null) {
                 cell.setCellValue(String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername()));
             } else {
                 cell.setCellValue(teams.get(i).getUsername());
             }
+
+
+            cell = row.createCell(4);
+            cell.setCellValue(teams.get(i).getLocation());
+
 
             cell = row.createCell(5);
             cell.setCellValue(teams.get(i).getDescription());
@@ -810,7 +761,7 @@ public class XlsxService {
 
             //超过999代表原来得分表中没有填值,该区没有试场
             cell = row.createCell(2);
-            if(areas.get(i).getScores() < 999){
+            if (areas.get(i).getScores() < 999) {
                 cell.setCellValue(areas.get(i).getScores());
 
             } else {
