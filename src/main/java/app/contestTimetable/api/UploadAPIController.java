@@ -81,7 +81,7 @@ public class UploadAPIController {
         ticketService.updateTicket(tickets);
 
 //        return String.format("上传内容已成功写入资料库");
-        return new RedirectView("/api/ticket");
+        return new RedirectView("/ticket");
 
     }
 
@@ -96,7 +96,7 @@ public class UploadAPIController {
         locationService.updateLocation(locationxlsx);
 
 
-        return new RedirectView("/api/location");
+        return new RedirectView("/location");
 
     }
 
@@ -110,7 +110,7 @@ public class UploadAPIController {
         teamService.updateTeam(teamzipfile);
 
 
-        return new RedirectView("/api/schoolteam");
+        return new RedirectView("/schoolteam");
 
     }
 
@@ -126,7 +126,7 @@ public class UploadAPIController {
 
         scoresService.updateAreaScores(areafile);
 
-        return new RedirectView("/api/scores/area");
+        return new RedirectView("/scores/area");
 
     }
 
@@ -141,7 +141,7 @@ public class UploadAPIController {
         contestconfigService.updateContestconfig(configfile);
 //        scoresService.updateAreaScores(areafile);
 
-        return new RedirectView("/api/contestconfig");
+        return new RedirectView("/contestconfig");
 
     }
 
@@ -155,7 +155,7 @@ public class UploadAPIController {
 
         schoolService.updateSchool(csvfile);
 
-        return new RedirectView("/api/school");
+        return new RedirectView("/school");
 
     }
 

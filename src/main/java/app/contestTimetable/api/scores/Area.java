@@ -39,7 +39,8 @@ public class Area {
 
 //        List<Areascore> areas = new ArrayList<>();
 //        areascoreRepository.findAll().forEach(areas::add);
-        return areascoreRepository.findByOrderByStartarea();
+//        return areascoreRepository.findByOrderByStartarea();
+        return areascoreRepository.findByScoresLessThanOrderByStartarea(99.9);
     }
 
 

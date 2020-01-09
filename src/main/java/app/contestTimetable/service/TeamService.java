@@ -42,11 +42,13 @@ public class TeamService {
 
 
     public void updateTeam(String zipFilePath) throws IOException {
-
         //1. upzip file to /tmp/team
         String dstDirPath = "/tmp/team";
-
         File dstDir = new File(dstDirPath);
+
+        //empty dstDirPath
+        dstDir.delete();
+
 
         // create output directory if it doesn't exist
         if (!dstDir.exists()) {
@@ -81,6 +83,9 @@ public class TeamService {
             //读取参赛队伍
             List<Team> teams = new ArrayList<>();
             teams = readxlsx.getTeams(dstDirPath);
+
+            //empty old records
+            teamRepository.deleteAll();
 
             teams.forEach(team -> {
                 teamRepository.save(team);

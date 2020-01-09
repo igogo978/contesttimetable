@@ -26,9 +26,9 @@
                 <br>
 
                 <div>
-                    schoolteam 上传后,要自动统计, 请使用7-zip 压缩所有档案, 加上 cu  参数
+                    zip 檔案上傳後, 會自動統計各校總參數人數, 請使用7-zip 壓縮檔案, 並加上cu 參數
                 </div>
-                <h2>上传参赛队伍zip档</h2>
+                <h2>上傳參數隊伍zip檔</h2>
                 <form method="POST" enctype="multipart/form-data"
                     th:action="@{'/team/upload'}">
                     <div class="input-group mb-1">
@@ -47,7 +47,7 @@
                 </form>
             </div>
             <div>
-                <a href="/examples/team.zip" class="btn btn-primary stretched-link">范例下载</a>
+                <a href="/examples/team.zip" class="btn btn-primary stretched-link">範例下載</a>
             </div>
             <div th:if="${error}">
                 <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>

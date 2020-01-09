@@ -411,6 +411,7 @@ public class XlsxService {
                     case 2:    //第二個欄位, 得分
                         value = String.valueOf(cell.getStringCellValue());
                         areascore.setScores(Double.valueOf(value));
+
                         break;
 
 
@@ -418,11 +419,14 @@ public class XlsxService {
                 }
             } //結束讀欄
 
-            if (areascore.getScores() != 9999.9999) {
-//                logger.info(String.format("%s,%s,%f", areascore.getStartarea(), areascore.getEndarea(), areascore.getScores()));
-            } else {
-                logger.info(String.format("%s-%s 无记录", areascore.getStartarea(), areascore.getEndarea()));
-
+//            if (areascore.getScores() != 9999.9999) {
+////                logger.info(String.format("%s,%s,%f", areascore.getStartarea(), areascore.getEndarea(), areascore.getScores()));
+//            } else {
+//                logger.info(String.format("%s-%s 无记录", areascore.getStartarea(), areascore.getEndarea()));
+//
+//            }
+            if (areascore.getStartarea().equals(areascore.getEndarea())) {
+                areascore.setScores(1);
             }
             areas.add(areascore);
 
@@ -466,8 +470,9 @@ public class XlsxService {
                         location.setLocationname(value);
                         break;
                     case 1:    //第二個欄位, 容纳人数
-                        value = String.valueOf(cell.getStringCellValue());
-                        location.setCapacity(Integer.valueOf(value));
+                        // string 29.0 -> double 29.0 -> int 29
+                        Integer capacity = (int) Double.parseDouble(cell.getStringCellValue());
+                        location.setCapacity(capacity);
                         break;
 
 
@@ -767,6 +772,44 @@ public class XlsxService {
             } else {
                 cell.setCellValue("");
             }
+
+
+        }
+
+        return wb;
+
+    }
+
+
+    public XSSFWorkbook createLocations(List<Location> locations) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+
+
+        row = sheet.createRow(0);
+
+        cell = row.createCell(0);
+        cell.setCellValue("學校名稱");
+
+        cell = row.createCell(1);
+        cell.setCellValue("電腦數");
+
+
+        for (int i = 0; i < locations.size(); i++) {
+
+            row = sheet.createRow(i + 1);
+
+
+            cell = row.createCell(0);
+            cell.setCellValue(locations.get(i).getLocationname());
+
+            cell = row.createCell(1);
+
+            cell.setCellValue(locations.get(i).getCapacity());
 
 
         }

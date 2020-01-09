@@ -8,6 +8,8 @@ import java.util.List;
 public interface AreascoreRepository extends CrudRepository<Areascore, Long> {
 
     List<Areascore> findByOrderByStartarea();
+    List<Areascore> findByScoresLessThanOrderByStartarea(Double scoresvalues);
+
 
 
 }
