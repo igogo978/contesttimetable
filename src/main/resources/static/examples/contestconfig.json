@@ -1,24 +1,17 @@
-{
-	"count" : 1,
-	"setting": [{
-			"id": 1,
-			"contestgroup": ["scratch"],
-			"description": "3/12(二)上午9:00-12:00"
-		},
-		{
-			"id": 2,
-			"contestgroup": ["電腦打字"],
-			"description": "3/12(二)下午13:30-14:10"
-		},
-		{
-			"id": 3,
-			"contestgroup": ["電腦繪圖國小", "專題簡報國小"],
-			"description": "3/13(三)上午9:00-12:00"
-		},
-		{
-			"id": 4,
-			"contestgroup": ["電腦繪圖國中", "電腦繪圖高中職", "專題簡報高中職", "專題簡報國中"],
-			"description": "3/13(三)下午13:30-16:30"
-		}
-	]
-}
+[{
+	"id": 1,
+	"contestgroup": ["scratch"],
+	"description": "3/31(二)上午9:00-12:00"
+}, {
+	"id": 2,
+	"contestgroup": ["電腦打字"],
+	"description": "3/31(二)下午13:30-14:10"
+}, {
+	"id": 3,
+	"contestgroup": ["電腦繪圖國小", "專題簡報國小"],
+	"description": "4/1(三)上午9:00-12:00"
+}, {
+	"id": 4,
+	"contestgroup": ["電腦繪圖國中", "電腦繪圖高中職", "專題簡報高中職", "專題簡報國中"],
+	"description": "4/1(三)下午13:30-16:30"
+}]

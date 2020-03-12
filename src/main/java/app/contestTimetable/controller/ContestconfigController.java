@@ -30,7 +30,7 @@ public class ContestconfigController {
 //        model.addAttribute("name", name);
         List<Contestconfig> configs = new ArrayList<>();
         contestconfigRepository.findAll().forEach(configs::add);
-        logger.info(mapper.writeValueAsString(configs.get(0)));
+//        logger.info(mapper.writeValueAsString(configs.get(0)));
 
         configs.sort(Comparator.comparing(Contestconfig::getId));
 
