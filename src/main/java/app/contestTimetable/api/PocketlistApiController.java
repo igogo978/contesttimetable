@@ -75,6 +75,9 @@ public class PocketlistApiController {
     XlsxService xlsxService;
 
 
+    String twFont = "/opt/font/TW-Kai-98_1.ttf";
+
+
     @PostMapping(value = "/api/pocketlist")
     public String postReport(@RequestBody String payload) throws IOException {
 
@@ -174,9 +177,33 @@ public class PocketlistApiController {
 
     @GetMapping(value = "/api/pocketlist/inform/team/download")
     public ResponseEntity<Resource> doInformTeam() throws IOException {
+
+
+        List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
+
+
+        List<Location> locations = new ArrayList<>();
+        locationRepository.findAll().forEach(locations::add);
+        locations.removeIf(location -> location.getLocationname().equals("未排入"));
+
+        List<Team> informTeams = new ArrayList<>();
+
+        //4 个场次
+        configs.forEach(config -> {
+            locations.forEach(location -> {
+                config.getContestgroup().forEach(contestitem -> {
+                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
+                    teams.forEach(team -> informTeams.add(team));
+                });
+
+            });
+
+        });
+
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        baos = doPDFTeam();
+        baos = doPDFTeam(informTeams);
         logger.info("pdf file has been created ");
 
         HttpHeaders headers = new HttpHeaders();
@@ -184,7 +211,7 @@ public class PocketlistApiController {
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         headers.add("charset", "utf-8");
-        headers.setContentDispositionFormData("attachment", String.format("%s", "inform.pdf"));
+        headers.setContentDispositionFormData("attachment", String.format("%s", "inform-team.pdf"));
         headers.setContentType(MediaType.APPLICATION_PDF);
         Resource resource = new InputStreamResource(new ByteArrayInputStream(baos.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);
@@ -192,17 +219,17 @@ public class PocketlistApiController {
     }
 
 
-    ByteArrayOutputStream doPDFTeam() throws IOException {
+    ByteArrayOutputStream doPDFTeam(List<Team> teams) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
         Document document = new Document(pdfDoc);
 
 
         // Create a PdfFont
-        PdfFont font = PdfFontFactory.createFont("/opt/font/TW-Kai-98_1.ttf", PdfEncodings.IDENTITY_H, true);
+        PdfFont font = PdfFontFactory.createFont(twFont, PdfEncodings.IDENTITY_H, true);
 
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < teams.size(); i++) {
 
             if (i != 0) {
                 document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
@@ -215,45 +242,57 @@ public class PocketlistApiController {
             document.add(head);
 
             Paragraph blank = new Paragraph("\n");
-            document.add(blank);
+//            document.add(blank);
 
 
             Table table = new Table(UnitValue.createPercentArray(1)).useAllAvailableWidth();
 
-            Paragraph paragraph = new Paragraph(String.format("試場學校： %s", "大甲區華龍國民小學")).setFont(font);
+            Paragraph paragraph = new Paragraph(String.format("試場學校： %s", teams.get(i).getLocation())).setFont(font);
             paragraph.add("\n");
-            paragraph.add(String.format("競賽日期：%s", "3/12(二)上午9:00-12:00"));
+            paragraph.add(String.format("競賽日期：%s", teams.get(i).getDescription()));
             paragraph.add("\n");
-            paragraph.add(String.format("競賽項目：%s","SCRATCH應用競賽國中甲組程式設計組"));
+            paragraph.add(String.format("競賽項目：%s", teams.get(i).getContestitem()));
             Cell cell = new Cell()
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFont(font)
                     .setFontSize(20)
-                    .add(blank)
-                    .add(paragraph)
-                    .add(blank);
+//                    .add(blank)
+                    .add(paragraph);
+//                    .add(blank);
             table.addCell(cell);
 
             //---------------------------------------------------------------------------------
 
-            paragraph = new Paragraph(String.format("學校：%s", "大甲區大甲國中")).setFont(font);
+            paragraph = new Paragraph(String.format("學校：%s", teams.get(i).getSchoolname())).setFont(font);
             paragraph.add("\n");
-            paragraph.add(String.format("姓名：%s ", "郭碧崑"));
+
+
+            if (teams.get(i).getMembername() != null) {
+                paragraph.add(String.format("姓名：%s、%s ", teams.get(i).getUsername(), teams.get(i).getMembername()));
+
+            } else {
+                paragraph.add(String.format("姓名：%s ", teams.get(i).getUsername()));
+
+            }
+
+            paragraph.add("\n");
+            paragraph.add(String.format("帳號：%s ", teams.get(i).getAccount()));
+            paragraph.add("\n");
+            paragraph.add(String.format("密碼：%s ", teams.get(i).getPasswd()));
 
 
             cell = new Cell()
                     .setTextAlignment(TextAlignment.LEFT)
                     .setFont(font)
                     .setFontSize(20)
-                    .add(blank)
-                    .add(paragraph)
-                    .add(blank);
+//                    .add(blank)
+                    .add(paragraph);
+//                    .add(blank);
             table.addCell(cell);
 
 
             paragraph = new Paragraph(String.format("決賽注意事項")).setFont(font).setTextAlignment(TextAlignment.CENTER).setBold().setUnderline();
             paragraph.add("\n");
-//            paragraph.add(String.format("1、「所有競賽項目」的題目於競賽時間開始時自動轉址公布，請記得重新整理網頁，就可看到題目；「所有競賽項目」的作品內容都不得出現姓名及學校等相關資訊。"));
             String text = "1、「所有競賽項目」的題目於競賽時間開始時自動轉址公布，請記得重新整理網頁，就可看到題目；「所有競賽項目」的作品內容都不得出現姓名及學校等相關資訊。\n" +
                     "2、競賽時間開始後，遲到30分鐘以上不得入場。競賽開始超過40分鐘後，參賽學生始得離開試場。\n" +
                     "3、競賽時間內不得自行攜帶使用任何形式之可攜式儲存媒體及通訊設備，一經發現立即取消參賽資格。（競賽主辦單位借給每位參賽者空白隨身碟一支，供暫存使用）。\n" +
@@ -288,7 +327,6 @@ public class PocketlistApiController {
 
 
         // Create a PdfFont
-        PdfFont font = PdfFontFactory.createFont("/opt/font/TW-Kai-98_1.ttf", PdfEncodings.IDENTITY_H, true);
 
 //        contestconfigRepository.findAll().forEach(contestconfig -> logger.info(String.valueOf(contestconfig.getId())+contestconfig.getDescription()));
         List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
@@ -317,7 +355,7 @@ public class PocketlistApiController {
                 AtomicReference<Integer> totalpeople = new AtomicReference<>(0);
 
                 config.getContestgroup().forEach(contestitem -> {
-                    List<Team> teams = teamRepository.findByLocationAndContestitemContainingOrderByLocationDesc(location.getLocationname(), contestitem.toUpperCase());
+                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
                     teams.forEach(team -> {
                         if (team.getMembername() != null) {
 //                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
@@ -336,7 +374,7 @@ public class PocketlistApiController {
         });
 
 
-        String filename = "inform-cover";
+        String filename = "inform-cover.pdf";
         logger.info("create pdf");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -362,7 +400,7 @@ public class PocketlistApiController {
 
 
         // Create a PdfFont
-        PdfFont font = PdfFontFactory.createFont("/opt/font/TW-Kai-98_1.ttf", PdfEncodings.IDENTITY_H, true);
+        PdfFont font = PdfFontFactory.createFont(twFont, PdfEncodings.IDENTITY_H, true);
 
 
         for (int i = 0; i < informs.size(); i++) {

@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.2.RELEASE</version>
+		<version>2.2.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>app</groupId>
 	<artifactId>contestTimetable</artifactId>
-	<version>server31</version>
+	<version>server32</version>
 	<name>contestTimetable</name>
 	<description>Demo project for Spring Boot</description>
 
