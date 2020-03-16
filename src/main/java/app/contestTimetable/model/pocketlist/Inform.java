@@ -1,11 +1,17 @@
 package app.contestTimetable.model.pocketlist;
 
-public class Informcover {
+import app.contestTimetable.model.Team;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Inform {
     private String location;
     private String contestItem;
     private String description;
     private Integer totalPeople;
-    private Integer teams;
+    private Integer teamsize;
+    private List<Team> teams = new ArrayList<>();
 
     //totalPeopl 含简报组别,可能有两人
     //teams, 一队一张帐号密码
@@ -41,11 +47,18 @@ public class Informcover {
         this.totalPeople = totalPeople;
     }
 
-    public Integer getTeams() {
+    public Integer getTeamsize() {
+        return teamsize;
+    }
+
+    public void setTeamsize(Integer teamsize) {
+        this.teamsize = teamsize;
+    }
+
+    public List<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(Integer teams) {
-        this.teams = teams;
-    }
+
+
 }
