@@ -5,11 +5,14 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface AreascoreRepository extends CrudRepository<Areascore, Long> {
+public interface AreascoreRepository extends CrudRepository<Areascore, String> {
 
     List<Areascore> findByOrderByStartarea();
+
     List<Areascore> findByScoresLessThanOrderByStartarea(Double scoresvalues);
 
+    Areascore findByStartareaAndEndarea(String startarea, String endarea);
 
+    List<Areascore> findByIdContaining(String keyword);
 
 }

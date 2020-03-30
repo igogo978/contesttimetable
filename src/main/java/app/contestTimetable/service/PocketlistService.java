@@ -2,8 +2,8 @@ package app.contestTimetable.service;
 
 
 import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.Pocketlist;
 import app.contestTimetable.model.Team;
+import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.school.Contestid;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.ContestconfigRepository;
@@ -17,8 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -40,6 +42,38 @@ public class PocketlistService {
 
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
+
+    public void restorePocketlist(String pocketlistfile) throws IOException {
+
+        logger.info("pocketlist file:" + pocketlistfile);
+        ObjectMapper mapper = new ObjectMapper();
+        if (new File(pocketlistfile).exists()) {
+            Pocketlist[] lists = mapper.readValue(new File(pocketlistfile), Pocketlist[].class);
+            Arrays.stream(lists).forEach(pocketlistitem -> {
+                logger.info(String.format("%s,%s", pocketlistitem.getLocationname(), pocketlistitem.getSchoolname()));
+                pocketlistRepository.save(pocketlistitem);
+
+                //            更新team的location
+
+                List<Team> teams = teamRepository.findBySchoolname(pocketlistitem.getSchoolname());
+                if (teams.size() != 0) {
+                    teams.forEach(team -> {
+                        logger.info("update teams' location");
+
+                        team.setLocation(pocketlistitem.getLocationname());
+                        teamRepository.save(team);
+                    });
+                }
+
+
+            });
+
+
+        }
+
+
+    }
 
     public void updatePocketlist(String payload) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -91,6 +125,12 @@ public class PocketlistService {
         //            更新team的location 1015
         logger.info("update teams' location");
 
+        //empty records
+        teamRepository.findAllByOrderByLocation().forEach(team -> {
+            team.setLocation("");
+            teamRepository.save(team);
+        });
+
         List<Pocketlist> pocketlist = new ArrayList<>();
         pocketlistRepository.findAll().forEach(pocketlist::add);
 
@@ -98,10 +138,12 @@ public class PocketlistService {
 //                logger.info("学校：" + pocketitem.getSchoolname() + "in" + pocketitem.getLocationname());
 
             List<Team> teams = teamRepository.findBySchoolname(pocketitem.getSchoolname());
-            teams.forEach(team -> {
-                team.setLocation(pocketitem.getLocationname());
-                teamRepository.save(team);
-            });
+            if (teams.size() != 0) {
+                teams.forEach(team -> {
+                    team.setLocation(pocketitem.getLocationname());
+                    teamRepository.save(team);
+                });
+            }
 
         });
 
@@ -155,11 +197,6 @@ public class PocketlistService {
             });
 
         });
-
-
-
-
-
 
 
         return teams;

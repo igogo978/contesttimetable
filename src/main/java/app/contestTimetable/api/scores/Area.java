@@ -2,7 +2,11 @@ package app.contestTimetable.api.scores;
 
 
 import app.contestTimetable.model.Areascore;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.AreascoreRepository;
+import app.contestTimetable.repository.LocationRepository;
+import app.contestTimetable.service.SchoolTeamService;
+import app.contestTimetable.service.ScoresService;
 import app.contestTimetable.service.XlsxService;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -32,6 +36,15 @@ public class Area {
     AreascoreRepository areascoreRepository;
 
     @Autowired
+    LocationRepository locationRepository;
+
+    @Autowired
+    SchoolTeamService schoolTeamService;
+
+    @Autowired
+    ScoresService scoresService;
+
+    @Autowired
     XlsxService createxlsx;
 
     @GetMapping(value = "/api/scores/area")
@@ -40,6 +53,21 @@ public class Area {
 //        List<Areascore> areas = new ArrayList<>();
 //        areascoreRepository.findAll().forEach(areas::add);
 //        return areascoreRepository.findByOrderByStartarea();
+
+        List<String> notSchoolids = new ArrayList<>();
+        notSchoolids.add("999999");
+
+        List<Location> locations = locationRepository.findBySchoolidNotIn(notSchoolids);
+
+        List<String> locationAreas = new ArrayList<>();
+
+        locations.forEach(location -> {
+            locationAreas.add(location.getLocationname().split("(?<=區)")[0]);
+        });
+
+        List<String> schoolteamAreas = schoolTeamService.getSchoolTeamsArea();
+        scoresService.getSchoolteamAreascores(schoolteamAreas, locationAreas);
+
         return areascoreRepository.findByScoresLessThanOrderByStartarea(99.9);
     }
 

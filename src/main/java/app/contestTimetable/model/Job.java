@@ -25,8 +25,6 @@ public class Job {
     private Integer group2size;
 
 
-    private Integer count;
-
     public Job() {
     }
 
@@ -94,11 +92,5 @@ public class Job {
         this.group2size = group2size;
     }
 
-    public Integer getCount() {
-        return count;
-    }
 
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 }

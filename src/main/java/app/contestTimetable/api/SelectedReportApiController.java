@@ -45,45 +45,45 @@ public class SelectedReportApiController {
     TeamRepository teamrepository;
 
 
-    @GetMapping(value = "/report/selected/byteam/{contestid}")
-    public ArrayList<Team> getSelectedReportsByTeam(@PathVariable("contestid") int contestid) throws IOException {
+//    @GetMapping(value = "/report/selected/byteam/{contestid}")
+//    public ArrayList<Team> getSelectedReportsByTeam(@PathVariable("contestid") int contestid) throws IOException {
+//
+//
+//        return selectedreportservice.selectedReportByTeam(contestid);
+//
+//    }
+//
+//    @GetMapping(value = "/report/selected/bylocation/{contestid}")
+//    public ArrayList<Team> getSelectedReportsByLocation(@PathVariable("contestid") int contestid) throws IOException {
+//
+//        return selectedreportservice.selectedReportByLocation(contestid);
+//
+//    }
 
 
-        return selectedreportservice.selectedReportByTeam(contestid);
-
-    }
-
-    @GetMapping(value = "/report/selected/bylocation/{contestid}")
-    public ArrayList<Team> getSelectedReportsByLocation(@PathVariable("contestid") int contestid) throws IOException {
-
-        return selectedreportservice.selectedReportByLocation(contestid);
-
-    }
-
-
-    @GetMapping(value = "/report/selected/byteam")
-    public ResponseEntity<Resource> downloadAllReportByteam() throws IOException {
-
-
-        List<Team> teams = teamrepository.findAllByOrderBySchoolname();
-        String filename = "byschool-All";
-        //直接輸出
-        XSSFWorkbook wb = createxlsx.createSelectedReport(teams);
-
-        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
-        wb.write(resourceStream);
-        wb.close();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
-        headers.add("charset", "utf-8");
-        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
-        return ResponseEntity.ok().headers(headers).body(resource);
-    }
+//    @GetMapping(value = "/report/selected/byteam")
+//    public ResponseEntity<Resource> downloadAllReportByteam() throws IOException {
+//
+//
+//        List<Team> teams = teamrepository.findAllByOrderBySchoolname();
+//        String filename = "byschool-All";
+//        //直接輸出
+//        XSSFWorkbook wb = createxlsx.createSelectedReport(teams);
+//
+//        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+//        wb.write(resourceStream);
+//        wb.close();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+//        headers.add("Pragma", "no-cache");
+//        headers.add("Expires", "0");
+//        headers.add("charset", "utf-8");
+//        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
+//        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+//        return ResponseEntity.ok().headers(headers).body(resource);
+//    }
 
 
 //    @GetMapping(value = "/report/selected/bylocation")

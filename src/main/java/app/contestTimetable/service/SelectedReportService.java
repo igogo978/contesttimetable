@@ -32,39 +32,39 @@ public class SelectedReportService {
     TeamRepository teamrepository;
 
 
-    public ArrayList<Team> selectedReportByTeam(Integer contestid) throws IOException {
-        ArrayList<Team> teams = new ArrayList<>();
-//        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
-//        logger.info(selectedreport.getReport());
-//        ObjectMapper mapper = new ObjectMapper();
-//        JsonNode root = mapper.readTree(selectedreport.getReport());
+//    public ArrayList<Team> selectedReportByTeam(Integer contestid) throws IOException {
+//        ArrayList<Team> teams = new ArrayList<>();
+////        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
+////        logger.info(selectedreport.getReport());
+////        ObjectMapper mapper = new ObjectMapper();
+////        JsonNode root = mapper.readTree(selectedreport.getReport());
+//
+//        Contestconfig config = contestconfigrepository.findById(contestid).get();
+//        List<String> contestgroup = config.getContestgroup();
+//        contestgroup.forEach(groupname -> {
+//            teamrepository.findByContestitemContainingOrderBySchoolnameDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
+//        });
+//
+//        return teams;
+//
+//    }
 
-        Contestconfig config = contestconfigrepository.findById(contestid).get();
-        List<String> contestgroup = config.getContestgroup();
-        contestgroup.forEach(groupname -> {
-            teamrepository.findByContestitemContainingOrderBySchoolnameDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
-        });
-
-        return teams;
-
-    }
-
-    public ArrayList<Team> selectedReportByLocation(Integer contestid) throws IOException {
-        ArrayList<Team> teams = new ArrayList<>();
-//        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
-//        logger.info(selectedreport.getReport());
-//        ObjectMapper mapper = new ObjectMapper();
-//        JsonNode root = mapper.readTree(selectedreport.getReport());
-
-        Contestconfig config = contestconfigrepository.findById(contestid).get();
-        List<String> contestgroup = config.getContestgroup();
-        contestgroup.forEach(groupname -> {
-            teamrepository.findByContestitemContainingOrderByLocationDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
-        });
-
-        return teams;
-
-    }
+//    public ArrayList<Team> selectedReportByLocation(Integer contestid) throws IOException {
+//        ArrayList<Team> teams = new ArrayList<>();
+////        Selectedreport selectedreport = selectedreportrepository.findByContestid(contestid);
+////        logger.info(selectedreport.getReport());
+////        ObjectMapper mapper = new ObjectMapper();
+////        JsonNode root = mapper.readTree(selectedreport.getReport());
+//
+//        Contestconfig config = contestconfigrepository.findById(contestid).get();
+//        List<String> contestgroup = config.getContestgroup();
+//        contestgroup.forEach(groupname -> {
+//            teamrepository.findByContestitemContainingOrderByLocationDesc(groupname.toUpperCase()).forEach(team -> teams.add(team));
+//        });
+//
+//        return teams;
+//
+//    }
 
 
 }

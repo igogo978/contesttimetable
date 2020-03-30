@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SchoolTeamService {
@@ -43,7 +44,28 @@ public class SchoolTeamService {
     }
 
 
-    public void updateSchoolTeam(){
+    //get all schoolteam's area
+    public List<String> getSchoolTeamsArea() {
+        List<String> schoolteamAreas = new ArrayList<>();
+        List<Team> teams = teamRepository.findAllByOrderBySchoolname();
+        List<String> lists = new ArrayList<>();
+        teams.forEach(team -> {
+            String area = team.getSchoolname().split("(?<=區)")[0];
+            lists.add(area);
+        });
+        schoolteamAreas = lists.stream().distinct().collect(Collectors.toList());
+//        schoolteamAreas.forEach(startarea -> {
+//
+//        });
+
+
+
+
+        return schoolteamAreas;
+    }
+
+
+    public void updateSchoolTeam() {
         schoolTeamRepository.deleteAll();
 
         //取出参赛学校
@@ -68,8 +90,8 @@ public class SchoolTeamService {
 
                 //处理每一场的单一竞赛项目人数
                 contestconfig.getContestgroup().forEach(item -> {
-                    int members = teamRepository.countByContestitemContainingAndSchoolname(item, schoolTeam.getSchoolname());
-                    int presentationMembers = teamRepository.countByMembernameNotNullAndContestitemContainingAndSchoolname(item, schoolTeam.getSchoolname());
+                    int members = teamRepository.countByContestitemContainingAndSchoolname(item.toUpperCase(), schoolTeam.getSchoolname());
+                    int presentationMembers = teamRepository.countByMembernameNotNullAndContestitemContainingAndSchoolname(item.toUpperCase(), schoolTeam.getSchoolname());
 
 //                    简报可能两人一组
                     if (presentationMembers != 0) {
@@ -79,7 +101,7 @@ public class SchoolTeamService {
                     }
                     ContestItem contestitem = new ContestItem();
                     contestitem.setMembers(members);
-                    contestitem.setItem(item);
+                    contestitem.setItem(item.toUpperCase());
                     contestitem.setContestid(contestconfig.getId());
                     schoolTeam.getContestitems().add(contestitem);
 
@@ -96,8 +118,6 @@ public class SchoolTeamService {
         });
 
 
-
-
     }
 
 
@@ -105,6 +125,7 @@ public class SchoolTeamService {
     private List<SchoolTeam> getSchoolTeams(List<Team> teams) {
         List<SchoolTeam> schoolTeams = new ArrayList<>();
         teams.forEach(team -> {
+            logger.info(team.getSchoolname());
             Boolean isExist = schoolTeams.stream().anyMatch(schoolTeam ->
                     schoolTeam.getSchoolname().equals(team.getSchoolname()));
 

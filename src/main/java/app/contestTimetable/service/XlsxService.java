@@ -397,7 +397,7 @@ public class XlsxService {
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
                 cell.setCellType(CellType.STRING);
-                areascore.setScores(9999.9999);
+                areascore.setScores(999.999);
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 起
                         value = String.valueOf(cell.getStringCellValue());
@@ -410,7 +410,10 @@ public class XlsxService {
 
                     case 2:    //第二個欄位, 得分
                         value = String.valueOf(cell.getStringCellValue());
-                        areascore.setScores(Double.valueOf(value));
+                        if (value.length() != 0) {
+                            areascore.setScores(Double.valueOf(value));
+
+                        }
 
                         break;
 
@@ -425,9 +428,9 @@ public class XlsxService {
 //                logger.info(String.format("%s-%s 无记录", areascore.getStartarea(), areascore.getEndarea()));
 //
 //            }
-            if (areascore.getStartarea().equals(areascore.getEndarea())) {
-                areascore.setScores(1);
-            }
+//            if (areascore.getStartarea().equals(areascore.getEndarea())) {
+//                areascore.setScores(1);
+//            }
             areas.add(areascore);
 
         }
@@ -810,6 +813,44 @@ public class XlsxService {
             cell = row.createCell(1);
 
             cell.setCellValue(locations.get(i).getCapacity());
+
+
+        }
+
+        return wb;
+
+    }
+
+
+    public XSSFWorkbook createTickets(List<Ticket> tickets) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+
+
+        row = sheet.createRow(0);
+
+        cell = row.createCell(0);
+        cell.setCellValue("參賽學校");
+
+        cell = row.createCell(1);
+        cell.setCellValue("場地");
+
+
+        for (int i = 0; i < tickets.size(); i++) {
+
+            row = sheet.createRow(i + 1);
+
+
+            cell = row.createCell(0);
+            cell.setCellValue(tickets.get(i).getSchoolname());
+
+            cell = row.createCell(1);
+
+            cell.setCellValue(tickets.get(i).getLocationname());
 
 
         }

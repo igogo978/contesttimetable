@@ -48,7 +48,7 @@ public class LocationApiController {
     @GetMapping(value = "/api/location/download")
     public ResponseEntity<Resource> downloadReport() throws IOException {
 
-        ObjectMapper mapper = new ObjectMapper();
+//        ObjectMapper mapper = new ObjectMapper();
         List<Location> locations = new ArrayList<>();
 
 //        repository.findAll().forEach(locations::add);

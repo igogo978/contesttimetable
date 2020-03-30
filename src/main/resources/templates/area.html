@@ -37,13 +37,25 @@
                         <td>得分</td>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in items" v-if="item.scores < 100">
+
+                        <tr v-for="(item, index) in items">
+
+                           
                             <td>{{index+1}}</td>
                             <td>{{item.startarea}}</td>
                             <td>{{item.endarea}}</td>
-                            <td>{{item.scores}}</td>                    
+                            <td>
+                                <div class="form-group">
+                                    <input v-model="item.scores" class="form-control" placeholder="scores" readonly>
+                                </div>
+                            </td>                    
                          
+                 
                         </tr>
+                     
+               
+
+
                     </tbody>
                 </table>
             </div>
@@ -87,7 +99,7 @@
 
             },
             computed: {
-                say: function(){
+                checkLocationSize: function(){
                    
                 }
             },

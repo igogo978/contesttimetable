@@ -29,6 +29,48 @@
 <br>
 <br>
             <div>
+
+                <div>
+                        {{summaryComputed}}
+                        <table class="table">
+                            <h3>場次人數統計</h3>
+                            <thead>
+                            <tr>
+                                <th scope="col">場次</th>
+                                <th scope="col">1</th>
+                                <th scope="col">2</th>
+                                <th scope="col">3</th>
+                                <th scope="col">4</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>人數</td>
+                                <td>{{summary.contestid1}}</td>
+                                <td>{{summary.contestid2}}</td>
+                                <td>{{summary.contestid3}}</td>
+                                <td>{{summary.contestid4}}</td>
+                            </tr>
+
+                            <tr>
+                                    <td>學校數</td>
+                                    <td>{{summary.schools1}}</td>
+                                    <td>{{summary.schools2}}</td>
+                                    <td>{{summary.schools3}}</td>
+                                    <td>{{summary.schools4}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                </div>
+   
+
+                <br>
+                <br>
+                <br>
+                <h3>各校人數統計</h3>
+
                 <table class="table">
                     <thead>
                         <td>序</td>
@@ -69,6 +111,9 @@
                         </tr>
                     </tbody>
                 </table>
+
+
+
             </div>
 
             <footer>
@@ -77,56 +122,115 @@
 
 
 
-    <script th:inline="javascript">
-        /*<![CDATA[*/
+            <script th:inline="javascript">
+                /*<![CDATA[*/
 
-        Vue.prototype.$http = axios;
-        let config = {
-            headers: {
-                'content-type': 'application/json;CHARSET=UTF-8'
-            }
-        };
-
-      
-        var app = new Vue({
-            el: '#app',
-            data: {
-                msg: 'Hello Vue!',
-                contestid: /*[[${contestid}]]*/ 'default',
-                items: []
-            },
-            created: function() {
-                let vm = this;
-                let url =  "/api/schoolteam" ;
-
-                this.$http.get(url, config).then((response) => {
-                    vm.items = response.data;
-                    console.log(response.data);
-
-                }, (response) => {
-                    // error callback
-                });
+                Vue.prototype.$http = axios;
+                let config = {
+                    headers: {
+                        'content-type': 'application/json;CHARSET=UTF-8'
+                    }
+                };
 
 
-            },
-            computed: {
-                say: function(){
-                   
-                }
-            },
-            methods: {
-             
-                showMsg: function(){
-                    console.log("hello");
-                }
-               
-            }
-        })
+                var app = new Vue({
+                    el: '#app',
+                    data: {
+                        msg: 'Hello Vue!',
+                        contestid: /*[[${contestid}]]*/ 'default',
+                        items: [],
+                        summary: {},
 
-         /*]]>*/
-        </script>
+                    },
+                    created: function() {
+                        let vm = this;
+                        let url =  "/api/schoolteam" ;
+
+                        this.$http.get(url, config).then((response) => {
+                            vm.items = response.data;
+                            console.log(response.data);
+
+                        }, (response) => {
+                            // error callback
+                        });
+
+
+                    },
+                    computed: {
+                        summaryComputed: function(){
+                          this.summary.contestid1 = 0;                          
+                          this.summary.contestid2 = 0;
+                          this.summary.contestid3 = 0;
+                          this.summary.contestid4 = 0;
+
+
+                          this.summary.schools1 = 0;
+                          this.summary.schools2 = 0;
+                          this.summary.schools3 = 0;
+                          this.summary.schools4 = 0;
+
+
+                          if(this.items.length !=0){
+
+                            this.items.forEach(item => {
+                                item.contestids.forEach(contestitem => {
+                                    if(contestitem.contestid === 1){
+                                        this.summary.contestid1 += contestitem.members;
+
+
+                                        if(contestitem.members != 0){
+                                            this.summary.schools1 += 1;
+                                        }
+                                    }
+
+                                    if(contestitem.contestid === 2){
+                                        this.summary.contestid2 += contestitem.members;
+
+                                        if(contestitem.members != 0){
+                                            this.summary.schools2 += 1;
+                                        }
+                                    }
+
+
+                                    if(contestitem.contestid === 3){
+                                        this.summary.contestid3 += contestitem.members;
+
+                                        if(contestitem.members != 0){
+                                            this.summary.schools3 += 1;
+                                        }
+                                    }
+
+                                    if(contestitem.contestid === 4){
+                                        this.summary.contestid4 += contestitem.members;
+
+                                        if(contestitem.members != 0){
+                                            this.summary.schools4 += 1;
+                                        }
+                                    }
+
+                                })
+                            });
+
+
+
+
+
+                          }
+                        }
+                    },
+                    methods: {
+
+                        showMsg: function(){
+                            console.log("hello");
+                        }
+
+                    }
+                })
+
+                 /*]]>*/
+                </script>
             </footer>
 
 
-        </body>
+     </body>
     </html>

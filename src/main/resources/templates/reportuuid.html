@@ -93,6 +93,9 @@
                                                         v-bind:value="team.schoolid"
                                                         v-model="checkedOut">
                                                     {{team.name}}({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
+                                                    <a v-bind:href="'https://www.google.com/maps/dir/'+item.location.name+'/'+team.name" target="_blank">
+                                                        ({{item.location.name}})
+                                                    </a>
                                                     <table>
                                                         <tr>
                                                             <td v-for="contest in

@@ -16,21 +16,19 @@ import java.io.IOException;
 @Controller
 public class ClientDownloadController {
 
-    //user upload page
-    @GetMapping("/job/client/download")
-    public ResponseEntity<Resource> download(String param) throws IOException {
-        File file = new File("/tmp/contest/client.zip");
-
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-
-
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=client.zip")
-                .contentLength(file.length())
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(resource);
-
-    }
+//    //user upload page
+//    @GetMapping("/job/client/download")
+//    public ResponseEntity<Resource> download(String param) throws IOException {
+//        File file = new File("/tmp/contest/client.zip");
+//
+//        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=client.zip")
+//                .contentLength(file.length())
+//                .contentType(MediaType.parseMediaType("application/octet-stream"))
+//                .body(resource);
+//
+//    }
 
 }

@@ -34,30 +34,33 @@ public class ContestconfigService {
             contestconfigRepository.deleteAll();
 
             //create ObjectMapper instance
-            logger.info("储存设定档");
             root = mapper.readTree(new File(configfile));
+
+
             Contestconfig contestconfig = new Contestconfig();
 //            contestconfig.setCount(root.get("count").asInt());
 
-            JsonNode node = root.get("setting");
+//            JsonNode node = root.get("setting");
 
 
-            for (JsonNode subnode : node) {
+            for (JsonNode node : root) {
 
-                Integer id = subnode.get("id").asInt();
+                Integer id = node.get("id").asInt();
 
-                String description = subnode.get("description").asText();
+                String description = node.get("description").asText();
                 contestconfig.setId(id);
                 contestconfig.setDescription(description);
 
 
-                subnode.get("contestgroup").forEach(element -> {
-                    contestconfig.getContestgroup().add(element.asText());
+                node.get("contestgroup").forEach(element -> {
+                    contestconfig.getContestgroup().add(element.asText().toUpperCase());
                 });
 
                 contestconfigRepository.save(contestconfig);
                 contestconfig.getContestgroup().clear();
             }
+            logger.info("储存设定档");
+
         }
 
 

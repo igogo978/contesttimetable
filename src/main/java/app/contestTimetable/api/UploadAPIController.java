@@ -49,6 +49,9 @@ public class UploadAPIController {
     ScoresService scoresService;
 
     @Autowired
+    PocketlistService pocketlistService;
+
+    @Autowired
     ContestconfigService contestconfigService;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -64,8 +67,21 @@ public class UploadAPIController {
 
 
         return String.format("上传内容已成功写入资料库");
-//        return new String(Base64.getDecoder().decode(filename.getBytes()));
 
+    }
+
+    //讀出上傳檔案內容
+    @RequestMapping(value = "/pocketlist/upload/{filename}", method = RequestMethod.GET)
+    public RedirectView  restorePocketlistFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+
+
+        String pocketlistfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
+
+        pocketlistService.restorePocketlist(pocketlistfile);
+
+
+//        return String.format("上传内容已成功写入资料库");
+        return new RedirectView("/pocketlist");
 
     }
 

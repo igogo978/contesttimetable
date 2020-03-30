@@ -162,15 +162,17 @@
                             <td>
                                 <table class="table-sm table-bordered">
                                     <tr>
-                                        <td v-for="(scores,key) in
-                                            JSON.parse(item.scoresfrequency)">
+
+                                        <td v-for="(scores,key) in item.summary">
                                             {{key}}
                                         </td>
+
+                                        
+                                      
                                     </tr>
 
                                     <tr>
-                                        <td v-for="(scores,key) in
-                                            JSON.parse(item.scoresfrequency)">
+                                        <td v-for="(scores,key) in item.summary">
                                             {{scores}}
                                         </td>
                                     </tr>
@@ -246,8 +248,24 @@
                 let url =  "/api/report" ;
 
                 this.$http.get(url, config).then((response) => {
-                    vm.items = response.data;
-                    console.log(response.data);
+                    // vm.items = response.data;
+                    // console.log(response.data);
+
+                    myitems = [];
+                  
+                    response.data.forEach(item=>{
+                        myitem = {};
+                        // console.log(item.uuid);
+                        myitem.uuid = item.uuid;
+                        myitem.scores = item.scores;
+                        // console.log(JSON.parse(item.scoresfrequency));
+                        myitem.summary = JSON.parse(item.scoresfrequency);
+
+                        myitems.push(myitem);
+                    });
+                    vm.items = myitems;
+                    console.log(myitems);
+                    
 
                 }, (response) => {
                     // error callback

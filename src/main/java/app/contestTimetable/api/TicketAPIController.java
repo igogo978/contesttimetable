@@ -4,11 +4,21 @@ package app.contestTimetable.api;
 import app.contestTimetable.model.Ticket;
 import app.contestTimetable.repository.TicketRepository;
 import app.contestTimetable.service.TicketService;
+import app.contestTimetable.service.XlsxService;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +28,41 @@ public class TicketAPIController {
     @Autowired
     TicketRepository ticketRepository;
 
+    @Autowired
+    XlsxService createxlsx;
+
     @GetMapping(value = "/api/ticket")
     public List<Ticket> getTickets() {
         List<Ticket> tickets = new ArrayList<>();
         ticketRepository.findAll().forEach(ticket -> tickets.add(ticket));
 
         return tickets;
+
+    }
+
+
+    @GetMapping(value = "/api/ticket/download")
+    public ResponseEntity<Resource> downloadTickets() throws IOException {
+        List<Ticket> tickets = new ArrayList<>();
+        ticketRepository.findAll().forEach(ticket -> tickets.add(ticket));
+
+        XSSFWorkbook wb = createxlsx.createTickets(tickets);
+
+        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+        wb.write(resourceStream);
+        wb.close();
+
+        String filename = "tickets";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
+        headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        return ResponseEntity.ok().headers(headers).body(resource);
 
     }
 

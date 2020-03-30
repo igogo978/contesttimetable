@@ -1,4 +1,4 @@
-package app.contestTimetable.model;
+package app.contestTimetable.model.pocketlist;
 
 
 import app.contestTimetable.model.school.Contestid;
@@ -28,8 +28,6 @@ public class Pocketlist {
 
     @ElementCollection
     private List<Contestid> Teamcontestids = new ArrayList<Contestid>();
-
-
 
 
     private String description;

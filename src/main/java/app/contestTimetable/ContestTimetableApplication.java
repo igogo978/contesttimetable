@@ -1,16 +1,8 @@
 package app.contestTimetable;
 
-import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.School;
 import app.contestTimetable.model.Team;
-import app.contestTimetable.model.school.ContestItem;
-import app.contestTimetable.model.school.Contestid;
-import app.contestTimetable.model.school.Location;
-import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.XlsxService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @SpringBootApplication
 public class ContestTimetableApplication implements CommandLineRunner {
@@ -60,6 +48,17 @@ public class ContestTimetableApplication implements CommandLineRunner {
         String cwd = System.getProperty("user.dir");
         String docPath = String.format("%s/docs", cwd);
         String settingPath = String.format("%s/settings", cwd);
+
+
+        List<Team> teams = teamrepository.findAllByOrderBySchoolname();
+        if (teams.size() != 0) {
+            teams.forEach(team -> {
+                team.setAccount("");
+                team.setPasswd("");
+                teamrepository.save(team);
+            });
+
+        }
 
 
         //读取竞赛设定档
@@ -151,7 +150,6 @@ public class ContestTimetableApplication implements CommandLineRunner {
 //                System.out.println(String.format("%s,%s",start,end));
 //            });
 //        });
-
 
 
 //        //读取场地

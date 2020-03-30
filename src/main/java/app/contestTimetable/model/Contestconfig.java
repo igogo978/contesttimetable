@@ -21,8 +21,6 @@ public class Contestconfig {
 
     private String description;
 
-//    private Integer count;
-
     public Contestconfig() {
     }
 
@@ -48,11 +46,5 @@ public class Contestconfig {
         this.description = description;
     }
 
-//    public Integer getCount() {
-//        return count;
-//    }
-//
-//    public void setCount(Integer count) {
-//        this.count = count;
-//    }
+
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScoresService {
@@ -26,37 +27,93 @@ public class ScoresService {
     AreascoreRepository areascoreRepository;
 
 
+    public List<Areascore> getSchoolteamAreascores(List<String> schoolteamAreas, List<String> locationAreas) {
+        List<Areascore> areascores = new ArrayList<>();
+
+        schoolteamAreas.forEach(schoolteamArea -> {
+
+            locationAreas.forEach(location -> {
+
+//                Areascore areascore = areascoreRepository.findByStartareaAndEndarea(schoolteamArea, location);
+                String id = String.format("%s%s", schoolteamArea, location);
+                Optional<Areascore> areascore = areascoreRepository.findById(id);
+
+                if (areascore.isPresent()) {
+                    areascores.add(areascore.get());
+                } else {
+                    Areascore areascore1 = new Areascore();
+                    areascore1.setStartarea(schoolteamArea);
+                    areascore1.setEndarea(location);
+                    areascore1.setScores(999.999);
+
+                    logger.info(String.format("%s,%s,%s", areascore1.getStartarea(), areascore1.getEndarea(), areascore1.getScores()));
+                    areascores.add(areascore1);
+                }
+
+
+            });
+
+        });
+
+        return areascores;
+    }
+
     public void updateAreaScores(String xlsx) throws IOException, InvalidFormatException {
         List<Areascore> areas = new ArrayList<>();
 
-//        List<String> index = new ArrayList<>();
-
         areas = readxlsx.getAreascore(xlsx);
 
-        //档案中只有单向a->b,需要增加b->a 到资料库中
-        List<Areascore> allAreas = new ArrayList<>();
-        areas.forEach(area->{
-            allAreas.add(area);
+        areas.forEach(area -> {
 
-            if (!area.getStartarea().equals(area.getEndarea())) {
-                Areascore switchArea = new Areascore();
 
-                switchArea.setStartarea(area.getEndarea());
-                switchArea.setEndarea(area.getStartarea());
-                switchArea.setScores(area.getScores());
+            String id = String.format("%s%s", area.getStartarea(), area.getEndarea());
+            logger.info(id);
+            Optional<Areascore> optionalAreascore = areascoreRepository.findById(id);
 
-                allAreas.add(switchArea);
+            if (optionalAreascore.isPresent()) {
+                Areascore areascore = optionalAreascore.get();
+                areascore.setScores(area.getScores());
+                areascoreRepository.save(areascore);
+            } else {
+                Areascore areascore = new Areascore();
+
+                areascore.setId(id);
+                areascore.setStartarea(area.getStartarea());
+
+                areascore.setEndarea(area.getEndarea());
+                areascore.setScores(area.getScores());
+                areascoreRepository.save(areascore);
+
             }
+
+
+            id = String.format("%s%s", area.getEndarea(), area.getStartarea());
+            logger.info(id);
+            optionalAreascore = areascoreRepository.findById(id);
+
+            if (optionalAreascore.isPresent()) {
+                Areascore areascore = optionalAreascore.get();
+                areascore.setScores(area.getScores());
+                areascoreRepository.save(areascore);
+            } else {
+                Areascore areascore = new Areascore();
+
+                areascore.setId(id);
+                areascore.setStartarea(area.getEndarea());
+
+                areascore.setEndarea(area.getStartarea());
+                areascore.setScores(area.getScores());
+                areascoreRepository.save(areascore);
+
+            }
+
+
+
+
+
         });
 
 
-
-        //delete records
-        areascoreRepository.deleteAll();
-        allAreas.forEach(area -> {
-            areascoreRepository.save(area);
-
-        });
 
 
     }

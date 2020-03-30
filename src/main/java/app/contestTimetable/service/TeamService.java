@@ -1,9 +1,7 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Team;
-import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.ContestconfigRepository;
 import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.TeamRepository;
@@ -93,8 +91,14 @@ public class TeamService {
 
             //update contesttime in team.description
             contestconfigRepository.findAll().forEach(contestconfig -> {
-                contestconfig.getContestgroup().forEach(contestgroup -> {
-                            teamRepository.findByContestitemContaining(contestgroup).forEach(team -> {
+                contestconfig.getContestgroup().forEach(contestitem -> {
+
+                            List<Team> contestitemTeams = teamRepository.findByContestitemContaining(contestitem.toUpperCase());
+
+                            if (contestitemTeams.size() == 0) {
+                                logger.info(contestitem);
+                            }
+                            contestitemTeams.forEach(team -> {
                                 team.setDescription(contestconfig.getDescription());
                             });
                         }
@@ -115,8 +119,6 @@ public class TeamService {
     private static ZipArchiveInputStream getZipFile(File zipFile) throws Exception {
         return new ZipArchiveInputStream(new BufferedInputStream(new FileInputStream(zipFile)));
     }
-
-
 
 
 }

@@ -10,8 +10,7 @@ public class Areascore {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     private String startarea;
 
@@ -19,6 +18,14 @@ public class Areascore {
 
     private double scores;
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getStartarea() {
         return startarea;
