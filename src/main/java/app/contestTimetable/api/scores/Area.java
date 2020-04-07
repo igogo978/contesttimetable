@@ -17,12 +17,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,12 +48,29 @@ public class Area {
     @Autowired
     XlsxService createxlsx;
 
+
+    @GetMapping(value = "/api/scores/area/{areaname}")
+    public List<Areascore> getOneAreascores(@PathVariable String areaname) throws IOException {
+        List<Areascore> areascores = new ArrayList<>();
+        List<String> notSchoolids = new ArrayList<>();
+        notSchoolids.add("999999");
+
+        List<Location> locations = locationRepository.findBySchoolidNotIn(notSchoolids);
+        List<String> locationAreas = new ArrayList<>();
+
+        locations.forEach(location -> {
+            locationAreas.add(location.getLocationname().split("(?<=區)")[0]);
+        });
+
+        List<String> areas = new ArrayList<>();
+        areas.add(areaname);
+        return scoresService.getSchoolteamAreascores(areas, locationAreas);
+
+
+    }
+
     @GetMapping(value = "/api/scores/area")
     public List<Areascore> getScoresByArea() throws IOException {
-
-//        List<Areascore> areas = new ArrayList<>();
-//        areascoreRepository.findAll().forEach(areas::add);
-//        return areascoreRepository.findByOrderByStartarea();
 
         List<String> notSchoolids = new ArrayList<>();
         notSchoolids.add("999999");
@@ -66,11 +84,9 @@ public class Area {
         });
 
         List<String> schoolteamAreas = schoolTeamService.getSchoolTeamsArea();
-        scoresService.getSchoolteamAreascores(schoolteamAreas, locationAreas);
-
-        return areascoreRepository.findByScoresLessThanOrderByStartarea(99.9);
+//
+        return scoresService.getSchoolteamAreascores(schoolteamAreas, locationAreas);
     }
-
 
     @GetMapping(value = "/api/scores/area/download")
     public ResponseEntity<Resource> downloadScoresByArea() throws IOException {
@@ -112,6 +128,24 @@ public class Area {
         return ResponseEntity.ok().headers(headers).body(resource);
 
     }
+
+
+    @PutMapping(value = "/api/scores/area")
+    public String updateScoresByArea(@RequestBody List<Areascore> areascores) throws IOException {
+
+        areascores.forEach(areascore -> {
+            areascoreRepository.save(areascore);
+        });
+
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+
+        return dateTime.format(formatter);
+
+    }
+
+
 }
 
 

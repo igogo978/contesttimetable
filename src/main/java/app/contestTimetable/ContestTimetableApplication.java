@@ -50,15 +50,15 @@ public class ContestTimetableApplication implements CommandLineRunner {
         String settingPath = String.format("%s/settings", cwd);
 
 
-        List<Team> teams = teamrepository.findAllByOrderBySchoolname();
-        if (teams.size() != 0) {
-            teams.forEach(team -> {
-                team.setAccount("");
-                team.setPasswd("");
-                teamrepository.save(team);
-            });
-
-        }
+//        List<Team> teams = teamrepository.findAllByOrderBySchoolname();
+//        if (teams.size() != 0) {
+//            teams.forEach(team -> {
+//                team.setAccount("");
+//                team.setPasswd("");
+//                teamrepository.save(team);
+//            });
+//
+//        }
 
 
         //读取竞赛设定档

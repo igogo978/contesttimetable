@@ -1,7 +1,6 @@
 package app.contestTimetable.api;
 
 import app.contestTimetable.model.Report;
-import app.contestTimetable.model.Selectedreport;
 import app.contestTimetable.repository.ReportRepository;
 import app.contestTimetable.repository.SelectedreportRepository;
 import app.contestTimetable.repository.TicketRepository;
@@ -16,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,12 +56,39 @@ public class ReportApiController {
     XlsxService createxlsx;
 
 
+    @GetMapping(value = "/api/report/{page}")
+    public List<Report> getReportsByPage(@PathVariable Optional<Integer> page) {
+        List<Report> reports = new ArrayList<>();
+//        reportRepository.findAll().forEach(reports::add);
+
+        if (!page.isPresent()) {
+            page.orElse(1);
+        }
+
+        return reportRepository.findAllByOrderByScoresAsc().subList(page.get(),page.get()+300);
+
+    }
+
+
+
+    @GetMapping(value = "/api/report/size")
+    public Integer getReportSize() {
+        return reportRepository.findAllByOrderByScoresAsc().size();
+    }
+
+
+
     @GetMapping(value = "/api/report")
     public List<Report> getReports() {
         List<Report> reports = new ArrayList<>();
 //        reportRepository.findAll().forEach(reports::add);
 
-        return reportRepository.findAllByOrderByScoresAsc();
+        reportRepository.findAllByOrderByScoresAsc().forEach(report -> {
+            report.setReport("");
+            reports.add(report);
+        });
+
+        return reports;
 
     }
 

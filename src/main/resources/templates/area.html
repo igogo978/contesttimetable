@@ -28,6 +28,21 @@
         <div class="container" id="app">
 <br>
 
+            <div class="float-left">
+                <select v-model="selectedA">
+                    <option disabled value="">選擇行政區</option>
+                    <option v-for="option in optionsA" v-bind:value="option.value">
+                        {{ option.text }}
+                    </option>
+                </select>
+                <button v-on:click="getArea" class="btn btn-info">查詢</button>
+              
+            </div> 
+
+            <div class="float-right"> 
+               {{updateDatetime}} 
+                <button v-on:click="updateAreascores" class="btn btn-info">寫入</button>
+            </div>
             <div>
                 <table class="table">
                     <thead>
@@ -46,10 +61,9 @@
                             <td>{{item.endarea}}</td>
                             <td>
                                 <div class="form-group">
-                                    <input v-model="item.scores" class="form-control" placeholder="scores" readonly>
+                                    <input v-model="item.scores" class="form-control" placeholder="scores">
                                 </div>
                             </td>                    
-                         
                  
                         </tr>
                      
@@ -76,13 +90,16 @@
             }
         };
 
-      
+        let url =  "/api/scores/area" ;
         var app = new Vue({
             el: '#app',
             data: {
                 msg: 'Hello Vue!',
                 contestid: /*[[${contestid}]]*/ 'default',
-                items: []
+                items: [],
+                updateDatetime:'',
+                selectedA:'',
+                optionsA: [],                    
             },
             created: function() {
                 let vm = this;
@@ -90,7 +107,29 @@
 
                 this.$http.get(url, config).then((response) => {
                     vm.items = response.data;
-                    console.log(response.data);
+                    let arraya = [];
+                    let optiona = {}
+
+                   
+
+                    vm.items.forEach(item=>{
+                        if(!arraya.includes(item.startarea)) {
+                            arraya.push(item.startarea);
+                            console.log(item.startarea);
+                            optiona = {};
+                            optiona.text = item.startarea;
+                            optiona.value = item.startarea;
+                            vm.optionsA.push(optiona);
+                        }
+                    })
+
+                    optiona = {};
+                    optiona.text = 'all';
+                    optiona.value = 'all' ;
+                    vm.optionsA.push(optiona);
+
+                    // console.log(vm.optionsA);
+                   
 
                 }, (response) => {
                     // error callback
@@ -107,6 +146,43 @@
              
                 showMsg: function(){
                     console.log("hello");
+                },
+                getArea: function(){
+                    let vm = this;
+                    let target = '';
+
+                    
+                    if(this.selectedA === 'all'){
+                        target = url;
+                    } else {
+                        target = url+"/"+this.selectedA;
+                    }
+                    // console.log(target);
+                    
+
+                    this.$http.get(target, config).then((response) => {
+                        
+                        // console.log(response.data);
+                        vm.items = response.data;
+
+                    }, (response) => {
+                        // error callback
+                    });
+
+
+                },
+                updateAreascores: function(){
+                    console.log("update areascores");
+                    let url = "/api/scores/area";
+                    let vm = this ; 
+                    this.$http.put(url, vm.items, config).then((response) => {
+                   
+                        console.log(response.data);
+                        vm.updateDatetime = response.data;
+
+                    }, (response) => {
+                        // error callback
+                    });
                 }
                
             }

@@ -2,9 +2,9 @@ package app.contestTimetable.api;
 
 
 import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
+import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.PdfService;
@@ -39,9 +39,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -83,7 +83,7 @@ public class PocketlistApiController {
     PdfService pdfService;
 
 
-//    String twFont = "/opt/font/TW-Kai-98_1.ttf";
+    //    String twFont = "/opt/font/TW-Kai-98_1.ttf";
     String contestHeader = "臺中市109年度中小學資訊網路應用競賽決賽";
 
     @PostMapping(value = "/api/pocketlist")
@@ -99,7 +99,8 @@ public class PocketlistApiController {
     }
 
     @GetMapping(value = "/api/pocketlist")
-    public List<Pocketlist> getReport() throws IOException {
+    public List<Pocketlist> getReport(@RequestBody String payload) throws IOException {
+
 
         List<Pocketlist> lists = new ArrayList<>();
 //        pocketlistRepository.findAll().forEach(team->lists.add(team));
@@ -110,6 +111,7 @@ public class PocketlistApiController {
 
     @GetMapping(value = "/api/pocketlist/download")
     public ResponseEntity<Resource> getPocketListDownload() throws IOException {
+
 
         List<Pocketlist> lists = new ArrayList<>();
 //        pocketlistRepository.findAll().forEach(team->lists.add(team));
@@ -123,7 +125,7 @@ public class PocketlistApiController {
 //        DataOutputStream out = new DataOutputStream(resourceStream);
 //
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(resourceStream,lists);
+        mapper.writeValue(resourceStream, lists);
 
 //        out.writeUTF(mapper.writeValueAsString(lists));
 
@@ -138,8 +140,6 @@ public class PocketlistApiController {
         Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);
     }
-
-
 
 
     @GetMapping(value = "/api/pocketlist/player")
@@ -217,11 +217,10 @@ public class PocketlistApiController {
     }
 
 
-
-
     @GetMapping(value = "/api/pocketlist/inform/all/download")
-    public ResponseEntity<Resource> doInformAll() throws IOException {
+    public ResponseEntity<Resource> doInformAll(HttpServletRequest request) throws IOException {
         //download pdf
+
 
         List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
 
@@ -254,6 +253,8 @@ public class PocketlistApiController {
                 AtomicReference<Integer> totalpeople = new AtomicReference<>(0);
 
                 config.getContestgroup().forEach(contestitem -> {
+
+
                     List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
                     teams.forEach(team -> {
                         if (team.getMembername() != null) {
@@ -264,7 +265,15 @@ public class PocketlistApiController {
                         }
                     });
 //                    inform.getTeams().addAll(teams);
-                    teams.forEach(team -> inform.getTeams().add(team));
+                    teams.forEach(team -> {
+
+                        if (request.getSession(false) == null) {
+                            team.setAccount("*****");
+                            team.setPasswd("*****");
+                        }
+
+                        inform.getTeams().add(team);
+                    });
                     teamsize.updateAndGet(v -> v + teams.size());
                 });
                 inform.setTeamsize(teamsize.get());
