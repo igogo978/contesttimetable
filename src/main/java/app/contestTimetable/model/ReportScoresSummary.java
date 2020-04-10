@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Report {
+public class ReportScoresSummary {
 
 
     @Id
@@ -13,8 +13,7 @@ public class Report {
 
     private String scoresfrequency;
 
-    @Column( columnDefinition = "text")
-    private String report;
+
 
     private double scores;
 
@@ -26,14 +25,6 @@ public class Report {
         this.uuid = uuid;
     }
 
-
-    public String getReport() {
-        return report;
-    }
-
-    public void setReport(String report) {
-        this.report = report;
-    }
 
     public double getScores() {
         return scores;

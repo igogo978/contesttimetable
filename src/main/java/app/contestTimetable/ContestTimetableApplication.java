@@ -1,5 +1,6 @@
 package app.contestTimetable;
 
+import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.XlsxService;
@@ -17,8 +18,8 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    GooglemapRepository googlemapRepository;
+//    @Autowired
+//    GooglemapRepository googlemapRepository;
 
     @Autowired
     TeamRepository teamrepository;
@@ -39,15 +40,22 @@ public class ContestTimetableApplication implements CommandLineRunner {
     @Autowired
     XlsxService readxlsx;
 
+
+    @Autowired
+    ReportRepository reportRepository;
+
+    @Autowired
+    ReportScoresSummaryRepository reportScoresSummaryRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(ContestTimetableApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        String cwd = System.getProperty("user.dir");
-        String docPath = String.format("%s/docs", cwd);
-        String settingPath = String.format("%s/settings", cwd);
+//        String cwd = System.getProperty("user.dir");
+//        String docPath = String.format("%s/docs", cwd);
+//        String settingPath = String.format("%s/settings", cwd);
 
 
 //        List<Team> teams = teamrepository.findAllByOrderBySchoolname();
@@ -261,6 +269,8 @@ public class ContestTimetableApplication implements CommandLineRunner {
 //        Optional<Googlemap> googlemap = googlemapRepository.findById("12345678");
 //        googlemap.get().setDistance(9999999.12345678);
 //        googlemapRepository.save(googlemap.get());
+
+
 
 
         System.out.println("系统启动成功");

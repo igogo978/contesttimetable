@@ -1,7 +1,9 @@
 package app.contestTimetable.api;
 
 import app.contestTimetable.model.Report;
+import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.repository.ReportRepository;
+import app.contestTimetable.repository.ReportScoresSummaryRepository;
 import app.contestTimetable.repository.SelectedreportRepository;
 import app.contestTimetable.repository.TicketRepository;
 import app.contestTimetable.service.ReportService;
@@ -41,10 +43,11 @@ public class ReportApiController {
     ReportRepository reportRepository;
 
     @Autowired
-    TicketRepository ticketrepository;
+    ReportScoresSummaryRepository reportScoresSummaryRepository;
 
     @Autowired
-    SelectedreportRepository selectedreportrepository;
+    TicketRepository ticketrepository;
+
 
     @Autowired
     ReportService reportservice;
@@ -79,16 +82,16 @@ public class ReportApiController {
 
 
     @GetMapping(value = "/api/report")
-    public List<Report> getReports() {
-        List<Report> reports = new ArrayList<>();
-//        reportRepository.findAll().forEach(reports::add);
+    public List<ReportScoresSummary> getReports() {
+//        List<Report> reports = new ArrayList<>();
+////        reportRepository.findAll().forEach(reports::add);
+//
+//        reportRepository.findAllByOrderByScoresAsc().forEach(report -> {
+//            report.setReport("");
+//            reports.add(report);
+//        });
 
-        reportRepository.findAllByOrderByScoresAsc().forEach(report -> {
-            report.setReport("");
-            reports.add(report);
-        });
-
-        return reports;
+        return reportScoresSummaryRepository.findAllByOrderByScoresAsc();
 
     }
 
@@ -140,14 +143,22 @@ public class ReportApiController {
         report.setScores(Double.valueOf(df.format(node.get("totalscores").asDouble())));
         report.setReport(mapper.writeValueAsString(node.get("candidateList")));
         report.setScoresfrequency(node.get("scoresFrequency").asText());
+
+
+        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
+        reportScoresSummary.setUuid(node.get("uuid").asText());
+        reportScoresSummary.setScoresfrequency(node.get("scoresFrequency").asText());
+        reportScoresSummary.setScores(Double.valueOf(df.format(node.get("totalscores").asDouble())));
+
+
         ZonedDateTime dateTime = ZonedDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 
-        logger.info("update a new report:" + dateTime.format(formatter));
+        logger.info("update a new report: " + dateTime.format(formatter) + ", scores: "+ reportScoresSummary.getScores());
 
         reportRepository.save(report);
-
+        reportScoresSummaryRepository.save(reportScoresSummary);
 
         return payload;
     }
@@ -235,6 +246,7 @@ public class ReportApiController {
     public void deleteReports() {
         logger.info("delete reports");
         reportRepository.deleteAll();
+        reportScoresSummaryRepository.deleteAll();
     }
 
 

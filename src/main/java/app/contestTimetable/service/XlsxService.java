@@ -137,7 +137,7 @@ public class XlsxService {
                     //绘画多一使用软体栏位
                     groupitems.add(readPaintingTeams(xlsx.toString()));
                 } else {
-                    groupitems.add(readGroupTeams(xlsx.toString()));
+                    groupitems.add(readContestItemTeams(xlsx.toString()));
 
                 }
             } catch (Exception e) {
@@ -154,8 +154,8 @@ public class XlsxService {
     }
 
 
-    ArrayList<Team> readPaintingTeams(String xlsPath) throws IOException, InvalidFormatException {
-        ArrayList<Team> teams = new ArrayList<>();
+    List<Team> readPaintingTeams(String xlsPath) throws IOException, InvalidFormatException {
+        List<Team> teams = new ArrayList<>();
 
 
         Workbook workbook = WorkbookFactory.create(new File(xlsPath));
@@ -218,6 +218,7 @@ public class XlsxService {
                     default:
                 }
             } //結束讀欄
+            team.setMembers(1);
             teams.add(team);
         }
 
@@ -225,9 +226,9 @@ public class XlsxService {
     }
 
 
-    ArrayList<Team> readPresentationTeams(String xlsPath) throws IOException, InvalidFormatException {
+    List<Team> readPresentationTeams(String xlsPath) throws IOException, InvalidFormatException {
         //讀取檔案內容
-        ArrayList<Team> teams = new ArrayList<>();
+        List<Team> teams = new ArrayList<>();
 
 
         Workbook workbook = WorkbookFactory.create(new File(xlsPath));
@@ -275,8 +276,12 @@ public class XlsxService {
                     case 4:    //第4個欄位, 組員
                         value = String.valueOf(cell.getStringCellValue());
                         //方便利用资料库计算简报组人数, 空字串不是用notnull
+                        team.setMembers(2);
+
                         if (value.length() == 0) {
                             value = null;
+                            team.setMembers(1);
+
                         }
                         team.setMembername(value);
                         break;
@@ -303,9 +308,9 @@ public class XlsxService {
         return teams;
     }
 
-    ArrayList<Team> readGroupTeams(String xlsPath) throws IOException, InvalidFormatException {
+    List<Team> readContestItemTeams(String xlsPath) throws IOException, InvalidFormatException {
         //讀取檔案內容
-        ArrayList<Team> teams = new ArrayList<>();
+        List<Team> teams = new ArrayList<>();
 
         Workbook workbook = WorkbookFactory.create(new File(xlsPath));
 
@@ -364,6 +369,7 @@ public class XlsxService {
                     default:
                 }
             } //結束讀欄
+            team.setMembers(1);
             teams.add(team);
         }
         return teams;

@@ -3,6 +3,7 @@ package app.contestTimetable.service;
 
 import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Report;
+import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
@@ -25,11 +26,15 @@ public class ReportService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    SelectedreportRepository selectedreportrepository;
+//    @Autowired
+//    SelectedreportRepository selectedreportrepository;
 
     @Autowired
     ReportRepository reportrepository;
+
+
+    @Autowired
+    ReportScoresSummaryRepository reportScoresSummaryRepository;
 
     @Autowired
     TicketRepository ticketrepository;
@@ -275,7 +280,18 @@ public class ReportService {
         ObjectMapper mapper = new ObjectMapper();
         List<Report> reports = Arrays.asList(mapper.readValue(new File(jsonfile), Report[].class));
 
-        reports.forEach(report -> reportrepository.save(report));
+
+
+        reports.forEach(report -> {
+
+            ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
+            reportScoresSummary.setUuid(report.getUuid());
+            reportScoresSummary.setScores(report.getScores());
+            reportScoresSummary.setScoresfrequency(report.getScoresfrequency());
+            reportrepository.save(report);
+
+
+        });
     }
 
 

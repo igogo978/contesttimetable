@@ -32,10 +32,16 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
     @Query("SELECT DISTINCT t.schoolname FROM Team t WHERE t.location=?1")
     List<String> findDistinctSchoolnameByLocation(String location);
 
+    List<Team> findByLocationAndContestitemNotContainingOrderByLocation(String locationname, String contestitem);
+
+
     Integer countByContestitemContainingAndSchoolname(String contestitem, String schoolname);
 
     //    List<Team> findByContestitemContainingAndSchoolname(String contestitem, String schoolname);
 
     Integer countByMembernameNotNullAndContestitemContainingAndSchoolname(String contestitem, String schoolname);
+    Integer countByContestitemContainingAndLocation(String contestitem, String location);
+
+
 
 }

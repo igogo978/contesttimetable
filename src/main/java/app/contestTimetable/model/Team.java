@@ -28,6 +28,15 @@ public class Team {
 
     private String description;
 
+    private Integer members = 1;
+
+    public Integer getMembers() {
+        return members;
+    }
+
+    public void setMembers(Integer members) {
+        this.members = members;
+    }
 
     public Team() {
     }

@@ -39,6 +39,14 @@ public class TeamService {
     LocationRepository locationRepository;
 
 
+    public List<Team> findTeamByLocationAndContestitemNotContain(String location, String contestitemnotcontain) {
+        List<Team> teams = new ArrayList<>();
+
+        teams = teamRepository.findByLocationAndContestitemNotContainingOrderByLocation(location, contestitemnotcontain);
+        return teams;
+    }
+
+
     public void updateTeam(String zipFilePath) throws IOException {
         //1. upzip file to /tmp/team
         String dstDirPath = "/tmp/team";

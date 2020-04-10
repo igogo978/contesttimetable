@@ -57,7 +57,7 @@
             <div>
                 
                 <table class="table">
-                    <h3>各校場次人數統計</h3>
+                    <h3>各試場人數統計</h3>
                     <thead>
                     <tr>
                         <th scope="col">學校/試場</th>
@@ -152,11 +152,9 @@
                     // let tmpItems = JSON.parse(response.data.report);
 
                     vm.items.forEach(function(item){
-                        console.log(item.teamcontestids);
                         item.teamcontestids = item.teamcontestids.sort(function(a,b){
                             return a.contestid - b.contestid ;
                         })
-
                         // item.teams.forEach(function(team){
                         //     console.log(team.name);
                         //     schoolteams += 1;
@@ -168,8 +166,26 @@
                    
                       
                     })
+
+                    //计算每场次最大人数
+                    vm.items.forEach(function(item){
+                        let final = {};
+                        final.contestid = 5;
+                        final.members = 0;
+                        item.teamcontestids.forEach(
+                            function(id) {
+                                if(id.members > final.members){
+                                    final.members = id.members
+
+                                }
+                            }
+                        )
+                        item.teamcontestids.push(final);
+                        console.log(item.teamcontestids);
+
+                    })
                    
-                
+                    
               
 
                 }, (response) => {

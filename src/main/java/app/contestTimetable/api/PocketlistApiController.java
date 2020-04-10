@@ -2,6 +2,7 @@ package app.contestTimetable.api;
 
 
 import app.contestTimetable.model.Contestconfig;
+import app.contestTimetable.model.LocationSummary;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
 import app.contestTimetable.model.pocketlist.Pocketlist;
@@ -9,6 +10,7 @@ import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.PdfService;
 import app.contestTimetable.service.PocketlistService;
+import app.contestTimetable.service.TeamService;
 import app.contestTimetable.service.XlsxService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.io.font.FontProgram;
@@ -46,8 +48,10 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
@@ -82,6 +86,9 @@ public class PocketlistApiController {
     @Autowired
     PdfService pdfService;
 
+    @Autowired
+    TeamService teamService;
+
 
     //    String twFont = "/opt/font/TW-Kai-98_1.ttf";
     String contestHeader = "臺中市109年度中小學資訊網路應用競賽決賽";
@@ -99,12 +106,45 @@ public class PocketlistApiController {
     }
 
     @GetMapping(value = "/api/pocketlist")
-    public List<Pocketlist> getReport(@RequestBody String payload) throws IOException {
+    public List<LocationSummary> getLocationSummary() throws IOException {
+
+        String str = "打字".toUpperCase();
+        String excludeItem = String.format("(.*)%s(.*)", str);
+
+        List<LocationSummary> lists = new ArrayList<>();
+
+        List<Location> locations = locationRepository.findBySchoolidNotIn(Arrays.asList("999999"));
 
 
-        List<Pocketlist> lists = new ArrayList<>();
-//        pocketlistRepository.findAll().forEach(team->lists.add(team));
-        pocketlistRepository.findAll().forEach(lists::add);
+        locations.forEach(location -> {
+            AtomicInteger contestid = new AtomicInteger(1);
+            LocationSummary locationSummary = new LocationSummary();
+            contestconfigRepository.findAllByOrderByIdAsc().forEach(contestconfig -> {
+                AtomicInteger contestidMembers = new AtomicInteger();
+                contestidMembers.set(0);
+                contestconfig.getContestgroup().forEach(contestitem -> {
+                    List<Team> teams = new ArrayList<>();
+
+                    if (!contestitem.matches(excludeItem)) {
+                        teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
+                        teams.forEach(team -> {
+                            logger.info(String.format("%s,%s", contestitem, team.getMembers()));
+
+                            contestidMembers.updateAndGet(n -> n + team.getMembers());
+                        });
+                    }
+
+
+                });
+//                logger.info(String.format("%s,%s,%s", contestid.get(), location.getLocationname(), contestidMembers.get()));
+
+                lists.add(locationSummary);
+                contestid.incrementAndGet();
+
+            });
+
+        });
+
 
         return lists;
     }

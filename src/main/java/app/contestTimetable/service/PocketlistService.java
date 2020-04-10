@@ -55,7 +55,6 @@ public class PocketlistService {
                 pocketlistRepository.save(pocketlistitem);
 
                 //            更新team的location
-
                 List<Team> teams = teamRepository.findBySchoolname(pocketlistitem.getSchoolname());
                 if (teams.size() != 0) {
                     teams.forEach(team -> {
@@ -113,7 +112,6 @@ public class PocketlistService {
                     pocketlist.getTeamcontestids().add(contestid);
 
 //                    logger.info(contest.get("contestid").asText()+":"+contest.get("members").asInt());
-
                 });
                 pocketlistRepository.save(pocketlist);
 
