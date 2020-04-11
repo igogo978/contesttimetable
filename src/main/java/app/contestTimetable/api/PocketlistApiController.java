@@ -47,12 +47,26 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+
+class LocationSumList {
+    private String location;
+    private List<LocationSummary> locationSummaryList;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public List<LocationSummary> getLocationSummaryList() {
+        return locationSummaryList;
+    }
+}
 
 @RestController
 public class PocketlistApiController {
@@ -105,6 +119,8 @@ public class PocketlistApiController {
         return dateTime.format(formatter);
     }
 
+
+
     @GetMapping(value = "/api/pocketlist")
     public List<LocationSummary> getLocationSummary() throws IOException {
 
@@ -118,17 +134,20 @@ public class PocketlistApiController {
 
         locations.forEach(location -> {
             AtomicInteger contestid = new AtomicInteger(1);
-            LocationSummary locationSummary = new LocationSummary();
+
+
             contestconfigRepository.findAllByOrderByIdAsc().forEach(contestconfig -> {
+                LocationSummary locationSummary = new LocationSummary();
+                locationSummary.setLocation(location.getLocationname());
                 AtomicInteger contestidMembers = new AtomicInteger();
                 contestidMembers.set(0);
                 contestconfig.getContestgroup().forEach(contestitem -> {
                     List<Team> teams = new ArrayList<>();
-
                     if (!contestitem.matches(excludeItem)) {
+
                         teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
                         teams.forEach(team -> {
-                            logger.info(String.format("%s,%s", contestitem, team.getMembers()));
+//                            logger.info(String.format("%s, %s,%s", location.getLocationname(), contestitem, team.getMembers()));
 
                             contestidMembers.updateAndGet(n -> n + team.getMembers());
                         });
@@ -136,14 +155,19 @@ public class PocketlistApiController {
 
 
                 });
-//                logger.info(String.format("%s,%s,%s", contestid.get(), location.getLocationname(), contestidMembers.get()));
+                locationSummary.setContestid(contestid.get());
 
+//                logger.info(String.format("%s,%s,%s", contestid.get(), location.getLocationname(), contestidMembers.get()));
+                locationSummary.setMembers(contestidMembers.get());
                 lists.add(locationSummary);
                 contestid.incrementAndGet();
 
             });
 
+
         });
+
+
 
 
         return lists;
