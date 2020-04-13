@@ -1,10 +1,16 @@
-package app.contestTimetable.model;
+package app.contestTimetable.model.pocketlist;
 
-public class LocationSummary {
+import java.util.HashMap;
+import java.util.Map;
+
+public class LocationSum {
 
     private String location;
 
     private Integer contestid;
+
+
+    private Map<String,Integer> contestitem = new HashMap<>();
 
     private Integer members;
 
@@ -31,5 +37,13 @@ public class LocationSummary {
 
     public void setMembers(Integer members) {
         this.members = members;
+    }
+
+    public Map<String, Integer> getContestitem() {
+        return contestitem;
+    }
+
+    public void setContestitem(Map<String, Integer> contestitem) {
+        this.contestitem = contestitem;
     }
 }

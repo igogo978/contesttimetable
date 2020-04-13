@@ -2,9 +2,9 @@ package app.contestTimetable.api;
 
 
 import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.LocationSummary;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
+import app.contestTimetable.model.pocketlist.LocationSum;
 import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.*;
@@ -47,26 +47,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-class LocationSumList {
-    private String location;
-    private List<LocationSummary> locationSummaryList;
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public List<LocationSummary> getLocationSummaryList() {
-        return locationSummaryList;
-    }
-}
 
 @RestController
 public class PocketlistApiController {
@@ -120,55 +107,61 @@ public class PocketlistApiController {
     }
 
 
-
     @GetMapping(value = "/api/pocketlist")
-    public List<LocationSummary> getLocationSummary() throws IOException {
+    public List<LocationSum> getLocationSummary() throws IOException {
 
         String str = "打字".toUpperCase();
         String excludeItem = String.format("(.*)%s(.*)", str);
 
-        List<LocationSummary> lists = new ArrayList<>();
 
         List<Location> locations = locationRepository.findBySchoolidNotIn(Arrays.asList("999999"));
+        List<LocationSum> lists = new ArrayList<>();
 
 
         locations.forEach(location -> {
+
             AtomicInteger contestid = new AtomicInteger(1);
 
 
             contestconfigRepository.findAllByOrderByIdAsc().forEach(contestconfig -> {
-                LocationSummary locationSummary = new LocationSummary();
-                locationSummary.setLocation(location.getLocationname());
+                LocationSum locationSum = new LocationSum();
+
+                locationSum.setLocation(location.getLocationname());
                 AtomicInteger contestidMembers = new AtomicInteger();
                 contestidMembers.set(0);
                 contestconfig.getContestgroup().forEach(contestitem -> {
                     List<Team> teams = new ArrayList<>();
-                    if (!contestitem.matches(excludeItem)) {
+                    AtomicInteger contestitemMembers = new AtomicInteger(0);
 
+                    if (!contestitem.matches(excludeItem)) {
                         teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
                         teams.forEach(team -> {
-//                            logger.info(String.format("%s, %s,%s", location.getLocationname(), contestitem, team.getMembers()));
+                            if (location.getLocationname().equals("南屯區惠文國小")) {
+                                if (contestitem.matches("SCRATCH應用競賽國小.*")) {
+                                    logger.info(team.getUsername());
+                                }
+                            }
+                            contestitemMembers.updateAndGet(n -> n + team.getMembers());
 
-                            contestidMembers.updateAndGet(n -> n + team.getMembers());
+
                         });
-                    }
+//                        logger.info(String.format("%s, %s,%s", location.getLocationname(), contestitem, contestidMembers.get()));
+                        locationSum.getContestitem().put(contestitem, contestitemMembers.get());
 
+                    }
+                    contestidMembers.updateAndGet(n -> n + contestitemMembers.get());
 
                 });
-                locationSummary.setContestid(contestid.get());
-
-//                logger.info(String.format("%s,%s,%s", contestid.get(), location.getLocationname(), contestidMembers.get()));
-                locationSummary.setMembers(contestidMembers.get());
-                lists.add(locationSummary);
+//                logger.info(String.valueOf(contestid.get()));
+                locationSum.setContestid(contestid.get());
+                locationSum.setMembers(contestidMembers.get());
                 contestid.incrementAndGet();
+                lists.add(locationSum);
+
 
             });
 
-
         });
-
-
-
 
         return lists;
     }
