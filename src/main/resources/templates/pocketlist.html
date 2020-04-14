@@ -60,22 +60,50 @@
                     <h3>各試場人數統計</h3>
                     <thead>
                     <tr>
-                        <th scope="col">學校/試場</th>
-                        <th scope="col">1</th>
-                        <th scope="col">2</th>
-                        <th scope="col">3</th>
-                        <th scope="col">4</th>
-                        <th scope="col">最大人數</th>
+                        <th scope="col">試場</th>
+                        <th scope="col"></th>
+                     
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item in items">
-                        <td>  {{item.schoolname}}/{{item.locationname}}</td>
-                        <td v-for="contestid in item.teamcontestids">
+                    <tr v-for="item,key in items">
+                        <td> {{key}}</td>
+                  
+                        <td>
+                            <table class="table">
+                                <tbody>
+                                        <thead>
+                                                <tr>
+                                                    <th scope="col">場次</th>
+                                                    <th scope="col">競賽項目</th>
+                                                    <th scope="col">總人數</th>
+                                                </tr>
+                                                </thead>
+                                    <tr v-for="location in items[key]">
+                                        <td>
+                                              {{location.contestid}}
+                                        </td>
+                                        <td>
+                                            <ul class="list-group">
+                                                <li v-for="contestitem,key in location.contestitem" class="list-group-item">{{key}}:{{contestitem}}</li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                                {{location.members}}
+                                        </td>
+                                      
+                                    </tr>
+                                    
+                                </tbody>
+                           
+                            
+                            
+                            </table>
+                           
 
-                            {{contestid.members}}
                         </td>
-                        <!-- <td>{{item.locationcontestids}}</td> -->
+                      
+                       
                       
                       
                     </tr>
@@ -84,34 +112,7 @@
                 </table>
 
 
-        </div>
-
-            <!-- <div>
-                    <table class="table">
-                            <thead>
-                                <td>试場</td>
-                                <td>参赛学校</td>
-                                <td>scores</td>
-                            
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in items">
-                                <td>
-                                    {{item.locationname}}
-                                </td>
-                                <td>
-                                    {{item.schoolname}}
-                                </td>
-                                <td>
-                                    {{item.description}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> 
-                
-            </div> -->
-
-
+            </div>
 
 
         </div>
@@ -147,44 +148,18 @@
                 this.$http.get(url, config).then((response) => {
                     // console.log(response.data);
                     let vm = this;
-                    vm.items = (response.data);
+                    vm.items = response.data;
                     // vm.items = JSON.parse(response.data);
                     // let tmpItems = JSON.parse(response.data.report);
 
-                    vm.items.forEach(function(item){
-                        item.teamcontestids = item.teamcontestids.sort(function(a,b){
-                            return a.contestid - b.contestid ;
-                        })
-                        // item.teams.forEach(function(team){
-                        //     console.log(team.name);
-                        //     schoolteams += 1;
-                        //     team.contestids = team.contestids.sort(function(a,b){
-                        //         return a.contestid > b.contestid ? 1 : -1;
-                        //     })
-                            
-                        // })
-                   
+                    // vm.items.forEach(function(item){
+                    //     item.teamcontestids = item.teamcontestids.sort(function(a,b){
+                    //         return a.contestid - b.contestid ;
+                    //     })
+                                     
                       
-                    })
-
-                    //计算每场次最大人数
-                    vm.items.forEach(function(item){
-                        let final = {};
-                        final.contestid = 5;
-                        final.members = 0;
-                        item.teamcontestids.forEach(
-                            function(id) {
-                                if(id.members > final.members){
-                                    final.members = id.members
-
-                                }
-                            }
-                        )
-                        item.teamcontestids.push(final);
-                        console.log(item.teamcontestids);
-
-                    })
-                   
+                    // })
+                           
                     
               
 

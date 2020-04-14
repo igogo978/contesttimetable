@@ -47,10 +47,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -108,17 +105,19 @@ public class PocketlistApiController {
 
 
     @GetMapping(value = "/api/pocketlist")
-    public List<LocationSum> getLocationSummary() throws IOException {
+    public Map<String, List<LocationSum>> getLocationSummary() throws IOException {
 
         String str = "打字".toUpperCase();
         String excludeItem = String.format("(.*)%s(.*)", str);
 
+        Map<String, List<LocationSum>> locationMp = new HashMap<>();
+
 
         List<Location> locations = locationRepository.findBySchoolidNotIn(Arrays.asList("999999"));
-        List<LocationSum> lists = new ArrayList<>();
 
 
         locations.forEach(location -> {
+            List<LocationSum> lists = new ArrayList<>();
 
             AtomicInteger contestid = new AtomicInteger(1);
 
@@ -136,14 +135,7 @@ public class PocketlistApiController {
                     if (!contestitem.matches(excludeItem)) {
                         teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
                         teams.forEach(team -> {
-                            if (location.getLocationname().equals("南屯區惠文國小")) {
-                                if (contestitem.matches("SCRATCH應用競賽國小.*")) {
-                                    logger.info(team.getUsername());
-                                }
-                            }
                             contestitemMembers.updateAndGet(n -> n + team.getMembers());
-
-
                         });
 //                        logger.info(String.format("%s, %s,%s", location.getLocationname(), contestitem, contestidMembers.get()));
                         locationSum.getContestitem().put(contestitem, contestitemMembers.get());
@@ -161,9 +153,17 @@ public class PocketlistApiController {
 
             });
 
+            List<LocationSum> items = new ArrayList<>();
+            locationMp.computeIfAbsent(location.getLocationname(), k -> items);
+            lists.forEach(list -> items.add(list));
+//            lists.clear();
+
         });
 
-        return lists;
+        ObjectMapper mapper = new ObjectMapper();
+        logger.info(mapper.writeValueAsString(locationMp));
+
+        return locationMp;
     }
 
     @GetMapping(value = "/api/pocketlist/download")
