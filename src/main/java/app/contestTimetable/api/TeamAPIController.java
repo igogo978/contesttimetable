@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class TeamAPIController {
@@ -65,5 +64,26 @@ public class TeamAPIController {
 
         return teams;
     }
+
+
+    @PostMapping(value = "/api/team/contestitem")
+    public Map<String, List<Team>> getTeamContestitem(@RequestBody String payload) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(payload);
+        String[] querystr = root.get("items").asText().split(" ");
+        Map<String, List<Team>> teamsMap = new HashMap<>();
+        Arrays.asList(querystr).forEach(item -> {
+            List<Team> teams = new ArrayList<>();
+            teamsMap.computeIfAbsent(item, k -> teams);
+            teamRepository.findByContestitemContainingOrderByLocationDesc(item.toUpperCase() ).forEach(teams::add);
+
+        });
+
+        logger.info(mapper.writeValueAsString(teamsMap));
+
+        return teamsMap;
+    }
+
 
 }

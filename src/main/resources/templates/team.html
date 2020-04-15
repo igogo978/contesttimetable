@@ -21,13 +21,56 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/js/FileSaver.min.js"></script>
+
+        <style>
+        .navbar-custom {
+            color: #FFFFFF;
+            background-color: #CC3333;
+        }
+        
+        
+        </style>
       
     </head>
     <body>
       
         <div class="container" id="app">
 <br>
-            <div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/team">參賽隊伍</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                <a class="nav-link" href="/team/contestitem">競賽項目統計 <span class="sr-only">(current)</span></a>
+                </li>
+            
+            </ul>
+            </div>
+
+            <div class="form-inline float-right">
+                <a class="btn btn-dark" href="/api/pocketlist/inform/all/download" role="button">列印選手帳密通知單</a>
+                    
+            
+                
+                <label for="inputPassword2" class="sr-only">密碼</label>
+                <input v-model="passwd" type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                
+                <button @click="getSession" role="button" class="btn btn-info">送出</button>
+
+                    
+            </div>
+        </nav>
+
+
+
+
+
+            <br>
+            <!-- <div>
                 <div class="form-inline float-right">
                         <a class="btn btn-dark form-group mb-2" href="/api/pocketlist/inform/all/download" role="button">列印選手帳密通知單</a>
                             
@@ -37,9 +80,11 @@
                                 <input v-model="passwd" type="password" class="form-control" id="inputPassword2" placeholder="Password">
                           
                                 <button @click="getSession" role="button" class="btn btn-info">送出</button>
+               
                         </div>         
-                         
                 </div>
+
+            </div> -->
 
        
 

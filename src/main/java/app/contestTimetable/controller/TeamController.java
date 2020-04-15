@@ -17,6 +17,13 @@ public class TeamController {
         return "team";
     }
 
+
+    @GetMapping(value = "/team/contestitem")
+    public String getTeamContestitemPage() {
+
+        return "teamcontestitem";
+    }
+
     @GetMapping(value = "/schoolteam")
     public String getSchoolTeamPage() {
 
