@@ -61,7 +61,7 @@
             <td>total</td>
         </thead>
         <tbody>
-            <tr v-for="item in itemssum">
+            <tr v-for="item in itemSum">
                 <td>{{item.key}}</td>
                 <td>{{item.members}}</td>
             </tr>
@@ -136,7 +136,7 @@
                 contestid: /*[[${contestid}]]*/ 'default',
                 items: {},
                 querystr:'',
-                itemssum: [],
+                itemSum: [],
             },
             created: function() {
 
@@ -156,6 +156,7 @@
                     let vm = this;
                     let url = "/api/team/contestitem"
                     
+                    
                     this.$http.post(url,
                     {
                          "items": this.querystr
@@ -164,7 +165,7 @@
                     .then((response) => {
                         // success callback // console.log(response.data);
                         vm.items = response.data;
-                        vm.itemsum = [];
+                        vm.itemSum = [];
                         Object.keys(vm.items).forEach(function(key){
                             // console.log(vm.items[key]);
                             let itemmembers = 0;
@@ -175,10 +176,10 @@
                             let item = {};
                             item.key = key;
                             item.members = itemmembers;
-                            vm.itemssum.push(item);
+                            vm.itemSum.push(item);
                         });
 
-                        console.log(vm.itemssum);
+                        console.log(vm.itemSum);
                        
 
 

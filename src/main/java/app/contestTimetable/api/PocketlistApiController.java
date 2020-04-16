@@ -36,10 +36,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
@@ -103,11 +100,30 @@ public class PocketlistApiController {
         return dateTime.format(formatter);
     }
 
+    @DeleteMapping(value = "/api/pocketlist")
+    public String deletePacketlist(@RequestBody String payload) {
+        logger.info(payload);
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        pocketlistRepository.deleteAll();
+        teamRepository.findAllByOrderByLocation().forEach(team -> {
+            team.setLocation("");
+            teamRepository.save(team);
+        });
+
+        return dateTime.format(formatter);
+
+
+    }
+
 
     @GetMapping(value = "/api/pocketlist")
     public Map<String, List<LocationSum>> getLocationSummary() throws IOException {
 
-        String str = "打字".toUpperCase();
+//        String str = "打字".toUpperCase();
+        String str = "-----".toUpperCase();
+
         String excludeItem = String.format("(.*)%s(.*)", str);
 
         Map<String, List<LocationSum>> locationMp = new HashMap<>();
@@ -132,15 +148,15 @@ public class PocketlistApiController {
                     List<Team> teams = new ArrayList<>();
                     AtomicInteger contestitemMembers = new AtomicInteger(0);
 
-                    if (!contestitem.matches(excludeItem)) {
-                        teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
-                        teams.forEach(team -> {
-                            contestitemMembers.updateAndGet(n -> n + team.getMembers());
-                        });
+//                    if (!contestitem.matches(excludeItem)) {
+                    teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
+                    teams.forEach(team -> {
+                        contestitemMembers.updateAndGet(n -> n + team.getMembers());
+                    });
 //                        logger.info(String.format("%s, %s,%s", location.getLocationname(), contestitem, contestidMembers.get()));
-                        locationSum.getContestitem().put(contestitem, contestitemMembers.get());
+                    locationSum.getContestitem().put(contestitem, contestitemMembers.get());
 
-                    }
+//                    }
                     contestidMembers.updateAndGet(n -> n + contestitemMembers.get());
 
                 });
