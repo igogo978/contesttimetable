@@ -2,6 +2,8 @@ package app.contestTimetable.api;
 
 
 import app.contestTimetable.model.Contestconfig;
+import app.contestTimetable.model.Report;
+import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
 import app.contestTimetable.model.pocketlist.LocationSum;
@@ -70,6 +72,12 @@ public class PocketlistApiController {
     LocationRepository locationRepository;
 
     @Autowired
+    ReportRepository reportRepository;
+
+    @Autowired
+    ReportScoresSummaryRepository reportScoresSummaryRepository;
+
+    @Autowired
     SchoolTeamRepository schoolTeamRepository;
 
 //    @Autowired
@@ -90,6 +98,17 @@ public class PocketlistApiController {
 
     @PostMapping(value = "/api/pocketlist")
     public String postReport(@RequestBody String payload) throws IOException {
+
+        Report report = new Report();
+        report.setUuid("1");
+        report.setReport(payload);
+        report.setScores(1.0);
+        reportRepository.save(report);
+
+        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
+        reportScoresSummary.setUuid("1");
+        reportScoresSummary.setScores(1.0);
+        reportScoresSummaryRepository.save(reportScoresSummary);
 
         pocketlistService.updatePocketlist(payload);
 

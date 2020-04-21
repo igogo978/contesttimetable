@@ -76,6 +76,10 @@ public class PocketlistService {
 
     public void updatePocketlist(String payload) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+
+
+        logger.info(payload);
+
         JsonNode items = mapper.readTree(payload);
         pocketlistRepository.deleteAll();
 
