@@ -51,7 +51,7 @@ public class PdfService {
         cell = new Cell()
                 .setTextAlignment(TextAlignment.CENTER)
                 .setFont(font)
-                .setFontSize(28)
+                .setFontSize(26)
                 .add(blank)
                 .add(paragraph)
                 .add(blank);

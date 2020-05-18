@@ -49,6 +49,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -334,10 +335,13 @@ public class PocketlistApiController {
         configs.forEach(config -> {
 
 
+            List<String> contestgroup = config.getContestgroup().stream().map(item -> item.toUpperCase() + "組").collect(Collectors.toList());
+
+
             locations.forEach(location -> {
                 Inform inform = new Inform();
 
-                inform.setContestItem(String.join("、", config.getContestgroup()).toUpperCase());
+                inform.setContestItem(String.join("、", contestgroup));
                 inform.setTeamsize(0);
                 inform.setLocation(location.getLocationname());
                 inform.setDescription(config.getDescription());
