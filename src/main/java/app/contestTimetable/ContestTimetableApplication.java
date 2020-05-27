@@ -1,7 +1,5 @@
 package app.contestTimetable;
 
-import app.contestTimetable.model.ReportScoresSummary;
-import app.contestTimetable.model.Team;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.XlsxService;
 import org.slf4j.Logger;
@@ -11,7 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.List;
+import java.io.File;
 
 @SpringBootApplication
 public class ContestTimetableApplication implements CommandLineRunner {
@@ -53,6 +51,13 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        File contest = new File("/tmp/contest");
+        if (contest.exists()) {
+            if (contest.mkdir()) {
+                System.out.println("mkdir in /tmp/contest");
+            }
+        }
+
 //        String cwd = System.getProperty("user.dir");
 //        String docPath = String.format("%s/docs", cwd);
 //        String settingPath = String.format("%s/settings", cwd);
@@ -269,8 +274,6 @@ public class ContestTimetableApplication implements CommandLineRunner {
 //        Optional<Googlemap> googlemap = googlemapRepository.findById("12345678");
 //        googlemap.get().setDistance(9999999.12345678);
 //        googlemapRepository.save(googlemap.get());
-
-
 
 
         System.out.println("系统启动成功");

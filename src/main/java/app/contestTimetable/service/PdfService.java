@@ -3,24 +3,43 @@ package app.contestTimetable.service;
 
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
+import app.contestTimetable.repository.ExtHanziRepository;
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PdfService {
 
     String contestHeader = "臺中市109年度中小學資訊網路應用競賽決賽";
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    ExtHanziRepository extHanziRepository;
+
+
+//    //handle unicode 第2字面
+//    FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
+//    PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
 
     public PdfService() throws IOException {
     }
@@ -76,10 +95,26 @@ public class PdfService {
     }
 
 
-    public Table doCover2TablePage(PdfFont font, List<Team> teams) {
-        Table table = new Table(UnitValue.createPercentArray(new float[]{1, 2, 5, 2, 2})).useAllAvailableWidth();
-//        Table table = new Table(UnitValue.createPercentArray(12)).useAllAvailableWidth();
+    private String containsExtHanzi(List<String> extHanzis, String name) {
 
+        for (String hanzi : extHanzis) {
+            if (name.contains(hanzi)) {
+                return hanzi;
+            }
+        }
+
+        return "";
+    }
+
+
+    public Table doCover2TablePage(PdfFont font, List<Team> teams) throws IOException {
+
+        //handle unicode 第2字面
+        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
+        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+
+
+        Table table = new Table(UnitValue.createPercentArray(new float[]{1, 2, 5, 2, 2})).useAllAvailableWidth();
 
         Cell sn = new Cell()
                 .setTextAlignment(TextAlignment.CENTER)
@@ -135,8 +170,53 @@ public class PdfService {
                 .add(new Paragraph("姓名"));
         table.addCell(username);
 
+        List<String> extHanzis = new ArrayList<>();
+        extHanziRepository.findAll().forEach(hanzi -> {
+
+            extHanzis.add(hanzi.getCharacters());
+        });
+
 
         for (int i = 0; i < teams.size(); i++) {
+
+
+            String name = teams.get(i).getUsername();
+
+            List<Text> nameTextList= new ArrayList<>();
+            // ext part for ext hanzi 0527
+            String extHanzi = containsExtHanzi(extHanzis, name);
+
+            if (extHanzi.length() != 0) {
+                logger.info(name);
+                Integer hanziPosition = name.indexOf(extHanzi);
+
+                if (hanziPosition == 0) {
+                    logger.info("hanzi is in the beginning of name");
+                    logger.info("rest part:" + name.split(extHanzi)[1]);
+//                    Text text1 = new Text(extHanzi).setFont(fontExt);
+                    nameTextList.add(new Text(extHanzi).setFont(fontExt));
+                    nameTextList.add(new Text(name.split(extHanzi)[1]).setFont(font));
+                }
+
+                if (hanziPosition != 0 && (hanziPosition + extHanzi.length()) != name.length()) {
+                    logger.info("hanzi is in the middle of name");
+                    logger.info("1 part: "+ name.split(extHanzi)[0]);
+                    logger.info("2 part: "+ extHanzi);
+                    logger.info("3 part: "+ name.split(extHanzi)[1]);
+                }
+
+                if ((hanziPosition + extHanzi.length()) == name.length()) {
+                    logger.info("hanzi is in the end of name");
+
+
+                }
+
+
+            }
+
+            //end ext part
+
+
             sn = new Cell()
                     .setTextAlignment(TextAlignment.CENTER)
                     .setPadding(0)
@@ -204,8 +284,8 @@ public class PdfService {
             if (teams.get(i).getMembername() != null) {
                 username = new Cell()
                         .setTextAlignment(TextAlignment.LEFT)
-                        .setPadding(0)
                         .setFont(font)
+                        .setPadding(0)
                         .setFontSize(11)
                         .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
                         .setBorder(Border.NO_BORDER)
@@ -213,15 +293,42 @@ public class PdfService {
                         .add(new Paragraph(String.format("%s,%s", teams.get(i).getUsername(), teams.get(i).getMembername())));
 
             } else {
-                username = new Cell()
-                        .setTextAlignment(TextAlignment.LEFT)
-                        .setPadding(0)
-                        .setFont(font)
-                        .setFontSize(11)
-                        .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
-                        .setBorder(Border.NO_BORDER)
 
-                        .add(new Paragraph(teams.get(i).getUsername()));
+
+                if ("王韋".equals(teams.get(i).getUsername().substring(0, 2))) {
+
+//                    String name = teams.get(i).getUsername();
+//                    logger.info(String.valueOf(name.length()));
+
+                    Paragraph fullname = new Paragraph()
+
+                            .add(new Text(name.split("(?<=王韋)")[0]).setFont(font))
+                            .add(new Text(name.split("王韋")[1]).setFont(fontExt));
+
+
+//                    Paragraph username2 = new Paragraph().setFont(fontExt).add(name.split("韋")[1]);
+                    username = new Cell()
+                            .setTextAlignment(TextAlignment.LEFT)
+                            .setPadding(0)
+                            .setFontSize(11)
+                            .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
+                            .setBorder(Border.NO_BORDER)
+
+                            .add(fullname);
+
+
+                } else {
+                    username = new Cell()
+                            .setTextAlignment(TextAlignment.LEFT)
+                            .setPadding(0)
+                            .setFont(font)
+                            .setFontSize(11)
+                            .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
+                            .setBorder(Border.NO_BORDER)
+
+                            .add(new Paragraph(teams.get(i).getUsername()));
+                }
+
             }
 
 
@@ -237,6 +344,9 @@ public class PdfService {
 
 
     public Table doTeamTablePage(PdfFont font, Team team) throws IOException {
+        //handle unicode 第2字面
+        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
+        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
 
 
         Table table = new Table(UnitValue.createPercentArray(1)).useAllAvailableWidth();
@@ -261,7 +371,16 @@ public class PdfService {
             paragraph.add(String.format("姓名：%s、%s ", team.getUsername(), team.getMembername()));
 
         } else {
-            paragraph.add(String.format("姓名：%s ", team.getUsername()));
+            if ("王韋".equals(team.getUsername().substring(0, 2))) {
+                String name = team.getUsername();
+                paragraph.add(String.format("姓名："))
+                        .add(new Text(name.split("(?<=王韋)")[0]).setFont(font))
+                        .add(new Text(name.split("王韋")[1]).setFont(fontExt));
+            } else {
+                paragraph.add(String.format("姓名：%s ", team.getUsername()));
+
+            }
+
 
         }
 

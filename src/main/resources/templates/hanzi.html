@@ -7,7 +7,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>參賽隊伍</title>
+        <title>罕用字</title>
 
         <link rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -38,64 +38,37 @@
 <br>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/team">參賽隊伍</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                <a class="nav-link" href="/team/contestitem">競賽項目統計 <span class="sr-only">(current)</span></a>
-                </li>
-            
-            </ul>
-            </div>
+     
 
-            <div class="form-inline float-right">
-                <a class="btn btn-dark" href="/api/pocketlist/inform/all/download" role="button">列印選手帳密通知單</a>
-                    
+            <div class="form-inline float-right">              
+                
             
+                <input v-model="hanzi" type="text" class="form-control" id="inputPassword2" placeholder="">
                 
-                <label for="inputPassword2" class="sr-only">密碼</label>
-                <input v-model="passwd" type="password" class="form-control" id="inputPassword2" placeholder="Password">
-                
-                <button @click="getSession" role="button" class="btn btn-info">送出</button>
+                <button @click="updateHanzi" role="button" class="btn btn-info">add</button>
 
                     
             </div>
         </nav>
 
-            <br>
 
 
-       
+
+
+            <br>       
 
                 <table class="table">
                     <thead>
                         <td>序</td>
-                        <td>項目類別</td>
-                        <td>學校</td>
-                        <td>姓名</td>
-                        <td>指導教師</td>
-                        <td>帳號</td>
-                        <td>密碼</td>
-                        <td>試場</td>
-                        <td>時間</td>
+                        <td>罕用字</td>
+
                        
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in items">
                             <td>{{index+1}}</td>
-                            <td>{{item.contestitem}}</td>
-                            <td>{{item.schoolname}}</td>
-                            <td>{{item.username}}                         
-                                <div v-if="item.membername != null">,{{item.membername}}   </div>
-                            </td>
-                            <td>{{item.instructor}}</td>
-                            <td>{{item.account}}</td>
-                            <td>{{item.passwd}}</td>
-                            <td>{{item.location}}</td>
-                            <td>{{item.description}}</td>
+                            <td>{{item.characters}}</td>
+                       
                         </tr>
                     </tbody>
                 </table>
@@ -122,13 +95,13 @@
             el: '#app',
             data: {
                 msg: 'Hello Vue!',
-                contestid: /*[[${contestid}]]*/ 'default',
+            
                 items: [],
-                passwd:'',
+                hanzi:'',
             },
             created: function() {
                 let vm = this;
-                let url =  "/api/team" ;
+                let url =  "/api/hanzi" ;
 
                 this.$http.get(url, config).then((response) => {
                     vm.items = response.data;
@@ -150,12 +123,12 @@
                 showMsg: function(){
                     console.log("hello");
                 },
-                getSession: function(){
+                updateHanzi: function(){
                     let vm = this;
-                    let url = "/api/team"
-                    this.$http.post(url,
+                    let url = "/api/hanzi"
+                    this.$http.put(url,
                     {
-                         "passwd": this.passwd
+                         "hanzi": this.hanzi
 
                     },config)
                     .then((response) => {

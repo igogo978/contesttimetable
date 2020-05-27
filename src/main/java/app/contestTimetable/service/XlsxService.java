@@ -907,4 +907,72 @@ public class XlsxService {
     }
 
 
+
+    public XSSFWorkbook createPocketlistInformLocation(List<Team> teams) {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Sheet1");
+
+
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = row.createCell(0);
+        cell.setCellValue("序");
+
+        cell = row.createCell(1);
+        cell.setCellValue("試場 ");
+
+        cell = row.createCell(2);
+        cell.setCellValue("項目類別");
+
+        cell = row.createCell(3);
+        cell.setCellValue("學校");
+
+        cell = row.createCell(4);
+        cell.setCellValue("姓名");
+
+        cell = row.createCell(5);
+        cell.setCellValue("時間");
+
+        for (int i = 0; i < teams.size(); i++) {
+            row = sheet.createRow(i + 1);
+
+            cell = row.createCell(0);
+            cell.setCellValue(i + 1);
+
+
+            cell = row.createCell(1);
+            cell.setCellValue(teams.get(i).getLocation());
+
+
+            cell = row.createCell(2);
+            cell.setCellValue(teams.get(i).getContestitem());
+
+            cell = row.createCell(3);
+            cell.setCellValue(teams.get(i).getSchoolname());
+
+            cell = row.createCell(4);
+            String members = teams.get(i).getUsername();
+            if (teams.get(i).getMembername() != null) {
+                members = String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername());
+            }
+            cell.setCellValue(members);
+
+            cell = row.createCell(5);
+            cell.setCellValue(teams.get(i).getDescription());
+
+        }
+
+
+        return wb;
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

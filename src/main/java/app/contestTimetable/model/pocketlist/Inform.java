@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inform {
+
+    private int id;
     private String location;
     private String contestItem;
     private String description;
@@ -13,7 +15,16 @@ public class Inform {
     private Integer teamsize;
     private List<Team> teams = new ArrayList<>();
 
-    //totalPeopl 含简报组别,可能有两人
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    //totalPeople 含简报组别,可能有两人
     //teams, 一队一张帐号密码
     public String getLocation() {
         return location;

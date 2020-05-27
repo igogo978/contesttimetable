@@ -54,12 +54,6 @@ public class SchoolTeamService {
             lists.add(area);
         });
         schoolteamAreas = lists.stream().distinct().collect(Collectors.toList());
-//        schoolteamAreas.forEach(startarea -> {
-//
-//        });
-
-
-
 
         return schoolteamAreas;
     }

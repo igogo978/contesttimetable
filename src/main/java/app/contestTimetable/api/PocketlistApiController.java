@@ -10,10 +10,7 @@ import app.contestTimetable.model.pocketlist.LocationSum;
 import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.*;
-import app.contestTimetable.service.PdfService;
-import app.contestTimetable.service.PocketlistService;
-import app.contestTimetable.service.TeamService;
-import app.contestTimetable.service.XlsxService;
+import app.contestTimetable.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
@@ -29,6 +26,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,9 +39,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -80,6 +76,9 @@ public class PocketlistApiController {
 
     @Autowired
     SchoolTeamRepository schoolTeamRepository;
+
+    @Autowired
+    InformService informService;
 
 //    @Autowired
 //    LocationRepository locationRepository;
@@ -310,6 +309,40 @@ public class PocketlistApiController {
     }
 
 
+    @GetMapping(value = "/api/pocketlist/inform/location/download")
+    public String doInformLocation(HttpServletRequest request) throws IOException {
+
+        File informDir = new File("/tmp/contest/inform");
+        if (informDir.exists()) {
+            logger.info("delete anyway");
+            FileUtils.forceDelete(informDir);
+        }
+        informDir.mkdir();
+
+//        String filename = "inform-location.pdf";
+
+        List<Inform> informs = new ArrayList<>();
+        informs = informService.getInformsforLocation(Boolean.FALSE);
+
+
+        informs.forEach(inform -> {
+            try {
+                File xlsx = new File(informDir + "/" + inform.getLocation() + "-" + inform.getContestItem() + ".xlsx");
+                FileOutputStream out = new FileOutputStream(xlsx);
+
+                XSSFWorkbook wb = xlsxService.createPocketlistInformLocation(inform.getTeams());
+                wb.write(out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        });
+        logger.info("inform location xlsx files have been created!");
+        return "download inform location file";
+
+    }
+
     @GetMapping(value = "/api/pocketlist/inform/all/download")
     public ResponseEntity<Resource> doInformAll(HttpServletRequest request) throws IOException {
         //download pdf
@@ -397,17 +430,23 @@ public class PocketlistApiController {
     }
 
 
-    private FontProgram twFontProgram = null;
+    private FontProgram twKaiFont = null;
 
     ByteArrayOutputStream doInformCoverAndTeamPDF(List<Inform> informs) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
         Document document = new Document(pdfDoc);
-        twFontProgram = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
+        twKaiFont = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
 
         // Create a PdfFont
-        PdfFont font = PdfFontFactory.createFont(twFontProgram, PdfEncodings.IDENTITY_H, false);
+        PdfFont font = PdfFontFactory.createFont(twKaiFont, PdfEncodings.IDENTITY_H, true);
 
+//        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Sung-Ext-B-98_1.ttf");
+//        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+//        Paragraph test = new Paragraph();
+//        test.add(String.format("\uD85B\uDD74", contestHeader)).setFont(fontExt).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
+//        document.add(test);
+//        document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
         for (int i = 0; i < informs.size(); i++) {
 

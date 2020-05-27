@@ -46,8 +46,7 @@ public class JobService {
 
         //四个场次一起算
         Job job = new Job();
-//        List<Integer> jobid = Arrays.asList(1,2,3,4);
-//        job.setJobid(jobid);
+
 
         //取出场地
         List<Location> locations = new ArrayList<>();
@@ -58,7 +57,6 @@ public class JobService {
 
         //分群, priorityorder为优先群，例如主场，已经拿到门票者
         //group1 大群组, group2 第二群组
-        //分群
         List<SchoolTeam> teamgroup1 = new ArrayList<>();
         List<SchoolTeam> teamgroup2 = new ArrayList<>();
         StringBuilder locationorder = new StringBuilder();
