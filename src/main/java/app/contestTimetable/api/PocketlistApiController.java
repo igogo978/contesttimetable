@@ -438,6 +438,12 @@ public class PocketlistApiController {
         Document document = new Document(pdfDoc);
         twKaiFont = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
 
+
+        //handle unicode 第2字面
+        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
+        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+
+
         // Create a PdfFont
         PdfFont font = PdfFontFactory.createFont(twKaiFont, PdfEncodings.IDENTITY_H, true);
 
@@ -475,7 +481,7 @@ public class PocketlistApiController {
             document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
 
-            table = pdfService.doCover2TablePage(font, informs.get(i).getTeams());
+            table = pdfService.doCover2TablePage(font, fontExt, informs.get(i).getTeams());
             document.add(table);
 
             document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));

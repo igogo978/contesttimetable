@@ -37,9 +37,7 @@ public class PdfService {
     ExtHanziRepository extHanziRepository;
 
 
-//    //handle unicode 第2字面
-//    FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
-//    PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+
 
     public PdfService() throws IOException {
     }
@@ -106,12 +104,44 @@ public class PdfService {
         return "";
     }
 
+    private List<Text> getNameTextList(List<String> extHanzis, String name, PdfFont font, PdfFont fontExt) {
 
-    public Table doCover2TablePage(PdfFont font, List<Team> teams) throws IOException {
+        List<Text> usernameTextList = new ArrayList<>();
+        // ext part for ext hanzi 0527
+        String extHanzi = containsExtHanzi(extHanzis, name);
 
-        //handle unicode 第2字面
-        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
-        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+        Integer hanziPosition = name.indexOf(extHanzi);
+
+        if (hanziPosition == 0) {
+            logger.info("hanzi is in the beginning of name");
+            logger.info("rest part:" + name.split(extHanzi)[1]);
+//                    Text text1 = new Text(extHanzi).setFont(fontExt);
+            usernameTextList.add(new Text(extHanzi).setFont(fontExt));
+            usernameTextList.add(new Text(name.split(extHanzi)[1]).setFont(font));
+        }
+
+        if (hanziPosition != 0 && (hanziPosition + extHanzi.length()) != name.length()) {
+            logger.info("hanzi is in the middle of name");
+//
+//                    logger.info("1 part: "+ name.split(extHanzi)[0]);
+//                    logger.info("2 part: "+ extHanzi);
+//                    logger.info("3 part: "+ name.split(extHanzi)[1]);
+            usernameTextList.add(new Text(name.split(extHanzi)[0]).setFont(font));
+            usernameTextList.add(new Text(extHanzi).setFont(fontExt));
+            usernameTextList.add(new Text(name.split(extHanzi)[1]).setFont(font));
+        }
+
+        if ((hanziPosition + extHanzi.length()) == name.length()) {
+            logger.info("hanzi is in the end of name");
+            usernameTextList.add(new Text(name.split(extHanzi)[0]).setFont(font));
+            usernameTextList.add(new Text(extHanzi).setFont(fontExt));
+        }
+        return usernameTextList;
+    }
+
+
+    public Table doCover2TablePage(PdfFont font, PdfFont fontExt, List<Team> teams) throws IOException {
+
 
 
         Table table = new Table(UnitValue.createPercentArray(new float[]{1, 2, 5, 2, 2})).useAllAvailableWidth();
@@ -182,36 +212,30 @@ public class PdfService {
 
             String name = teams.get(i).getUsername();
 
-            List<Text> nameTextList= new ArrayList<>();
+            List<Text> usernameTextList = new ArrayList<>();
             // ext part for ext hanzi 0527
             String extHanzi = containsExtHanzi(extHanzis, name);
 
             if (extHanzi.length() != 0) {
-                logger.info(name);
-                Integer hanziPosition = name.indexOf(extHanzi);
 
-                if (hanziPosition == 0) {
-                    logger.info("hanzi is in the beginning of name");
-                    logger.info("rest part:" + name.split(extHanzi)[1]);
-//                    Text text1 = new Text(extHanzi).setFont(fontExt);
-                    nameTextList.add(new Text(extHanzi).setFont(fontExt));
-                    nameTextList.add(new Text(name.split(extHanzi)[1]).setFont(font));
+                usernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+
+            } else {
+                usernameTextList.add(new Text(name).setFont(font));
+            }
+
+            List<Text> membernameTextList = new ArrayList<>();
+            if (teams.get(i).getMembername() != null) {
+                name = teams.get(i).getMembername();
+                extHanzi = containsExtHanzi(extHanzis, name);
+
+                if (extHanzi.length() != 0) {
+
+                    membernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+
+                } else {
+                    membernameTextList.add(new Text(name).setFont(font));
                 }
-
-                if (hanziPosition != 0 && (hanziPosition + extHanzi.length()) != name.length()) {
-                    logger.info("hanzi is in the middle of name");
-                    logger.info("1 part: "+ name.split(extHanzi)[0]);
-                    logger.info("2 part: "+ extHanzi);
-                    logger.info("3 part: "+ name.split(extHanzi)[1]);
-                }
-
-                if ((hanziPosition + extHanzi.length()) == name.length()) {
-                    logger.info("hanzi is in the end of name");
-
-
-                }
-
-
             }
 
             //end ext part
@@ -252,6 +276,8 @@ public class PdfService {
                     .add(new Paragraph(teams.get(i).getContestitem()));
             table.addCell(contestitem);
 
+
+            //the length of schoolname is too long
             if (teams.get(i).getSchoolname().length() > 8) {
                 schoolname = new Cell()
                         .setTextAlignment(TextAlignment.LEFT)
@@ -282,6 +308,16 @@ public class PdfService {
 
 
             if (teams.get(i).getMembername() != null) {
+                Paragraph fullname = new Paragraph();
+                usernameTextList.forEach(hanzi -> {
+                    fullname.add(hanzi);
+
+                });
+                fullname.add(",");
+                membernameTextList.forEach(hanzi -> {
+                    fullname.add(hanzi);
+                });
+
                 username = new Cell()
                         .setTextAlignment(TextAlignment.LEFT)
                         .setFont(font)
@@ -289,51 +325,28 @@ public class PdfService {
                         .setFontSize(11)
                         .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
                         .setBorder(Border.NO_BORDER)
-
-                        .add(new Paragraph(String.format("%s,%s", teams.get(i).getUsername(), teams.get(i).getMembername())));
+                        .add(fullname);
 
             } else {
 
+                Paragraph fullname = new Paragraph();
+                usernameTextList.forEach(hanzi -> {
+                    fullname.add(hanzi);
 
-                if ("王韋".equals(teams.get(i).getUsername().substring(0, 2))) {
+                });
 
-//                    String name = teams.get(i).getUsername();
-//                    logger.info(String.valueOf(name.length()));
-
-                    Paragraph fullname = new Paragraph()
-
-                            .add(new Text(name.split("(?<=王韋)")[0]).setFont(font))
-                            .add(new Text(name.split("王韋")[1]).setFont(fontExt));
-
-
-//                    Paragraph username2 = new Paragraph().setFont(fontExt).add(name.split("韋")[1]);
-                    username = new Cell()
-                            .setTextAlignment(TextAlignment.LEFT)
-                            .setPadding(0)
-                            .setFontSize(11)
-                            .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
-                            .setBorder(Border.NO_BORDER)
-
-                            .add(fullname);
-
-
-                } else {
-                    username = new Cell()
-                            .setTextAlignment(TextAlignment.LEFT)
-                            .setPadding(0)
-                            .setFont(font)
-                            .setFontSize(11)
-                            .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
-                            .setBorder(Border.NO_BORDER)
-
-                            .add(new Paragraph(teams.get(i).getUsername()));
-                }
+                username = new Cell()
+                        .setTextAlignment(TextAlignment.LEFT)
+                        .setPadding(0)
+                        .setFont(font)
+                        .setFontSize(11)
+                        .setBorderBottom(new SolidBorder(ColorConstants.LIGHT_GRAY, 0.5f))
+                        .setBorder(Border.NO_BORDER)
+                        .add(fullname);
 
             }
 
-
             table.addCell(username);
-
 
         }
 
