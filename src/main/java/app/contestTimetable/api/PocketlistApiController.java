@@ -493,7 +493,7 @@ public class PocketlistApiController {
                 teamHeader.add(String.format("%s選手帳號密碼通知單", contestHeader)).setFont(font).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
                 document.add(teamHeader);
                 try {
-                    document.add(pdfService.doTeamTablePage(font, team));
+                    document.add(pdfService.doTeamTablePage(font, fontExt, team));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

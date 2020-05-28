@@ -45,7 +45,7 @@
             
                 <input v-model="hanzi" type="text" class="form-control" id="inputPassword2" placeholder="">
                 
-                <button @click="updateHanzi" role="button" class="btn btn-info">add</button>
+                <button @click="updateHanzi" role="button" class="btn btn-info">新增</button>
 
                     
             </div>
@@ -61,14 +61,14 @@
                     <thead>
                         <td>序</td>
                         <td>罕用字</td>
-
+                        <td></td>
                        
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in items">
                             <td>{{index+1}}</td>
                             <td>{{item.characters}}</td>
-                       
+                            <td><button @click="deleteHanzi(item.characters)" role="button" class="btn btn-danger">DELETE</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -140,9 +140,21 @@
                     // error callback
                     });
 
+                },
+                deleteHanzi: function(hanzi){
+                   //https://stackoverflow.com/questions/51069552/axios-delete-request-with-body-and-headers
+                    let vm = this;
+                    let url = "/api/hanzi"
+                    let data = {data: {"delete": hanzi}};
+                    this.$http.delete(url,data,config)
+                    .then((response) => {
+                        // success callback
+                        console.log(response.data);
+                        vm.items = response.data;
 
-
-
+                    }, (response) => {
+                    // error callback
+                    });
 
                 }
                

@@ -69,7 +69,8 @@ public class XlsxService {
                 String locationid = null;
                 School school = new School();
                 Cell cell = cellIterator.next();
-                cell.setCellType(CellType.STRING);
+//                cell.setCellType(CellType.STRING);
+
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第0個欄位, 参赛学校
@@ -180,7 +181,7 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-                cell.setCellType(CellType.STRING);
+//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第0個欄位, 流水號
@@ -253,7 +254,7 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-                cell.setCellType(CellType.STRING);
+//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 流水號
@@ -334,7 +335,7 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-                cell.setCellType(CellType.STRING);
+//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 流水號
@@ -402,7 +403,7 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-                cell.setCellType(CellType.STRING);
+//                cell.setCellType(CellType.STRING);
                 areascore.setScores(999.999);
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 起
@@ -471,7 +472,7 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-                cell.setCellType(CellType.STRING);
+//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 场地名
@@ -522,7 +523,7 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-                cell.setCellType(CellType.STRING);
+//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 機關代碼
@@ -964,14 +965,6 @@ public class XlsxService {
 
         return wb;
     }
-
-
-
-
-
-
-
-
 
 
 

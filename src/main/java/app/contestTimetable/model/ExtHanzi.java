@@ -15,6 +15,11 @@ public class ExtHanzi {
 
     private String characters;
 
+
+    public Integer getId() {
+        return id;
+    }
+
     public String getCharacters() {
         return characters;
     }

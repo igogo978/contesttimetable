@@ -4,12 +4,8 @@ package app.contestTimetable.service;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
 import app.contestTimetable.repository.ExtHanziRepository;
-import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.io.font.FontProgramFactory;
-import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
@@ -35,8 +31,6 @@ public class PdfService {
 
     @Autowired
     ExtHanziRepository extHanziRepository;
-
-
 
 
     public PdfService() throws IOException {
@@ -113,15 +107,14 @@ public class PdfService {
         Integer hanziPosition = name.indexOf(extHanzi);
 
         if (hanziPosition == 0) {
-            logger.info("hanzi is in the beginning of name");
-            logger.info("rest part:" + name.split(extHanzi)[1]);
-//                    Text text1 = new Text(extHanzi).setFont(fontExt);
+//            logger.info("hanzi is in the beginning of name");
+//            logger.info("rest part:" + name.split(extHanzi)[1]);
             usernameTextList.add(new Text(extHanzi).setFont(fontExt));
             usernameTextList.add(new Text(name.split(extHanzi)[1]).setFont(font));
         }
 
         if (hanziPosition != 0 && (hanziPosition + extHanzi.length()) != name.length()) {
-            logger.info("hanzi is in the middle of name");
+//            logger.info("hanzi is in the middle of name");
 //
 //                    logger.info("1 part: "+ name.split(extHanzi)[0]);
 //                    logger.info("2 part: "+ extHanzi);
@@ -132,7 +125,7 @@ public class PdfService {
         }
 
         if ((hanziPosition + extHanzi.length()) == name.length()) {
-            logger.info("hanzi is in the end of name");
+//            logger.info("hanzi is in the end of name");
             usernameTextList.add(new Text(name.split(extHanzi)[0]).setFont(font));
             usernameTextList.add(new Text(extHanzi).setFont(fontExt));
         }
@@ -141,7 +134,6 @@ public class PdfService {
 
 
     public Table doCover2TablePage(PdfFont font, PdfFont fontExt, List<Team> teams) throws IOException {
-
 
 
         Table table = new Table(UnitValue.createPercentArray(new float[]{1, 2, 5, 2, 2})).useAllAvailableWidth();
@@ -356,10 +348,16 @@ public class PdfService {
     }
 
 
-    public Table doTeamTablePage(PdfFont font, Team team) throws IOException {
-        //handle unicode 第2字面
-        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
-        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+    public Table doTeamTablePage(PdfFont font, PdfFont fontExt, Team team) throws IOException {
+//        //handle unicode 第2字面
+//        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
+//        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+
+        List<String> extHanzis = new ArrayList<>();
+        extHanziRepository.findAll().forEach(hanzi -> {
+
+            extHanzis.add(hanzi.getCharacters());
+        });
 
 
         Table table = new Table(UnitValue.createPercentArray(1)).useAllAvailableWidth();
@@ -380,20 +378,54 @@ public class PdfService {
         paragraph = new Paragraph(String.format("學校：%s", team.getSchoolname())).setFont(font);
         paragraph.add("\n");
 
+
+        String name = team.getUsername();
+        List<Text> usernameTextList = new ArrayList<>();
+        // ext part for ext hanzi 0527
+        String extHanzi = containsExtHanzi(extHanzis, name);
+        if (extHanzi.length() != 0) {
+            usernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+        } else {
+            usernameTextList.add(new Text(name).setFont(font));
+        }
+
+        List<Text> membernameTextList = new ArrayList<>();
         if (team.getMembername() != null) {
-            paragraph.add(String.format("姓名：%s、%s ", team.getUsername(), team.getMembername()));
+            name = team.getMembername();
+            extHanzi = containsExtHanzi(extHanzis, name);
+
+            if (extHanzi.length() != 0) {
+                membernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+            } else {
+                membernameTextList.add(new Text(name).setFont(font));
+            }
+        }
+
+
+        if (team.getMembername() != null) {
+//            paragraph.add(String.format("姓名：%s、%s ", team.getUsername(), team.getMembername()));
+            Paragraph fullname = new Paragraph();
+            fullname.add("姓名：").setFont(font);
+            usernameTextList.forEach(hanzi -> {
+                fullname.add(hanzi);
+
+            });
+            fullname.add(",");
+            membernameTextList.forEach(hanzi -> {
+                fullname.add(hanzi);
+            });
+
+
+            paragraph.add(fullname);
 
         } else {
-            if ("王韋".equals(team.getUsername().substring(0, 2))) {
-                String name = team.getUsername();
-                paragraph.add(String.format("姓名："))
-                        .add(new Text(name.split("(?<=王韋)")[0]).setFont(font))
-                        .add(new Text(name.split("王韋")[1]).setFont(fontExt));
-            } else {
-                paragraph.add(String.format("姓名：%s ", team.getUsername()));
+            Paragraph fullname = new Paragraph();
+            fullname.add("姓名：").setFont(font);
+            usernameTextList.forEach(hanzi -> {
+                fullname.add(hanzi);
 
-            }
-
+            });
+            paragraph.add(fullname);
 
         }
 
