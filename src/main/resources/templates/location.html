@@ -27,6 +27,7 @@
 <body>
 
 <div class="container" id="app">
+   
     <br>
     <div class="float-right"><a href="/api/location/download" class="btn btn-primary stretched-link">自資料庫下載</a></div>
     <p>
@@ -37,14 +38,16 @@
             <th scope="col">schoolid</th>
             <th scope="col">學校名稱</th>
             <th scope="col">電腦數</th>
+            <th scope="col">color</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="item:${items}">
 
             <td th:text="${item.schoolid}">schoolid</td>
-            <td th:text="${item.locationname}">name</td>
-            <td th:text="${item.capacity}">capacity</td>
+            <td th:style="'background-color: '+ ${item.color} + ';'" th:text="${item.locationname}">name</td>
+            <td th:text="${item.capacity}">name</td>
+            <td th:text="${item.color}">color</td>
 
         </tr>
 

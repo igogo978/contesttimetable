@@ -26,8 +26,6 @@ public class LocationService {
     @Autowired
     SchoolRepository schoolRepository;
 
-
-
     @Autowired
     ContestconfigRepository contestconfigRepository;
 

@@ -472,7 +472,6 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 场地名
@@ -480,9 +479,13 @@ public class XlsxService {
                         location.setLocationname(value);
                         break;
                     case 1:    //第二個欄位, 容纳人数
-                        // string 29.0 -> double 29.0 -> int 29
-                        Integer capacity = (int) Double.parseDouble(cell.getStringCellValue());
+                        // int 29
+                        Integer capacity = (int) cell.getNumericCellValue();
                         location.setCapacity(capacity);
+                        break;
+                    case 2:    //第3個欄位, color
+                        location.setColor(cell.getStringCellValue());
+
                         break;
 
 
@@ -808,6 +811,9 @@ public class XlsxService {
         cell = row.createCell(1);
         cell.setCellValue("電腦數");
 
+        cell = row.createCell(2);
+        cell.setCellValue("代表色");
+
 
         for (int i = 0; i < locations.size(); i++) {
 
@@ -818,8 +824,10 @@ public class XlsxService {
             cell.setCellValue(locations.get(i).getLocationname());
 
             cell = row.createCell(1);
-
             cell.setCellValue(locations.get(i).getCapacity());
+
+            cell = row.createCell(2);
+            cell.setCellValue(locations.get(i).getColor());
 
 
         }

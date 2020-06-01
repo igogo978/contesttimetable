@@ -34,7 +34,6 @@ public class LocationController {
 
         repository.findAll().forEach(items::add);
 
-//        items.stream().filter(item->!item.getSchoolid().equals("999999"));
         items = items.stream().filter(item -> !item.getSchoolid().equals("999999")).collect(Collectors.toList());
         model.addAttribute("items", items);
 

@@ -55,7 +55,9 @@
                                             {{item.membername}} 
                                     </div>
                                 </td>
-                                <td> {{item.location}} </td>
+                                <td v-bind:style="{'background-color': JSON.parse(item.comments)[0].color}"> 
+                                    {{item.location}} 
+                                </td>
 
                                 <td> {{item.description}} </td>
                             </tr>
@@ -93,10 +95,9 @@
                 let url =  "/api/pocketlist/player/";
                 
                 this.$http.get(url, config).then((response) => {
-                    console.log(response.data);
-                    let vm = this;
-
+                    // console.log(response.data);
                     vm.items = (response.data);
+                    console.log(JSON.parse(vm.items[0].comments)[0].color);
 
                 }, (response) => {
                     // error callback

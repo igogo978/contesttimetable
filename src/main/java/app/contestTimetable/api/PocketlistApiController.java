@@ -325,8 +325,7 @@ public class PocketlistApiController {
         }
         informDir.mkdir();
 
-//        String filename = "inform-location.pdf";
-
+        String filename = "inform-location.zip";
         List<Inform> informs = new ArrayList<>();
         informs = informService.getInformsforLocation(Boolean.FALSE);
 
@@ -356,7 +355,7 @@ public class PocketlistApiController {
         //zip xlsx files and provide download
         //setting headers
         response.setStatus(HttpServletResponse.SC_OK);
-        response.addHeader("Content-Disposition", "attachment; filename=\"inform-location.zip\"");
+        response.addHeader("Content-Disposition", "attachment; filename=" + filename);
 
         ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
 

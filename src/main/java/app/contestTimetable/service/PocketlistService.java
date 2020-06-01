@@ -10,6 +10,7 @@ import app.contestTimetable.repository.ContestconfigRepository;
 import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.PocketlistRepository;
 import app.contestTimetable.repository.TeamRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -19,9 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PocketlistService {
@@ -154,7 +153,7 @@ public class PocketlistService {
 
     public List<Team> getPocketlistByPlayer() {
         List<Team> teams = new ArrayList<>();
-
+        ObjectMapper mapper = new ObjectMapper();
 
         List<Location> locations = new ArrayList<>();
         locationRepository.findAll().forEach(locations::add);
@@ -166,8 +165,22 @@ public class PocketlistService {
             schools.forEach(schoolname -> {
                 contestconfigs.forEach(contestconfig -> {
                     contestconfig.getContestgroup().forEach(contestitem -> {
-                        logger.info(String.format("%s,%s,%s", location.getLocationname(), schoolname, contestitem));
-                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(teams::add);
+
+                        List<Map<String,String>> comments = new ArrayList<>();
+                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(team -> {
+                            team.setAccount("");
+                            team.setPasswd("");
+                            Map<String,String> comment = new HashMap<>();
+                            comment.put("color", location.getColor());
+                            comments.add(comment);
+                            try {
+                                team.setComments(mapper.writeValueAsString(comments));
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                            }
+
+                            teams.add(team);
+                        });
                     });
                 });
             });

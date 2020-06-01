@@ -18,8 +18,12 @@ public class Location {
 
     private int capacity;
 
+
     @ElementCollection
     private List<Contestid> contestids = new ArrayList<Contestid>();
+
+
+    private String color;
 
 
     public Location() {
@@ -57,5 +61,14 @@ public class Location {
 
     public List<Contestid> getContestids() {
         return contestids;
+    }
+
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

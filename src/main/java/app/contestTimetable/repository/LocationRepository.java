@@ -11,5 +11,6 @@ public interface LocationRepository extends CrudRepository<Location, String> {
     List<Location> findByCapacityLessThan(Integer capacityvalue);
 
     List<Location> findBySchoolidNotIn(List<String> schoolids);
+    Location findByLocationname(String name);
 
 }

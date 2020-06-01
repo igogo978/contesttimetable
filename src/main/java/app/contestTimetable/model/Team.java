@@ -27,6 +27,7 @@ public class Team {
     private String location;
 
     private String description;
+    private String comments;
 
     private Integer members = 1;
 
@@ -113,5 +114,11 @@ public class Team {
         this.description = description;
     }
 
+    public String getComments() {
+        return comments;
+    }
 
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 }
