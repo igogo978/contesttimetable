@@ -46,7 +46,9 @@
 
                             <tr v-for="(item,index) in items">
                                 <td> {{index+1}} </td>
-                                <td> {{item.location}} </td>
+                                <td v-bind:style="{'background-color': JSON.parse(item.comments)[0].color}"> 
+                                    {{item.location}} 
+                                </td>
                                 <td> {{item.contestitem}} </td>
 
                                 <td> {{item.schoolname}} </td>
@@ -92,8 +94,7 @@
                 
                 this.$http.get(url, config).then((response) => {
                     console.log(response.data);
-                    let vm = this;
-
+                   
                     vm.items = (response.data);
 
                 }, (response) => {

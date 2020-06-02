@@ -41,7 +41,7 @@ public class PocketlistService {
 
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    ObjectMapper mapper = new ObjectMapper();
 
     public void restorePocketlist(String pocketlistfile) throws IOException {
 
@@ -153,7 +153,7 @@ public class PocketlistService {
 
     public List<Team> getPocketlistByPlayer() {
         List<Team> teams = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
+
 
         List<Location> locations = new ArrayList<>();
         locationRepository.findAll().forEach(locations::add);
@@ -166,11 +166,11 @@ public class PocketlistService {
                 contestconfigs.forEach(contestconfig -> {
                     contestconfig.getContestgroup().forEach(contestitem -> {
 
-                        List<Map<String,String>> comments = new ArrayList<>();
+                        List<Map<String, String>> comments = new ArrayList<>();
                         teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(team -> {
                             team.setAccount("");
                             team.setPasswd("");
-                            Map<String,String> comment = new HashMap<>();
+                            Map<String, String> comment = new HashMap<>();
                             comment.put("color", location.getColor());
                             comments.add(comment);
                             try {
@@ -204,8 +204,22 @@ public class PocketlistService {
 
             contestconfigs.forEach(contestconfig -> {
                 contestconfig.getContestgroup().forEach(contestitem -> {
+                    List<Map<String, String>> comments = new ArrayList<>();
                     schools.forEach(schoolname -> {
-                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(teams::add);
+                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(team -> {
+                            team.setAccount("");
+                            team.setPasswd("");
+                            Map<String, String> comment = new HashMap<>();
+                            comment.put("color", location.getColor());
+                            comments.add(comment);
+                            try {
+                                team.setComments(mapper.writeValueAsString(comments));
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                            }
+                            teams.add(team);
+
+                        });
 
                     });
                 });
