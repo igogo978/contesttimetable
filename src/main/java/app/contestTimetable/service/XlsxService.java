@@ -115,8 +115,8 @@ public class XlsxService {
         xlsxPaths.forEach(xlsx -> {
 //            System.out.println(xlsx.toString());
             // String to be scanned to find the pattern.
-            String presentation = ".*(專題簡報).*";
-            String painting = ".*(電腦繪圖).*";
+            String presentation = ".*?(專題簡報).*";
+            String painting = ".*?(電腦繪圖).*";
 
             // Create a Pattern object
             Pattern presentationregex = Pattern.compile(presentation);
@@ -130,7 +130,7 @@ public class XlsxService {
             logger.info(xlsx.toString());
             try {
                 if (matchPresentation.find()) {
-                    logger.info("簡報:" + xlsx.toString());
+                    logger.info("專題簡報:" + xlsx.toString());
                     //簡報多一隊員欄位
                     groupitems.add(readPresentationTeams(xlsx.toString()));
 

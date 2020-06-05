@@ -1,6 +1,7 @@
 package app.contestTimetable.repository;
 
 import app.contestTimetable.model.Team;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -8,8 +9,9 @@ import java.util.List;
 
 public interface TeamRepository extends CrudRepository<Team, Long> {
 
-
+    List<Team> findAll(Sort sort);
     List<Team> findByContestitemContaining(String contestitem);
+
 
     List<Team> findByContestitemContainingOrderBySchoolnameDesc(String contestgroup);
 //    List<Team> findByContestgroupContainingAndContestgroupContaining(String contestgroup, String level);

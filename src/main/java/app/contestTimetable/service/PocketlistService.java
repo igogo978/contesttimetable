@@ -1,7 +1,6 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.school.Contestid;
@@ -16,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -142,6 +142,17 @@ public class PocketlistService {
             if (teams.size() != 0) {
                 teams.forEach(team -> {
                     team.setLocation(pocketitem.getLocationname());
+
+                    Location location = locationRepository.findByLocationname(pocketitem.getLocationname());
+                    List<Map<String, String>> comments = new ArrayList<>();
+                    Map<String, String> comment = new HashMap<>();
+                    comment.put("color", location.getColor());
+                    comments.add(comment);
+                    try {
+                        team.setComments(mapper.writeValueAsString(comments));
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
                     teamRepository.save(team);
                 });
             }
@@ -153,40 +164,12 @@ public class PocketlistService {
 
     public List<Team> getPocketlistByPlayer() {
         List<Team> teams = new ArrayList<>();
-
-
-        List<Location> locations = new ArrayList<>();
-        locationRepository.findAll().forEach(locations::add);
-        List<Contestconfig> contestconfigs = contestconfigRepository.findAllByOrderByIdAsc();
-
-        locations.forEach(location -> {
-            List<String> schools = new ArrayList<>();
-            schools = teamRepository.findDistinctSchoolnameByLocation(location.getLocationname());
-            schools.forEach(schoolname -> {
-                contestconfigs.forEach(contestconfig -> {
-                    contestconfig.getContestgroup().forEach(contestitem -> {
-
-                        List<Map<String, String>> comments = new ArrayList<>();
-                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(team -> {
-                            team.setAccount("");
-                            team.setPasswd("");
-                            Map<String, String> comment = new HashMap<>();
-                            comment.put("color", location.getColor());
-                            comments.add(comment);
-                            try {
-                                team.setComments(mapper.writeValueAsString(comments));
-                            } catch (JsonProcessingException e) {
-                                e.printStackTrace();
-                            }
-
-                            teams.add(team);
-                        });
-                    });
-                });
-            });
-
+        teamRepository.findAll(Sort.by("location").and(Sort.by("schoolname")).and(Sort.by("description").and(Sort.by("contestitem")))).forEach(team -> {
+            team.setAccount("");
+            team.setPasswd("");
+            team.setDescription(team.getDescription().split("-")[1]);
+            teams.add(team);
         });
-
 
         return teams;
     }
@@ -194,37 +177,10 @@ public class PocketlistService {
 
     public List<Team> getPocketlistByLocation() {
         List<Team> teams = new ArrayList<>();
-
-        List<Location> locations = new ArrayList<>();
-        locationRepository.findAll().forEach(locations::add);
-        List<Contestconfig> contestconfigs = contestconfigRepository.findAllByOrderByIdAsc();
-
-        locations.forEach(location -> {
-            final List<String> schools = teamRepository.findDistinctSchoolnameByLocation(location.getLocationname());
-
-            contestconfigs.forEach(contestconfig -> {
-                contestconfig.getContestgroup().forEach(contestitem -> {
-                    List<Map<String, String>> comments = new ArrayList<>();
-                    schools.forEach(schoolname -> {
-                        teamRepository.findBySchoolnameAndContestitemContaining(schoolname, contestitem).forEach(team -> {
-                            team.setAccount("");
-                            team.setPasswd("");
-                            Map<String, String> comment = new HashMap<>();
-                            comment.put("color", location.getColor());
-                            comments.add(comment);
-                            try {
-                                team.setComments(mapper.writeValueAsString(comments));
-                            } catch (JsonProcessingException e) {
-                                e.printStackTrace();
-                            }
-                            teams.add(team);
-
-                        });
-
-                    });
-                });
-            });
-
+        teamRepository.findAll(Sort.by("location").and(Sort.by("description")).and(Sort.by("contestitem").and(Sort.by("schoolname")))).forEach(team -> {
+                    team.setAccount("");
+                    team.setPasswd("");
+                    teams.add(team);
         });
 
 

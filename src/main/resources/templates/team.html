@@ -94,7 +94,13 @@
                             <td>{{item.instructor}}</td>
                             <td>{{item.account}}</td>
                             <td>{{item.passwd}}</td>
-                            <td>{{item.location}}</td>
+                            <td v-if="item.location == null">
+                                
+                            </td>
+
+                            <td v-else v-bind:style="{'background-color': JSON.parse(item.comments)[0].color}"> 
+                                {{item.location}}
+                            </td>
                             <td>{{item.description}}</td>
                         </tr>
                     </tbody>

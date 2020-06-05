@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,14 +31,17 @@ public class TeamAPIController {
         final List<Team> teams = new ArrayList<>();
         if (request.getSession(false) == null) {
             logger.info("session null");
-            teamRepository.findAllByOrderBySchoolname().forEach(team -> {
+            teamRepository.findAll(Sort.by("schoolname").and(Sort.by("description"))).forEach(team -> {
                 team.setAccount("*****");
                 team.setPasswd("*****");
                 teams.add(team);
+
             });
+
+
         } else {
             logger.info(request.getSession().getAttribute("login").toString());
-            return teamRepository.findAllByOrderBySchoolname();
+            return teamRepository.findAll(Sort.by("schoolname").and(Sort.by("description")));
 
         }
 
@@ -76,7 +80,7 @@ public class TeamAPIController {
         Arrays.asList(querystr).forEach(item -> {
             List<Team> teams = new ArrayList<>();
             teamsMap.computeIfAbsent(item, k -> teams);
-            teamRepository.findByContestitemContainingOrderByLocationDesc(item.toUpperCase() ).forEach(teams::add);
+            teamRepository.findByContestitemContainingOrderByLocationDesc(item.toUpperCase()).forEach(teams::add);
 
         });
 

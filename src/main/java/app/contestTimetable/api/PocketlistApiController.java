@@ -144,7 +144,7 @@ public class PocketlistApiController {
     @GetMapping(value = "/api/pocketlist")
     public Map<String, List<LocationSum>> getLocationSummary() throws IOException {
 
-//        String str = "打字".toUpperCase();
+//        String str = "打字".toUpperCase(); //for usb disk cacluating
         String str = "-----".toUpperCase();
 
         String excludeItem = String.format("(.*)%s(.*)", str);

@@ -107,7 +107,7 @@ public class TeamService {
                                 logger.info(contestitem);
                             }
                             contestitemTeams.forEach(team -> {
-                                team.setDescription(contestconfig.getDescription());
+                                team.setDescription(contestconfig.getId() + "-" + contestconfig.getDescription());
                             });
                         }
                 );
