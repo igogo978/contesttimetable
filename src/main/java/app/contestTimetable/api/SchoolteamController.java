@@ -33,28 +33,7 @@ public class SchoolteamController {
 
 
     @GetMapping(value = "/api/schoolteam/area")
-    public List<String> getSchoolteamByArea() {
-
-        Map<String, List<Contestid>> areaTeam = new HashMap<>();
-        List<String> areas = schoolteamservice.getSchoolTeamsArea();
-        List<SchoolTeam> schoolteams = schoolteamservice.getSchoolTeams();
-
-        areas.forEach(area ->{
-            List<Contestid> contestids = new ArrayList<>();
-
-            schoolteams.forEach(schoolTeam -> {
-
-                String schoolteamArea = (schoolTeam.getSchoolname().split("(?<=區)")[0]);
-                if (area.equals(schoolteamArea)) {
-
-                    logger.info(area + ":" + schoolteamArea);
-                }
-
-            });
-
-        });
-
-
+    public List<Map<String, Map<Integer, Integer>>> getSchoolteamByArea() {
 
         return schoolteamservice.getSchoolTeamsArea();
     }

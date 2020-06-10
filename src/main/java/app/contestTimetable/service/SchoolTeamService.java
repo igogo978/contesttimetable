@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,19 +45,76 @@ public class SchoolTeamService {
         return schoolTeamRepository.findAllByOrderByMembersDesc();
     }
 
-
     //get all schoolteam's area
-    public List<String> getSchoolTeamsArea() {
-        List<String> schoolteamAreas = new ArrayList<>();
+    public List<String> getAreas() {
+        List<String> areas = new ArrayList<>();
         List<Team> teams = teamRepository.findAllByOrderBySchoolname();
         List<String> lists = new ArrayList<>();
         teams.forEach(team -> {
             String area = team.getSchoolname().split("(?<=區)")[0];
             lists.add(area);
         });
-        schoolteamAreas = lists.stream().distinct().collect(Collectors.toList());
+        areas = lists.stream().distinct().collect(Collectors.toList());
+        return areas;
+    }
 
-        return schoolteamAreas;
+
+    public List<Map<String, Map<Integer, Integer>>> getSchoolTeamsArea() {
+
+        List<String> areas = areas = getAreas();
+
+
+        List<SchoolTeam> schoolTeams = new ArrayList<>();
+//        Map<Integer, Integer> contestidSum = new HashMap<>();
+//        Map<String, Map<Integer, Integer>> areasSummary = new HashMap<>();
+        List<Map<String, Map<Integer, Integer>>> areasList = new ArrayList<>();
+        areas.forEach(area -> {
+            Map<String, Map<Integer, Integer>> areaSummary = new HashMap<>();
+            List<SchoolTeam> areaSchools = schoolTeamRepository.findBySchoolnameContaining(area);
+            Map<Integer, Integer> contestidSum = new HashMap<>();
+            contestconfigrepository.findAllByOrderByIdAsc().forEach(contestconfig -> {
+                if (!contestidSum.containsKey(contestconfig.getId())) {
+
+                    contestidSum.put(contestconfig.getId(), 0);
+                }
+            });
+            contestidSum.put(0, 0);
+            areaSummary.put(area, contestidSum);
+
+            areaSchools.forEach(schoolTeam -> {
+                schoolTeam.getContestids().forEach(contestid -> {
+                    switch (contestid.getContestid()) {
+                        case 1:
+
+                            contestidSum.put(1, contestidSum.get(1) + contestid.getMembers());
+                            break;
+
+                        case 2:
+
+                            contestidSum.put(2, contestidSum.get(2) + contestid.getMembers());
+                            break;
+
+                        case 3:
+
+                            contestidSum.put(3, contestidSum.get(3) + contestid.getMembers());
+                            break;
+
+                        case 4:
+
+                            contestidSum.put(4, contestidSum.get(4) + contestid.getMembers());
+                            break;
+                        default:
+
+                    }
+                    contestidSum.put(0,contestid.getMembers()+contestidSum.get(0));
+                });
+
+            });
+
+            areasList.add(areaSummary);
+        });
+
+        return areasList;
     }
 
 
@@ -119,7 +178,7 @@ public class SchoolTeamService {
     private List<SchoolTeam> getSchoolTeams(List<Team> teams) {
         List<SchoolTeam> schoolTeams = new ArrayList<>();
         teams.forEach(team -> {
-            logger.info(team.getSchoolname());
+
             Boolean isExist = schoolTeams.stream().anyMatch(schoolTeam ->
                     schoolTeam.getSchoolname().equals(team.getSchoolname()));
 

@@ -83,9 +83,9 @@ public class Area {
             locationAreas.add(location.getLocationname().split("(?<=區)")[0]);
         });
 
-        List<String> schoolteamAreas = schoolTeamService.getSchoolTeamsArea();
+        List<String> areas = schoolTeamService.getAreas();
 //
-        return scoresService.getSchoolteamAreascores(schoolteamAreas, locationAreas);
+        return scoresService.getSchoolteamAreascores(areas, locationAreas);
     }
 
     @GetMapping(value = "/api/scores/area/download")

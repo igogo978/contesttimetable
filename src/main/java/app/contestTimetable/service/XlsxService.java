@@ -113,7 +113,6 @@ public class XlsxService {
         }
 
         xlsxPaths.forEach(xlsx -> {
-//            System.out.println(xlsx.toString());
             // String to be scanned to find the pattern.
             String presentation = ".*?(專題簡報).*";
             String painting = ".*?(電腦繪圖).*";

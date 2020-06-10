@@ -24,11 +24,7 @@ public class TeamController {
         return "teamcontestitem";
     }
 
-    @GetMapping(value = "/schoolteam")
-    public String getSchoolTeamPage() {
 
-        return "schoolteam";
-    }
 
 
 }

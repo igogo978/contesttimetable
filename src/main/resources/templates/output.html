@@ -37,29 +37,28 @@
                     <tr>
 
                         <th scope="col">項目</th>
-                        <th scope="col-6"></th>
-                        <th scope="col"> 
-                            <div class="input-group">
-                                <label for="inputPassword2" class="sr-only">密碼</label>
-                                <input v-model="passwd" class="form-control" type="password" id="inputPassword2" placeholder="Password">
-                                <button @click="getSession" role="button" class="btn btn-info">送出</button>
-                            </div>
+                        <th scope="col-3"></th>
+                        <th scope="col">                           
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>選手帳密通知單</td>
-                        <td>                            
+                        <td>     
+                                <div class="input-group">
+                                        <label for="inputPassword2" class="sr-only">密碼</label>
+                                        <input v-model="passwd" class="form-control" type="password" id="inputPassword2" placeholder="Password">
+                                        <button @click="getSession" role="button" class="btn btn-info">送出</button>
+                                    </div>                       
 
                         </td>
                         <td>
-                                <div class="form-inline float-right">
+                                <div class="form-inline float-left">
                                         <a v-if="isVisible" class="btn btn-success" href="/api/pocketlist/inform/all/download" role="button">列印(含密碼)</a>                                           
                                     
                                         <a v-else class="btn btn-success" href="/api/pocketlist/inform/all/download" role="button">列印(無密碼)</a> 
                                 </div>
-
 
                         </td>                  
                     </tr>
@@ -74,9 +73,16 @@
                                 <div> <button @click="downloadReportByPlayer"  type="button"  class="btn btn-outline-secondary"> 決賽選手_試場分配 </button></div>    
 
                             </td>                  
-                        </tr>
+                    </tr>
                    
-
+                    <tr>
+                        <td>各試場詳細名單</td>
+                        <td>  試場名稱-競賽場次         </td>
+                        <td>
+                            <div> <button @click="downloadInformLocation"  type="button"  class="btn btn-outline-secondary"> 下載 </button></div>                                        
+                                    
+                        </td>                  
+                    </tr>
 
 
 
@@ -215,6 +221,31 @@
                         .then((response) => {
                             var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
                             saveAs(blob, '決賽選手_試場分配.xlsx');
+                            vm.msg= "";
+                           
+                            vm.isCounting = false;
+                        });
+
+
+                },
+                downloadInformLocation: function(){
+                    this.msg = "Downloading...";
+                    this.isCounting = true;
+                    this.countdown();
+
+                    let config = {
+                        headers: {
+                            'content-type': 'application/json;CHARSET=UTF-8'
+                        },
+                        responseType: 'arraybuffer'
+                    };
+
+                    let url = "/api/pocketlist/inform/location/download";
+                    let vm = this;
+                    this.$http.get(url, config)
+                        .then((response) => {
+                            var blob = new Blob([response.data], { type: 'aapplication/zip' });
+                            saveAs(blob, 'inform-location.zip');
                             vm.msg= "";
                            
                             vm.isCounting = false;
