@@ -9,7 +9,7 @@ public class SummaryController {
     @GetMapping(value = "/team/summary/school")
     public String getSchoolTeamPage() {
 
-        return "m";
+        return "teamsummaryschool";
     }
 
 

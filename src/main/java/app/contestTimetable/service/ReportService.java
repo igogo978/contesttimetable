@@ -88,7 +88,6 @@ public class ReportService {
                 String value = "";
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    cell.setCellType(CellType.STRING);
 
                     switch (cell.getColumnIndex()) {
 

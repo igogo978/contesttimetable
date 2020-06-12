@@ -62,7 +62,7 @@
 
             <br>
 
-
+                {{getLocation}}
             
                 <table class="table">
                     <thead class="table-info">
@@ -88,8 +88,12 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in items">
+
                             <td>{{index+1}}</td>
-                            <td>{{Object.keys(item)[0]}}</td>
+                            
+                            <td v-if="item.isLocation"  style="background-color: #f5b7b1">{{Object.keys(item)[0]}}</td>
+                            <td v-else>{{Object.keys(item)[0]}}</td>
+
                             <td>{{Object.values(item)[0][1]}}</td>
                             <td>{{Object.values(item)[0][2]}}</td>
                             <td>{{Object.values(item)[0][3]}}</td>
@@ -123,6 +127,7 @@
                 msg: 'Hello Vue!',
                 contestid: /*[[${contestid}]]*/ 'default',
                 items: [],
+                locations: [],
                 
             },
             created: function() {
@@ -132,12 +137,11 @@
                 this.$http.get(url, config).then((response) => {
                     vm.items = response.data;                  
                     console.log(vm.items);
+                    vm.items.forEach(function(item,index){
+                        // vm.items[index].isLocation = false;
+                        vm.$set(vm.items[index], "isLocation", false);
+                    })
 
-                    console.log(typeof vm.items);
-                  
-
-                    
-                    
                     vm.items.sort(function(a,b){
                      
                        return Object.values(b)[0][0] - Object.values(a)[0][0];
@@ -152,7 +156,31 @@
             computed: {
                 say: function(){
                    
-                }
+                },
+                getLocation: function(){
+                   let vm = this; 
+                   let url = "/api/location"
+                   if(this.items.length !=0){
+                    this.$http.get(url, config).then((response) => {
+                    vm.locations = response.data;                  
+                     
+                   
+                    vm.items.forEach(function(item,index){
+                        let isLocation = vm.locations.some(function(location){
+                            return (Object.keys(item)[0] == location.locationname.split("區")[0]+"區");
+
+                        })
+                        console.log(index + "-" + Object.keys(item)[0]);
+                        vm.items[index].isLocation = isLocation;
+                    })     
+                    console.log(vm.items[0]);       
+
+                    }, (response) => {
+                    // error callback
+                    });
+
+                    }
+                },
             },
             methods: {
              
