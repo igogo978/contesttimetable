@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -101,17 +102,16 @@ public class XlsxService {
         return tickets;
     }
 
-
-    public List<Team> getTeams(String docPath) throws IOException {
+    public List<Team> getTeams(Path docPath) throws IOException {
         List<Team> teams = new ArrayList<>();
         List<List<Team>> groupitems = new ArrayList<>();
         List<Path> xlsxPaths = new ArrayList<>();
-        try (Stream<Path> paths = Files.walk(Paths.get(docPath))) {
+        try (Stream<Path> paths = Files.walk(docPath)) {
             paths.filter(Files::isRegularFile)
                     .filter(p -> p.toString().endsWith(".xlsx"))
                     .forEach(xlsxPaths::add);
-        }
 
+        }
         xlsxPaths.forEach(xlsx -> {
             // String to be scanned to find the pattern.
             String presentation = ".*?(專題簡報).*";
@@ -126,7 +126,6 @@ public class XlsxService {
             Matcher matchPresentation = presentationregex.matcher(xlsx.toString());
             Matcher matchPainting = paintingregex.matcher(xlsx.toString());
 
-            logger.info(xlsx.toString());
             try {
                 if (matchPresentation.find()) {
                     logger.info("專題簡報:" + xlsx.toString());
@@ -150,9 +149,64 @@ public class XlsxService {
             });
             groupitems.clear();
         });
+
+
         return teams;
     }
 
+//
+//    public List<Team> getTeams(String docPath) throws IOException {
+//        List<Team> teams = new ArrayList<>();
+//
+//        List<List<Team>> groupitems = new ArrayList<>();
+//        List<Path> xlsxPaths = new ArrayList<>();
+//        try (Stream<Path> paths = Files.walk(Paths.get(docPath))) {
+//            paths.filter(Files::isRegularFile)
+//                    .filter(p -> p.toString().endsWith(".xlsx"))
+//                    .forEach(xlsxPaths::add);
+//        }
+//
+//        xlsxPaths.forEach(xlsx -> {
+//            // String to be scanned to find the pattern.
+//            String presentation = ".*?(專題簡報).*";
+//            String painting = ".*?(電腦繪圖).*";
+//
+//            // Create a Pattern object
+//            Pattern presentationregex = Pattern.compile(presentation);
+//
+//            Pattern paintingregex = Pattern.compile(painting);
+//
+//            // Now create matcher object.
+//            Matcher matchPresentation = presentationregex.matcher(xlsx.toString());
+//            Matcher matchPainting = paintingregex.matcher(xlsx.toString());
+//
+//            logger.info(xlsx.toString());
+//            try {
+//                if (matchPresentation.find()) {
+//                    logger.info("專題簡報:" + xlsx.toString());
+//                    //簡報多一隊員欄位
+//                    groupitems.add(readPresentationTeams(xlsx.toString()));
+//
+//                } else if (matchPainting.find()) {
+//                    //绘画多一使用软体栏位
+//                    groupitems.add(readPaintingTeams(xlsx.toString()));
+//                } else {
+//                    groupitems.add(readContestItemTeams(xlsx.toString()));
+//
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            //打散塞進items裡
+//            groupitems.forEach(items -> {
+//                items.forEach(team -> teams.add(team));
+//            });
+//            groupitems.clear();
+//        });
+//        return teams;
+//    }
+//
 
     List<Team> readPaintingTeams(String xlsPath) throws IOException, InvalidFormatException {
         List<Team> teams = new ArrayList<>();
@@ -221,7 +275,7 @@ public class XlsxService {
             team.setMembers(1);
             teams.add(team);
         }
-
+        workbook.close();
         return teams;
     }
 
@@ -305,6 +359,7 @@ public class XlsxService {
             teams.add(team);
         }
 
+        workbook.close();
         return teams;
     }
 
@@ -372,6 +427,7 @@ public class XlsxService {
             team.setMembers(1);
             teams.add(team);
         }
+        workbook.close();
         return teams;
     }
 
@@ -386,6 +442,7 @@ public class XlsxService {
 
         // Get iterator to all the rows in current sheet
         Iterator<Row> rowIterator = sheet.iterator();
+        DataFormatter formatter = new DataFormatter();
 
 
         //讀列
@@ -415,7 +472,8 @@ public class XlsxService {
                         break;
 
                     case 2:    //第二個欄位, 得分
-                        value = String.valueOf(cell.getStringCellValue());
+
+                        value = formatter.formatCellValue(cell);
                         if (value.length() != 0) {
                             areascore.setScores(Double.valueOf(value));
 
@@ -428,20 +486,12 @@ public class XlsxService {
                 }
             } //結束讀欄
 
-//            if (areascore.getScores() != 9999.9999) {
-////                logger.info(String.format("%s,%s,%f", areascore.getStartarea(), areascore.getEndarea(), areascore.getScores()));
-//            } else {
-//                logger.info(String.format("%s-%s 无记录", areascore.getStartarea(), areascore.getEndarea()));
-//
-//            }
-//            if (areascore.getStartarea().equals(areascore.getEndarea())) {
-//                areascore.setScores(1);
-//            }
             areas.add(areascore);
 
         }
 
 
+        workbook.close();
         return areas;
     }
 
@@ -494,6 +544,7 @@ public class XlsxService {
 
             locations.add(location);
         }
+        workbook.close();
         return locations;
 
     }
@@ -511,6 +562,7 @@ public class XlsxService {
         // Get iterator to all the rows in current sheet
         Iterator<Row> rowIterator = sheet.iterator();
 
+        DataFormatter formatter = new DataFormatter();
         //讀列
         while (rowIterator.hasNext()) {
             School school = new School();
@@ -532,12 +584,13 @@ public class XlsxService {
 //                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
 //                            System.out.println(new String(byteArray, "UTF-8"));
 //                        System.out.println(String.valueOf(cell.getStringCellValue()));
-                        value = String.valueOf(cell.getStringCellValue());
+
+                        value = formatter.formatCellValue(cell);
 
                         school.setSchoolid(value);
                         break;
                     case 1:    //第二個欄位, 競賽項目
-                        value = String.valueOf(cell.getStringCellValue());
+                        value = formatter.formatCellValue(cell);
                         school.setSchoolname(value);
                         break;
                     case 2:    //第三個欄位, 學校
@@ -554,6 +607,7 @@ public class XlsxService {
             } //結束讀欄
             schools.add(school);
         }
+        workbook.close();
         return schools;
 
     }
@@ -915,7 +969,6 @@ public class XlsxService {
     }
 
 
-
     public XSSFWorkbook createPocketlistInformLocation(List<Team> teams) {
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet("Sheet1");
@@ -972,7 +1025,6 @@ public class XlsxService {
 
         return wb;
     }
-
 
 
 }

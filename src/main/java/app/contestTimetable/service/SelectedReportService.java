@@ -25,11 +25,11 @@ public class SelectedReportService {
 
 //p
 
-    @Autowired
-    ContestconfigRepository contestconfigrepository;
-
-    @Autowired
-    TeamRepository teamrepository;
+//    @Autowired
+//    ContestconfigRepository contestconfigrepository;
+//
+//    @Autowired
+//    TeamRepository teamrepository;
 
 
 //    public ArrayList<Team> selectedReportByTeam(Integer contestid) throws IOException {

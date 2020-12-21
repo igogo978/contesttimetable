@@ -5,19 +5,22 @@ import app.contestTimetable.service.XlsxService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @SpringBootApplication
 public class ContestTimetableApplication implements CommandLineRunner {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(ContestTimetableApplication.class);
 
-//    @Autowired
-//    GooglemapRepository googlemapRepository;
+    @Value("${multipart.location}")
+    private Path path;
 
     @Autowired
     TeamRepository teamrepository;
@@ -51,11 +54,8 @@ public class ContestTimetableApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        File contest = new File("/tmp/contest");
-        if (contest.exists()) {
-            if (contest.mkdir()) {
-                System.out.println("mkdir in /tmp/contest");
-            }
+        if (!Files.isDirectory(path)) {
+            Files.createDirectory(path);
         }
 
 //        String cwd = System.getProperty("user.dir");

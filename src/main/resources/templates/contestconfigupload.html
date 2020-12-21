@@ -1,57 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Ticket UPLOAD</title>
-        <link rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>contestconfig upload</title>
 
-        <div class="container">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
 
-            <div class="form-group">
 
-                <h2>Contestconfig page - Upload json</h2>
-                <form method="POST" enctype="multipart/form-data"
-                    th:action="@{'/contestconfig/upload'}">
-                    <div class="input-group mb-1">
-                        <div class="custom-file">
-                            <input type="file" class="form-control-file btn
-                                btn-outline-secondary" id="inputGroupFile03"
-                                name="file">
-                        </div>
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary"
-                                type="submit"
-                                value="Upload">確定上傳</button>
-                        </div>
-                    </div>
+</head>
+<body>
 
-                </form>
+<div class="container">
+    <div th:replace="fragments/common :: header"></div>
+    <h2>競賽設定 - Upload json</h2>
+
+    <form enctype="multipart/form-data" method="POST"
+          th:action="@{'/contestconfig/upload'}">
+
+        <div class="input-group mb-1">
+
+            <div class="custom-file">
+                <input class="custom-file-input" id="validatedCustomFile" name="file" required type="file">
+                <label class="custom-file-label" for="validatedCustomFile">選擇檔案</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
             </div>
 
-            <div>
-                <a href="/examples/contestconfig.json" class="btn btn-primary stretched-link">范例下载</a>
-            </div>
-            <div th:if="${error}">
-                <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>
-            </div>
+            <div class="col-md-4 mb-3">
+                <div class="input-group-prepend">
+                    <button class="btn btn-dark"
+                            type="submit"
+                            value="Upload">確定
+                    </button>
+                </div>
 
- 
+
+            </div>
+        </div>
+    </form>
+
+    <div class="form-group row">
+        <div class="col-md-4 mb-3">
+            <a class="btn btn-outline-primary stretched-link" href="/examples/contestconfig.json">範例下載</a>
         </div>
 
+        <div class="col-md-4 mb-3">
+            <a class="btn btn-outline-primary stretched-link" href="/api/contestconfig">資料庫記錄</a>
+        </div>
+    </div>
+</div>
 
-    </body>
+
+</div>
+<div th:replace="fragments/common :: footer"></div>
+
+</body>
 </html>

@@ -24,18 +24,23 @@
     <body>
 
         <div class="container">
+		  <div th:replace="fragments/common :: header"></div>
 
             <div class="form-group">
 
                 <h2>Area page - Upload xlsx</h2>
                 <form method="POST" enctype="multipart/form-data"
                     th:action="@{'/area/upload'}">
+
                     <div class="input-group mb-1">
-                        <div class="custom-file">
-                            <input type="file" class="form-control-file btn
-                                btn-outline-secondary" id="inputGroupFile03"
-                                name="file">
-                        </div>
+
+			   <div class="custom-file">
+					<input class="custom-file-input" id="validatedCustomFile" name="file" required type="file">
+					<label class="custom-file-label" for="validatedCustomFile">選擇檔案</label>
+					<div class="invalid-feedback">Example invalid custom file feedback</div>
+			    </div>
+
+
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary"
                                 type="submit"
@@ -63,11 +68,11 @@
         </div>
 
 
-        <footer>
 
 
 
 
+<div th:replace="fragments/common :: footer"></div>
 
             <script th:inline="javascript">
                 /*<![CDATA[*/
@@ -118,7 +123,6 @@
         
                  /*]]>*/
                 </script>
-        </footer>
 
 
 

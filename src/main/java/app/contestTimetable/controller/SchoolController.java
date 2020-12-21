@@ -35,12 +35,7 @@ public class SchoolController {
         List<School> items = new ArrayList<>();
         repository.findAll().forEach(items::add);
 
-
-
-
         model.addAttribute("items", items);
-
-
         return "school";
     }
 }

@@ -1,5 +1,9 @@
-package app.contestTimetable.storage;
+package app.contestTimetable.service;
 
+import app.contestTimetable.storage.StorageException;
+import app.contestTimetable.storage.StorageFileNotFoundException;
+import app.contestTimetable.storage.StorageProperties;
+import app.contestTimetable.storage.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 
@@ -29,16 +36,49 @@ public class FileSystemStorageService implements StorageService {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
-    @Override
-    public void store(MultipartFile file) {
-//        String filename = username + StringUtils.cleanPath(file.getOriginalFilename());
-        logger.info("uploded filename:" + file.getOriginalFilename());
+    public Boolean store(MultipartFile[] files) {
+        //check if directory exists
+        if (!Files.isDirectory(this.rootLocation)) {
+            try {
+                Files.createDirectory(this.rootLocation);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+        }
+
+        //empty files
+        try {
+            Files.walk(this.rootLocation)
+                    .forEach(file -> {
+                        try {
+                            if (file.toFile().getName().toLowerCase(Locale.ROOT).endsWith("xlsx")) {
+                                Files.delete(file);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
-            if (file.isEmpty()) {
-//                throw new StorageException("Failed to store empty file " + filename);
-                throw new StorageException("提醒您, 您沒有選擇檔案喔 ");
-            }
+            Arrays.asList(files).forEach(file -> {
+                store(file);
+            });
+        } catch (Exception ex) {
+            return Boolean.FALSE;
+        }
+
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public void store(MultipartFile file) {
+    //String filename = username + StringUtils.cleanPath(file.getOriginalFilename());
+
+        try {
             if (file.getOriginalFilename().contains("..")) {
                 // This is a security check
                 throw new StorageException(

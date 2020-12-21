@@ -118,17 +118,15 @@ public class UploadAPIController {
 
 
     //讀出teams上傳檔案內容
-    @RequestMapping(value = "/team/upload/{filename}", method = RequestMethod.GET)
-    public RedirectView readUploadTeamsFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+//    @RequestMapping(value = "/team/upload/{filename}", method = RequestMethod.GET)
+//    public RedirectView readUploadTeamFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+//        String teamzipfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
+//        teamService.updateTeam(teamzipfile);
+//        return new RedirectView("/schoolteam");
+//    }
 
 
-        String teamzipfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
-        teamService.updateTeam(teamzipfile);
 
-
-        return new RedirectView("/schoolteam");
-
-    }
 
 
     //讀出ticket上傳檔案內容

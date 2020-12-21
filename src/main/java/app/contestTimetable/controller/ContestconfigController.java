@@ -21,7 +21,7 @@ public class ContestconfigController {
 
     @Autowired
     ContestconfigRepository contestconfigRepository;
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(ContestconfigController.class);
     ObjectMapper mapper = new ObjectMapper();
 
 
