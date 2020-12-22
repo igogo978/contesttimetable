@@ -27,6 +27,8 @@
     <body>
             
         <div class="container" id="app">
+
+            <div th:replace="fragments/common :: header"></div>
             <div class="text-center">
                 決賽選手_試場分配 
                 <button @click="downloadReport"  type="button"  class="btn btn-primary"> 下载 </button>
