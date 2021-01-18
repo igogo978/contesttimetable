@@ -534,7 +534,6 @@ public class XlsxService {
                         break;
                     case 2:    //第3個欄位, color
                         location.setColor(cell.getStringCellValue());
-
                         break;
 
 

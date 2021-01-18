@@ -9,13 +9,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -37,8 +45,6 @@ public class TeamAPIController {
                 teams.add(team);
 
             });
-
-
         } else {
             logger.info(request.getSession().getAttribute("login").toString());
             return teamRepository.findAll(Sort.by("schoolname").and(Sort.by("description")));
@@ -46,6 +52,29 @@ public class TeamAPIController {
         }
 
         return teams;
+    }
+
+    @GetMapping(value = "/api/team/download")
+    public ResponseEntity<Resource> getTeamJson(HttpServletRequest request) throws IOException {
+
+        List<Team> teams = getTeam(request);
+        String filename = "teams.json";
+        //直接輸出
+        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(resourceStream, teams);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("charset", "utf-8");
+        headers.setContentDispositionFormData("attachment", String.format("%s", filename));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        return ResponseEntity.ok().headers(headers).body(resource);
+
     }
 
     @PostMapping(value = "/api/team")

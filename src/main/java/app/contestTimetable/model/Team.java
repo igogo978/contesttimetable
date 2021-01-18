@@ -9,7 +9,6 @@ import javax.persistence.Id;
 public class Team {
 
     //参赛队伍, 竞赛项目区分
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

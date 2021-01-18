@@ -215,16 +215,10 @@ public class PocketlistApiController {
 
         String filename = "pocketlist.json";
         //直接輸出
-
-
         ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
-//        DataOutputStream out = new DataOutputStream(resourceStream);
-//
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(resourceStream, lists);
-
-//        out.writeUTF(mapper.writeValueAsString(lists));
-
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");

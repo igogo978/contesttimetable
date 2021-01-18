@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.PosixFilePermissions;
 
 @SpringBootApplication
 public class ContestTimetableApplication implements CommandLineRunner {
@@ -56,6 +57,10 @@ public class ContestTimetableApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (!Files.isDirectory(path)) {
             Files.createDirectory(path);
+            Files.createDirectory(Path.of("/tmp/poifiles"));
+            logger.info("create contest tmp directory "+ path.toString());
+            Files.setPosixFilePermissions(path, PosixFilePermissions.fromString("rwxrwxrwx"));
+            Files.setPosixFilePermissions(Path.of("/tmp/poifiles"), PosixFilePermissions.fromString("rwxrwxrwx"));
         }
 
         System.out.println("系统启动成功");

@@ -8,6 +8,8 @@ import app.contestTimetable.repository.ContestconfigRepository;
 import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.SchoolRepository;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 
 @Service
 public class LocationService {
+
+    Logger logger = LoggerFactory.getLogger(LocationService.class);
 
     @Autowired
     LocationRepository locationRepository;
@@ -41,9 +45,8 @@ public class LocationService {
         ArrayList<Location> locations = new ArrayList<>();
         locations = readxlsx.getLocations(xlsxfile);
 
-
-
         locations.forEach(location -> {
+            logger.info("location name: " + location.getLocationname());
             School school = schoolRepository.findBySchoolname(location.getLocationname());
             location.setSchoolid(school.getSchoolid());
             contestconfigRepository.findAll().forEach(contestconfig -> {
@@ -71,7 +74,6 @@ public class LocationService {
 
 
         locations.add(pending);
-
 
 
         //存入location

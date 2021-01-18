@@ -26,7 +26,7 @@
         <br>
         <br>
 
-        <h2>上傳參數隊伍</h2>
+        <h2>上傳參賽隊伍</h2>
 
 
         <form enctype="multipart/form-data" method="POST"
@@ -49,22 +49,49 @@
 
         </form>
 
+    </div>
 
-<!--
--->
+
+    <div class="form-group">
+        <br>
+        <br>
+
+        <h2>還原備份檔</h2>
+
+
+        <form enctype="multipart/form-data" method="POST"
+              th:action="@{'/team/restore'}">
+            <div class="input-group mb-1">
+
+                <div class="custom-file">
+                    <input class="custom-file-input" id="restoreCustomFiles" name="jsonfile" required type="file" multiple/>
+                    <label class="custom-file-label" for="restoreCustomFiles">選擇檔案</label>
+                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                </div>
+
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary"
+                            type="submit"
+                            value="Upload">確定還原
+                    </button>
+                </div>
+            </div>
+
+        </form>
 
     </div>
+
+
+
+
+
+
+
     <div th:if="${error}">
         <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>
     </div>
 
     <div th:replace="fragments/common :: multiple-footer"></div>
-
-    <div>
-        <video controls="controls" height="480" src="/examples/ziputf8.mp4" width="640">
-            您的浏览器不支持 video 标签。
-        </video>
-    </div>
 </div>
 
 </body>
