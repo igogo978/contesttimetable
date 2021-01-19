@@ -13,14 +13,12 @@ public class TeamController {
 
     @GetMapping(value = "/team")
     public String getTeamPage() {
-
         return "team";
     }
 
 
     @GetMapping(value = "/team/contestitem")
     public String getTeamContestitemPage() {
-
         return "teamcontestitem";
     }
 

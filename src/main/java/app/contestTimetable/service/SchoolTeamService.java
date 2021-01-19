@@ -184,6 +184,7 @@ public class SchoolTeamService {
 
             if (!isExist) {
                 SchoolTeam schoolteam = new SchoolTeam();
+                logger.info(team.getSchoolname());
                 School school = schoolRepository.findBySchoolname(team.getSchoolname());
                 schoolteam.setSchoolname(team.getSchoolname());
                 schoolteam.setSchoolid(school.getSchoolid());

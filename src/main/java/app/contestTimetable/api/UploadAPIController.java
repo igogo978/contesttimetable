@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -118,11 +119,9 @@ public class UploadAPIController {
     //讀出team json 上傳檔案內容
     @RequestMapping(value = "/team/restore", method = RequestMethod.POST)
     public RedirectView readUploadTeamFile(@RequestParam("jsonfile") MultipartFile jsonfile, Model model) throws IOException, InvalidFormatException {
-        logger.info(jsonfile.getName());
+        teamService.restore(jsonfile);
         return new RedirectView("/team");
     }
-
-
 
 
 

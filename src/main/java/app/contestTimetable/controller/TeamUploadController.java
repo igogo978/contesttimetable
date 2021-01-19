@@ -52,18 +52,18 @@ public class TeamUploadController {
 
     }
 
-    //user upload page
-    @PostMapping("/team/upload")
-    public String handleTeamsFileUpload(@RequestParam("file") MultipartFile file,
-                                        RedirectAttributes redirectAttributes) {
-        logger.info("filename:" + file.getOriginalFilename());
-        String filename = file.getOriginalFilename();
-        storageService.store(file);
-        return "redirect:/team/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
-    }
+//    //user upload page
+//    @PostMapping("/team/upload")
+//    public String handleTeamsFileUpload(@RequestParam("file") MultipartFile file,
+//                                        RedirectAttributes redirectAttributes) {
+//        logger.info("filename:" + file.getOriginalFilename());
+//        String filename = file.getOriginalFilename();
+//        storageService.store(file);
+//        return "redirect:/team/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
+//    }
 
     //user upload page
-    @PostMapping("/teams/upload")
+    @PostMapping("/team/upload")
     public String handleTeamsFilesUpload(@RequestParam("files") MultipartFile[] files,
                                          RedirectAttributes redirectAttributes) throws IOException {
 
@@ -72,9 +72,6 @@ public class TeamUploadController {
         if(storageService.store(files)){
             //update teams
             teamService.update();
-//
-//            Files.walk(path).filter(file->file.getFileName().toString().toLowerCase(Locale.ROOT).endsWith("xlsx"))
-//                    .forEach(file -> logger.info(file.toString()));
         }
         return "redirect:/team";
     }
