@@ -1,0 +1,93 @@
+2021-02-26 10:01:32,675 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.9.1 on LAPTOP-IGOGO with PID 1132 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2021-02-26 10:01:32,678 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-02-26 10:01:33,391 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-02-26 10:01:33,465 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 64 ms. Found 13 JPA repository interfaces.
+2021-02-26 10:01:33,985 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-02-26 10:01:33,996 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-02-26 10:01:33,997 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-02-26 10:01:33,998 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.39]
+2021-02-26 10:01:34,098 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-02-26 10:01:34,099 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1361 ms
+2021-02-26 10:01:34,275 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-26 10:01:34,324 INFO org.hibernate.jpa.internal.util.LogHelper [task-1] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-26 10:01:34,392 INFO org.hibernate.Version [task-1] HHH000412: Hibernate ORM core version 5.4.23.Final
+2021-02-26 10:01:34,476 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-26 10:01:34,589 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [task-1] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-26 10:01:34,700 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Starting...
+2021-02-26 10:01:34,736 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-02-26 10:01:34,915 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-02-26 10:01:34,983 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-26 10:01:34,986 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Triggering deferred initialization of Spring Data repositories…
+2021-02-26 10:01:35,146 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Start completed.
+2021-02-26 10:01:35,172 INFO org.hibernate.dialect.Dialect [task-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-26 10:01:35,940 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [task-1] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-26 10:01:35,951 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [task-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-26 10:01:36,397 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Spring Data repositories initialized!
+2021-02-26 10:01:36,405 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 4.253 seconds (JVM running for 4.693)
+2021-02-26 10:02:27,525 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-26 10:02:27,525 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-02-26 10:02:27,527 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2021-02-26 10:02:41,017 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-8] update a new report: 26-02-2021 10:02:41, scores: 4836.0
+2021-02-26 10:02:43,480 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-10] update a new report: 26-02-2021 10:02:43, scores: 4605.0
+2021-02-26 10:03:39,521 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-7] reports size: 4
+2021-02-26 10:03:47,128 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-8] delete reports
+2021-02-26 10:03:47,398 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-10] reports size: 0
+2021-02-26 10:04:14,351 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-9] update a new report: 26-02-2021 10:04:14, scores: 4842.0
+2021-02-26 10:04:15,582 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-1] update a new report: 26-02-2021 10:04:15, scores: 4593.0
+2021-02-26 10:04:34,574 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-5] reports size: 2
+2021-02-26 10:07:23,925 INFO app.contestTimetable.api.TeamAPIController [http-nio-8080-exec-7] session null
+2021-02-26 10:07:50,829 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-2] reports size: 2
+2021-02-26 10:14:11,180 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-4] update a new report: 26-02-2021 10:14:11, scores: 4596.0
+2021-02-26 10:14:13,220 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-5] update a new report: 26-02-2021 10:14:13, scores: 4566.0
+2021-02-26 12:58:42,963 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-26 12:58:42,966 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-26 12:58:42,967 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-02-26 12:58:42,977 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2021-02-26 15:11:46,450 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.9.1 on LAPTOP-IGOGO with PID 1002 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2021-02-26 15:11:46,454 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-02-26 15:11:47,201 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-02-26 15:11:47,281 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 70 ms. Found 13 JPA repository interfaces.
+2021-02-26 15:11:47,813 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-02-26 15:11:47,823 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-02-26 15:11:47,824 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-02-26 15:11:47,825 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.39]
+2021-02-26 15:11:47,948 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-02-26 15:11:47,949 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1425 ms
+2021-02-26 15:11:48,091 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-26 15:11:48,139 INFO org.hibernate.jpa.internal.util.LogHelper [task-1] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-26 15:11:48,226 INFO org.hibernate.Version [task-1] HHH000412: Hibernate ORM core version 5.4.23.Final
+2021-02-26 15:11:48,309 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-26 15:11:48,437 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [task-1] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-26 15:11:48,572 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Starting...
+2021-02-26 15:11:48,612 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-02-26 15:11:48,798 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-02-26 15:11:48,874 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-26 15:11:48,897 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Triggering deferred initialization of Spring Data repositories…
+2021-02-26 15:11:49,164 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Start completed.
+2021-02-26 15:11:49,182 INFO org.hibernate.dialect.Dialect [task-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-26 15:11:49,976 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [task-1] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-26 15:11:49,984 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [task-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-26 15:11:50,456 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Spring Data repositories initialized!
+2021-02-26 15:11:50,465 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 4.599 seconds (JVM running for 5.019)
+2021-02-26 15:31:41,078 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-26 15:31:41,079 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-02-26 15:31:41,081 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2021-02-26 15:34:03,384 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-4] update a new report: 26-02-2021 15:34:03, scores: 4722.0
+2021-02-26 15:34:04,795 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-8] update a new report: 26-02-2021 15:34:04, scores: 4581.0
+2021-02-26 15:35:56,237 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-6] update a new report: 26-02-2021 15:35:56, scores: 4608.0
+2021-02-26 15:35:57,927 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-9] update a new report: 26-02-2021 15:35:57, scores: 4617.0
+2021-02-26 15:38:19,263 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-5] reports size: 8
+2021-02-26 15:38:27,310 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-4] delete reports
+2021-02-26 15:38:27,552 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-8] reports size: 0
+2021-02-26 15:38:49,635 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-4] update a new report: 26-02-2021 15:38:49, scores: 4617.0
+2021-02-26 15:38:50,201 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-8] update a new report: 26-02-2021 15:38:50, scores: 4617.0
+2021-02-26 15:39:00,924 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-1] reports size: 2
+2021-02-26 15:44:21,855 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-2] update a new report: 26-02-2021 15:44:21, scores: 3546.0
+2021-02-26 15:44:22,998 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-5] update a new report: 26-02-2021 15:44:22, scores: 3540.0
+2021-02-26 15:44:30,598 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-9] reports size: 4
+2021-02-26 16:15:12,949 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-8] update a new report: 26-02-2021 16:15:12, scores: 3522.0
+2021-02-26 16:15:15,633 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-10] update a new report: 26-02-2021 16:15:15, scores: 3513.0
+2021-02-26 16:15:53,562 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-26 16:15:53,567 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-26 16:15:53,567 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-02-26 16:15:53,574 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.

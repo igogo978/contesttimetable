@@ -287,6 +287,7 @@ public class ReportService {
             reportScoresSummary.setUuid(report.getUuid());
             reportScoresSummary.setScores(report.getScores());
             reportScoresSummary.setScoresfrequency(report.getScoresfrequency());
+            reportScoresSummaryRepository.save(reportScoresSummary);
             reportrepository.save(report);
 
 

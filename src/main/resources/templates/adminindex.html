@@ -28,28 +28,6 @@
         <div class="container" id="app">
               <div th:replace="fragments/common :: header"></div>
             <br>
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">Home</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                    <a class="nav-link" href="/admin/index">進階 <span class="sr-only">(current)</span></a>
-                    </li>
-                
-                </ul>
-                </div>
-    
-
-            </nav>
-
-
-
-
-
             <br>
 
             <table class="table">
@@ -64,45 +42,93 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr>
                         <td>清除口袋名單</td>
                         <td>{{msg}}</td>
                         <td>
                             <button @click="deletePocketlist" role="button" class="btn btn-info">刪除</button>
                         </td>
-                  
                     </tr>
+
+                    <tr>
+                        <td>移入歷史資料</td>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">學年度</span>
+                                </div>
+                                <input type="text" v-model="year" class="form-control" placeholder="學年度" aria-label="year" aria-describedby="basic-addon1">
+                                {{checkYear}}
+                            </div>
+                        </td>
+                        <td>
+                            <button v-if="(!/\D/.test(this.year)) && (this.year.length===3)" @click="addArchive" role="button" class="btn btn-info">submit</button>
+                            <button v-else role="button" class="btn btn-info" disabled>submit</button>
+                        </td>
+                    </tr>
+
 
 
                 </tbody>
             </table>
-
-
-         
 
         </div>
 
 
         <footer>
             <script th:inline="javascript">
-        /*<![CDATA[*/
-        Vue.prototype.$http = axios;
-        let config = {
-            headers: {
-                'content-type': 'application/json;CHARSET=UTF-8'
-            }
-        };
+                /*<![CDATA[*/
+                Vue.prototype.$http = axios;
+                let config = {
+                    headers: {
+                        'content-type': 'application/json;CHARSET=UTF-8'
+                    }
+                };
 
         var app = new Vue({
             el: '#app',
             data: {
                 msg:  '',
-              
+                year: '',
+                archiveButton: false,
             },
             created: function() {
             },
+            computed:{
+                checkYear: function(){
+                    if((!/\D/.test(this.year)) && (this.year.length===3)){
+                       console.log(this.year);
+                       this.archiveButton = true;
+                    }
+                }
+            },
             methods: {
+                addArchive:function(){
+
+                    let url = "/api/team/archive";
+                    let vm = this;
+                    this.$http.post(url,
+                    { data : {
+                         "action": this.year
+                    },config})
+                    .then((response) => {
+                        // success callback // console.log(response.data);
+
+                        console.log(response.data);
+                        vm.msg = response.data
+
+                    }, (response) => {
+                    // error callback
+                    });
+
+
+
+
+
+                },
                 deletePocketlist:function(){
+
                     let url = "/api/pocketlist";
                     let vm = this;
                     this.$http.delete(url,
@@ -118,6 +144,7 @@
                     }, (response) => {
                     // error callback
                     });
+
                 }
             }
         })

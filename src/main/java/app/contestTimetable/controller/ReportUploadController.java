@@ -17,7 +17,7 @@ import java.util.Base64;
 @Controller
 public class ReportUploadController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(ReportUploadController.class);
 
     StorageProperties storageProperties;
 

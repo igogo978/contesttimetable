@@ -300,7 +300,7 @@
                     let vm = this;
                     this.$http.get(url, config)
                         .then((response) => {
-                            var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                            var blob = new Blob([response.data], { type: 'application/json' });
                             saveAs(blob, 'reports.json');
                         });
 

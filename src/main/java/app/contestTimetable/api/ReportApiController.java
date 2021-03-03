@@ -90,7 +90,7 @@ public class ReportApiController {
 //            report.setReport("");
 //            reports.add(report);
 //        });
-
+        logger.info("reports size: "+ reportScoresSummaryRepository.findAllByOrderByScoresAsc().size());
         return reportScoresSummaryRepository.findAllByOrderByScoresAsc();
 
     }

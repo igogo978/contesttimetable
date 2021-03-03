@@ -98,6 +98,12 @@ public class TeamAPIController {
         return teams;
     }
 
+    @PostMapping(value = "/api/team/archive")
+    public String getTeamToArchive(@RequestBody String payload) throws JsonProcessingException {
+        logger.info(payload);
+        return payload;
+    }
+
 
     @PostMapping(value = "/api/team/contestitem")
     public Map<String, List<Team>> getTeamContestitem(@RequestBody String payload) throws JsonProcessingException {

@@ -1,0 +1,1715 @@
+2021-02-24 10:43:16,369 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication vserver71 using Java 11.0.9.1 on LAPTOP-IGOGO with PID 1426 (/home/igogo/Projects/contesttimetable/target/contestTimetable-server71.jar started by igogo in /home/igogo/Projects/contesttimetable)
+2021-02-24 10:43:16,379 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-02-24 10:43:17,745 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-02-24 10:43:17,939 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 178 ms. Found 13 JPA repository interfaces.
+2021-02-24 10:43:18,987 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-02-24 10:43:19,012 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-02-24 10:43:19,013 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-02-24 10:43:19,014 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.39]
+2021-02-24 10:43:19,166 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-02-24 10:43:19,168 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2647 ms
+2021-02-24 10:43:19,480 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-24 10:43:19,635 INFO org.hibernate.jpa.internal.util.LogHelper [task-1] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-24 10:43:19,870 INFO org.hibernate.Version [task-1] HHH000412: Hibernate ORM core version 5.4.23.Final
+2021-02-24 10:43:19,926 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-24 10:43:20,411 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [task-1] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-24 10:43:20,572 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-02-24 10:43:20,774 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Starting...
+2021-02-24 10:43:20,945 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-02-24 10:43:21,019 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-24 10:43:21,026 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Triggering deferred initialization of Spring Data repositories…
+2021-02-24 10:43:21,533 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Start completed.
+2021-02-24 10:43:21,628 INFO org.hibernate.dialect.Dialect [task-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-24 10:43:23,217 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [task-1] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-24 10:43:23,228 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [task-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-24 10:43:24,205 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Spring Data repositories initialized!
+2021-02-24 10:43:24,223 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 8.966 seconds (JVM running for 10.263)
+2021-02-24 10:44:04,011 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-24 10:44:04,011 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-02-24 10:44:04,014 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2021-02-24 10:46:36,381 INFO app.contestTimetable.controller.ContestconfigUploadController [http-nio-8080-exec-8] filename:systemconfig.json
+2021-02-24 10:46:36,385 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-8] save to:/tmp/contest/systemconfig.json
+2021-02-24 10:46:36,426 INFO app.contestTimetable.api.UploadAPIController [http-nio-8080-exec-9] /tmp/contest/systemconfig.json
+2021-02-24 10:46:36,608 INFO app.contestTimetable.service.ContestconfigService [http-nio-8080-exec-9] 储存设定档
+2021-02-24 10:51:13,189 INFO app.contestTimetable.api.TeamAPIController [http-nio-8080-exec-7] session null
+2021-02-24 11:24:58,269 INFO app.contestTimetable.controller.TeamUploadController [http-nio-8080-exec-10] upload multiple files
+2021-02-24 11:24:58,299 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,299 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,300 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,301 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,302 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,303 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,311 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,315 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,316 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2021-02-24 11:24:58,317 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2021-02-24 11:24:58,318 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2021-02-24 11:24:58,319 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2021-02-24 11:24:58,320 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2021-02-24 11:24:58,321 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2021-02-24 11:24:58,321 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2021-02-24 11:24:58,322 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,323 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,327 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,328 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,331 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,333 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,334 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,335 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,336 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,339 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,345 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,349 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,350 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,350 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,351 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,354 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,355 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,356 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,357 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,357 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,358 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,361 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2021-02-24 11:24:58,366 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2021-02-24 11:24:58,367 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2021-02-24 11:24:58,368 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2021-02-24 11:24:58,368 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2021-02-24 11:24:58,370 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2021-02-24 11:24:58,371 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2021-02-24 11:24:58,372 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2021-02-24 11:24:58,373 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2021-02-24 11:24:58,374 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,374 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,375 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,375 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,376 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,377 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,382 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2021-02-24 11:24:58,384 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2021-02-24 11:24:58,385 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,385 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,386 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,387 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,388 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,389 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2021-02-24 11:24:58,409 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2021-02-24 11:25:00,666 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-10] 專題簡報:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2021-02-24 11:25:00,940 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-10] 專題簡報:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2021-02-24 11:25:01,044 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-10] 專題簡報:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2021-02-24 11:25:01,646 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-10] 專題簡報:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2021-02-24 11:25:02,040 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-10] 專題簡報:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2021-02-24 11:25:20,232 INFO app.contestTimetable.service.TeamService [http-nio-8080-exec-10] 统计每间学校各项目参赛人数
+2021-02-24 11:25:31,062 INFO app.contestTimetable.api.TeamAPIController [http-nio-8080-exec-2] session null
+2021-02-24 11:25:41,020 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,東區,999.999
+2021-02-24 11:25:41,024 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,西區,999.999
+2021-02-24 11:25:41,028 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,西屯區,999.999
+2021-02-24 11:25:41,032 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,北屯區,999.999
+2021-02-24 11:25:41,048 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,南屯區,999.999
+2021-02-24 11:25:41,050 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,南屯區,999.999
+2021-02-24 11:25:41,055 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,豐原區,999.999
+2021-02-24 11:25:41,073 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,烏日區,999.999
+2021-02-24 11:25:41,079 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,烏日區,999.999
+2021-02-24 11:25:41,082 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,后里區,999.999
+2021-02-24 11:25:41,084 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,神岡區,999.999
+2021-02-24 11:25:41,086 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,石岡區,999.999
+2021-02-24 11:25:41,089 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,清水區,999.999
+2021-02-24 11:25:41,106 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,大甲區,999.999
+2021-02-24 11:25:41,122 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,沙鹿區,999.999
+2021-02-24 11:25:41,126 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,龍井區,999.999
+2021-02-24 11:25:41,129 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,太平區,999.999
+2021-02-24 11:25:41,134 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 中區,大里區,999.999
+2021-02-24 11:25:41,136 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,東區,999.999
+2021-02-24 11:25:41,138 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,西區,999.999
+2021-02-24 11:25:41,140 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,西屯區,999.999
+2021-02-24 11:25:41,142 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,北屯區,999.999
+2021-02-24 11:25:41,145 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,南屯區,999.999
+2021-02-24 11:25:41,161 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,南屯區,999.999
+2021-02-24 11:25:41,168 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,豐原區,999.999
+2021-02-24 11:25:41,170 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,烏日區,999.999
+2021-02-24 11:25:41,173 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,烏日區,999.999
+2021-02-24 11:25:41,175 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,后里區,999.999
+2021-02-24 11:25:41,179 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,神岡區,999.999
+2021-02-24 11:25:41,181 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,石岡區,999.999
+2021-02-24 11:25:41,184 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,清水區,999.999
+2021-02-24 11:25:41,186 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,大甲區,999.999
+2021-02-24 11:25:41,189 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,沙鹿區,999.999
+2021-02-24 11:25:41,191 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,龍井區,999.999
+2021-02-24 11:25:41,199 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,太平區,999.999
+2021-02-24 11:25:41,202 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北區,大里區,999.999
+2021-02-24 11:25:41,204 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,東區,999.999
+2021-02-24 11:25:41,207 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,西區,999.999
+2021-02-24 11:25:41,208 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,西屯區,999.999
+2021-02-24 11:25:41,218 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,北屯區,999.999
+2021-02-24 11:25:41,221 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,南屯區,999.999
+2021-02-24 11:25:41,224 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,南屯區,999.999
+2021-02-24 11:25:41,230 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,豐原區,999.999
+2021-02-24 11:25:41,234 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,烏日區,999.999
+2021-02-24 11:25:41,236 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,烏日區,999.999
+2021-02-24 11:25:41,238 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,后里區,999.999
+2021-02-24 11:25:41,240 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,神岡區,999.999
+2021-02-24 11:25:41,242 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,石岡區,999.999
+2021-02-24 11:25:41,250 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,清水區,999.999
+2021-02-24 11:25:41,252 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,大甲區,999.999
+2021-02-24 11:25:41,255 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,沙鹿區,999.999
+2021-02-24 11:25:41,257 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,龍井區,999.999
+2021-02-24 11:25:41,259 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,太平區,999.999
+2021-02-24 11:25:41,262 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 北屯區,大里區,999.999
+2021-02-24 11:25:41,265 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,東區,999.999
+2021-02-24 11:25:41,268 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,西區,999.999
+2021-02-24 11:25:41,270 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,西屯區,999.999
+2021-02-24 11:25:41,272 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,北屯區,999.999
+2021-02-24 11:25:41,274 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,南屯區,999.999
+2021-02-24 11:25:41,277 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,南屯區,999.999
+2021-02-24 11:25:41,281 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,豐原區,999.999
+2021-02-24 11:25:41,289 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,烏日區,999.999
+2021-02-24 11:25:41,291 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,烏日區,999.999
+2021-02-24 11:25:41,296 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,后里區,999.999
+2021-02-24 11:25:41,299 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,神岡區,999.999
+2021-02-24 11:25:41,301 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,石岡區,999.999
+2021-02-24 11:25:41,303 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,清水區,999.999
+2021-02-24 11:25:41,306 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,大甲區,999.999
+2021-02-24 11:25:41,308 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,沙鹿區,999.999
+2021-02-24 11:25:41,311 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,龍井區,999.999
+2021-02-24 11:25:41,314 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,太平區,999.999
+2021-02-24 11:25:41,316 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南區,大里區,999.999
+2021-02-24 11:25:41,318 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,東區,999.999
+2021-02-24 11:25:41,320 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,西區,999.999
+2021-02-24 11:25:41,325 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,西屯區,999.999
+2021-02-24 11:25:41,330 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,北屯區,999.999
+2021-02-24 11:25:41,332 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,南屯區,999.999
+2021-02-24 11:25:41,334 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,南屯區,999.999
+2021-02-24 11:25:41,341 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,豐原區,999.999
+2021-02-24 11:25:41,347 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,烏日區,999.999
+2021-02-24 11:25:41,350 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,烏日區,999.999
+2021-02-24 11:25:41,353 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,后里區,999.999
+2021-02-24 11:25:41,355 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,神岡區,999.999
+2021-02-24 11:25:41,357 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,石岡區,999.999
+2021-02-24 11:25:41,364 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,清水區,999.999
+2021-02-24 11:25:41,366 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,大甲區,999.999
+2021-02-24 11:25:41,368 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,沙鹿區,999.999
+2021-02-24 11:25:41,371 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,龍井區,999.999
+2021-02-24 11:25:41,374 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,太平區,999.999
+2021-02-24 11:25:41,381 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 南屯區,大里區,999.999
+2021-02-24 11:25:41,384 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,東區,999.999
+2021-02-24 11:25:41,386 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,西區,999.999
+2021-02-24 11:25:41,388 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,西屯區,999.999
+2021-02-24 11:25:41,389 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,北屯區,999.999
+2021-02-24 11:25:41,391 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,南屯區,999.999
+2021-02-24 11:25:41,395 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,南屯區,999.999
+2021-02-24 11:25:41,397 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,豐原區,999.999
+2021-02-24 11:25:41,400 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,烏日區,999.999
+2021-02-24 11:25:41,402 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,烏日區,999.999
+2021-02-24 11:25:41,404 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,后里區,999.999
+2021-02-24 11:25:41,408 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,神岡區,999.999
+2021-02-24 11:25:41,412 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,石岡區,999.999
+2021-02-24 11:25:41,415 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,清水區,999.999
+2021-02-24 11:25:41,417 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,大甲區,999.999
+2021-02-24 11:25:41,420 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,沙鹿區,999.999
+2021-02-24 11:25:41,422 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,龍井區,999.999
+2021-02-24 11:25:41,424 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,太平區,999.999
+2021-02-24 11:25:41,428 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 后里區,大里區,999.999
+2021-02-24 11:25:41,431 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,東區,999.999
+2021-02-24 11:25:41,433 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,西區,999.999
+2021-02-24 11:25:41,435 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,西屯區,999.999
+2021-02-24 11:25:41,437 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,北屯區,999.999
+2021-02-24 11:25:41,439 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,南屯區,999.999
+2021-02-24 11:25:41,441 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,南屯區,999.999
+2021-02-24 11:25:41,451 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,豐原區,999.999
+2021-02-24 11:25:41,453 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,烏日區,999.999
+2021-02-24 11:25:41,455 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,烏日區,999.999
+2021-02-24 11:25:41,457 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,后里區,999.999
+2021-02-24 11:25:41,460 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,神岡區,999.999
+2021-02-24 11:25:41,463 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,石岡區,999.999
+2021-02-24 11:25:41,466 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,清水區,999.999
+2021-02-24 11:25:41,468 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,大甲區,999.999
+2021-02-24 11:25:41,470 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,沙鹿區,999.999
+2021-02-24 11:25:41,474 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,龍井區,999.999
+2021-02-24 11:25:41,476 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,太平區,999.999
+2021-02-24 11:25:41,485 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 和平區,大里區,999.999
+2021-02-24 11:25:41,487 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,東區,999.999
+2021-02-24 11:25:41,491 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,西區,999.999
+2021-02-24 11:25:41,494 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,西屯區,999.999
+2021-02-24 11:25:41,496 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,北屯區,999.999
+2021-02-24 11:25:41,499 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,南屯區,999.999
+2021-02-24 11:25:41,501 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,南屯區,999.999
+2021-02-24 11:25:41,504 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,豐原區,999.999
+2021-02-24 11:25:41,508 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,烏日區,999.999
+2021-02-24 11:25:41,511 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,烏日區,999.999
+2021-02-24 11:25:41,515 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,后里區,999.999
+2021-02-24 11:25:41,517 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,神岡區,999.999
+2021-02-24 11:25:41,520 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,石岡區,999.999
+2021-02-24 11:25:41,523 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,清水區,999.999
+2021-02-24 11:25:41,525 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,大甲區,999.999
+2021-02-24 11:25:41,528 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,沙鹿區,999.999
+2021-02-24 11:25:41,531 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,龍井區,999.999
+2021-02-24 11:25:41,533 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,太平區,999.999
+2021-02-24 11:25:41,536 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 外埔區,大里區,999.999
+2021-02-24 11:25:41,538 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,東區,999.999
+2021-02-24 11:25:41,540 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,西區,999.999
+2021-02-24 11:25:41,545 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,西屯區,999.999
+2021-02-24 11:25:41,548 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,北屯區,999.999
+2021-02-24 11:25:41,550 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,南屯區,999.999
+2021-02-24 11:25:41,553 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,南屯區,999.999
+2021-02-24 11:25:41,555 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,豐原區,999.999
+2021-02-24 11:25:41,557 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,烏日區,999.999
+2021-02-24 11:25:41,563 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,烏日區,999.999
+2021-02-24 11:25:41,566 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,后里區,999.999
+2021-02-24 11:25:41,569 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,神岡區,999.999
+2021-02-24 11:25:41,571 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,石岡區,999.999
+2021-02-24 11:25:41,574 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,清水區,999.999
+2021-02-24 11:25:41,577 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,大甲區,999.999
+2021-02-24 11:25:41,579 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,沙鹿區,999.999
+2021-02-24 11:25:41,581 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,龍井區,999.999
+2021-02-24 11:25:41,583 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,太平區,999.999
+2021-02-24 11:25:41,586 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大安區,大里區,999.999
+2021-02-24 11:25:41,587 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,東區,999.999
+2021-02-24 11:25:41,589 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,西區,999.999
+2021-02-24 11:25:41,591 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,西屯區,999.999
+2021-02-24 11:25:41,593 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,北屯區,999.999
+2021-02-24 11:25:41,595 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,南屯區,999.999
+2021-02-24 11:25:41,598 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,南屯區,999.999
+2021-02-24 11:25:41,602 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,豐原區,999.999
+2021-02-24 11:25:41,605 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,烏日區,999.999
+2021-02-24 11:25:41,607 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,烏日區,999.999
+2021-02-24 11:25:41,610 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,后里區,999.999
+2021-02-24 11:25:41,612 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,神岡區,999.999
+2021-02-24 11:25:41,614 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,石岡區,999.999
+2021-02-24 11:25:41,618 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,清水區,999.999
+2021-02-24 11:25:41,625 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,大甲區,999.999
+2021-02-24 11:25:41,628 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,沙鹿區,999.999
+2021-02-24 11:25:41,630 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,龍井區,999.999
+2021-02-24 11:25:41,633 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,太平區,999.999
+2021-02-24 11:25:41,636 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大甲區,大里區,999.999
+2021-02-24 11:25:41,638 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,東區,999.999
+2021-02-24 11:25:41,642 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,西區,999.999
+2021-02-24 11:25:41,645 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,西屯區,999.999
+2021-02-24 11:25:41,648 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,北屯區,999.999
+2021-02-24 11:25:41,650 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,南屯區,999.999
+2021-02-24 11:25:41,652 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,南屯區,999.999
+2021-02-24 11:25:41,654 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,豐原區,999.999
+2021-02-24 11:25:41,658 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,烏日區,999.999
+2021-02-24 11:25:41,664 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,烏日區,999.999
+2021-02-24 11:25:41,666 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,后里區,999.999
+2021-02-24 11:25:41,668 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,神岡區,999.999
+2021-02-24 11:25:41,670 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,石岡區,999.999
+2021-02-24 11:25:41,672 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,清水區,999.999
+2021-02-24 11:25:41,675 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,大甲區,999.999
+2021-02-24 11:25:41,678 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,沙鹿區,999.999
+2021-02-24 11:25:41,680 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,龍井區,999.999
+2021-02-24 11:25:41,682 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,太平區,999.999
+2021-02-24 11:25:41,683 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大肚區,大里區,999.999
+2021-02-24 11:25:41,686 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,東區,999.999
+2021-02-24 11:25:41,688 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,西區,999.999
+2021-02-24 11:25:41,690 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,西屯區,999.999
+2021-02-24 11:25:41,692 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,北屯區,999.999
+2021-02-24 11:25:41,698 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,南屯區,999.999
+2021-02-24 11:25:41,700 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,南屯區,999.999
+2021-02-24 11:25:41,702 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,豐原區,999.999
+2021-02-24 11:25:41,704 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,烏日區,999.999
+2021-02-24 11:25:41,706 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,烏日區,999.999
+2021-02-24 11:25:41,708 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,后里區,999.999
+2021-02-24 11:25:41,712 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,神岡區,999.999
+2021-02-24 11:25:41,715 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,石岡區,999.999
+2021-02-24 11:25:41,717 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,清水區,999.999
+2021-02-24 11:25:41,720 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,大甲區,999.999
+2021-02-24 11:25:41,722 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,沙鹿區,999.999
+2021-02-24 11:25:41,725 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,龍井區,999.999
+2021-02-24 11:25:41,727 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,太平區,999.999
+2021-02-24 11:25:41,735 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大里區,大里區,999.999
+2021-02-24 11:25:41,737 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,東區,999.999
+2021-02-24 11:25:41,739 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,西區,999.999
+2021-02-24 11:25:41,744 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,西屯區,999.999
+2021-02-24 11:25:41,746 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,北屯區,999.999
+2021-02-24 11:25:41,748 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,南屯區,999.999
+2021-02-24 11:25:41,751 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,南屯區,999.999
+2021-02-24 11:25:41,752 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,豐原區,999.999
+2021-02-24 11:25:41,755 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,烏日區,999.999
+2021-02-24 11:25:41,757 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,烏日區,999.999
+2021-02-24 11:25:41,760 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,后里區,999.999
+2021-02-24 11:25:41,765 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,神岡區,999.999
+2021-02-24 11:25:41,767 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,石岡區,999.999
+2021-02-24 11:25:41,768 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,清水區,999.999
+2021-02-24 11:25:41,770 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,大甲區,999.999
+2021-02-24 11:25:41,775 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,沙鹿區,999.999
+2021-02-24 11:25:41,780 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,龍井區,999.999
+2021-02-24 11:25:41,782 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,太平區,999.999
+2021-02-24 11:25:41,784 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 大雅區,大里區,999.999
+2021-02-24 11:25:41,786 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,東區,999.999
+2021-02-24 11:25:41,788 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,西區,999.999
+2021-02-24 11:25:41,790 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,西屯區,999.999
+2021-02-24 11:25:41,792 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,北屯區,999.999
+2021-02-24 11:25:41,795 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,南屯區,999.999
+2021-02-24 11:25:41,798 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,南屯區,999.999
+2021-02-24 11:25:41,799 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,豐原區,999.999
+2021-02-24 11:25:41,801 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,烏日區,999.999
+2021-02-24 11:25:41,803 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,烏日區,999.999
+2021-02-24 11:25:41,805 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,后里區,999.999
+2021-02-24 11:25:41,807 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,神岡區,999.999
+2021-02-24 11:25:41,809 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,石岡區,999.999
+2021-02-24 11:25:41,811 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,清水區,999.999
+2021-02-24 11:25:41,814 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,大甲區,999.999
+2021-02-24 11:25:41,816 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,沙鹿區,999.999
+2021-02-24 11:25:41,834 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,龍井區,999.999
+2021-02-24 11:25:41,836 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,太平區,999.999
+2021-02-24 11:25:41,840 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 太平區,大里區,999.999
+2021-02-24 11:25:41,843 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,東區,999.999
+2021-02-24 11:25:41,848 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,西區,999.999
+2021-02-24 11:25:41,851 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,西屯區,999.999
+2021-02-24 11:25:41,860 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,北屯區,999.999
+2021-02-24 11:25:41,862 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,南屯區,999.999
+2021-02-24 11:25:41,864 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,南屯區,999.999
+2021-02-24 11:25:41,866 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,豐原區,999.999
+2021-02-24 11:25:41,877 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,烏日區,999.999
+2021-02-24 11:25:41,880 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,烏日區,999.999
+2021-02-24 11:25:41,884 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,后里區,999.999
+2021-02-24 11:25:41,887 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,神岡區,999.999
+2021-02-24 11:25:41,889 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,石岡區,999.999
+2021-02-24 11:25:41,891 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,清水區,999.999
+2021-02-24 11:25:41,895 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,大甲區,999.999
+2021-02-24 11:25:41,898 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,沙鹿區,999.999
+2021-02-24 11:25:41,900 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,龍井區,999.999
+2021-02-24 11:25:41,902 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,太平區,999.999
+2021-02-24 11:25:41,903 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 新社區,大里區,999.999
+2021-02-24 11:25:41,906 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,東區,999.999
+2021-02-24 11:25:41,907 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,西區,999.999
+2021-02-24 11:25:41,911 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,西屯區,999.999
+2021-02-24 11:25:41,912 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,北屯區,999.999
+2021-02-24 11:25:41,914 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,南屯區,999.999
+2021-02-24 11:25:41,916 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,南屯區,999.999
+2021-02-24 11:25:41,924 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,豐原區,999.999
+2021-02-24 11:25:41,931 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,烏日區,999.999
+2021-02-24 11:25:41,934 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,烏日區,999.999
+2021-02-24 11:25:41,936 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,后里區,999.999
+2021-02-24 11:25:41,938 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,神岡區,999.999
+2021-02-24 11:25:41,940 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,石岡區,999.999
+2021-02-24 11:25:41,945 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,清水區,999.999
+2021-02-24 11:25:41,947 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,大甲區,999.999
+2021-02-24 11:25:41,950 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,沙鹿區,999.999
+2021-02-24 11:25:41,952 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,龍井區,999.999
+2021-02-24 11:25:41,954 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,太平區,999.999
+2021-02-24 11:25:41,957 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東勢區,大里區,999.999
+2021-02-24 11:25:41,958 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,東區,999.999
+2021-02-24 11:25:41,961 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,西區,999.999
+2021-02-24 11:25:41,962 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,西屯區,999.999
+2021-02-24 11:25:41,964 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,北屯區,999.999
+2021-02-24 11:25:41,967 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,南屯區,999.999
+2021-02-24 11:25:41,968 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,南屯區,999.999
+2021-02-24 11:25:41,970 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,豐原區,999.999
+2021-02-24 11:25:41,972 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,烏日區,999.999
+2021-02-24 11:25:41,975 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,烏日區,999.999
+2021-02-24 11:25:41,977 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,后里區,999.999
+2021-02-24 11:25:41,979 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,神岡區,999.999
+2021-02-24 11:25:41,982 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,石岡區,999.999
+2021-02-24 11:25:41,984 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,清水區,999.999
+2021-02-24 11:25:41,986 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,大甲區,999.999
+2021-02-24 11:25:41,988 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,沙鹿區,999.999
+2021-02-24 11:25:41,992 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,龍井區,999.999
+2021-02-24 11:25:41,995 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,太平區,999.999
+2021-02-24 11:25:41,998 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 東區,大里區,999.999
+2021-02-24 11:25:42,000 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,東區,999.999
+2021-02-24 11:25:42,002 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,西區,999.999
+2021-02-24 11:25:42,004 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,西屯區,999.999
+2021-02-24 11:25:42,007 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,北屯區,999.999
+2021-02-24 11:25:42,009 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,南屯區,999.999
+2021-02-24 11:25:42,012 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,南屯區,999.999
+2021-02-24 11:25:42,013 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,豐原區,999.999
+2021-02-24 11:25:42,016 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,烏日區,999.999
+2021-02-24 11:25:42,018 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,烏日區,999.999
+2021-02-24 11:25:42,020 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,后里區,999.999
+2021-02-24 11:25:42,022 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,神岡區,999.999
+2021-02-24 11:25:42,025 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,石岡區,999.999
+2021-02-24 11:25:42,044 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,清水區,999.999
+2021-02-24 11:25:42,046 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,大甲區,999.999
+2021-02-24 11:25:42,048 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,沙鹿區,999.999
+2021-02-24 11:25:42,051 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,龍井區,999.999
+2021-02-24 11:25:42,058 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,太平區,999.999
+2021-02-24 11:25:42,061 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 梧棲區,大里區,999.999
+2021-02-24 11:25:42,064 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,東區,999.999
+2021-02-24 11:25:42,066 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,西區,999.999
+2021-02-24 11:25:42,068 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,西屯區,999.999
+2021-02-24 11:25:42,071 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,北屯區,999.999
+2021-02-24 11:25:42,074 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,南屯區,999.999
+2021-02-24 11:25:42,077 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,南屯區,999.999
+2021-02-24 11:25:42,079 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,豐原區,999.999
+2021-02-24 11:25:42,081 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,烏日區,999.999
+2021-02-24 11:25:42,083 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,烏日區,999.999
+2021-02-24 11:25:42,089 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,后里區,999.999
+2021-02-24 11:25:42,091 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,神岡區,999.999
+2021-02-24 11:25:42,096 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,石岡區,999.999
+2021-02-24 11:25:42,097 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,清水區,999.999
+2021-02-24 11:25:42,099 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,大甲區,999.999
+2021-02-24 11:25:42,101 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,沙鹿區,999.999
+2021-02-24 11:25:42,102 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,龍井區,999.999
+2021-02-24 11:25:42,104 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,太平區,999.999
+2021-02-24 11:25:42,106 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 沙鹿區,大里區,999.999
+2021-02-24 11:25:42,108 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,東區,999.999
+2021-02-24 11:25:42,111 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,西區,999.999
+2021-02-24 11:25:42,117 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,西屯區,999.999
+2021-02-24 11:25:42,120 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,北屯區,999.999
+2021-02-24 11:25:42,122 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,南屯區,999.999
+2021-02-24 11:25:42,124 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,南屯區,999.999
+2021-02-24 11:25:42,127 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,豐原區,999.999
+2021-02-24 11:25:42,129 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,烏日區,999.999
+2021-02-24 11:25:42,131 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,烏日區,999.999
+2021-02-24 11:25:42,133 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,后里區,999.999
+2021-02-24 11:25:42,136 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,神岡區,999.999
+2021-02-24 11:25:42,138 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,石岡區,999.999
+2021-02-24 11:25:42,140 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,清水區,999.999
+2021-02-24 11:25:42,142 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,大甲區,999.999
+2021-02-24 11:25:42,144 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,沙鹿區,999.999
+2021-02-24 11:25:42,146 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,龍井區,999.999
+2021-02-24 11:25:42,148 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,太平區,999.999
+2021-02-24 11:25:42,150 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 清水區,大里區,999.999
+2021-02-24 11:25:42,152 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,東區,999.999
+2021-02-24 11:25:42,155 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,西區,999.999
+2021-02-24 11:25:42,158 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,西屯區,999.999
+2021-02-24 11:25:42,170 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,北屯區,999.999
+2021-02-24 11:25:42,172 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,南屯區,999.999
+2021-02-24 11:25:42,179 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,南屯區,999.999
+2021-02-24 11:25:42,187 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,豐原區,999.999
+2021-02-24 11:25:42,189 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,烏日區,999.999
+2021-02-24 11:25:42,191 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,烏日區,999.999
+2021-02-24 11:25:42,194 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,后里區,999.999
+2021-02-24 11:25:42,196 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,神岡區,999.999
+2021-02-24 11:25:42,198 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,石岡區,999.999
+2021-02-24 11:25:42,200 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,清水區,999.999
+2021-02-24 11:25:42,202 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,大甲區,999.999
+2021-02-24 11:25:42,204 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,沙鹿區,999.999
+2021-02-24 11:25:42,205 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,龍井區,999.999
+2021-02-24 11:25:42,207 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,太平區,999.999
+2021-02-24 11:25:42,209 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 潭子區,大里區,999.999
+2021-02-24 11:25:42,212 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,東區,999.999
+2021-02-24 11:25:42,215 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,西區,999.999
+2021-02-24 11:25:42,217 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,西屯區,999.999
+2021-02-24 11:25:42,218 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,北屯區,999.999
+2021-02-24 11:25:42,220 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,南屯區,999.999
+2021-02-24 11:25:42,222 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,南屯區,999.999
+2021-02-24 11:25:42,224 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,豐原區,999.999
+2021-02-24 11:25:42,226 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,烏日區,999.999
+2021-02-24 11:25:42,228 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,烏日區,999.999
+2021-02-24 11:25:42,230 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,后里區,999.999
+2021-02-24 11:25:42,231 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,神岡區,999.999
+2021-02-24 11:25:42,232 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,石岡區,999.999
+2021-02-24 11:25:42,235 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,清水區,999.999
+2021-02-24 11:25:42,238 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,大甲區,999.999
+2021-02-24 11:25:42,239 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,沙鹿區,999.999
+2021-02-24 11:25:42,244 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,龍井區,999.999
+2021-02-24 11:25:42,247 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,太平區,999.999
+2021-02-24 11:25:42,248 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 烏日區,大里區,999.999
+2021-02-24 11:25:42,250 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,東區,999.999
+2021-02-24 11:25:42,252 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,西區,999.999
+2021-02-24 11:25:42,254 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,西屯區,999.999
+2021-02-24 11:25:42,255 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,北屯區,999.999
+2021-02-24 11:25:42,257 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,南屯區,999.999
+2021-02-24 11:25:42,261 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,南屯區,999.999
+2021-02-24 11:25:42,262 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,豐原區,999.999
+2021-02-24 11:25:42,264 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,烏日區,999.999
+2021-02-24 11:25:42,268 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,烏日區,999.999
+2021-02-24 11:25:42,270 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,后里區,999.999
+2021-02-24 11:25:42,271 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,神岡區,999.999
+2021-02-24 11:25:42,273 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,石岡區,999.999
+2021-02-24 11:25:42,276 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,清水區,999.999
+2021-02-24 11:25:42,278 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,大甲區,999.999
+2021-02-24 11:25:42,280 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,沙鹿區,999.999
+2021-02-24 11:25:42,283 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,龍井區,999.999
+2021-02-24 11:25:42,285 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,太平區,999.999
+2021-02-24 11:25:42,286 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 石岡區,大里區,999.999
+2021-02-24 11:25:42,288 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,東區,999.999
+2021-02-24 11:25:42,290 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,西區,999.999
+2021-02-24 11:25:42,292 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,西屯區,999.999
+2021-02-24 11:25:42,295 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,北屯區,999.999
+2021-02-24 11:25:42,296 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,南屯區,999.999
+2021-02-24 11:25:42,298 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,南屯區,999.999
+2021-02-24 11:25:42,299 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,豐原區,999.999
+2021-02-24 11:25:42,301 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,烏日區,999.999
+2021-02-24 11:25:42,303 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,烏日區,999.999
+2021-02-24 11:25:42,306 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,后里區,999.999
+2021-02-24 11:25:42,308 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,神岡區,999.999
+2021-02-24 11:25:42,311 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,石岡區,999.999
+2021-02-24 11:25:42,313 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,清水區,999.999
+2021-02-24 11:25:42,315 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,大甲區,999.999
+2021-02-24 11:25:42,317 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,沙鹿區,999.999
+2021-02-24 11:25:42,319 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,龍井區,999.999
+2021-02-24 11:25:42,321 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,太平區,999.999
+2021-02-24 11:25:42,323 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 神岡區,大里區,999.999
+2021-02-24 11:25:42,325 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,東區,999.999
+2021-02-24 11:25:42,327 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,西區,999.999
+2021-02-24 11:25:42,329 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,西屯區,999.999
+2021-02-24 11:25:42,331 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,北屯區,999.999
+2021-02-24 11:25:42,332 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,南屯區,999.999
+2021-02-24 11:25:42,334 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,南屯區,999.999
+2021-02-24 11:25:42,336 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,豐原區,999.999
+2021-02-24 11:25:42,337 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,烏日區,999.999
+2021-02-24 11:25:42,339 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,烏日區,999.999
+2021-02-24 11:25:42,341 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,后里區,999.999
+2021-02-24 11:25:42,344 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,神岡區,999.999
+2021-02-24 11:25:42,345 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,石岡區,999.999
+2021-02-24 11:25:42,347 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,清水區,999.999
+2021-02-24 11:25:42,348 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,大甲區,999.999
+2021-02-24 11:25:42,350 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,沙鹿區,999.999
+2021-02-24 11:25:42,351 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,龍井區,999.999
+2021-02-24 11:25:42,356 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,太平區,999.999
+2021-02-24 11:25:42,358 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西區,大里區,999.999
+2021-02-24 11:25:42,362 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,東區,999.999
+2021-02-24 11:25:42,365 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,西區,999.999
+2021-02-24 11:25:42,367 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,西屯區,999.999
+2021-02-24 11:25:42,368 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,北屯區,999.999
+2021-02-24 11:25:42,370 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,南屯區,999.999
+2021-02-24 11:25:42,372 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,南屯區,999.999
+2021-02-24 11:25:42,374 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,豐原區,999.999
+2021-02-24 11:25:42,377 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,烏日區,999.999
+2021-02-24 11:25:42,379 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,烏日區,999.999
+2021-02-24 11:25:42,381 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,后里區,999.999
+2021-02-24 11:25:42,383 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,神岡區,999.999
+2021-02-24 11:25:42,385 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,石岡區,999.999
+2021-02-24 11:25:42,387 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,清水區,999.999
+2021-02-24 11:25:42,389 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,大甲區,999.999
+2021-02-24 11:25:42,391 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,沙鹿區,999.999
+2021-02-24 11:25:42,394 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,龍井區,999.999
+2021-02-24 11:25:42,396 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,太平區,999.999
+2021-02-24 11:25:42,398 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 西屯區,大里區,999.999
+2021-02-24 11:25:42,400 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,東區,999.999
+2021-02-24 11:25:42,401 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,西區,999.999
+2021-02-24 11:25:42,403 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,西屯區,999.999
+2021-02-24 11:25:42,407 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,北屯區,999.999
+2021-02-24 11:25:42,409 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,南屯區,999.999
+2021-02-24 11:25:42,411 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,南屯區,999.999
+2021-02-24 11:25:42,413 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,豐原區,999.999
+2021-02-24 11:25:42,418 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,烏日區,999.999
+2021-02-24 11:25:42,420 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,烏日區,999.999
+2021-02-24 11:25:42,421 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,后里區,999.999
+2021-02-24 11:25:42,424 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,神岡區,999.999
+2021-02-24 11:25:42,426 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,石岡區,999.999
+2021-02-24 11:25:42,430 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,清水區,999.999
+2021-02-24 11:25:42,432 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,大甲區,999.999
+2021-02-24 11:25:42,434 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,沙鹿區,999.999
+2021-02-24 11:25:42,441 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,龍井區,999.999
+2021-02-24 11:25:42,444 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,太平區,999.999
+2021-02-24 11:25:42,446 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 豐原區,大里區,999.999
+2021-02-24 11:25:42,447 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,東區,999.999
+2021-02-24 11:25:42,449 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,西區,999.999
+2021-02-24 11:25:42,451 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,西屯區,999.999
+2021-02-24 11:25:42,452 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,北屯區,999.999
+2021-02-24 11:25:42,461 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,南屯區,999.999
+2021-02-24 11:25:42,465 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,南屯區,999.999
+2021-02-24 11:25:42,467 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,豐原區,999.999
+2021-02-24 11:25:42,474 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,烏日區,999.999
+2021-02-24 11:25:42,486 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,烏日區,999.999
+2021-02-24 11:25:42,489 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,后里區,999.999
+2021-02-24 11:25:42,491 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,神岡區,999.999
+2021-02-24 11:25:42,494 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,石岡區,999.999
+2021-02-24 11:25:42,502 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,清水區,999.999
+2021-02-24 11:25:42,510 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,大甲區,999.999
+2021-02-24 11:25:42,529 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,沙鹿區,999.999
+2021-02-24 11:25:42,531 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,龍井區,999.999
+2021-02-24 11:25:42,534 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,太平區,999.999
+2021-02-24 11:25:42,543 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 霧峰區,大里區,999.999
+2021-02-24 11:25:42,545 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,東區,999.999
+2021-02-24 11:25:42,547 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,西區,999.999
+2021-02-24 11:25:42,548 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,西屯區,999.999
+2021-02-24 11:25:42,550 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,北屯區,999.999
+2021-02-24 11:25:42,552 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,南屯區,999.999
+2021-02-24 11:25:42,554 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,南屯區,999.999
+2021-02-24 11:25:42,563 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,豐原區,999.999
+2021-02-24 11:25:42,565 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,烏日區,999.999
+2021-02-24 11:25:42,567 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,烏日區,999.999
+2021-02-24 11:25:42,569 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,后里區,999.999
+2021-02-24 11:25:42,570 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,神岡區,999.999
+2021-02-24 11:25:42,588 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,石岡區,999.999
+2021-02-24 11:25:42,590 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,清水區,999.999
+2021-02-24 11:25:42,592 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,大甲區,999.999
+2021-02-24 11:25:42,594 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,沙鹿區,999.999
+2021-02-24 11:25:42,596 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,龍井區,999.999
+2021-02-24 11:25:42,599 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,太平區,999.999
+2021-02-24 11:25:42,603 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-5] 龍井區,大里區,999.999
+2021-02-24 11:38:49,117 INFO app.contestTimetable.controller.AreaUploadController [http-nio-8080-exec-10] filename:area.xlsx
+2021-02-24 11:38:49,118 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-10] save to:/tmp/contest/area.xlsx
+2021-02-24 11:38:49,135 INFO app.contestTimetable.api.UploadAPIController [http-nio-8080-exec-1] /tmp/contest/area.xlsx
+2021-02-24 11:38:49,290 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區中區
+2021-02-24 11:38:49,309 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區中區
+2021-02-24 11:38:49,314 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區北區
+2021-02-24 11:38:49,341 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區中區
+2021-02-24 11:38:49,349 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區北屯區
+2021-02-24 11:38:49,364 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區中區
+2021-02-24 11:38:49,400 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區南區
+2021-02-24 11:38:49,419 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區中區
+2021-02-24 11:38:49,429 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區南屯區
+2021-02-24 11:38:49,447 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區中區
+2021-02-24 11:38:49,457 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區后里區
+2021-02-24 11:38:49,468 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區中區
+2021-02-24 11:38:49,478 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區和平區
+2021-02-24 11:38:49,489 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區中區
+2021-02-24 11:38:49,500 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區外埔區
+2021-02-24 11:38:49,513 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區中區
+2021-02-24 11:38:49,528 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區大安區
+2021-02-24 11:38:49,559 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區中區
+2021-02-24 11:38:49,568 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區大甲區
+2021-02-24 11:38:49,578 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區中區
+2021-02-24 11:38:49,587 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區大肚區
+2021-02-24 11:38:49,595 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區中區
+2021-02-24 11:38:49,606 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區大里區
+2021-02-24 11:38:49,626 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區中區
+2021-02-24 11:38:49,633 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區大雅區
+2021-02-24 11:38:49,649 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區中區
+2021-02-24 11:38:49,656 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區太平區
+2021-02-24 11:38:49,667 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區中區
+2021-02-24 11:38:49,676 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區新社區
+2021-02-24 11:38:49,683 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區中區
+2021-02-24 11:38:49,694 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區東勢區
+2021-02-24 11:38:49,709 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區中區
+2021-02-24 11:38:49,731 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區東區
+2021-02-24 11:38:49,745 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區中區
+2021-02-24 11:38:49,752 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區梧棲區
+2021-02-24 11:38:49,769 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區中區
+2021-02-24 11:38:49,791 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區沙鹿區
+2021-02-24 11:38:49,800 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區中區
+2021-02-24 11:38:49,816 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區清水區
+2021-02-24 11:38:49,833 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區中區
+2021-02-24 11:38:49,849 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區潭子區
+2021-02-24 11:38:49,859 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區中區
+2021-02-24 11:38:49,876 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區烏日區
+2021-02-24 11:38:49,889 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區中區
+2021-02-24 11:38:49,900 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區石岡區
+2021-02-24 11:38:49,922 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區中區
+2021-02-24 11:38:49,932 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區神岡區
+2021-02-24 11:38:49,948 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區中區
+2021-02-24 11:38:49,956 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區西區
+2021-02-24 11:38:49,971 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區中區
+2021-02-24 11:38:49,988 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區西屯區
+2021-02-24 11:38:50,000 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區中區
+2021-02-24 11:38:50,017 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區豐原區
+2021-02-24 11:38:50,026 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區中區
+2021-02-24 11:38:50,033 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區霧峰區
+2021-02-24 11:38:50,042 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區中區
+2021-02-24 11:38:50,060 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 中區龍井區
+2021-02-24 11:38:50,075 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區中區
+2021-02-24 11:38:50,083 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區北區
+2021-02-24 11:38:50,094 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區北區
+2021-02-24 11:38:50,096 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區北屯區
+2021-02-24 11:38:50,103 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區北區
+2021-02-24 11:38:50,118 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區南區
+2021-02-24 11:38:50,132 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區北區
+2021-02-24 11:38:50,142 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區南屯區
+2021-02-24 11:38:50,155 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區北區
+2021-02-24 11:38:50,163 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區后里區
+2021-02-24 11:38:50,182 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區北區
+2021-02-24 11:38:50,204 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區和平區
+2021-02-24 11:38:50,216 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區北區
+2021-02-24 11:38:50,227 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區外埔區
+2021-02-24 11:38:50,235 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區北區
+2021-02-24 11:38:50,243 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區大安區
+2021-02-24 11:38:50,256 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區北區
+2021-02-24 11:38:50,262 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區大甲區
+2021-02-24 11:38:50,272 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區北區
+2021-02-24 11:38:50,285 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區大肚區
+2021-02-24 11:38:50,297 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區北區
+2021-02-24 11:38:50,305 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區大里區
+2021-02-24 11:38:50,315 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區北區
+2021-02-24 11:38:50,324 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區大雅區
+2021-02-24 11:38:50,338 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區北區
+2021-02-24 11:38:50,345 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區太平區
+2021-02-24 11:38:50,352 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區北區
+2021-02-24 11:38:50,367 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區新社區
+2021-02-24 11:38:50,385 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區北區
+2021-02-24 11:38:50,399 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區東勢區
+2021-02-24 11:38:50,413 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區北區
+2021-02-24 11:38:50,420 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區東區
+2021-02-24 11:38:50,433 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區北區
+2021-02-24 11:38:50,442 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區梧棲區
+2021-02-24 11:38:50,453 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區北區
+2021-02-24 11:38:50,462 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區沙鹿區
+2021-02-24 11:38:50,474 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區北區
+2021-02-24 11:38:50,484 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區清水區
+2021-02-24 11:38:50,498 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區北區
+2021-02-24 11:38:50,506 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區潭子區
+2021-02-24 11:38:50,522 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區北區
+2021-02-24 11:38:50,537 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區烏日區
+2021-02-24 11:38:50,546 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區北區
+2021-02-24 11:38:50,556 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區石岡區
+2021-02-24 11:38:50,564 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區北區
+2021-02-24 11:38:50,580 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區神岡區
+2021-02-24 11:38:50,629 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區北區
+2021-02-24 11:38:50,650 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區西區
+2021-02-24 11:38:50,665 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區北區
+2021-02-24 11:38:50,673 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區西屯區
+2021-02-24 11:38:50,680 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區北區
+2021-02-24 11:38:50,687 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區豐原區
+2021-02-24 11:38:50,699 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區北區
+2021-02-24 11:38:50,708 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區霧峰區
+2021-02-24 11:38:50,728 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區北區
+2021-02-24 11:38:50,739 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北區龍井區
+2021-02-24 11:38:50,746 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區北區
+2021-02-24 11:38:50,756 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區北屯區
+2021-02-24 11:38:50,769 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區北屯區
+2021-02-24 11:38:50,771 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區南區
+2021-02-24 11:38:50,783 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區北屯區
+2021-02-24 11:38:50,796 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區南屯區
+2021-02-24 11:38:50,803 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區北屯區
+2021-02-24 11:38:50,819 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區后里區
+2021-02-24 11:38:50,833 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區北屯區
+2021-02-24 11:38:50,851 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區和平區
+2021-02-24 11:38:50,865 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區北屯區
+2021-02-24 11:38:50,877 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區外埔區
+2021-02-24 11:38:50,889 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區北屯區
+2021-02-24 11:38:50,900 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區大安區
+2021-02-24 11:38:50,909 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區北屯區
+2021-02-24 11:38:50,922 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區大甲區
+2021-02-24 11:38:50,938 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區北屯區
+2021-02-24 11:38:50,958 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區大肚區
+2021-02-24 11:38:50,968 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區北屯區
+2021-02-24 11:38:50,980 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區大里區
+2021-02-24 11:38:50,990 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區北屯區
+2021-02-24 11:38:50,999 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區大雅區
+2021-02-24 11:38:51,007 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區北屯區
+2021-02-24 11:38:51,017 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區太平區
+2021-02-24 11:38:51,028 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區北屯區
+2021-02-24 11:38:51,046 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區新社區
+2021-02-24 11:38:51,055 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區北屯區
+2021-02-24 11:38:51,063 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區東勢區
+2021-02-24 11:38:51,084 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區北屯區
+2021-02-24 11:38:51,094 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區東區
+2021-02-24 11:38:51,106 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區北屯區
+2021-02-24 11:38:51,112 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區梧棲區
+2021-02-24 11:38:51,121 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區北屯區
+2021-02-24 11:38:51,131 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區沙鹿區
+2021-02-24 11:38:51,146 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區北屯區
+2021-02-24 11:38:51,154 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區清水區
+2021-02-24 11:38:51,162 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區北屯區
+2021-02-24 11:38:51,170 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區潭子區
+2021-02-24 11:38:51,189 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區北屯區
+2021-02-24 11:38:51,204 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區烏日區
+2021-02-24 11:38:51,211 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區北屯區
+2021-02-24 11:38:51,221 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區石岡區
+2021-02-24 11:38:51,242 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區北屯區
+2021-02-24 11:38:51,258 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區神岡區
+2021-02-24 11:38:51,269 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區北屯區
+2021-02-24 11:38:51,279 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區西區
+2021-02-24 11:38:51,287 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區北屯區
+2021-02-24 11:38:51,303 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區西屯區
+2021-02-24 11:38:51,316 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區北屯區
+2021-02-24 11:38:51,326 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區豐原區
+2021-02-24 11:38:51,334 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區北屯區
+2021-02-24 11:38:51,345 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區霧峰區
+2021-02-24 11:38:51,351 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區北屯區
+2021-02-24 11:38:51,362 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 北屯區龍井區
+2021-02-24 11:38:51,370 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區北屯區
+2021-02-24 11:38:51,379 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區南區
+2021-02-24 11:38:51,389 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區南區
+2021-02-24 11:38:51,392 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區南屯區
+2021-02-24 11:38:51,404 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區南區
+2021-02-24 11:38:51,411 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區后里區
+2021-02-24 11:38:51,424 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區南區
+2021-02-24 11:38:51,440 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區和平區
+2021-02-24 11:38:51,450 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區南區
+2021-02-24 11:38:51,460 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區外埔區
+2021-02-24 11:38:51,467 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區南區
+2021-02-24 11:38:51,475 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區大安區
+2021-02-24 11:38:51,482 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區南區
+2021-02-24 11:38:51,491 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區大甲區
+2021-02-24 11:38:51,501 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區南區
+2021-02-24 11:38:51,511 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區大肚區
+2021-02-24 11:38:51,526 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區南區
+2021-02-24 11:38:51,533 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區大里區
+2021-02-24 11:38:51,548 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區南區
+2021-02-24 11:38:51,559 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區大雅區
+2021-02-24 11:38:51,566 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區南區
+2021-02-24 11:38:51,574 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區太平區
+2021-02-24 11:38:51,582 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區南區
+2021-02-24 11:38:51,595 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區新社區
+2021-02-24 11:38:51,609 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區南區
+2021-02-24 11:38:51,617 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區東勢區
+2021-02-24 11:38:51,627 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區南區
+2021-02-24 11:38:51,634 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區東區
+2021-02-24 11:38:51,648 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區南區
+2021-02-24 11:38:51,655 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區梧棲區
+2021-02-24 11:38:51,664 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區南區
+2021-02-24 11:38:51,671 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區沙鹿區
+2021-02-24 11:38:51,678 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區南區
+2021-02-24 11:38:51,689 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區清水區
+2021-02-24 11:38:51,696 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區南區
+2021-02-24 11:38:51,707 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區潭子區
+2021-02-24 11:38:51,714 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區南區
+2021-02-24 11:38:51,723 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區烏日區
+2021-02-24 11:38:51,732 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區南區
+2021-02-24 11:38:51,745 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區石岡區
+2021-02-24 11:38:51,752 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區南區
+2021-02-24 11:38:51,762 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區神岡區
+2021-02-24 11:38:51,772 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區南區
+2021-02-24 11:38:51,785 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區西區
+2021-02-24 11:38:51,800 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區南區
+2021-02-24 11:38:51,815 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區西屯區
+2021-02-24 11:38:51,834 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區南區
+2021-02-24 11:38:51,850 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區豐原區
+2021-02-24 11:38:51,859 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區南區
+2021-02-24 11:38:51,867 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區霧峰區
+2021-02-24 11:38:51,876 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區南區
+2021-02-24 11:38:51,884 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南區龍井區
+2021-02-24 11:38:51,893 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區南區
+2021-02-24 11:38:51,900 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區南屯區
+2021-02-24 11:38:51,916 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區南屯區
+2021-02-24 11:38:51,919 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區后里區
+2021-02-24 11:38:51,936 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區南屯區
+2021-02-24 11:38:51,949 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區和平區
+2021-02-24 11:38:51,960 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區南屯區
+2021-02-24 11:38:51,978 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區外埔區
+2021-02-24 11:38:51,987 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區南屯區
+2021-02-24 11:38:51,994 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區大安區
+2021-02-24 11:38:52,011 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區南屯區
+2021-02-24 11:38:52,027 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區大甲區
+2021-02-24 11:38:52,034 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區南屯區
+2021-02-24 11:38:52,046 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區大肚區
+2021-02-24 11:38:52,057 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區南屯區
+2021-02-24 11:38:52,072 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區大里區
+2021-02-24 11:38:52,080 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區南屯區
+2021-02-24 11:38:52,092 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區大雅區
+2021-02-24 11:38:52,100 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區南屯區
+2021-02-24 11:38:52,115 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區太平區
+2021-02-24 11:38:52,130 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區南屯區
+2021-02-24 11:38:52,158 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區新社區
+2021-02-24 11:38:52,176 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區南屯區
+2021-02-24 11:38:52,198 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區東勢區
+2021-02-24 11:38:52,208 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區南屯區
+2021-02-24 11:38:52,218 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區東區
+2021-02-24 11:38:52,227 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區南屯區
+2021-02-24 11:38:52,234 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區梧棲區
+2021-02-24 11:38:52,242 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區南屯區
+2021-02-24 11:38:52,250 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區沙鹿區
+2021-02-24 11:38:52,263 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區南屯區
+2021-02-24 11:38:52,276 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區清水區
+2021-02-24 11:38:52,283 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區南屯區
+2021-02-24 11:38:52,295 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區潭子區
+2021-02-24 11:38:52,302 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區南屯區
+2021-02-24 11:38:52,311 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區烏日區
+2021-02-24 11:38:52,318 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區南屯區
+2021-02-24 11:38:52,325 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區石岡區
+2021-02-24 11:38:52,337 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區南屯區
+2021-02-24 11:38:52,344 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區神岡區
+2021-02-24 11:38:52,358 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區南屯區
+2021-02-24 11:38:52,370 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區西區
+2021-02-24 11:38:52,381 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區南屯區
+2021-02-24 11:38:52,394 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區西屯區
+2021-02-24 11:38:52,401 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區南屯區
+2021-02-24 11:38:52,410 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區豐原區
+2021-02-24 11:38:52,419 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區南屯區
+2021-02-24 11:38:52,429 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區霧峰區
+2021-02-24 11:38:52,441 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區南屯區
+2021-02-24 11:38:52,450 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 南屯區龍井區
+2021-02-24 11:38:52,459 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區南屯區
+2021-02-24 11:38:52,467 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區后里區
+2021-02-24 11:38:52,482 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區后里區
+2021-02-24 11:38:52,485 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區和平區
+2021-02-24 11:38:52,495 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區后里區
+2021-02-24 11:38:52,504 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區外埔區
+2021-02-24 11:38:52,515 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區后里區
+2021-02-24 11:38:52,522 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區大安區
+2021-02-24 11:38:52,536 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區后里區
+2021-02-24 11:38:52,544 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區大甲區
+2021-02-24 11:38:52,553 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區后里區
+2021-02-24 11:38:52,563 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區大肚區
+2021-02-24 11:38:52,571 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區后里區
+2021-02-24 11:38:52,581 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區大里區
+2021-02-24 11:38:52,594 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區后里區
+2021-02-24 11:38:52,602 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區大雅區
+2021-02-24 11:38:52,616 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區后里區
+2021-02-24 11:38:52,629 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區太平區
+2021-02-24 11:38:52,644 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區后里區
+2021-02-24 11:38:52,652 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區新社區
+2021-02-24 11:38:52,660 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區后里區
+2021-02-24 11:38:52,673 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區東勢區
+2021-02-24 11:38:52,682 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區后里區
+2021-02-24 11:38:52,691 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區東區
+2021-02-24 11:38:52,700 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區后里區
+2021-02-24 11:38:52,709 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區梧棲區
+2021-02-24 11:38:52,718 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區后里區
+2021-02-24 11:38:52,739 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區沙鹿區
+2021-02-24 11:38:52,749 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區后里區
+2021-02-24 11:38:52,760 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區清水區
+2021-02-24 11:38:52,770 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區后里區
+2021-02-24 11:38:52,787 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區潭子區
+2021-02-24 11:38:52,800 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區后里區
+2021-02-24 11:38:52,812 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區烏日區
+2021-02-24 11:38:52,824 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區后里區
+2021-02-24 11:38:52,840 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區石岡區
+2021-02-24 11:38:52,855 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區后里區
+2021-02-24 11:38:52,864 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區神岡區
+2021-02-24 11:38:52,874 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區后里區
+2021-02-24 11:38:52,881 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區西區
+2021-02-24 11:38:52,896 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區后里區
+2021-02-24 11:38:52,905 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區西屯區
+2021-02-24 11:38:52,914 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區后里區
+2021-02-24 11:38:52,923 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區豐原區
+2021-02-24 11:38:52,933 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區后里區
+2021-02-24 11:38:52,947 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區霧峰區
+2021-02-24 11:38:52,957 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區后里區
+2021-02-24 11:38:52,965 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 后里區龍井區
+2021-02-24 11:38:52,976 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區后里區
+2021-02-24 11:38:52,985 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區和平區
+2021-02-24 11:38:52,999 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區和平區
+2021-02-24 11:38:53,002 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區外埔區
+2021-02-24 11:38:53,010 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區和平區
+2021-02-24 11:38:53,019 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區大安區
+2021-02-24 11:38:53,027 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區和平區
+2021-02-24 11:38:53,040 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區大甲區
+2021-02-24 11:38:53,050 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區和平區
+2021-02-24 11:38:53,060 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區大肚區
+2021-02-24 11:38:53,070 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區和平區
+2021-02-24 11:38:53,084 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區大里區
+2021-02-24 11:38:53,099 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區和平區
+2021-02-24 11:38:53,109 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區大雅區
+2021-02-24 11:38:53,125 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區和平區
+2021-02-24 11:38:53,132 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區太平區
+2021-02-24 11:38:53,144 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區和平區
+2021-02-24 11:38:53,171 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區新社區
+2021-02-24 11:38:53,182 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區和平區
+2021-02-24 11:38:53,196 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區東勢區
+2021-02-24 11:38:53,208 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區和平區
+2021-02-24 11:38:53,218 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區東區
+2021-02-24 11:38:53,226 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區和平區
+2021-02-24 11:38:53,233 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區梧棲區
+2021-02-24 11:38:53,252 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區和平區
+2021-02-24 11:38:53,287 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區沙鹿區
+2021-02-24 11:38:53,306 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區和平區
+2021-02-24 11:38:53,332 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區清水區
+2021-02-24 11:38:53,350 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區和平區
+2021-02-24 11:38:53,359 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區潭子區
+2021-02-24 11:38:53,369 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區和平區
+2021-02-24 11:38:53,378 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區烏日區
+2021-02-24 11:38:53,390 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區和平區
+2021-02-24 11:38:53,397 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區石岡區
+2021-02-24 11:38:53,406 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區和平區
+2021-02-24 11:38:53,413 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區神岡區
+2021-02-24 11:38:53,432 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區和平區
+2021-02-24 11:38:53,441 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區西區
+2021-02-24 11:38:53,449 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區和平區
+2021-02-24 11:38:53,458 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區西屯區
+2021-02-24 11:38:53,468 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區和平區
+2021-02-24 11:38:53,475 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區豐原區
+2021-02-24 11:38:53,486 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區和平區
+2021-02-24 11:38:53,494 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區霧峰區
+2021-02-24 11:38:53,506 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區和平區
+2021-02-24 11:38:53,514 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 和平區龍井區
+2021-02-24 11:38:53,524 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區和平區
+2021-02-24 11:38:53,532 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區外埔區
+2021-02-24 11:38:53,545 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區外埔區
+2021-02-24 11:38:53,547 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區大安區
+2021-02-24 11:38:53,555 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區外埔區
+2021-02-24 11:38:53,570 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區大甲區
+2021-02-24 11:38:53,577 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區外埔區
+2021-02-24 11:38:53,587 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區大肚區
+2021-02-24 11:38:53,612 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區外埔區
+2021-02-24 11:38:53,624 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區大里區
+2021-02-24 11:38:53,636 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區外埔區
+2021-02-24 11:38:53,649 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區大雅區
+2021-02-24 11:38:53,664 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區外埔區
+2021-02-24 11:38:53,673 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區太平區
+2021-02-24 11:38:53,687 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區外埔區
+2021-02-24 11:38:53,696 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區新社區
+2021-02-24 11:38:53,714 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區外埔區
+2021-02-24 11:38:53,729 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區東勢區
+2021-02-24 11:38:53,737 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區外埔區
+2021-02-24 11:38:53,748 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區東區
+2021-02-24 11:38:53,759 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區外埔區
+2021-02-24 11:38:53,769 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區梧棲區
+2021-02-24 11:38:53,778 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區外埔區
+2021-02-24 11:38:53,791 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區沙鹿區
+2021-02-24 11:38:53,800 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區外埔區
+2021-02-24 11:38:53,819 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區清水區
+2021-02-24 11:38:53,837 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區外埔區
+2021-02-24 11:38:53,845 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區潭子區
+2021-02-24 11:38:53,858 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區外埔區
+2021-02-24 11:38:53,878 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區烏日區
+2021-02-24 11:38:53,889 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區外埔區
+2021-02-24 11:38:53,898 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區石岡區
+2021-02-24 11:38:53,906 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區外埔區
+2021-02-24 11:38:53,914 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區神岡區
+2021-02-24 11:38:53,921 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區外埔區
+2021-02-24 11:38:53,933 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區西區
+2021-02-24 11:38:53,944 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區外埔區
+2021-02-24 11:38:53,955 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區西屯區
+2021-02-24 11:38:53,962 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區外埔區
+2021-02-24 11:38:53,972 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區豐原區
+2021-02-24 11:38:53,985 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區外埔區
+2021-02-24 11:38:53,992 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區霧峰區
+2021-02-24 11:38:54,000 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區外埔區
+2021-02-24 11:38:54,011 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 外埔區龍井區
+2021-02-24 11:38:54,020 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區外埔區
+2021-02-24 11:38:54,041 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區大安區
+2021-02-24 11:38:54,050 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區大安區
+2021-02-24 11:38:54,053 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區大甲區
+2021-02-24 11:38:54,061 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區大安區
+2021-02-24 11:38:54,072 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區大肚區
+2021-02-24 11:38:54,088 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區大安區
+2021-02-24 11:38:54,097 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區大里區
+2021-02-24 11:38:54,106 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區大安區
+2021-02-24 11:38:54,116 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區大雅區
+2021-02-24 11:38:54,129 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區大安區
+2021-02-24 11:38:54,143 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區太平區
+2021-02-24 11:38:54,155 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區大安區
+2021-02-24 11:38:54,162 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區新社區
+2021-02-24 11:38:54,175 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區大安區
+2021-02-24 11:38:54,187 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區東勢區
+2021-02-24 11:38:54,205 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區大安區
+2021-02-24 11:38:54,216 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區東區
+2021-02-24 11:38:54,225 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區大安區
+2021-02-24 11:38:54,240 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區梧棲區
+2021-02-24 11:38:54,252 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區大安區
+2021-02-24 11:38:54,269 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區沙鹿區
+2021-02-24 11:38:54,281 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區大安區
+2021-02-24 11:38:54,299 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區清水區
+2021-02-24 11:38:54,309 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區大安區
+2021-02-24 11:38:54,319 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區潭子區
+2021-02-24 11:38:54,328 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區大安區
+2021-02-24 11:38:54,341 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區烏日區
+2021-02-24 11:38:54,355 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區大安區
+2021-02-24 11:38:54,372 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區石岡區
+2021-02-24 11:38:54,385 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區大安區
+2021-02-24 11:38:54,406 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區神岡區
+2021-02-24 11:38:54,420 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區大安區
+2021-02-24 11:38:54,429 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區西區
+2021-02-24 11:38:54,443 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區大安區
+2021-02-24 11:38:54,458 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區西屯區
+2021-02-24 11:38:54,465 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區大安區
+2021-02-24 11:38:54,479 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區豐原區
+2021-02-24 11:38:54,490 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區大安區
+2021-02-24 11:38:54,511 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區霧峰區
+2021-02-24 11:38:54,518 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區大安區
+2021-02-24 11:38:54,525 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大安區龍井區
+2021-02-24 11:38:54,544 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區大安區
+2021-02-24 11:38:54,551 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區大甲區
+2021-02-24 11:38:54,564 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區大甲區
+2021-02-24 11:38:54,568 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區大肚區
+2021-02-24 11:38:54,576 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區大甲區
+2021-02-24 11:38:54,595 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區大里區
+2021-02-24 11:38:54,613 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區大甲區
+2021-02-24 11:38:54,626 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區大雅區
+2021-02-24 11:38:54,633 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區大甲區
+2021-02-24 11:38:54,642 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區太平區
+2021-02-24 11:38:54,651 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區大甲區
+2021-02-24 11:38:54,661 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區新社區
+2021-02-24 11:38:54,671 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區大甲區
+2021-02-24 11:38:54,684 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區東勢區
+2021-02-24 11:38:54,693 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區大甲區
+2021-02-24 11:38:54,703 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區東區
+2021-02-24 11:38:54,711 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區大甲區
+2021-02-24 11:38:54,719 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區梧棲區
+2021-02-24 11:38:54,726 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區大甲區
+2021-02-24 11:38:54,737 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區沙鹿區
+2021-02-24 11:38:54,746 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區大甲區
+2021-02-24 11:38:54,760 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區清水區
+2021-02-24 11:38:54,781 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區大甲區
+2021-02-24 11:38:54,792 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區潭子區
+2021-02-24 11:38:54,812 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區大甲區
+2021-02-24 11:38:54,830 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區烏日區
+2021-02-24 11:38:54,844 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區大甲區
+2021-02-24 11:38:54,852 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區石岡區
+2021-02-24 11:38:54,865 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區大甲區
+2021-02-24 11:38:54,872 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區神岡區
+2021-02-24 11:38:54,881 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區大甲區
+2021-02-24 11:38:54,889 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區西區
+2021-02-24 11:38:54,903 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區大甲區
+2021-02-24 11:38:54,911 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區西屯區
+2021-02-24 11:38:54,920 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區大甲區
+2021-02-24 11:38:54,930 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區豐原區
+2021-02-24 11:38:54,949 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區大甲區
+2021-02-24 11:38:54,977 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區霧峰區
+2021-02-24 11:38:54,996 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區大甲區
+2021-02-24 11:38:55,012 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大甲區龍井區
+2021-02-24 11:38:55,022 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區大甲區
+2021-02-24 11:38:55,032 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區大肚區
+2021-02-24 11:38:55,047 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區大肚區
+2021-02-24 11:38:55,049 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區大里區
+2021-02-24 11:38:55,057 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區大肚區
+2021-02-24 11:38:55,073 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區大雅區
+2021-02-24 11:38:55,097 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區大肚區
+2021-02-24 11:38:55,106 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區太平區
+2021-02-24 11:38:55,114 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區大肚區
+2021-02-24 11:38:55,127 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區新社區
+2021-02-24 11:38:55,148 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區大肚區
+2021-02-24 11:38:55,157 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區東勢區
+2021-02-24 11:38:55,167 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區大肚區
+2021-02-24 11:38:55,175 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區東區
+2021-02-24 11:38:55,184 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區大肚區
+2021-02-24 11:38:55,192 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區梧棲區
+2021-02-24 11:38:55,211 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區大肚區
+2021-02-24 11:38:55,223 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區沙鹿區
+2021-02-24 11:38:55,232 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區大肚區
+2021-02-24 11:38:55,244 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區清水區
+2021-02-24 11:38:55,258 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區大肚區
+2021-02-24 11:38:55,270 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區潭子區
+2021-02-24 11:38:55,284 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區大肚區
+2021-02-24 11:38:55,305 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區烏日區
+2021-02-24 11:38:55,322 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區大肚區
+2021-02-24 11:38:55,353 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區石岡區
+2021-02-24 11:38:55,362 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區大肚區
+2021-02-24 11:38:55,378 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區神岡區
+2021-02-24 11:38:55,391 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區大肚區
+2021-02-24 11:38:55,421 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區西區
+2021-02-24 11:38:55,435 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區大肚區
+2021-02-24 11:38:55,444 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區西屯區
+2021-02-24 11:38:55,476 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區大肚區
+2021-02-24 11:38:55,485 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區豐原區
+2021-02-24 11:38:55,519 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區大肚區
+2021-02-24 11:38:55,535 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區霧峰區
+2021-02-24 11:38:55,546 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區大肚區
+2021-02-24 11:38:55,560 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大肚區龍井區
+2021-02-24 11:38:55,579 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區大肚區
+2021-02-24 11:38:55,594 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區大里區
+2021-02-24 11:38:55,603 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區大里區
+2021-02-24 11:38:55,606 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區大雅區
+2021-02-24 11:38:55,621 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區大里區
+2021-02-24 11:38:55,635 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區太平區
+2021-02-24 11:38:55,642 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區大里區
+2021-02-24 11:38:55,650 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區新社區
+2021-02-24 11:38:55,659 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區大里區
+2021-02-24 11:38:55,670 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區東勢區
+2021-02-24 11:38:55,684 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區大里區
+2021-02-24 11:38:55,698 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區東區
+2021-02-24 11:38:55,707 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區大里區
+2021-02-24 11:38:55,725 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區梧棲區
+2021-02-24 11:38:55,742 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區大里區
+2021-02-24 11:38:55,754 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區沙鹿區
+2021-02-24 11:38:55,763 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區大里區
+2021-02-24 11:38:55,772 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區清水區
+2021-02-24 11:38:55,781 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區大里區
+2021-02-24 11:38:55,806 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區潭子區
+2021-02-24 11:38:55,820 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區大里區
+2021-02-24 11:38:55,836 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區烏日區
+2021-02-24 11:38:55,855 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區大里區
+2021-02-24 11:38:55,869 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區石岡區
+2021-02-24 11:38:55,889 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區大里區
+2021-02-24 11:38:55,912 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區神岡區
+2021-02-24 11:38:55,940 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區大里區
+2021-02-24 11:38:55,954 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區西區
+2021-02-24 11:38:55,979 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區大里區
+2021-02-24 11:38:55,988 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區西屯區
+2021-02-24 11:38:55,998 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區大里區
+2021-02-24 11:38:56,038 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區豐原區
+2021-02-24 11:38:56,046 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區大里區
+2021-02-24 11:38:56,055 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區霧峰區
+2021-02-24 11:38:56,066 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區大里區
+2021-02-24 11:38:56,086 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大里區龍井區
+2021-02-24 11:38:56,106 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區大里區
+2021-02-24 11:38:56,115 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區大雅區
+2021-02-24 11:38:56,128 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區大雅區
+2021-02-24 11:38:56,132 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區太平區
+2021-02-24 11:38:56,154 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區大雅區
+2021-02-24 11:38:56,166 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區新社區
+2021-02-24 11:38:56,176 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區大雅區
+2021-02-24 11:38:56,199 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區東勢區
+2021-02-24 11:38:56,210 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區大雅區
+2021-02-24 11:38:56,219 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區東區
+2021-02-24 11:38:56,230 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區大雅區
+2021-02-24 11:38:56,262 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區梧棲區
+2021-02-24 11:38:56,273 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區大雅區
+2021-02-24 11:38:56,286 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區沙鹿區
+2021-02-24 11:38:56,303 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區大雅區
+2021-02-24 11:38:56,318 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區清水區
+2021-02-24 11:38:56,331 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區大雅區
+2021-02-24 11:38:56,347 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區潭子區
+2021-02-24 11:38:56,370 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區大雅區
+2021-02-24 11:38:56,389 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區烏日區
+2021-02-24 11:38:56,397 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區大雅區
+2021-02-24 11:38:56,421 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區石岡區
+2021-02-24 11:38:56,430 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區大雅區
+2021-02-24 11:38:56,440 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區神岡區
+2021-02-24 11:38:56,465 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區大雅區
+2021-02-24 11:38:56,476 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區西區
+2021-02-24 11:38:56,486 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區大雅區
+2021-02-24 11:38:56,495 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區西屯區
+2021-02-24 11:38:56,503 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區大雅區
+2021-02-24 11:38:56,512 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區豐原區
+2021-02-24 11:38:56,525 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區大雅區
+2021-02-24 11:38:56,535 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區霧峰區
+2021-02-24 11:38:56,542 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區大雅區
+2021-02-24 11:38:56,550 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 大雅區龍井區
+2021-02-24 11:38:56,558 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區大雅區
+2021-02-24 11:38:56,564 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區太平區
+2021-02-24 11:38:56,577 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區太平區
+2021-02-24 11:38:56,581 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區新社區
+2021-02-24 11:38:56,610 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區太平區
+2021-02-24 11:38:56,620 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區東勢區
+2021-02-24 11:38:56,642 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區太平區
+2021-02-24 11:38:56,653 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區東區
+2021-02-24 11:38:56,662 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區太平區
+2021-02-24 11:38:56,671 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區梧棲區
+2021-02-24 11:38:56,688 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區太平區
+2021-02-24 11:38:56,697 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區沙鹿區
+2021-02-24 11:38:56,709 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區太平區
+2021-02-24 11:38:56,721 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區清水區
+2021-02-24 11:38:56,736 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區太平區
+2021-02-24 11:38:56,742 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區潭子區
+2021-02-24 11:38:56,757 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區太平區
+2021-02-24 11:38:56,774 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區烏日區
+2021-02-24 11:38:56,784 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區太平區
+2021-02-24 11:38:56,793 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區石岡區
+2021-02-24 11:38:56,801 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區太平區
+2021-02-24 11:38:56,814 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區神岡區
+2021-02-24 11:38:56,822 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區太平區
+2021-02-24 11:38:56,831 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區西區
+2021-02-24 11:38:56,842 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區太平區
+2021-02-24 11:38:56,857 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區西屯區
+2021-02-24 11:38:56,865 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區太平區
+2021-02-24 11:38:56,877 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區豐原區
+2021-02-24 11:38:56,885 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區太平區
+2021-02-24 11:38:56,894 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區霧峰區
+2021-02-24 11:38:56,903 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區太平區
+2021-02-24 11:38:56,916 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 太平區龍井區
+2021-02-24 11:38:56,931 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區太平區
+2021-02-24 11:38:56,941 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區新社區
+2021-02-24 11:38:56,950 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區新社區
+2021-02-24 11:38:56,953 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區東勢區
+2021-02-24 11:38:56,961 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區新社區
+2021-02-24 11:38:56,974 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區東區
+2021-02-24 11:38:56,986 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區新社區
+2021-02-24 11:38:56,995 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區梧棲區
+2021-02-24 11:38:57,003 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區新社區
+2021-02-24 11:38:57,014 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區沙鹿區
+2021-02-24 11:38:57,022 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區新社區
+2021-02-24 11:38:57,031 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區清水區
+2021-02-24 11:38:57,040 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區新社區
+2021-02-24 11:38:57,061 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區潭子區
+2021-02-24 11:38:57,076 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區新社區
+2021-02-24 11:38:57,095 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區烏日區
+2021-02-24 11:38:57,106 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區新社區
+2021-02-24 11:38:57,120 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區石岡區
+2021-02-24 11:38:57,142 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區新社區
+2021-02-24 11:38:57,158 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區神岡區
+2021-02-24 11:38:57,179 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區新社區
+2021-02-24 11:38:57,187 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區西區
+2021-02-24 11:38:57,205 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區新社區
+2021-02-24 11:38:57,231 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區西屯區
+2021-02-24 11:38:57,241 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區新社區
+2021-02-24 11:38:57,259 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區豐原區
+2021-02-24 11:38:57,270 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區新社區
+2021-02-24 11:38:57,283 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區霧峰區
+2021-02-24 11:38:57,298 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區新社區
+2021-02-24 11:38:57,314 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 新社區龍井區
+2021-02-24 11:38:57,323 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區新社區
+2021-02-24 11:38:57,342 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區東勢區
+2021-02-24 11:38:57,360 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區東勢區
+2021-02-24 11:38:57,363 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區東區
+2021-02-24 11:38:57,385 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區東勢區
+2021-02-24 11:38:57,395 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區梧棲區
+2021-02-24 11:38:57,405 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區東勢區
+2021-02-24 11:38:57,415 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區沙鹿區
+2021-02-24 11:38:57,424 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區東勢區
+2021-02-24 11:38:57,434 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區清水區
+2021-02-24 11:38:57,443 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區東勢區
+2021-02-24 11:38:57,457 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區潭子區
+2021-02-24 11:38:57,470 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區東勢區
+2021-02-24 11:38:57,488 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區烏日區
+2021-02-24 11:38:57,498 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區東勢區
+2021-02-24 11:38:57,509 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區石岡區
+2021-02-24 11:38:57,535 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區東勢區
+2021-02-24 11:38:57,542 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區神岡區
+2021-02-24 11:38:57,551 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區東勢區
+2021-02-24 11:38:57,561 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區西區
+2021-02-24 11:38:57,580 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區東勢區
+2021-02-24 11:38:57,590 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區西屯區
+2021-02-24 11:38:57,601 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區東勢區
+2021-02-24 11:38:57,610 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區豐原區
+2021-02-24 11:38:57,625 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區東勢區
+2021-02-24 11:38:57,632 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區霧峰區
+2021-02-24 11:38:57,645 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區東勢區
+2021-02-24 11:38:57,653 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東勢區龍井區
+2021-02-24 11:38:57,670 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區東勢區
+2021-02-24 11:38:57,688 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區東區
+2021-02-24 11:38:57,696 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區東區
+2021-02-24 11:38:57,699 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區梧棲區
+2021-02-24 11:38:57,707 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區東區
+2021-02-24 11:38:57,721 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區沙鹿區
+2021-02-24 11:38:57,738 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區東區
+2021-02-24 11:38:57,754 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區清水區
+2021-02-24 11:38:57,766 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區東區
+2021-02-24 11:38:57,774 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區潭子區
+2021-02-24 11:38:57,783 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區東區
+2021-02-24 11:38:57,794 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區烏日區
+2021-02-24 11:38:57,804 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區東區
+2021-02-24 11:38:57,820 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區石岡區
+2021-02-24 11:38:57,829 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區東區
+2021-02-24 11:38:57,840 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區神岡區
+2021-02-24 11:38:57,846 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區東區
+2021-02-24 11:38:57,855 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區西區
+2021-02-24 11:38:57,863 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區東區
+2021-02-24 11:38:57,881 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區西屯區
+2021-02-24 11:38:57,890 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區東區
+2021-02-24 11:38:57,904 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區豐原區
+2021-02-24 11:38:57,912 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區東區
+2021-02-24 11:38:57,923 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區霧峰區
+2021-02-24 11:38:57,943 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區東區
+2021-02-24 11:38:57,952 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 東區龍井區
+2021-02-24 11:38:57,990 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區東區
+2021-02-24 11:38:58,002 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區梧棲區
+2021-02-24 11:38:58,009 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區梧棲區
+2021-02-24 11:38:58,011 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區沙鹿區
+2021-02-24 11:38:58,019 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區梧棲區
+2021-02-24 11:38:58,027 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區清水區
+2021-02-24 11:38:58,034 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區梧棲區
+2021-02-24 11:38:58,053 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區潭子區
+2021-02-24 11:38:58,065 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區梧棲區
+2021-02-24 11:38:58,073 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區烏日區
+2021-02-24 11:38:58,082 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區梧棲區
+2021-02-24 11:38:58,089 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區石岡區
+2021-02-24 11:38:58,104 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區梧棲區
+2021-02-24 11:38:58,111 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區神岡區
+2021-02-24 11:38:58,123 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區梧棲區
+2021-02-24 11:38:58,130 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區西區
+2021-02-24 11:38:58,139 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區梧棲區
+2021-02-24 11:38:58,146 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區西屯區
+2021-02-24 11:38:58,170 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區梧棲區
+2021-02-24 11:38:58,177 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區豐原區
+2021-02-24 11:38:58,187 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區梧棲區
+2021-02-24 11:38:58,194 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區霧峰區
+2021-02-24 11:38:58,202 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區梧棲區
+2021-02-24 11:38:58,213 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 梧棲區龍井區
+2021-02-24 11:38:58,227 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區梧棲區
+2021-02-24 11:38:58,235 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區沙鹿區
+2021-02-24 11:38:58,243 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區沙鹿區
+2021-02-24 11:38:58,246 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區清水區
+2021-02-24 11:38:58,253 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區沙鹿區
+2021-02-24 11:38:58,262 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區潭子區
+2021-02-24 11:38:58,274 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區沙鹿區
+2021-02-24 11:38:58,286 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區烏日區
+2021-02-24 11:38:58,294 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區沙鹿區
+2021-02-24 11:38:58,308 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區石岡區
+2021-02-24 11:38:58,315 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區沙鹿區
+2021-02-24 11:38:58,323 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區神岡區
+2021-02-24 11:38:58,331 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區沙鹿區
+2021-02-24 11:38:58,341 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區西區
+2021-02-24 11:38:58,353 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區沙鹿區
+2021-02-24 11:38:58,364 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區西屯區
+2021-02-24 11:38:58,374 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區沙鹿區
+2021-02-24 11:38:58,380 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區豐原區
+2021-02-24 11:38:58,389 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區沙鹿區
+2021-02-24 11:38:58,396 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區霧峰區
+2021-02-24 11:38:58,406 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區沙鹿區
+2021-02-24 11:38:58,415 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 沙鹿區龍井區
+2021-02-24 11:38:58,424 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區沙鹿區
+2021-02-24 11:38:58,431 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區清水區
+2021-02-24 11:38:58,440 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區清水區
+2021-02-24 11:38:58,442 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區潭子區
+2021-02-24 11:38:58,452 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區清水區
+2021-02-24 11:38:58,467 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區烏日區
+2021-02-24 11:38:58,473 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區清水區
+2021-02-24 11:38:58,480 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區石岡區
+2021-02-24 11:38:58,490 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區清水區
+2021-02-24 11:38:58,508 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區神岡區
+2021-02-24 11:38:58,519 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區清水區
+2021-02-24 11:38:58,531 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區西區
+2021-02-24 11:38:58,540 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區清水區
+2021-02-24 11:38:58,547 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區西屯區
+2021-02-24 11:38:58,554 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區清水區
+2021-02-24 11:38:58,568 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區豐原區
+2021-02-24 11:38:58,575 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區清水區
+2021-02-24 11:38:58,584 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區霧峰區
+2021-02-24 11:38:58,591 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區清水區
+2021-02-24 11:38:58,605 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 清水區龍井區
+2021-02-24 11:38:58,619 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區清水區
+2021-02-24 11:38:58,627 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區潭子區
+2021-02-24 11:38:58,634 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區潭子區
+2021-02-24 11:38:58,637 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區烏日區
+2021-02-24 11:38:58,643 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區潭子區
+2021-02-24 11:38:58,656 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區石岡區
+2021-02-24 11:38:58,675 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區潭子區
+2021-02-24 11:38:58,685 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區神岡區
+2021-02-24 11:38:58,693 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區潭子區
+2021-02-24 11:38:58,701 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區西區
+2021-02-24 11:38:58,711 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區潭子區
+2021-02-24 11:38:58,729 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區西屯區
+2021-02-24 11:38:58,738 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區潭子區
+2021-02-24 11:38:58,745 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區豐原區
+2021-02-24 11:38:58,754 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區潭子區
+2021-02-24 11:38:58,761 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區霧峰區
+2021-02-24 11:38:58,778 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區潭子區
+2021-02-24 11:38:58,787 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 潭子區龍井區
+2021-02-24 11:38:58,795 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區潭子區
+2021-02-24 11:38:58,802 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區烏日區
+2021-02-24 11:38:58,812 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區烏日區
+2021-02-24 11:38:58,815 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區石岡區
+2021-02-24 11:38:58,835 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區烏日區
+2021-02-24 11:38:58,843 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區神岡區
+2021-02-24 11:38:58,852 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區烏日區
+2021-02-24 11:38:58,860 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區西區
+2021-02-24 11:38:58,877 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區烏日區
+2021-02-24 11:38:58,885 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區西屯區
+2021-02-24 11:38:58,893 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區烏日區
+2021-02-24 11:38:58,901 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區豐原區
+2021-02-24 11:38:58,911 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區烏日區
+2021-02-24 11:38:58,920 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區霧峰區
+2021-02-24 11:38:58,935 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區烏日區
+2021-02-24 11:38:58,944 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 烏日區龍井區
+2021-02-24 11:38:58,953 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區烏日區
+2021-02-24 11:38:58,961 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區石岡區
+2021-02-24 11:38:58,973 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區石岡區
+2021-02-24 11:38:58,976 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區神岡區
+2021-02-24 11:38:58,990 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區石岡區
+2021-02-24 11:38:59,004 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區西區
+2021-02-24 11:38:59,012 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區石岡區
+2021-02-24 11:38:59,034 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區西屯區
+2021-02-24 11:38:59,052 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區石岡區
+2021-02-24 11:38:59,066 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區豐原區
+2021-02-24 11:38:59,081 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區石岡區
+2021-02-24 11:38:59,098 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區霧峰區
+2021-02-24 11:38:59,126 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區石岡區
+2021-02-24 11:38:59,143 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 石岡區龍井區
+2021-02-24 11:38:59,153 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區石岡區
+2021-02-24 11:38:59,160 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區神岡區
+2021-02-24 11:38:59,168 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區神岡區
+2021-02-24 11:38:59,171 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區西區
+2021-02-24 11:38:59,191 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區神岡區
+2021-02-24 11:38:59,202 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區西屯區
+2021-02-24 11:38:59,214 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區神岡區
+2021-02-24 11:38:59,224 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區豐原區
+2021-02-24 11:38:59,251 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區神岡區
+2021-02-24 11:38:59,260 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區霧峰區
+2021-02-24 11:38:59,267 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區神岡區
+2021-02-24 11:38:59,279 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 神岡區龍井區
+2021-02-24 11:38:59,285 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區神岡區
+2021-02-24 11:38:59,303 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區西區
+2021-02-24 11:38:59,312 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區西區
+2021-02-24 11:38:59,315 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區西屯區
+2021-02-24 11:38:59,324 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區西區
+2021-02-24 11:38:59,332 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區豐原區
+2021-02-24 11:38:59,341 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區西區
+2021-02-24 11:38:59,353 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區霧峰區
+2021-02-24 11:38:59,364 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區西區
+2021-02-24 11:38:59,385 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西區龍井區
+2021-02-24 11:38:59,397 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區西區
+2021-02-24 11:38:59,405 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區西屯區
+2021-02-24 11:38:59,412 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區西屯區
+2021-02-24 11:38:59,415 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區豐原區
+2021-02-24 11:38:59,424 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區西屯區
+2021-02-24 11:38:59,432 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區霧峰區
+2021-02-24 11:38:59,447 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區西屯區
+2021-02-24 11:38:59,472 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 西屯區龍井區
+2021-02-24 11:38:59,484 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區西屯區
+2021-02-24 11:38:59,497 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區豐原區
+2021-02-24 11:38:59,506 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區豐原區
+2021-02-24 11:38:59,509 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區霧峰區
+2021-02-24 11:38:59,515 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區豐原區
+2021-02-24 11:38:59,523 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 豐原區龍井區
+2021-02-24 11:38:59,531 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區豐原區
+2021-02-24 11:38:59,544 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區霧峰區
+2021-02-24 11:38:59,554 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區霧峰區
+2021-02-24 11:38:59,557 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 霧峰區龍井區
+2021-02-24 11:38:59,565 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區霧峰區
+2021-02-24 11:38:59,573 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區龍井區
+2021-02-24 11:38:59,581 INFO app.contestTimetable.service.ScoresService [http-nio-8080-exec-1] 龍井區龍井區
+2021-02-24 11:40:19,657 INFO app.contestTimetable.controller.ReportUploadController [http-nio-8080-exec-8] filename:reports.xlsx
+2021-02-24 11:40:19,658 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-8] save to:/tmp/contest/reports.xlsx
+2021-02-24 11:40:19,846 INFO app.contestTimetable.service.ReportService [http-nio-8080-exec-9] report restore:/tmp/contest/reports.xlsx
+2021-02-24 11:45:38,713 INFO app.contestTimetable.controller.ReportUploadController [http-nio-8080-exec-3] filename:reports (2).json
+2021-02-24 11:45:38,714 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-3] save to:/tmp/contest/reports (2).json
+2021-02-24 11:45:38,917 INFO app.contestTimetable.service.ReportService [http-nio-8080-exec-4] report restore:/tmp/contest/reports (2).json
+2021-02-24 11:47:20,017 INFO app.contestTimetable.controller.ReportUploadController [http-nio-8080-exec-4] filename:reports (2).json
+2021-02-24 11:47:20,018 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-4] save to:/tmp/contest/reports (2).json
+2021-02-24 11:47:20,185 INFO app.contestTimetable.service.ReportService [http-nio-8080-exec-5] report restore:/tmp/contest/reports (2).json
+2021-02-24 11:49:26,356 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-24 11:49:26,362 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-24 11:49:26,362 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-02-24 11:49:26,377 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2021-02-24 11:49:31,988 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication vserver71 using Java 11.0.9.1 on LAPTOP-IGOGO with PID 1597 (/home/igogo/Projects/contesttimetable/target/contestTimetable-server71.jar started by igogo in /home/igogo/Projects/contesttimetable)
+2021-02-24 11:49:32,004 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-02-24 11:49:33,471 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-02-24 11:49:33,674 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 184 ms. Found 13 JPA repository interfaces.
+2021-02-24 11:49:35,158 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-02-24 11:49:35,238 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-02-24 11:49:35,250 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-02-24 11:49:35,251 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.39]
+2021-02-24 11:49:35,501 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-02-24 11:49:35,502 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 3381 ms
+2021-02-24 11:49:36,016 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-24 11:49:36,127 INFO org.hibernate.jpa.internal.util.LogHelper [task-1] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-24 11:49:36,280 INFO org.hibernate.Version [task-1] HHH000412: Hibernate ORM core version 5.4.23.Final
+2021-02-24 11:49:36,538 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-24 11:49:36,646 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [task-1] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-24 11:49:37,051 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Starting...
+2021-02-24 11:49:37,218 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-02-24 11:49:37,669 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-02-24 11:49:37,765 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-24 11:49:37,772 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Triggering deferred initialization of Spring Data repositories…
+2021-02-24 11:49:37,979 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Start completed.
+2021-02-24 11:49:38,031 INFO org.hibernate.dialect.Dialect [task-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-24 11:49:39,828 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [task-1] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-24 11:49:39,843 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [task-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-24 11:49:41,137 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Spring Data repositories initialized!
+2021-02-24 11:49:41,152 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 10.171 seconds (JVM running for 11.017)
+2021-02-24 11:50:02,370 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-24 11:50:02,372 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-02-24 11:50:02,375 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 3 ms
+2021-02-24 11:50:57,638 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-24 11:50:57,645 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-24 11:50:57,645 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-02-24 11:50:57,715 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2021-02-24 11:54:04,769 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication vserver71 using Java 11.0.9.1 on LAPTOP-IGOGO with PID 1784 (/home/igogo/Projects/contesttimetable/target/contestTimetable-server71.jar started by igogo in /home/igogo/Projects/contesttimetable)
+2021-02-24 11:54:04,779 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-02-24 11:54:06,103 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-02-24 11:54:06,279 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 161 ms. Found 13 JPA repository interfaces.
+2021-02-24 11:54:07,357 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-02-24 11:54:07,380 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-02-24 11:54:07,381 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-02-24 11:54:07,381 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.39]
+2021-02-24 11:54:07,499 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-02-24 11:54:07,499 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2625 ms
+2021-02-24 11:54:07,877 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-24 11:54:08,009 INFO org.hibernate.jpa.internal.util.LogHelper [task-1] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-24 11:54:08,206 INFO org.hibernate.Version [task-1] HHH000412: Hibernate ORM core version 5.4.23.Final
+2021-02-24 11:54:08,296 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-24 11:54:08,647 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [task-1] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-24 11:54:08,940 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Starting...
+2021-02-24 11:54:08,948 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-02-24 11:54:09,357 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-02-24 11:54:09,478 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-24 11:54:09,514 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Triggering deferred initialization of Spring Data repositories…
+2021-02-24 11:54:09,998 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Start completed.
+2021-02-24 11:54:10,066 INFO org.hibernate.dialect.Dialect [task-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-24 11:54:11,876 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [task-1] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-24 11:54:11,887 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [task-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-24 11:54:13,021 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Spring Data repositories initialized!
+2021-02-24 11:54:13,035 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 9.225 seconds (JVM running for 10.014)
+2021-02-24 12:18:40,319 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-24 12:18:40,320 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-02-24 12:18:40,325 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 5 ms
+2021-02-24 12:21:08,314 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-24 12:21:08,319 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-24 12:21:08,320 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-02-24 12:21:08,368 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2021-02-24 12:21:26,896 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.9.1 on LAPTOP-IGOGO with PID 1900 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2021-02-24 12:21:26,899 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-02-24 12:21:27,529 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-02-24 12:21:27,602 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 66 ms. Found 13 JPA repository interfaces.
+2021-02-24 12:21:28,070 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-02-24 12:21:28,080 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-02-24 12:21:28,081 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-02-24 12:21:28,082 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.39]
+2021-02-24 12:21:28,202 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-02-24 12:21:28,203 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1247 ms
+2021-02-24 12:21:28,335 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-24 12:21:28,366 INFO org.hibernate.jpa.internal.util.LogHelper [task-1] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-24 12:21:28,402 INFO org.hibernate.Version [task-1] HHH000412: Hibernate ORM core version 5.4.23.Final
+2021-02-24 12:21:28,501 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [task-1] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-24 12:21:28,524 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-24 12:21:28,612 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Starting...
+2021-02-24 12:21:28,767 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-02-24 12:21:28,965 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-02-24 12:21:28,986 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-24 12:21:28,988 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Triggering deferred initialization of Spring Data repositories…
+2021-02-24 12:21:29,029 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Start completed.
+2021-02-24 12:21:29,046 INFO org.hibernate.dialect.Dialect [task-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-24 12:21:29,809 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [task-1] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-24 12:21:29,816 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [task-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-24 12:21:30,254 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Spring Data repositories initialized!
+2021-02-24 12:21:30,264 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 3.83 seconds (JVM running for 4.197)
+2021-02-24 12:21:34,206 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-24 12:21:34,207 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-02-24 12:21:34,209 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2021-02-24 12:21:34,266 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-1] reports size: 0
+2021-02-24 12:22:10,508 INFO app.contestTimetable.api.TeamAPIController [http-nio-8080-exec-6] session null
+2021-02-24 12:22:34,623 INFO app.contestTimetable.api.ReportApiController [http-nio-8080-exec-2] reports size: 0
+2021-02-24 12:24:01,683 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper [http-nio-8080-exec-4] SQL Error: 1038, SQLState: HY001
+2021-02-24 12:24:01,684 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [http-nio-8080-exec-4] Out of sort memory, consider increasing server sort buffer size
+2021-02-24 12:24:01,705 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-4] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.orm.jpa.JpaSystemException: could not extract ResultSet; nested exception is org.hibernate.exception.GenericJDBCException: could not extract ResultSet] with root cause
+java.sql.SQLException: Out of sort memory, consider increasing server sort buffer size
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:1003)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:57)
+	at org.hibernate.loader.Loader.getResultSet(Loader.java:2304)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2057)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2019)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:948)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:349)
+	at org.hibernate.loader.Loader.doList(Loader.java:2850)
+	at org.hibernate.loader.Loader.doList(Loader.java:2832)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2664)
+	at org.hibernate.loader.Loader.list(Loader.java:2659)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:400)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1414)
+	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1565)
+	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1533)
+	at org.hibernate.query.Query.getResultList(Query.java:165)
+	at org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.getResultList(CriteriaQueryTypeQueryAdapter.java:76)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$CollectionExecution.doExecute(JpaQueryExecution.java:126)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:88)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:155)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:143)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:137)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:121)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:152)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:131)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:134)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:145)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:215)
+	at com.sun.proxy.$Proxy119.findAllByOrderByScoresAsc(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:208)
+	at com.sun.proxy.$Proxy67.findAllByOrderByScoresAsc(Unknown Source)
+	at app.contestTimetable.api.ReportApiController.getReportSize(ReportApiController.java:79)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:893)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:807)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1061)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
