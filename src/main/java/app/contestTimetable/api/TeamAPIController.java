@@ -3,6 +3,7 @@ package app.contestTimetable.api;
 
 import app.contestTimetable.model.Team;
 import app.contestTimetable.repository.TeamRepository;
+import app.contestTimetable.service.ArchiveTeamService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,10 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
@@ -30,9 +28,13 @@ import java.util.*;
 public class TeamAPIController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
+    ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     TeamRepository teamRepository;
+
+    @Autowired
+    ArchiveTeamService archiveTeamService;
 
     @GetMapping(value = "/api/team")
     public List<Team> getTeam(HttpServletRequest request) {
@@ -80,7 +82,6 @@ public class TeamAPIController {
     @PostMapping(value = "/api/team")
     public List<Team> getTeamAccountAndPasswd(@RequestBody String payload, HttpServletRequest request) throws JsonProcessingException {
         final List<Team> teams = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(payload);
         if (root.get("passwd").asText().equals("23952340")) {
             logger.info("get session");
@@ -96,12 +97,6 @@ public class TeamAPIController {
         }
 
         return teams;
-    }
-
-    @PostMapping(value = "/api/team/archive")
-    public String getTeamToArchive(@RequestBody String payload) throws JsonProcessingException {
-        logger.info(payload);
-        return payload;
     }
 
 
@@ -122,6 +117,19 @@ public class TeamAPIController {
         logger.info(mapper.writeValueAsString(teamsMap));
 
         return teamsMap;
+    }
+
+    @GetMapping(value = "/api/team/archive/{year}")
+    public Integer checkArchiveYear(@PathVariable Integer year) {
+        return archiveTeamService.getArchiveYear(year);
+    }
+
+    @PostMapping(value = "/api/team/archive")
+    public String getTeamToArchive(@RequestBody String payload) throws IOException {
+        JsonNode root = mapper.readTree(payload);
+        int year = root.get("data").get("action").asInt();
+        archiveTeamService.update(year);
+        return root.get("data").get("action").asText();
     }
 
 

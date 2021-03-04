@@ -63,7 +63,7 @@
                             </div>
                         </td>
                         <td>
-                            <button v-if="(!/\D/.test(this.year)) && (this.year.length===3)" @click="addArchive" role="button" class="btn btn-info">submit</button>
+                            <button v-if="archiveButton" @click="addArchive" role="button" class="btn btn-info">submit</button>
                             <button v-else role="button" class="btn btn-info" disabled>submit</button>
                         </td>
                     </tr>
@@ -97,9 +97,27 @@
             },
             computed:{
                 checkYear: function(){
+                    let vm = this;
                     if((!/\D/.test(this.year)) && (this.year.length===3)){
                        console.log(this.year);
-                       this.archiveButton = true;
+                       let url = "/api/team/archive/" + this.year;
+                       this.$http.get(url)
+                          .then(function (response) {
+                            // handle success
+                            console.log(response.data);
+                            if (response.data == 0) {
+                               vm.archiveButton = true;
+                            } else {
+                               vm.archiveButton = false;
+                            }
+                          })
+                          .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                          })
+                          .then(function () {
+                            // always executed
+                          });
                     }
                 }
             },
@@ -116,14 +134,11 @@
                         // success callback // console.log(response.data);
 
                         console.log(response.data);
-                        vm.msg = response.data
+                        //vm.msg = response.data
 
                     }, (response) => {
                     // error callback
                     });
-
-
-
 
 
                 },
