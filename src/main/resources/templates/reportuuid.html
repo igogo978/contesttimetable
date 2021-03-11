@@ -92,8 +92,9 @@
                                                     <input type="radio"
                                                         v-bind:value="team.schoolid"
                                                         v-model="checkedOut">
-                                                    {{team.name}}({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
-                                                    <a v-bind:href="'https://www.google.com/maps/dir/'+item.location.name+'/'+team.name" target="_blank">
+                                                    <a v-bind:href="'/api/archive/school/' + team.name" target="_blank"> {{team.name}} </a>
+                                                    ({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
+                                                    <a v-bind:href="'https://www.google.com/maps/dir/' + team.name + '/' + item.location.name"  target="_blank">
                                                         ({{item.location.name}})
                                                     </a>
                                                     <table>

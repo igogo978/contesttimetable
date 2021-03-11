@@ -26,7 +26,6 @@ public class ScoresService {
     @Autowired
     AreascoreRepository areascoreRepository;
 
-
     public List<Areascore> getSchoolteamAreascores(List<String> schoolteamAreas, List<String> locationAreas) {
         List<Areascore> areascores = new ArrayList<>();
 

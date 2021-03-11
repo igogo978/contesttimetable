@@ -13,18 +13,13 @@ public class Location {
 
     @Id
     private String schoolid;
-
     private String locationname;
-
     private int capacity;
-
 
     @ElementCollection
     private List<Contestid> contestids = new ArrayList<Contestid>();
 
-
     private String color;
-
 
     public Location() {
     }

@@ -128,6 +128,7 @@ public class TeamAPIController {
     public String getTeamToArchive(@RequestBody String payload) throws IOException {
         JsonNode root = mapper.readTree(payload);
         int year = root.get("data").get("action").asInt();
+
         archiveTeamService.update(year);
         return root.get("data").get("action").asText();
     }

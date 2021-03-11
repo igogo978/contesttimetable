@@ -2,6 +2,7 @@ package app.contestTimetable.api;
 
 
 import app.contestTimetable.model.Ticket;
+import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.TicketRepository;
 import app.contestTimetable.service.TicketService;
 import app.contestTimetable.service.XlsxService;
@@ -29,24 +30,30 @@ public class TicketAPIController {
     TicketRepository ticketRepository;
 
     @Autowired
+    TicketService ticketService;
+    @Autowired
     XlsxService createxlsx;
 
     @GetMapping(value = "/api/ticket")
     public List<Ticket> getTickets() {
-        List<Ticket> tickets = new ArrayList<>();
-        ticketRepository.findAll().forEach(ticket -> tickets.add(ticket));
-
-        return tickets;
+//        List<Ticket> tickets = new ArrayList<>();
+//        ticketRepository.findAll().forEach(ticket -> tickets.add(ticket));
+        return ticketService.getAll();
 
     }
 
 
+    @GetMapping(value = "/api/ticket/usage")
+    public List<Location> getTicketUsage(){
+        return ticketService.getTicketUsage();
+    }
+
     @GetMapping(value = "/api/ticket/download")
     public ResponseEntity<Resource> downloadTickets() throws IOException {
-        List<Ticket> tickets = new ArrayList<>();
-        ticketRepository.findAll().forEach(ticket -> tickets.add(ticket));
+//        List<Ticket> tickets = new ArrayList<>();
+//        ticketRepository.findAll().forEach(ticket -> tickets.add(ticket));
 
-        XSSFWorkbook wb = createxlsx.createTickets(tickets);
+        XSSFWorkbook wb = createxlsx.createTickets(getTickets());
 
         ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
         wb.write(resourceStream);

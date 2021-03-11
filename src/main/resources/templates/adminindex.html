@@ -132,9 +132,10 @@
                     },config})
                     .then((response) => {
                         // success callback // console.log(response.data);
-
-                        console.log(response.data);
-                        //vm.msg = response.data
+                        if(response.data != 0) {
+                            vm.msg = "update successfully";
+                            vm.archiveButton = false;
+                        }
 
                     }, (response) => {
                     // error callback

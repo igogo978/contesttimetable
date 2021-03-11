@@ -1,20 +1,16 @@
 package app.contestTimetable.model;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Contestconfig {
 
     @Id
     private Integer id;
-
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Integer id;
-
 
     @ElementCollection
     private List<String> contestgroup = new ArrayList<>();

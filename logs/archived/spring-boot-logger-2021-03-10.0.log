@@ -1,0 +1,316 @@
+2021-03-10 10:12:18,059 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.10 on LAPTOP-IGOGO with PID 1142 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2021-03-10 10:12:18,063 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-03-10 10:12:18,919 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-03-10 10:12:19,006 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 75 ms. Found 13 JPA repository interfaces.
+2021-03-10 10:12:19,635 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-03-10 10:12:19,650 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-10 10:12:19,651 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-03-10 10:12:19,653 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.39]
+2021-03-10 10:12:19,765 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-03-10 10:12:19,766 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1624 ms
+2021-03-10 10:12:19,910 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-10 10:12:19,955 INFO org.hibernate.jpa.internal.util.LogHelper [task-1] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-10 10:12:20,050 INFO org.hibernate.Version [task-1] HHH000412: Hibernate ORM core version 5.4.23.Final
+2021-03-10 10:12:20,187 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-10 10:12:20,325 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [task-1] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-03-10 10:12:20,453 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Starting...
+2021-03-10 10:12:20,466 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2021-03-10 10:12:20,653 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-03-10 10:12:20,691 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-10 10:12:20,694 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Triggering deferred initialization of Spring Data repositories…
+2021-03-10 10:12:21,004 INFO com.zaxxer.hikari.HikariDataSource [task-1] HikariPool-1 - Start completed.
+2021-03-10 10:12:21,023 INFO org.hibernate.dialect.Dialect [task-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-03-10 10:12:21,783 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [task-1] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-10 10:12:21,798 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [task-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-10 10:12:22,250 INFO org.springframework.data.repository.config.DeferredRepositoryInitializationListener [main] Spring Data repositories initialized!
+2021-03-10 10:12:22,258 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 4.809 seconds (JVM running for 5.284)
+2021-03-10 10:15:14,566 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-10 10:15:14,566 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-03-10 10:15:14,569 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2021-03-10 10:15:19,312 INFO app.contestTimetable.api.TeamAPIController [http-nio-8080-exec-5] session null
+2021-03-10 10:15:49,083 INFO app.contestTimetable.controller.TeamUploadController [http-nio-8080-exec-7] upload multiple files
+2021-03-10 10:15:49,093 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,094 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,095 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,096 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,096 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,097 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,098 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,098 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,099 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2021-03-10 10:15:49,100 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2021-03-10 10:15:49,100 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2021-03-10 10:15:49,101 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2021-03-10 10:15:49,103 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2021-03-10 10:15:49,103 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2021-03-10 10:15:49,104 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2021-03-10 10:15:49,105 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,106 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,107 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,108 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,109 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,109 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,110 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,111 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,112 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,112 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,113 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,113 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,114 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,115 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,116 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,120 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,121 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,121 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,122 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,123 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,123 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,124 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2021-03-10 10:15:49,125 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2021-03-10 10:15:49,125 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2021-03-10 10:15:49,126 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2021-03-10 10:15:49,127 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2021-03-10 10:15:49,127 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2021-03-10 10:15:49,128 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2021-03-10 10:15:49,128 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2021-03-10 10:15:49,129 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2021-03-10 10:15:49,129 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,130 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,130 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,131 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,131 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,132 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,132 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2021-03-10 10:15:49,132 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2021-03-10 10:15:49,133 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,135 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,137 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,137 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,138 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,138 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2021-03-10 10:15:49,139 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-7] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2021-03-10 10:15:50,067 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-7] 專題簡報:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2021-03-10 10:15:50,175 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-7] 專題簡報:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2021-03-10 10:15:50,211 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-7] 專題簡報:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2021-03-10 10:15:50,474 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-7] 專題簡報:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2021-03-10 10:15:50,595 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-7] 專題簡報:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2021-03-10 10:16:12,835 INFO app.contestTimetable.service.TeamService [http-nio-8080-exec-7] 统计每间学校各项目参赛人数
+2021-03-10 10:16:14,037 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 中區光復國小
+2021-03-10 10:16:14,044 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區中華國小
+2021-03-10 10:16:14,046 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區五權國中
+2021-03-10 10:16:14,048 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區健行國小
+2021-03-10 10:16:14,050 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區太平國小
+2021-03-10 10:16:14,054 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區新民高中
+2021-03-10 10:16:14,056 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區曉明女中
+2021-03-10 10:16:14,059 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區立人國中
+2021-03-10 10:16:14,061 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區立人國小
+2021-03-10 10:16:14,063 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區篤行國小
+2021-03-10 10:16:14,066 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區育仁小學
+2021-03-10 10:16:14,068 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區臺中教大實小
+2021-03-10 10:16:14,069 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區賴厝國小
+2021-03-10 10:16:14,072 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北區雙十國中
+2021-03-10 10:16:14,074 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區三光國中
+2021-03-10 10:16:14,076 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區仁愛國小
+2021-03-10 10:16:14,079 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區仁美國小
+2021-03-10 10:16:14,081 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區僑孝國小
+2021-03-10 10:16:14,083 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區北屯國小
+2021-03-10 10:16:14,085 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區北新國中
+2021-03-10 10:16:14,087 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區四張犁國小
+2021-03-10 10:16:14,089 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區大德國中
+2021-03-10 10:16:14,094 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區崇德國中
+2021-03-10 10:16:14,095 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區建功國小
+2021-03-10 10:16:14,097 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區文心國小
+2021-03-10 10:16:14,099 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區文昌國小
+2021-03-10 10:16:14,101 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區新興國小
+2021-03-10 10:16:14,102 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區明道普霖斯頓小學
+2021-03-10 10:16:14,104 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區東山高中
+2021-03-10 10:16:14,116 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區衛道高中
+2021-03-10 10:16:14,118 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 北屯區軍功國小
+2021-03-10 10:16:14,132 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南區信義國小
+2021-03-10 10:16:14,136 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南區和平國小
+2021-03-10 10:16:14,139 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南區四育國中
+2021-03-10 10:16:14,145 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南區崇倫國中
+2021-03-10 10:16:14,147 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南區樹義國小
+2021-03-10 10:16:14,150 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區南屯國小
+2021-03-10 10:16:14,153 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區大墩國中
+2021-03-10 10:16:14,154 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區大墩國小
+2021-03-10 10:16:14,159 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區大新國小
+2021-03-10 10:16:14,161 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區大業國中
+2021-03-10 10:16:14,163 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區嶺東中學
+2021-03-10 10:16:14,165 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區惠文國小
+2021-03-10 10:16:14,167 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區惠文高中
+2021-03-10 10:16:14,169 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區文山國小
+2021-03-10 10:16:14,171 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區春安國小
+2021-03-10 10:16:14,173 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區東興國小
+2021-03-10 10:16:14,177 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區永春國小
+2021-03-10 10:16:14,180 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區萬和國中
+2021-03-10 10:16:14,182 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區鎮平國小
+2021-03-10 10:16:14,184 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區黎明國中
+2021-03-10 10:16:14,186 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 南屯區黎明國小
+2021-03-10 10:16:14,191 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區七星國小
+2021-03-10 10:16:14,193 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區內埔國小
+2021-03-10 10:16:14,195 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區后綜高中
+2021-03-10 10:16:14,197 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區后里國中
+2021-03-10 10:16:14,199 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區后里國小
+2021-03-10 10:16:14,201 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區月眉國小
+2021-03-10 10:16:14,202 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區泰安國小
+2021-03-10 10:16:14,204 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 后里區育英國小
+2021-03-10 10:16:14,206 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 和平區自由國小
+2021-03-10 10:16:14,208 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 外埔區外埔國中
+2021-03-10 10:16:14,210 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 外埔區外埔國小
+2021-03-10 10:16:14,212 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大安區大安國中
+2021-03-10 10:16:14,214 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大安區大安國小
+2021-03-10 10:16:14,215 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大安區永安國小
+2021-03-10 10:16:14,217 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大安區海墘國小
+2021-03-10 10:16:14,219 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區大甲國中
+2021-03-10 10:16:14,221 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區大甲國小
+2021-03-10 10:16:14,223 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區文昌國小
+2021-03-10 10:16:14,226 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區日南國中
+2021-03-10 10:16:14,228 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區日南國小
+2021-03-10 10:16:14,230 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區東明國小
+2021-03-10 10:16:14,232 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區東陽國小
+2021-03-10 10:16:14,234 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區華龍國小
+2021-03-10 10:16:14,236 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區順天國中
+2021-03-10 10:16:14,238 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大甲區順天國小
+2021-03-10 10:16:14,240 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大肚區大忠國小
+2021-03-10 10:16:14,242 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大肚區大肚國小
+2021-03-10 10:16:14,244 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大肚區大道國中
+2021-03-10 10:16:14,246 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大肚區山陽國小
+2021-03-10 10:16:14,248 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大肚區永順國小
+2021-03-10 10:16:14,249 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大肚區瑞井國小
+2021-03-10 10:16:14,252 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區光榮國中
+2021-03-10 10:16:14,254 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區光正國中
+2021-03-10 10:16:14,256 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區塗城國小
+2021-03-10 10:16:14,262 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區大元國小
+2021-03-10 10:16:14,264 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區大里高中
+2021-03-10 10:16:14,266 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區成功國中
+2021-03-10 10:16:14,268 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區永隆國小
+2021-03-10 10:16:14,270 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區爽文國中
+2021-03-10 10:16:14,272 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區瑞城國小
+2021-03-10 10:16:14,274 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區益民國小
+2021-03-10 10:16:14,276 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區立人高中
+2021-03-10 10:16:14,278 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大里區美群國小
+2021-03-10 10:16:14,280 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區上楓國小
+2021-03-10 10:16:14,282 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區六寶國小
+2021-03-10 10:16:14,287 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區大明國小
+2021-03-10 10:16:14,289 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區大雅國中
+2021-03-10 10:16:14,291 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區大雅國小
+2021-03-10 10:16:14,292 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區文雅國小
+2021-03-10 10:16:14,294 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區汝鎏國小
+2021-03-10 10:16:14,296 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 大雅區陽明國小
+2021-03-10 10:16:14,298 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區中平國中
+2021-03-10 10:16:14,299 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區坪林國小
+2021-03-10 10:16:14,301 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區太平國中
+2021-03-10 10:16:14,302 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區新光國中
+2021-03-10 10:16:14,304 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區新光國小
+2021-03-10 10:16:14,307 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區東平國小
+2021-03-10 10:16:14,309 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區華盛頓中學
+2021-03-10 10:16:14,310 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區長億國小
+2021-03-10 10:16:14,312 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 太平區長億高中
+2021-03-10 10:16:14,314 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 新社區新社國小
+2021-03-10 10:16:14,315 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 新社區新社高中
+2021-03-10 10:16:14,317 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東勢區中山國小
+2021-03-10 10:16:14,319 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東勢區新盛國小
+2021-03-10 10:16:14,320 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東勢區東勢國小
+2021-03-10 10:16:14,322 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東區力行國小
+2021-03-10 10:16:14,324 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東區國立興大附農
+2021-03-10 10:16:14,326 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東區大智國小
+2021-03-10 10:16:14,328 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東區成功國小
+2021-03-10 10:16:14,330 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東區育英國中
+2021-03-10 10:16:14,332 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 東區進德國小
+2021-03-10 10:16:14,333 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 梧棲區中正國小
+2021-03-10 10:16:14,335 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 梧棲區大德國小
+2021-03-10 10:16:14,337 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 梧棲區梧棲國小
+2021-03-10 10:16:14,342 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 梧棲區永寧國小
+2021-03-10 10:16:14,344 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區公明國小
+2021-03-10 10:16:14,346 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區北勢國中
+2021-03-10 10:16:14,349 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區北勢國小
+2021-03-10 10:16:14,350 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區文光國小
+2021-03-10 10:16:14,353 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區沙鹿國中
+2021-03-10 10:16:14,355 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區沙鹿國小
+2021-03-10 10:16:14,358 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區竹林國小
+2021-03-10 10:16:14,359 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區鹿寮國中
+2021-03-10 10:16:14,361 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 沙鹿區鹿峰國小
+2021-03-10 10:16:14,363 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區三田國小
+2021-03-10 10:16:14,364 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區建國國小
+2021-03-10 10:16:14,366 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區槺榔國小
+2021-03-10 10:16:14,368 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區清水國小
+2021-03-10 10:16:14,369 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區清泉國中
+2021-03-10 10:16:14,371 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區甲南國小
+2021-03-10 10:16:14,373 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區西寧國小
+2021-03-10 10:16:14,375 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 清水區高美國小
+2021-03-10 10:16:14,377 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 潭子區弘文高中
+2021-03-10 10:16:14,379 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 潭子區東寶國小
+2021-03-10 10:16:14,380 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 潭子區潭子國中
+2021-03-10 10:16:14,382 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 潭子區潭子國小
+2021-03-10 10:16:14,383 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 潭子區潭秀國中
+2021-03-10 10:16:14,384 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 潭子區潭陽國小
+2021-03-10 10:16:14,386 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 潭子區華盛頓國小
+2021-03-10 10:16:14,388 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區九德國小
+2021-03-10 10:16:14,390 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區僑仁國小
+2021-03-10 10:16:14,392 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區光德國中
+2021-03-10 10:16:14,394 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區喀哩國小
+2021-03-10 10:16:14,396 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區明道中學
+2021-03-10 10:16:14,398 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區東園國小
+2021-03-10 10:16:14,400 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區溪南國中
+2021-03-10 10:16:14,402 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區烏日國中
+2021-03-10 10:16:14,403 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 烏日區烏日國小
+2021-03-10 10:16:14,406 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 石岡區石岡國中
+2021-03-10 10:16:14,408 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 石岡區石岡國小
+2021-03-10 10:16:14,411 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 神岡區圳堵國小
+2021-03-10 10:16:14,412 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 神岡區岸裡國小
+2021-03-10 10:16:14,414 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 神岡區社口國小
+2021-03-10 10:16:14,415 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 神岡區神岡國小
+2021-03-10 10:16:14,417 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區中正國小
+2021-03-10 10:16:14,418 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區光明國中
+2021-03-10 10:16:14,420 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區向上國中
+2021-03-10 10:16:14,423 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區大同國小
+2021-03-10 10:16:14,424 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區居仁國中
+2021-03-10 10:16:14,428 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區忠信國小
+2021-03-10 10:16:14,430 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區忠明國小
+2021-03-10 10:16:14,432 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西區臺中女中
+2021-03-10 10:16:14,433 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區上安國小
+2021-03-10 10:16:14,436 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區上石國小
+2021-03-10 10:16:14,438 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區中山國中
+2021-03-10 10:16:14,440 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區何厝國小
+2021-03-10 10:16:14,442 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區國安國小
+2021-03-10 10:16:14,444 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區大仁國小
+2021-03-10 10:16:14,446 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區安和國中
+2021-03-10 10:16:14,448 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區文華高中
+2021-03-10 10:16:14,449 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區東海國小
+2021-03-10 10:16:14,451 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區泰安國小
+2021-03-10 10:16:14,453 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區漢口國中
+2021-03-10 10:16:14,457 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區福科國中
+2021-03-10 10:16:14,458 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區至善國中
+2021-03-10 10:16:14,461 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區西苑高中
+2021-03-10 10:16:14,462 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區重慶國小
+2021-03-10 10:16:14,464 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 西屯區長安國小
+2021-03-10 10:16:14,466 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區合作國小
+2021-03-10 10:16:14,468 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區福陽國小
+2021-03-10 10:16:14,470 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區翁子國小
+2021-03-10 10:16:14,472 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區葫蘆墩國小
+2021-03-10 10:16:14,474 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區豐南國中
+2021-03-10 10:16:14,476 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區豐原國中
+2021-03-10 10:16:14,478 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區豐村國小
+2021-03-10 10:16:14,480 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 豐原區豐東國中
+2021-03-10 10:16:14,482 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區光復國中小
+2021-03-10 10:16:14,483 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區光正國小
+2021-03-10 10:16:14,485 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區吉峰國小
+2021-03-10 10:16:14,491 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區四德國小
+2021-03-10 10:16:14,493 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區峰谷國小
+2021-03-10 10:16:14,494 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區復興國小
+2021-03-10 10:16:14,496 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區明台高中
+2021-03-10 10:16:14,497 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 霧峰區霧峰國小
+2021-03-10 10:16:14,499 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區四箴國中
+2021-03-10 10:16:14,501 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區龍井國中
+2021-03-10 10:16:14,503 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區龍井國小
+2021-03-10 10:16:14,505 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區龍山國小
+2021-03-10 10:16:14,509 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區龍泉國小
+2021-03-10 10:16:14,511 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區龍津國小
+2021-03-10 10:16:14,513 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區龍津高中
+2021-03-10 10:16:14,515 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-7] 龍井區龍海國小
+2021-03-10 10:16:25,033 INFO app.contestTimetable.api.TeamAPIController [http-nio-8080-exec-10] session null
+2021-03-10 10:33:21,863 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-10 10:33:21,870 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-10 10:33:21,871 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-03-10 10:33:21,897 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
