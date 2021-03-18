@@ -13,8 +13,6 @@ public class ReportScoresSummary {
 
     private String scoresfrequency;
 
-
-
     private double scores;
 
     public String getUuid() {

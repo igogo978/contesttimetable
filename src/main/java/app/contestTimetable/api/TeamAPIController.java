@@ -27,7 +27,7 @@ import java.util.*;
 @RestController
 public class TeamAPIController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(TeamAPIController.class);
     ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
@@ -125,7 +125,7 @@ public class TeamAPIController {
     }
 
     @PostMapping(value = "/api/team/archive")
-    public String getTeamToArchive(@RequestBody String payload) throws IOException {
+    public String updateTeamToArchive(@RequestBody String payload) throws IOException {
         JsonNode root = mapper.readTree(payload);
         int year = root.get("data").get("action").asInt();
 

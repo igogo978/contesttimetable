@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>inform comments</title>
+
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/js/FileSaver.min.js"></script>
+
+        <style>
+        .navbar-custom {
+            color: #FFFFFF;
+            background-color: #CC3333;
+        }
+
+        </style>
+      
+    </head>
+    <body>
+      
+        <div class="container" id="app">
+		  <div th:replace="fragments/common :: header"></div>
+            <br>
+            <h3>決賽注意事項</h3>
+            <form>
+                <div class="form-group">
+                    <div v-for="(item,index) in items">
+
+                        <textarea class="form-control" rows="2" v-model="items[index]"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="float-right">
+                <button  @click="addRow" type="button" class="btn btn-dark">+</button>
+                <button @click="save" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+
+
+        <footer>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+
+                Vue.prototype.$http = axios;
+                let config = {
+                    headers: {
+                        'content-type': 'application/json;CHARSET=UTF-8'
+                    }
+                };
+                let url =  "/api/inform/comments" ;
+
+                var app = new Vue({
+                    el: '#app',
+                    data: {
+                        msg: 'Hello Vue!',
+                        items: [],
+                    },
+                    created: function() {
+                        let vm = this;
+
+                        this.$http.get(url, config).then((response) => {
+                            vm.items = response.data;
+
+                        }, (response) => {
+                            // error callback
+                        });
+
+                    },
+                    computed: {
+                        say: function(){
+                        }
+                    },
+                    methods: {
+                        showMsg: function() {
+                            console.log("hello");
+                        },
+                        addRow: function() {
+                           this.items.push("");
+                        },
+                        save: function() {
+                            let vm = this;
+                            console.log(this.items);
+                            this.$http.post(url,this.items,config)
+                                .then((response) => {
+                                    // success callback
+                                    vm.items = response.data;
+
+                                }, (response) => {
+                                // error callback
+                                });
+                        }
+
+                    }
+                })
+
+                 /*]]>*/
+                </script>
+        </footer>
+
+
+    </body>
+</html>

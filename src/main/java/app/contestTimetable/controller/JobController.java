@@ -55,14 +55,12 @@ public class JobController {
     @PostMapping("/job/client/upload")
     public String handleReportFileUpload(@RequestParam("file") MultipartFile file,
                                          RedirectAttributes redirectAttributes) throws IOException {
-//        logger.info("filename:" + file.getOriginalFilename());
-        logger.info("filename:" + "client.zip");
-        String filename = file.getOriginalFilename();
         storageService.store(file);
         //move to /tmp/contest/
+
         FileUtils.forceMkdir(new File("/tmp/contest"));
 
-        FileUtils.copyFile(new File("/tmp/client.zip"), new File("/tmp/contest/client.zip"));
+        FileUtils.copyFile(new File(String.format("/tmp/contest/%s",file.getOriginalFilename())), new File("/tmp/contest/client.zip"));
         return "redirect:/job/run";
     }
 

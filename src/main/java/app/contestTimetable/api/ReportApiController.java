@@ -36,8 +36,7 @@ import java.util.Optional;
 @RestController
 public class ReportApiController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    Logger logger = LoggerFactory.getLogger(ReportApiController.class);
 
     @Autowired
     ReportRepository reportRepository;
@@ -133,9 +132,6 @@ public class ReportApiController {
 
     @PostMapping(value = "/api/report/uuid/{uuid}")
     public String postReport(@RequestBody String payload) throws IOException {
-
-
-
 
         Report report = new Report();
         ObjectMapper mapper = new ObjectMapper();

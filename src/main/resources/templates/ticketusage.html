@@ -31,20 +31,34 @@
                 <div class="form-inline float-right">
                 </div>
             </nav>
-
                 <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">參賽學校</th>
                             <th scope="col">場地</th>
+                            <th scope="col">電腦</th>
+                            <th scope="col">尚有電腦</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="(item,index) in items">
                                 <td>{{index+1}}</td>
-                                <td>{{item.schoolname}}</td>
                                 <td>{{item.locationname}}</td>
+                                <td>{{item.capacity}}</td>
+                                <td>
+                                   <table class="table">
+                                       <tbody>
+                                           <tr v-for="contest in item.contestids">
+                                              <td>{{contest.contestid}}</td>
+                                               <td>{{contest.members}}</td>
+                                           </tr>
+
+                                       </tbody>
+                                   </table>
+
+
+
+                                </td>
                           </tr>
                         
                         </tbody>
@@ -70,7 +84,7 @@
                 },
                 created: function() {
                     let vm = this;
-                    let url =  "/api/ticket";
+                    let url =  "/api/ticket/usage";
     
                     this.$http.get(url, config).then((response) => {
                         vm.items = response.data;

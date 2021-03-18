@@ -7,8 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.ArrayList;
 
 public interface SelectedreportRepository extends CrudRepository<Selectedreport, String> {
-
-    Integer countByContestid(Integer contestid);
-
-    Selectedreport findByContestid(Integer contestid);
+//
+//    Integer countByContestid(Integer contestid);
+//
+//    Selectedreport findByContestid(Integer contestid);
 }

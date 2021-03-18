@@ -26,12 +26,8 @@ public class ReportService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//    @Autowired
-//    SelectedreportRepository selectedreportrepository;
-
     @Autowired
     ReportRepository reportrepository;
-
 
     @Autowired
     ReportScoresSummaryRepository reportScoresSummaryRepository;
@@ -57,7 +53,6 @@ public class ReportService {
         }
 
     }
-
 
     public void updateTeamLocationAndTicket(String manualreport) throws IOException, InvalidFormatException {
         ArrayList<Team> teams = new ArrayList<>();
@@ -256,12 +251,10 @@ public class ReportService {
             String locationname = String.format("%s,%s,%s", location.get("location").get("schoolid").asText(), location.get("location").get("name").asText(), location.get("location").get("capacity").asInt());
             teams.add(String.format("%s", locationname));
             location.get("teams").forEach(school -> {
-//                logger.info(school.get("name").asText());
                 SchoolTeam schoolteam = new SchoolTeam();
                 schoolteam.setSchoolname(school.get("name").asText());
                 schoolteam.setSchoolid(school.get("schoolid").asText());
                 schoolteam.setMembers(school.get("members").asInt());
-//                schoolteam.setDistance(school.get("distance").asDouble());
 
 //                String team = String.format("%s,%s,%s,%s,%s", "-", schoolteam.getSchoolid(), schoolteam.getSchoolname(), schoolteam.getMembers(), Integer.valueOf(schoolteam.getDistance().intValue()));
 //                teams.add(team);
@@ -279,18 +272,13 @@ public class ReportService {
         ObjectMapper mapper = new ObjectMapper();
         List<Report> reports = Arrays.asList(mapper.readValue(new File(jsonfile), Report[].class));
 
-
-
         reports.forEach(report -> {
-
             ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
             reportScoresSummary.setUuid(report.getUuid());
             reportScoresSummary.setScores(report.getScores());
             reportScoresSummary.setScoresfrequency(report.getScoresfrequency());
             reportScoresSummaryRepository.save(reportScoresSummary);
             reportrepository.save(report);
-
-
         });
     }
 

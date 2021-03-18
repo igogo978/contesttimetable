@@ -36,79 +36,79 @@
       
         <div class="container" id="app">
 		  <div th:replace="fragments/common :: header"></div>
-<br>
+          <br>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/team">參賽隊伍</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                <a class="nav-link" href="/team/contestitem">競賽項目統計 <span class="sr-only">(current)</span></a>
-                </li>
-            
-            </ul>
-            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/team">參賽隊伍</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                    <a class="nav-link" href="/team/contestitem">競賽項目統計 <span class="sr-only">(current)</span></a>
+                    </li>
 
-            <div class="form-inline float-right">
+                </ul>
+                </div>
 
-                <a class="btn btn-outline-secondary" href="/api/team/download" role="button">備份</a>
-                <!--
-                <a class="btn btn-dark" href="/api/pocketlist/inform/all/download" role="button">列印選手帳密通知單</a>
-                -->
+                <div class="form-inline float-right">
 
-                <label for="inputPassword2" class="sr-only">密碼</label>
-                <input v-model="passwd" type="password" class="form-control" id="inputPassword2" placeholder="Password">
-                
-                <button @click="getSession" role="button" class="btn btn-info">送出</button>
+                    <a class="btn btn-outline-secondary" href="/api/team/download" role="button">備份</a>
+                    <!--
+                    <a class="btn btn-dark" href="/api/pocketlist/inform/all/download" role="button">列印選手帳密通知單</a>
+                    -->
 
-                    
-            </div>
-        </nav>
+                    <label for="inputPassword2" class="sr-only">密碼</label>
+                    <input v-model="passwd" type="password" class="form-control" id="inputPassword2" placeholder="Password">
+
+                    <button @click="getSession" role="button" class="btn btn-info">送出</button>
+
+
+                </div>
+            </nav>
 
             <br>
 
 
        
 
-                <table class="table">
-                    <thead>
-                        <td>序</td>
-                        <td>項目類別</td>
-                        <td>學校</td>
-                        <td>姓名</td>
-                        <td>指導教師</td>
-                        <td>帳號</td>
-                        <td>密碼</td>
-                        <td>試場</td>
-                        <td>時間</td>
-                       
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, index) in items">
-                            <td>{{index+1}}</td>
-                            <td>{{item.contestitem}}</td>
-                            <td>{{item.schoolname}}</td>
-                            <td>{{item.username}}                         
-                                <div v-if="item.membername != null">,{{item.membername}}   </div>
-                            </td>
-                            <td>{{item.instructor}}</td>
-                            <td>{{item.account}}</td>
-                            <td>{{item.passwd}}</td>
-                            <td v-if="item.location == null">
-                                
-                            </td>
+            <table class="table">
+                <thead>
+                    <td>序</td>
+                    <td>項目類別</td>
+                    <td>學校</td>
+                    <td>姓名</td>
+                    <td>指導教師</td>
+                    <td>帳號</td>
+                    <td>密碼</td>
+                    <td>試場</td>
+                    <td>時間</td>
 
-                            <td v-else v-bind:style="{'background-color': JSON.parse(item.comments)[0].color}"> 
-                                {{item.location}}
-                            </td>
-                            <td>{{item.description}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in items">
+                        <td>{{index+1}}</td>
+                        <td>{{item.contestitem}}</td>
+                        <td>{{item.schoolname}}</td>
+                        <td>{{item.username}}
+                            <div v-if="item.membername != null">,{{item.membername}}   </div>
+                        </td>
+                        <td>{{item.instructor}}</td>
+                        <td>{{item.account}}</td>
+                        <td>{{item.passwd}}</td>
+                        <td v-if="item.location == null">
+
+                        </td>
+
+                        <td v-else v-bind:style="{'background-color': JSON.parse(item.comments)[0].color}">
+                            {{item.location}}
+                        </td>
+                        <td>{{item.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
             <footer>
 

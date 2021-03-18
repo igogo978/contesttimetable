@@ -18,27 +18,27 @@ public class Selectedreport {
     private double distance;
 
 
-    public Integer getContestid() {
-        return contestid;
-    }
-
-    public void setContestid(Integer contestid) {
-        this.contestid = contestid;
-    }
-
-    public String getReport() {
-        return report;
-    }
-
-    public void setReport(String report) {
-        this.report = report;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
+//    public Integer getContestid() {
+//        return contestid;
+//    }
+//
+//    public void setContestid(Integer contestid) {
+//        this.contestid = contestid;
+//    }
+//
+//    public String getReport() {
+//        return report;
+//    }
+//
+//    public void setReport(String report) {
+//        this.report = report;
+//    }
+//
+//    public double getDistance() {
+//        return distance;
+//    }
+//
+//    public void setDistance(double distance) {
+//        this.distance = distance;
+//    }
 }
