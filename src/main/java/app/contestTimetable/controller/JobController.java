@@ -22,24 +22,18 @@ import java.io.IOException;
 @Controller
 public class JobController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
-    StorageProperties storageProperties;
-
     private final StorageService storageService;
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+    StorageProperties storageProperties;
+    @Autowired
+    JobService jobservice;
+    @Autowired
+    ReportRepository reportrepository;
 
     @Autowired
     public JobController(StorageService storageService) {
         this.storageService = storageService;
     }
-
-
-    @Autowired
-    JobService jobservice;
-
-    @Autowired
-    ReportRepository reportrepository;
 
     @GetMapping(value = "/job/run")
     public String runReport(Model model) {
@@ -57,10 +51,14 @@ public class JobController {
                                          RedirectAttributes redirectAttributes) throws IOException {
         storageService.store(file);
         //move to /tmp/contest/
+//        FileUtils.forceMkdir(new File("/tmp/contest"));
+        String rootPath = "/tmp/contest";
+        File clientZip = new File(String.format("%s/client.zip", rootPath));
 
-        FileUtils.forceMkdir(new File("/tmp/contest"));
+        if (!clientZip.exists()) {
+            FileUtils.copyFile(new File(String.format("%s/%s",rootPath, file.getOriginalFilename())), clientZip);
+        }
 
-        FileUtils.copyFile(new File(String.format("/tmp/contest/%s",file.getOriginalFilename())), new File("/tmp/contest/client.zip"));
         return "redirect:/job/run";
     }
 

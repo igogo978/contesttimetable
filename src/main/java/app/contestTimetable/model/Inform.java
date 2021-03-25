@@ -12,6 +12,17 @@ public class Inform {
     @Id
     private Integer id;
 
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    private String header;
+
     @ElementCollection
     private List<String> comments = new ArrayList<>();
 

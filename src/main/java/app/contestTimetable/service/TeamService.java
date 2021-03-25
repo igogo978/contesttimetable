@@ -58,6 +58,8 @@ public class TeamService {
         teamRepository.deleteAll();
         Arrays.asList(teams).forEach(team -> teamRepository.save(team));
 
+        logger.info("统计每间学校各项目参赛人数");
+        schoolTeamService.updateSchoolTeam();
     }
 
     public void update() throws IOException {

@@ -190,29 +190,17 @@ public class ReportService {
     public void updateTeamLocation(Report report) throws IOException {
         //update team's location
         ArrayList<Team> teams = new ArrayList<>();
-//        Selectedreport selectedreport = selectedreportrepository.findByContestid(report.getContestid());
 
         ObjectMapper mapper = new ObjectMapper();
-//        JsonNode root = mapper.readTree(selectedreport.getReport());
         JsonNode root = mapper.readTree(report.getReport());
-
-//        Contestconfig config = contestconfigrepository.findById(report.getContestid()).get();
-
-//        List<String> contestgroup = config.getContestgroup();
-//        contestgroup.forEach(groupname -> {
-//            teamrepository.findByContestitemContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
-//        });
-
 
         root.forEach(node -> {
             String location = node.get("location").get("name").asText();
-//            logger.info(node.get("location").get("name").asText());
             node.get("teams").forEach(school -> {
 //                logger.info(String.format("%s,%s",school.get("name").asText(),location));
                 teams.forEach(team -> {
                     if (team.getSchoolname().equals(school.get("name").asText())) {
                         team.setLocation(location);
-//                        logger.info("save location for team");
                         teamrepository.save(team);
                     }
                 });
@@ -268,7 +256,7 @@ public class ReportService {
 
 
     public void restoreReportJson(String jsonfile) throws IOException {
-        logger.info("report restore:" + jsonfile);
+        logger.info("reports restore:" + jsonfile);
         ObjectMapper mapper = new ObjectMapper();
         List<Report> reports = Arrays.asList(mapper.readValue(new File(jsonfile), Report[].class));
 
@@ -281,6 +269,5 @@ public class ReportService {
             reportrepository.save(report);
         });
     }
-
 
 }

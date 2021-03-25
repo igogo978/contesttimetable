@@ -104,13 +104,8 @@ public class UploadAPIController {
     //讀出location上傳檔案內容
     @RequestMapping(value = "/location/upload/{filename}", method = RequestMethod.GET)
     public RedirectView readUploadLocationFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
-
-
         String locationxlsx = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
-
         locationService.updateLocation(locationxlsx);
-
-
         return new RedirectView("/location");
 
     }

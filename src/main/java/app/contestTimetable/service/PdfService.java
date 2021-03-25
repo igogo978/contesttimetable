@@ -1,17 +1,24 @@
 package app.contestTimetable.service;
 
 
+import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
-import app.contestTimetable.repository.ExtHanziRepository;
+import app.contestTimetable.model.school.Location;
+import app.contestTimetable.repository.*;
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
@@ -19,26 +26,39 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 public class PdfService {
 
-    String contestHeader = "臺中市109年度中小學資訊網路應用競賽決賽";
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(PdfService.class);
 
     @Autowired
     ExtHanziRepository extHanziRepository;
 
+    @Autowired
+    InformRepository informRepository;
+
+    @Autowired
+    ContestconfigRepository contestconfigRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
+
+    @Autowired
+    TeamRepository teamRepository;
 
     public PdfService() throws IOException {
     }
 
 
     public Table doCoverTablePage(PdfFont font, Inform inform) {
-
 
         Table table = new Table(UnitValue.createPercentArray(1)).useAllAvailableWidth();
         Paragraph blank = new Paragraph("\n");
@@ -445,11 +465,10 @@ public class PdfService {
 
         paragraph = new Paragraph(String.format("決賽注意事項")).setFont(font).setTextAlignment(TextAlignment.CENTER).setBold().setUnderline();
         paragraph.add("\n");
-        String text = "1、「所有競賽項目」的題目於競賽時間開始時自動轉址公布，請記得重新整理網頁，就可看到題目；「所有競賽項目」的作品內容都不得出現姓名及學校等相關資訊。\n" +
-                "2、競賽時間開始後，遲到30分鐘以上不得入場。競賽開始超過40分鐘後，參賽學生始得離開試場。\n" +
-                "3、競賽時間內不得自行攜帶使用任何形式之可攜式儲存媒體及通訊設備，一經發現立即取消參賽資格。（競賽主辦單位借給每位參賽者空白隨身碟一支，供暫存使用）。\n" +
-                "4、競賽時間場地僅能連線至資訊網路應用競賽系統，不提供其他對外之網路連線。競賽時間終了即無法再上傳，參賽者請及早上傳並自行注意時間掌控，避免網路壅塞影響上傳。（倘若網頁因閒置逾時而無法上傳，務必立即重新登入）";
 
+        String text = informRepository.findById(1).get().getComments()
+                .stream()
+                .collect(Collectors.joining("\n"));
         Paragraph paragraph2 = new Paragraph(text).setTextAlignment(TextAlignment.LEFT);
 
         cell = new Cell()
@@ -462,4 +481,136 @@ public class PdfService {
 
         return table;
     }
+
+    public List<Inform> doInformAll(Boolean isLogin){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        //download pdf
+        List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
+        List<Location> locations = new ArrayList<>();
+        locationRepository.findAll().forEach(locations::add);
+        locations.removeIf(location -> location.getLocationname().equals("未排入"));
+
+        String filename = "inform-all.pdf";
+
+        List<Inform> informs = new ArrayList<>();
+
+        HashMap<Inform, List<Team>> informAll = new HashMap<>();
+
+        //4 个场次
+        configs.forEach(config -> {
+
+            List<String> contestgroup = config.getContestgroup().stream().map(item -> item.toUpperCase() + "組").collect(Collectors.toList());
+
+            locations.forEach(location -> {
+                Inform inform = new Inform();
+
+                inform.setContestItem(String.join("、", contestgroup));
+                inform.setTeamsize(0);
+                inform.setLocation(location.getLocationname());
+                inform.setDescription(config.getDescription());
+                AtomicReference<Integer> teamsize = new AtomicReference<>(0);
+                AtomicReference<Integer> totalpeople = new AtomicReference<>(0);
+
+                config.getContestgroup().forEach(contestitem -> {
+
+                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
+                    teams.forEach(team -> {
+                        if (team.getMembername() != null) {
+//                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
+                            totalpeople.updateAndGet(v -> v + 2);
+                        } else {
+                            totalpeople.updateAndGet(v -> v + 1);
+                        }
+                    });
+//                    inform.getTeams().addAll(teams);
+                    teams.forEach(team -> {
+
+                        if (isLogin == Boolean.FALSE) {
+                            team.setAccount("*****");
+                            team.setPasswd("*****");
+                        }
+
+                        inform.getTeams().add(team);
+                    });
+                    teamsize.updateAndGet(v -> v + teams.size());
+                });
+                inform.setTeamsize(teamsize.get());
+                inform.setTotalPeople(totalpeople.get());
+                informs.add(inform);
+
+            });
+
+        });
+
+
+        return informs;
+    }
+
+    private FontProgram twKaiFont = null;
+
+    public ByteArrayOutputStream doInformCoverAndTeamPDF(List<Inform> informs) throws IOException {
+        String contestHeader = informRepository.findById(1).get().getHeader();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
+        Document document = new Document(pdfDoc);
+        twKaiFont = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
+
+        //handle unicode 第2字面
+        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
+        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+
+        // Create a PdfFont
+        PdfFont font = PdfFontFactory.createFont(twKaiFont, PdfEncodings.IDENTITY_H, true);
+
+        for (int i = 0; i < informs.size(); i++) {
+
+            if (i != 0) {
+                document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            }
+
+            Paragraph header = new Paragraph();
+            header.add(String.format("%s選手帳號密碼", contestHeader)).setFont(font).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
+
+            document.add(header);
+
+            Paragraph blank = new Paragraph("\n");
+            document.add(blank);
+
+
+            Table table = new Table(UnitValue.createPercentArray(1)).useAllAvailableWidth();
+
+            table = doCoverTablePage(font, informs.get(i));
+
+            document.add(table);
+
+            document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+            table = doCover2TablePage(font, fontExt, informs.get(i).getTeams());
+            document.add(table);
+
+            document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+            //team inform page
+            informs.get(i).getTeams().forEach(team -> {
+
+                Paragraph teamHeader = new Paragraph();
+                teamHeader.add(String.format("%s選手帳號密碼通知單", contestHeader)).setFont(font).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
+                document.add(teamHeader);
+                try {
+                    document.add(doTeamTablePage(font, fontExt, team));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            });
+
+        }
+
+        document.close();
+        return baos;
+    }
+
+
 }

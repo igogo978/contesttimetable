@@ -28,32 +28,29 @@ public class InformApiController {
     ObjectMapper mapper = new ObjectMapper();
 
     @GetMapping("/api/inform/comments")
-    public List<String> getInformComments() {
+    public Inform getInformComments() {
         Inform inform = new Inform();
         if (informRepository.findById(1).isPresent()) {
             inform = informRepository.findById(1).get();
         } else {
             inform.setId(1);
+            inform.setHeader("臺中市OOO年度中小學資訊網路應用競賽決賽");
             List<String> comments = new ArrayList<>();
             comments.add("");
             inform.getComments().add("");
         }
-        return inform.getComments();
+        return inform;
     }
 
     @PostMapping("/api/inform/comments")
-    public List<String> updateInform(@RequestBody String payload) throws JsonProcessingException {
+    public Inform updateInform(@RequestBody String payload) throws JsonProcessingException {
         Inform inform = new Inform();
         inform.setId(1);
-        String[] comments = mapper.readValue(payload, String[].class);
-        Arrays.asList(comments).forEach(comment -> {
-            if (comment.strip().length() != 0) {
-                logger.info(comment);
-                inform.getComments().add(comment.strip());
-            }
-        });
+        ObjectMapper mapper = new ObjectMapper();
+        inform = mapper.readValue(payload,Inform.class);
+        inform.getComments().removeIf(comment->comment.strip().length() == 0);
         informRepository.save(inform);
 
-        return informRepository.findById(1).get().getComments();
+        return informRepository.findById(1).get();
     }
 }

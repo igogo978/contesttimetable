@@ -1,7 +1,6 @@
 package app.contestTimetable.api;
 
 
-import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Report;
 import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.model.Team;
@@ -12,20 +11,6 @@ import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.io.font.FontProgramFactory;
-import com.itextpdf.io.font.PdfEncodings;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.AreaBreak;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.AreaBreakType;
-import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.UnitValue;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -46,8 +31,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -98,7 +81,7 @@ public class PocketlistApiController {
 
 
     //    String twFont = "/opt/font/TW-Kai-98_1.ttf";
-    String contestHeader = "臺中市109年度中小學資訊網路應用競賽決賽";
+    String contestHeader = "臺中市110年度中小學資訊網路應用競賽決賽";
 
     @PostMapping(value = "/api/pocketlist")
     public String postReport(@RequestBody String payload) throws IOException {
@@ -333,7 +316,6 @@ public class PocketlistApiController {
 
                 FileOutputStream out = new FileOutputStream(xlsx);
 
-
                 XSSFWorkbook wb = xlsxService.createPocketlistInformLocation(inform.getTeams());
                 wb.write(out);
 
@@ -374,77 +356,14 @@ public class PocketlistApiController {
 
     @GetMapping(value = "/api/pocketlist/inform/all/download")
     public ResponseEntity<Resource> doInformAll(HttpServletRequest request) throws IOException {
-        //download pdf
 
-
-        List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
-
-
-        List<Location> locations = new ArrayList<>();
-        locationRepository.findAll().forEach(locations::add);
-        locations.removeIf(location -> location.getLocationname().equals("未排入"));
+        Boolean isLogin = request.getSession(false) == null ? Boolean.FALSE : Boolean.TRUE;
+        List<Inform> informs = new ArrayList<>();
+        informs = pdfService.doInformAll(isLogin);
 
         String filename = "inform-all.pdf";
-
-
-//        List<Team> informTeams = new ArrayList<>();
-
-        List<Inform> informs = new ArrayList<>();
-
-        HashMap<Inform, List<Team>> informAll = new HashMap<>();
-
-        //4 个场次
-        configs.forEach(config -> {
-
-
-            List<String> contestgroup = config.getContestgroup().stream().map(item -> item.toUpperCase() + "組").collect(Collectors.toList());
-
-
-            locations.forEach(location -> {
-                Inform inform = new Inform();
-
-                inform.setContestItem(String.join("、", contestgroup));
-                inform.setTeamsize(0);
-                inform.setLocation(location.getLocationname());
-                inform.setDescription(config.getDescription());
-                AtomicReference<Integer> teamsize = new AtomicReference<>(0);
-                AtomicReference<Integer> totalpeople = new AtomicReference<>(0);
-
-                config.getContestgroup().forEach(contestitem -> {
-
-
-                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
-                    teams.forEach(team -> {
-                        if (team.getMembername() != null) {
-//                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
-                            totalpeople.updateAndGet(v -> v + 2);
-                        } else {
-                            totalpeople.updateAndGet(v -> v + 1);
-                        }
-                    });
-//                    inform.getTeams().addAll(teams);
-                    teams.forEach(team -> {
-
-                        if (request.getSession(false) == null) {
-                            team.setAccount("*****");
-                            team.setPasswd("*****");
-                        }
-
-                        inform.getTeams().add(team);
-                    });
-                    teamsize.updateAndGet(v -> v + teams.size());
-                });
-                inform.setTeamsize(teamsize.get());
-                inform.setTotalPeople(totalpeople.get());
-                informs.add(inform);
-
-            });
-
-        });
-
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos = doInformCoverAndTeamPDF(informs);
+        baos = pdfService.doInformCoverAndTeamPDF(informs);
         logger.info("pdf file has been created ");
 
         HttpHeaders headers = new HttpHeaders();
@@ -456,86 +375,6 @@ public class PocketlistApiController {
         headers.setContentType(MediaType.APPLICATION_PDF);
         Resource resource = new InputStreamResource(new ByteArrayInputStream(baos.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);
-    }
-
-
-    private FontProgram twKaiFont = null;
-
-    ByteArrayOutputStream doInformCoverAndTeamPDF(List<Inform> informs) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
-        Document document = new Document(pdfDoc);
-        twKaiFont = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
-
-
-        //handle unicode 第2字面
-        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
-        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
-
-
-        // Create a PdfFont
-        PdfFont font = PdfFontFactory.createFont(twKaiFont, PdfEncodings.IDENTITY_H, true);
-
-//        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Sung-Ext-B-98_1.ttf");
-//        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
-//        Paragraph test = new Paragraph();
-//        test.add(String.format("\uD85B\uDD74", contestHeader)).setFont(fontExt).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
-//        document.add(test);
-//        document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-        for (int i = 0; i < informs.size(); i++) {
-
-            if (i != 0) {
-                document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-            }
-
-            Paragraph header = new Paragraph();
-            header.add(String.format("%s選手帳號密碼", contestHeader)).setFont(font).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
-
-
-            document.add(header);
-
-            Paragraph blank = new Paragraph("\n");
-            document.add(blank);
-
-
-            Table table = new Table(UnitValue.createPercentArray(1)).useAllAvailableWidth();
-
-            table = pdfService.doCoverTablePage(font, informs.get(i));
-
-
-            document.add(table);
-
-
-            document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-
-            table = pdfService.doCover2TablePage(font, fontExt, informs.get(i).getTeams());
-            document.add(table);
-
-            document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-
-            //team inform page
-            informs.get(i).getTeams().forEach(team -> {
-
-                Paragraph teamHeader = new Paragraph();
-                teamHeader.add(String.format("%s選手帳號密碼通知單", contestHeader)).setFont(font).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
-                document.add(teamHeader);
-                try {
-                    document.add(pdfService.doTeamTablePage(font, fontExt, team));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-            });
-
-        }
-
-
-        document.close();
-
-        return baos;
     }
 
 

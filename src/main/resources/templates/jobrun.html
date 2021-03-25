@@ -50,16 +50,27 @@
             </div>
 
             <div v-if="client">
-                <a href="/job/client/download" class="btn btn-primary stretched-link">client程式下载</a>
+                <a href="/job/client/download" class="btn btn-primary stretched-link">client程式下载</a><br>
+                <a href="/examples/openjre11.msi" type="button" class="btn btn-link">java openjre11</a>
             </div>
 
             <div v-else>
                 <p>please upload clinet program.</p>
             </div>
 
-
             <div th:if="${error}">
                 <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>
+            </div>
+
+
+            <div>
+                <video width="640" height="480" controls>
+                    <source src="/examples/clientrun.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+
+
             </div>
         </div>
 

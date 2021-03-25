@@ -21,11 +21,127 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="/js/FileSaver.min.js"></script>
+        <style>
 
+            .modal-mask {
+                position: fixed;
+                z-index: 9998;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: table;
+                transition: opacity 0.3s ease;
+            }
+
+            .modal-wrapper {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .modal-container {
+                width: 300px;
+                margin: 0px auto;
+                padding: 20px 30px;
+                background-color: #fff;
+                border-radius: 2px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+                transition: all 0.3s ease;
+                font-family: Helvetica, Arial, sans-serif;
+            }
+
+            .modal-header h3 {
+                margin-top: 0;
+                color: #42b983;
+            }
+
+            .modal-body {
+            margin: 20px 0;
+            }
+
+            .modal-default-button {
+            float: right;
+            }
+
+            /*
+            * The following styles are auto-applied to elements with
+            * transition="modal" when their visibility is toggled
+            * by Vue.js.
+            *
+            * You can easily play with the modal transition by editing
+            * these styles.
+            */
+
+            .modal-enter {
+            opacity: 0;
+            }
+
+            .modal-leave-active {
+            opacity: 0;
+            }
+
+            .modal-enter .modal-container,
+            .modal-leave-active .modal-container {
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+            }
+
+        </style>
+
+        <script type="text/x-template" id="modal-template">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-container">
+
+                            <div class="modal-header">
+                                <slot name="header">
+                                    default header
+                                </slot>
+                            </div>
+
+                            <div class="modal-body">
+                                <slot name="body">
+                                    default body
+                                </slot>
+                            </div>
+
+                            <div class="modal-footer">
+                                <slot name="footer">
+                                    <!--
+                                    <button class="modal-default-button" @click="$emit('close')">
+                                        OK
+                                    </button>
+                                    -->
+                                </slot>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </script>
 
     </head>
     <body>
         <div class="container-fluid" id="app">
+
+
+            <modal v-if="showModal" @close="showModal = false">
+                <!--
+              you can use custom content here to overwrite
+              default content
+            -->
+                <h3 slot="header">寫入中</h3>
+                <h3 slot="body">
+                    請耐心等待<br>
+                    勿關閉視窗
+                </h3>
+                <h3 slot="footer">
+                    {{counting}}
+                </h3>
+            </modal>
+
 
                 <p>更新時間：{{updateDatetime}}</p>
                 <br>{{gotop}}
@@ -43,7 +159,7 @@
           
             <div class="row">
                 <div class="col-7">
-                <div id="toolbar-chat" ref="toolbarChat"></div>
+                    <div id="toolbar-chat" ref="toolbarChat"></div>
 
                     <div>
 
@@ -59,20 +175,13 @@
                                                 class="btn
                                                 btn-primary active" role="button"
                                                 aria-pressed="true">移出</button>
-                
-                                            <!--<button @click="downloadReport" class="btn-->
-                                            <!--btn-primary active" role="button"-->
-                                            <!--aria-pressed="true">下载</button>-->
-                
-                
-                
+
                                     </td>
                             </thead>
                             <tbody>
                                 <tr v-for="item in items" v-if="item.location.schoolid != 999999">
                 
                                     <td>
-                                            <!-- {{item.location.schoolid}} -->
                                         {{item.location.name}}
                                     </td>
                                         <td>
@@ -86,40 +195,35 @@
                 
                                     </td>
                                     <td>
-                                            <ul class="list-group">
-                                                <li class="list-group-item" v-for="team in
-                                                    item.teams">
-                                                    <input type="radio"
-                                                        v-bind:value="team.schoolid"
-                                                        v-model="checkedOut">
-                                                    <a v-bind:href="'/archive/school/' + team.name" target="_blank"> {{team.name}} </a>
-                                                    ({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
-                                                    <a v-bind:href="'https://www.google.com/maps/dir/' + team.name + '/' + item.location.name"  target="_blank">
-                                                        ({{item.location.name}})
-                                                    </a>
-                                                    <table>
-                                                        <tr>
-                                                            <td v-for="contest in
-                                                                team.contestids">
-                                                                ({{contest.contestid}}){{contest.members}}
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                
-                                                </li>
-                                            </ul>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="team in
+                                                item.teams">
+                                                <input type="radio"
+                                                    v-bind:value="team.schoolid"
+                                                    v-model="checkedOut">
+                                                <a v-bind:href="'/archive/school/' + team.name" target="_blank"> {{team.name}} </a>
+                                                ({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
+                                                <a v-bind:href="'https://www.google.com/maps/dir/?api=1&origin=' + team.name + '&destination=' + item.location.name + '&travelmode=driving'"  target="_blank">
+                                                    ({{item.location.name}})
+                                                </a>
+                                                <table>
+                                                    <tr>
+                                                        <td v-for="contest in
+                                                            team.contestids">
+                                                            ({{contest.contestid}}){{contest.members}}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </li>
+                                        </ul>
                                     </td>
-                
-                
-                
+
                                 </tr>
                             </tbody>
                         </table>
 
-
-
                     </div>
-
 
                 </div>
 
@@ -218,372 +322,384 @@
                          </tr>
                     </table>
 
-                未排入名单
-                <br>
-                <table class="table">
-               
-                    <tbody>
-                        <tr v-for="item in items" v-if="item.location.schoolid == 999999">
-    
-                            <td>
-                                <!-- {{item.location.schoolid}} -->
-                                {{item.location.name}}
-                            </td>
-                            <td>
-                                <!-- {{item.location.contestids[0].contestid}} -->
-                                <ul class="list-group">
-                                    <li class="list-group-item" v-for="contest in
-                                        item.location.contestids">
-                                        ({{contest.contestid}}){{contest.members}}
-                                    </li>
-                                </ul>
-    
-                            </td>
-                            <td>
-                                <ul class="list-group">
-                                    <li class="list-group-item" v-for="team in
-                                        item.teams">
-                                        <input type="radio"
-                                            v-bind:value="team.schoolid"
-                                            v-model="checkedOut">
-                                            {{team.name}}({{team.members}})
-                                        <table>
-                                            <tr>
-                                                <td v-for="contest in
-                                                    team.contestids">
-                                                    ({{contest.contestid}}){{contest.members}}
-                                                </td>
-                                            </tr>
-                                        </table>
-    
-                                    </li>
-                                </ul>
-                            </td>
-    
-    
-    
-                        </tr>
-                    </tbody>
-                </table>
+                    未排入名单
+                    <br>
+                    <table class="table">
 
+                        <tbody>
+                            <tr v-for="item in items" v-if="item.location.schoolid == 999999">
+
+                                <td>
+                                    <!-- {{item.location.schoolid}} -->
+                                    {{item.location.name}}
+                                </td>
+                                <td>
+                                    <!-- {{item.location.contestids[0].contestid}} -->
+                                    <ul class="list-group">
+                                        <li class="list-group-item" v-for="contest in
+                                            item.location.contestids">
+                                            ({{contest.contestid}}){{contest.members}}
+                                        </li>
+                                    </ul>
+
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" v-for="team in
+                                            item.teams">
+                                            <input type="radio"
+                                                v-bind:value="team.schoolid"
+                                                v-model="checkedOut">
+                                                {{team.name}}({{team.members}})
+                                            <table>
+                                                <tr>
+                                                    <td v-for="contest in
+                                                        team.contestids">
+                                                        ({{contest.contestid}}){{contest.members}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </li>
+                                    </ul>
+                                </td>
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
-            
+        </div>
+
+
 
 
 
 
         <footer>
             <script th:inline="javascript">
-        /*<![CDATA[*/
-        Vue.prototype.$http = axios;
-        let config = {
-            headers: {
-                'content-type': 'application/json;CHARSET=UTF-8'
-            }
-        };
-
-        var app = new Vue({
-            el: '#app',
-            data: {
-                uuid: /*[[${uuid}]]*/ 'default',
-                contestid: "",
-                items: [],
-                pending: {},
-                checkedOut:'',
-                checkedIn:'',
-                locations: [],
-                updateUrl: "",
-                updateDatetime: ""
-            },
-            computed: { 
-                gotop: function(){
-                    if (this.checkedOut != '') {
-                        console.log("move to top")
-                        var element = document.getElementById("topDiv");
-                        var top = element.offsetTop;
-                        window.scrollTo(0, top);
+                /*<![CDATA[*/
+                Vue.prototype.$http = axios;
+                let config = {
+                    timeout:60*5*1000,
+                    headers: {
+                        'content-type': 'application/json;CHARSET=UTF-8',
                     }
-                }
-                
-            },
-            created: function() {
-                let vm = this;
-                let url =  "/api/report/uuid/" + this.uuid;
-                
-                let schoolteams = 0;
-                this.$http.get(url, config).then((response) => {
+                };
 
-                    // vm.items = JSON.parse(response.data.report);
-                    let tmpItems = JSON.parse(response.data.report);
-
-                    tmpItems.forEach(function(item){
-                        item.location.contestids = item.location.contestids.sort(function(a,b){
-                            return a.contestid > b.contestid ? 1 : -1;
-                        })
-
-                        item.teams.forEach(function(team){
-                            console.log(team.name);
-                            schoolteams += 1;
-                            team.contestids = team.contestids.sort(function(a,b){
-                                return a.contestid > b.contestid ? 1 : -1;
-                            })
-                            
-                        })
-                   
-                      
-                    })
-                    console.log("共有队数:"+schoolteams);
-                
-                    tmpItems.forEach(function(item){
-                        // item.location.contestids.forEach(function(contest){
-                        //     console.log(contest.contestid);
-                        // })
-                        // item.teams.contestids.forEach(function(contest){
-                        //     console.log(contest.contestid);
-                        // })
-
-                    })
-
-                    vm.items = tmpItems;
-                    vm.updateUrl = "/report/" + vm.contestid + "/lock/" + vm.uuid;
-
-          
-
-                }, (response) => {
-                    // error callback
+                Vue.component("modal", {
+                  template: "#modal-template"
                 });
 
-
-            },
-            methods: {
-                updatePocketlist:function(){
-                    let config = {
-                        headers: {
-                            'content-type': 'application/json;CHARSET=UTF-8'
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    uuid: /*[[${uuid}]]*/ 'default',
+                    contestid: "",
+                    items: [],
+                    pending: {},
+                    checkedOut:'',
+                    checkedIn:'',
+                    locations: [],
+                    updateUrl: "",
+                    updateDatetime: "",
+                    showModal: false,
+                    counting: 0,
+                },
+                computed: {
+                    gotop: function(){
+                        if (this.checkedOut != '') {
+                            console.log("move to top")
+                            var element = document.getElementById("topDiv");
+                            var top = element.offsetTop;
+                            window.scrollTo(0, top);
                         }
-                        
-                    };
+                    }
+
+                },
+                created: function() {
                     let vm = this;
-                    let url = "/api/pocketlist"
-                    this.$http.post(url, JSON.stringify(this.items), config).then((response) => {
-                    // success callback
-                    vm.updateDatetime = response.data;
-                    console.log(response.data);
-                        
+                    let url =  "/api/report/uuid/" + this.uuid;
+
+                    let schoolteams = 0;
+                    this.$http.get(url, config).then((response) => {
+
+                        // vm.items = JSON.parse(response.data.report);
+                        let tmpItems = JSON.parse(response.data.report);
+
+                        tmpItems.forEach(function(item){
+                            item.location.contestids = item.location.contestids.sort(function(a,b){
+                                return a.contestid > b.contestid ? 1 : -1;
+                            })
+
+                            item.teams.forEach(function(team){
+                                console.log(team.name);
+                                schoolteams += 1;
+                                team.contestids = team.contestids.sort(function(a,b){
+                                    return a.contestid > b.contestid ? 1 : -1;
+                                })
+
+                            })
+
+
+                        })
+                        console.log("共有队数:"+schoolteams);
+
+                        //tmpItems.forEach(function(item){
+                            // item.location.contestids.forEach(function(contest){
+                            //     console.log(contest.contestid);
+                            // })
+                            // item.teams.contestids.forEach(function(contest){
+                            //     console.log(contest.contestid);
+                            // })
+
+                        //})
+
+                        vm.items = tmpItems;
+                        vm.updateUrl = "/report/" + vm.contestid + "/lock/" + vm.uuid;
+
                     }, (response) => {
-                    // error callback
+                        // error callback
                     });
 
 
-
-
                 },
-                addLocation: function(){
-                    let vm = this;
+                methods: {
+                    updatePocketlist:function(){
+                        this.showModal = true;
+                        this.counting = 0;
+                        let vm = this;
+                        let url = "/api/pocketlist"
 
-                    let teamcontestid1 = 0;
-                    let teamcontestid2 = 0;
-                    let teamcontestid3 = 0;
-                    let teamcontestid4 = 0;
-
-                    vm.pending.contestids.forEach(function(contest){
-                        console.log(contest.members);
-                        if(contest.contestid === 1){
-                            teamcontestid1 = contest.members;
-                        }
-                        if(contest.contestid === 2){
-                            teamcontestid2 = contest.members;
-                        }
-                        if(contest.contestid === 3){
-                            teamcontestid3 = contest.members;
-                        }
-                        if(contest.contestid === 4){
-                            teamcontestid4 = contest.members;
-                        }
-
-
-                    })
+                        timer = setInterval(() => {
+                            vm.counting += 1;
+                        },1000)
 
 
 
-                    this.items.forEach(function(item){
-                        if(vm.checkedIn === item.location.schoolid){
-                            console.log(vm.pending.schoolid + "加入" + item.location.schoolid);  
-                            item.teams.push(vm.pending);
+                        this.$http.post(url, JSON.stringify(this.items), config).then((response) => {
+                        // success callback
+                            vm.updateDatetime = response.data;
+                            console.log(response.data);
+                            vm.showModal = false;
+                            clearInterval(timer);
 
-                            //整理试场人数
-                            item.location.contestids.forEach(function(contest){
-                                if(contest.contestid === 1){
-                                    contest.members = contest.members - teamcontestid1 ;
-                                }
-                                if(contest.contestid === 2){
-                                    contest.members = contest.members - teamcontestid2 ;
-                                }
-                                if(contest.contestid === 3){
-                                    contest.members = contest.members - teamcontestid3 ;
-                                }
-                                if(contest.contestid === 4){
-                                    contest.members = contest.members - teamcontestid4 ;
-                                }
-                            })
-
-
-                             
-                            vm.pending = {};
-                        }
-                    })
+                        }, (response) => {
+                        // error callback
+                            console.log(response);
+                        });
 
 
 
 
-                },
-                addPending: function() {
+                    },
+                    addLocation: function(){
+                        let vm = this;
 
-                    let vm = this;
-                    //make sure no team in pending
-                    if(Object.values(vm.pending).length === 0){
                         let teamcontestid1 = 0;
                         let teamcontestid2 = 0;
                         let teamcontestid3 = 0;
                         let teamcontestid4 = 0;
-                        
+
+                        vm.pending.contestids.forEach(function(contest){
+                            console.log(contest.members);
+                            if(contest.contestid === 1){
+                                teamcontestid1 = contest.members;
+                            }
+                            if(contest.contestid === 2){
+                                teamcontestid2 = contest.members;
+                            }
+                            if(contest.contestid === 3){
+                                teamcontestid3 = contest.members;
+                            }
+                            if(contest.contestid === 4){
+                                teamcontestid4 = contest.members;
+                            }
+
+
+                        })
+
+
+
                         this.items.forEach(function(item){
-                      
-                            let tmpTeams = [];
-                            item.teams.forEach((team) => {
-                       
-                                //移除选取的
-                                if(vm.checkedOut === team.schoolid){
-                       
-                                    //取出参赛队伍人数
-                                    team.contestids.forEach(function(contest){
-                                        if(contest.contestid === 1){
-                                            teamcontestid1 = contest.members
-                                        }
-                                        if(contest.contestid === 2){
-                                            teamcontestid2 = contest.members
-                                        }
-                                        if(contest.contestid === 3){
-                                            teamcontestid3 = contest.members
-                                        }
-                                        if(contest.contestid === 4){
-                                            teamcontestid4 = contest.members
-                                        }
-                                    })
+                            if(vm.checkedIn === item.location.schoolid){
+                                console.log(vm.pending.schoolid + "加入" + item.location.schoolid);
+                                item.teams.push(vm.pending);
 
-                                
-                                    // console.log(location.location.name);
-                                    item.location.contestids.forEach(function(contest){
-                                        //contestid:1
-                                        if(contest.contestid === 1){
-                                            contest.members = contest.members + teamcontestid1
-                                        }
-                                        //contestid:2
-                                        if(contest.contestid === 2){
-                                            contest.members = contest.members + teamcontestid2
-                                        }
-                                        //contestid:3
-                                        if(contest.contestid === 3){
-                                            contest.members = contest.members + teamcontestid3
-                                        }
+                                //整理试场人数
+                                item.location.contestids.forEach(function(contest){
+                                    if(contest.contestid === 1){
+                                        contest.members = contest.members - teamcontestid1 ;
+                                    }
+                                    if(contest.contestid === 2){
+                                        contest.members = contest.members - teamcontestid2 ;
+                                    }
+                                    if(contest.contestid === 3){
+                                        contest.members = contest.members - teamcontestid3 ;
+                                    }
+                                    if(contest.contestid === 4){
+                                        contest.members = contest.members - teamcontestid4 ;
+                                    }
+                                })
 
-                                        //contestid:4
-                                        if(contest.contestid === 4){
-                                            contest.members = contest.members + teamcontestid4
-                                        }
-                                    })
-                                    vm.pending = team;
-                                    vm.checkedOut = '';
 
-                                } else {
-                                    tmpTeams.push(team);
-                                }
+
+                                vm.pending = {};
+                            }
+                        })
+
+
+
+
+                    },
+                    addPending: function() {
+
+                        let vm = this;
+                        //make sure no team in pending
+                        if(Object.values(vm.pending).length === 0){
+                            let teamcontestid1 = 0;
+                            let teamcontestid2 = 0;
+                            let teamcontestid3 = 0;
+                            let teamcontestid4 = 0;
+
+                            this.items.forEach(function(item){
+
+                                let tmpTeams = [];
+                                item.teams.forEach((team) => {
+
+                                    //移除选取的
+                                    if(vm.checkedOut === team.schoolid){
+
+                                        //取出参赛队伍人数
+                                        team.contestids.forEach(function(contest){
+                                            if(contest.contestid === 1){
+                                                teamcontestid1 = contest.members
+                                            }
+                                            if(contest.contestid === 2){
+                                                teamcontestid2 = contest.members
+                                            }
+                                            if(contest.contestid === 3){
+                                                teamcontestid3 = contest.members
+                                            }
+                                            if(contest.contestid === 4){
+                                                teamcontestid4 = contest.members
+                                            }
+                                        })
+
+
+                                        // console.log(location.location.name);
+                                        item.location.contestids.forEach(function(contest){
+                                            //contestid:1
+                                            if(contest.contestid === 1){
+                                                contest.members = contest.members + teamcontestid1
+                                            }
+                                            //contestid:2
+                                            if(contest.contestid === 2){
+                                                contest.members = contest.members + teamcontestid2
+                                            }
+                                            //contestid:3
+                                            if(contest.contestid === 3){
+                                                contest.members = contest.members + teamcontestid3
+                                            }
+
+                                            //contestid:4
+                                            if(contest.contestid === 4){
+                                                contest.members = contest.members + teamcontestid4
+                                            }
+                                        })
+                                        vm.pending = team;
+                                        vm.checkedOut = '';
+
+                                    } else {
+                                        tmpTeams.push(team);
+                                    }
+                                 })
+
+                                item.teams = tmpTeams;
+
                              })
 
-                            item.teams = tmpTeams;
+                            // //重新计算可排入场地
+                            vm.locations.capable = [];
+                            vm.locations.notcapable = [];
 
-                         })
+                            let notcapable = [];
+                            this.items.forEach((item) => {
+                                let locationcontestid1 = 0;
+                                let locationcontestid2 = 0;
+                                let locationcontestid3 = 0;
+                                let locationcontestid4 = 0;
 
-                        // //重新计算可排入场地
-                        vm.locations.capable = [];
-                        vm.locations.notcapable = [];
-                        
-                        let notcapable = [];
-                        this.items.forEach((item) => {
-                            let locationcontestid1 = 0;
-                            let locationcontestid2 = 0;
-                            let locationcontestid3 = 0;
-                            let locationcontestid4 = 0;
-                            
-                            item.location.contestids.forEach(function(contest){
-                                // console.log(item.location.name);
+                                item.location.contestids.forEach(function(contest){
+                                    // console.log(item.location.name);
 
-                                if(contest.contestid === 1){
-                                    locationcontestid1 = contest.members;
-                                }
+                                    if(contest.contestid === 1){
+                                        locationcontestid1 = contest.members;
+                                    }
 
-                                if(contest.contestid === 2){
-                                    locationcontestid2 = contest.members;
-                                }
+                                    if(contest.contestid === 2){
+                                        locationcontestid2 = contest.members;
+                                    }
 
+                                    if(contest.contestid === 3){
+                                        locationcontestid3 = contest.members;
+                                    }
 
-                                if(contest.contestid === 3){
-                                    locationcontestid3 = contest.members;
-                                }
+                                    if(contest.contestid === 4){
+                                        locationcontestid4 = contest.members;
+                                    }
 
-                                if(contest.contestid === 4){
-                                    locationcontestid4 = contest.members;
+                                })
+
+                                // console.log(item.location.name+"1:"+locationcontestid1+",2:"+locationcontestid2+",3:"+locationcontestid3);
+
+                                if(locationcontestid1>=teamcontestid1 && locationcontestid2>=teamcontestid2 && locationcontestid3>=teamcontestid3 && locationcontestid4>=teamcontestid4){
+                                    // console.log(item.location.name);
+                                    // capable.push(item.location);
+                                    vm.locations.capable.push(item.location);
+                                } else {
+                                    // notcapable.push(item.location);
+                                    vm.locations.notcapable.push(item.location);
+
                                 }
 
                             })
 
-                            // console.log(item.location.name+"1:"+locationcontestid1+",2:"+locationcontestid2+",3:"+locationcontestid3);
-                        
-                            if(locationcontestid1>=teamcontestid1 && locationcontestid2>=teamcontestid2 && locationcontestid3>=teamcontestid3 && locationcontestid4>=teamcontestid4){
-                                // console.log(item.location.name);
-                                // capable.push(item.location);
-                                vm.locations.capable.push(item.location);
-                            } else {
-                                // notcapable.push(item.location);
-                                vm.locations.notcapable.push(item.location);
 
-                            }
-
-                        })
-                    
-
-                    } else {
-                        console.log("pending里有学校,无法再加入");
-                    }
-                    
-                  
-
-                },
-                // downloadReport: function(){
-                //     // /api/report/download/{uuid}
-                //     //
-                //     let config = {
-                //         headers: {
-                //             'content-type': 'application/json;CHARSET=UTF-8'
-                //         },
-                //         responseType: 'arraybuffer'
-                //     };
-
-                //     let url = "/api/report/download/"+ this.uuid;
-                //     let vm = this;
-                //     this.$http.get(url, config)
-                //         .then((response) => {
-                //             var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-                //             saveAs(blob, 'player.xlsx');
-                //         });
+                        } else {
+                            console.log("pending里有学校,无法再加入");
+                        }
 
 
-                // }
-            }
-        })
 
-         /*]]>*/
+                    },
+                    // downloadReport: function(){
+                    //     // /api/report/download/{uuid}
+                    //     //
+                    //     let config = {
+                    //         headers: {
+                    //             'content-type': 'application/json;CHARSET=UTF-8'
+                    //         },
+                    //         responseType: 'arraybuffer'
+                    //     };
+
+                    //     let url = "/api/report/download/"+ this.uuid;
+                    //     let vm = this;
+                    //     this.$http.get(url, config)
+                    //         .then((response) => {
+                    //             var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    //             saveAs(blob, 'player.xlsx');
+                    //         });
+
+
+                    // }
+                }
+            })
+
+             /*]]>*/
         </script>
         </footer>
 
