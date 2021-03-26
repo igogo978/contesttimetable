@@ -167,7 +167,8 @@ public class PocketlistService {
         teamRepository.findAll(Sort.by("location").and(Sort.by("schoolname")).and(Sort.by("description").and(Sort.by("contestitem")))).forEach(team -> {
             team.setAccount("");
             team.setPasswd("");
-            team.setDescription(team.getDescription().split("-")[1]);
+//            team.setDescription(team.getDescription().split("-")[1]);
+            team.setDescription(team.getDescription().substring(2));
             teams.add(team);
         });
 

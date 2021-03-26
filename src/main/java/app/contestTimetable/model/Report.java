@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class Report {
 
-    https://www.baeldung.com/jpa-join-column
+//    https://www.baeldung.com/jpa-join-column
 
     @Id
     private String uuid;

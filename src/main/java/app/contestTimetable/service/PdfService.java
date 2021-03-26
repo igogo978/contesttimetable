@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -53,10 +54,11 @@ public class PdfService {
 
     @Autowired
     TeamRepository teamRepository;
+    private FontProgram twKaiFont = null;
+
 
     public PdfService() throws IOException {
     }
-
 
     public Table doCoverTablePage(PdfFont font, Inform inform) {
 
@@ -106,7 +108,6 @@ public class PdfService {
         return table;
     }
 
-
     private String containsExtHanzi(List<String> extHanzis, String name) {
 
         for (String hanzi : extHanzis) {
@@ -151,7 +152,6 @@ public class PdfService {
         }
         return usernameTextList;
     }
-
 
     public Table doCover2TablePage(PdfFont font, PdfFont fontExt, List<Team> teams) throws IOException {
 
@@ -367,7 +367,6 @@ public class PdfService {
 
     }
 
-
     public Table doTeamTablePage(PdfFont font, PdfFont fontExt, Team team) throws IOException {
 //        //handle unicode 第2字面
 //        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
@@ -482,72 +481,70 @@ public class PdfService {
         return table;
     }
 
-    public List<Inform> doInformAll(Boolean isLogin){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        //download pdf
-        List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
-        List<Location> locations = new ArrayList<>();
-        locationRepository.findAll().forEach(locations::add);
-        locations.removeIf(location -> location.getLocationname().equals("未排入"));
-
-        String filename = "inform-all.pdf";
-
-        List<Inform> informs = new ArrayList<>();
-
-        HashMap<Inform, List<Team>> informAll = new HashMap<>();
-
-        //4 个场次
-        configs.forEach(config -> {
-
-            List<String> contestgroup = config.getContestgroup().stream().map(item -> item.toUpperCase() + "組").collect(Collectors.toList());
-
-            locations.forEach(location -> {
-                Inform inform = new Inform();
-
-                inform.setContestItem(String.join("、", contestgroup));
-                inform.setTeamsize(0);
-                inform.setLocation(location.getLocationname());
-                inform.setDescription(config.getDescription());
-                AtomicReference<Integer> teamsize = new AtomicReference<>(0);
-                AtomicReference<Integer> totalpeople = new AtomicReference<>(0);
-
-                config.getContestgroup().forEach(contestitem -> {
-
-                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
-                    teams.forEach(team -> {
-                        if (team.getMembername() != null) {
-//                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
-                            totalpeople.updateAndGet(v -> v + 2);
-                        } else {
-                            totalpeople.updateAndGet(v -> v + 1);
-                        }
-                    });
-//                    inform.getTeams().addAll(teams);
-                    teams.forEach(team -> {
-
-                        if (isLogin == Boolean.FALSE) {
-                            team.setAccount("*****");
-                            team.setPasswd("*****");
-                        }
-
-                        inform.getTeams().add(team);
-                    });
-                    teamsize.updateAndGet(v -> v + teams.size());
-                });
-                inform.setTeamsize(teamsize.get());
-                inform.setTotalPeople(totalpeople.get());
-                informs.add(inform);
-
-            });
-
-        });
-
-
-        return informs;
-    }
-
-    private FontProgram twKaiFont = null;
+//    public List<Inform> doInformAll(Boolean isLogin) {
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//
+//        //download pdf
+//        List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
+//        List<Location> locations = new ArrayList<>();
+//        locationRepository.findAll().forEach(locations::add);
+//        locations.removeIf(location -> location.getLocationname().equals("未排入"));
+//
+//        String filename = "inform-all.pdf";
+//
+//        List<Inform> informs = new ArrayList<>();
+//
+//        HashMap<Inform, List<Team>> informAll = new HashMap<>();
+//
+//        //3 个场次
+//        configs.forEach(config -> {
+//
+//            List<String> contestgroup = config.getContestgroup().stream().map(item -> item.toUpperCase() + "組").collect(Collectors.toList());
+//
+//            locations.forEach(location -> {
+//                Inform inform = new Inform();
+//
+//                inform.setContestItem(String.join("、", contestgroup));
+//                inform.setTeamsize(-1);
+//                inform.setLocation(location.getLocationname());
+//                inform.setDescription(config.getDescription());
+//                AtomicReference<Integer> teamsize = new AtomicReference<>(-1);
+//                AtomicReference<Integer> totalpeople = new AtomicReference<>(-1);
+//
+//                config.getContestgroup().forEach(contestitem -> {
+//
+//                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
+//                    teams.forEach(team -> {
+//                        if (team.getMembername() != null) {
+////                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
+//                            totalpeople.updateAndGet(v -> v + 1);
+//                        } else {
+//                            totalpeople.updateAndGet(v -> v + 0);
+//                        }
+//                    });
+////                    inform.getTeams().addAll(teams);
+//                    teams.forEach(team -> {
+//                        team.setDescription(team.getDescription().substring(1));
+//                        if (isLogin == Boolean.FALSE) {
+//                            team.setAccount("*****");
+//                            team.setPasswd("*****");
+//                        }
+//
+//                        inform.getTeams().add(team);
+//                    });
+//                    teamsize.updateAndGet(v -> v + teams.size());
+//                });
+//                inform.setTeamsize(teamsize.get());
+//                inform.setTotalPeople(totalpeople.get());
+//                informs.add(inform);
+//
+//            });
+//
+//        });
+//
+//
+//        return informs;
+//    }
 
     public ByteArrayOutputStream doInformCoverAndTeamPDF(List<Inform> informs) throws IOException {
         String contestHeader = informRepository.findById(1).get().getHeader();

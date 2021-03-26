@@ -43,12 +43,12 @@ public class TeamService {
     @Value("${multipart.location}")
     private Path path;
 
-    public List<Team> findTeamByLocationAndContestitemNotContain(String location, String contestitemnotcontain) {
-        List<Team> teams = new ArrayList<>();
-
-        teams = teamRepository.findByLocationAndContestitemNotContainingOrderByLocation(location, contestitemnotcontain);
-        return teams;
-    }
+//    public List<Team> findTeamByLocationAndContestitemNotContain(String location, String contestitemnotcontain) {
+//        List<Team> teams = new ArrayList<>();
+//
+//        teams = teamRepository.findByLocationAndContestitemNotContainingOrderByLocation(location, contestitemnotcontain);
+//        return teams;
+//    }
 
     public void restore(MultipartFile multipartFile) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

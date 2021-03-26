@@ -19,10 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -786,7 +784,6 @@ public class XlsxService {
 
             cell = row.createCell(5);
             cell.setCellValue(teams.get(i).getDescription());
-
 
         }
 

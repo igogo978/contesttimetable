@@ -81,7 +81,7 @@ public class PocketlistApiController {
 
 
     //    String twFont = "/opt/font/TW-Kai-98_1.ttf";
-    String contestHeader = "臺中市110年度中小學資訊網路應用競賽決賽";
+//    String contestHeader = "臺中市110年度中小學資訊網路應用競賽決賽";
 
     @PostMapping(value = "/api/pocketlist")
     public String postReport(@RequestBody String payload) throws IOException {
@@ -304,7 +304,7 @@ public class PocketlistApiController {
 
         String filename = "inform-location.zip";
         List<Inform> informs = new ArrayList<>();
-        informs = informService.getInformsforLocation(Boolean.FALSE);
+        informs = informService.getInformsByLocation(Boolean.FALSE);
 
         List<File> xlsxList = new ArrayList<>();
 
@@ -359,7 +359,8 @@ public class PocketlistApiController {
 
         Boolean isLogin = request.getSession(false) == null ? Boolean.FALSE : Boolean.TRUE;
         List<Inform> informs = new ArrayList<>();
-        informs = pdfService.doInformAll(isLogin);
+//        informs = pdfService.doInformAll(isLogin);
+        informs = informService.getInformsAll(isLogin);
 
         String filename = "inform-all.pdf";
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

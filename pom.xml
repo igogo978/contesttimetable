@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>app</groupId>
 	<artifactId>contestTimetable</artifactId>
-	<version>server97</version>
+	<version>server99</version>
 	<name>contestTimetable</name>
 	<description>contest timetable</description>
 
