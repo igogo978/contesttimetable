@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,13 +43,6 @@ public class TeamService {
 
     @Value("${multipart.location}")
     private Path path;
-
-//    public List<Team> findTeamByLocationAndContestitemNotContain(String location, String contestitemnotcontain) {
-//        List<Team> teams = new ArrayList<>();
-//
-//        teams = teamRepository.findByLocationAndContestitemNotContainingOrderByLocation(location, contestitemnotcontain);
-//        return teams;
-//    }
 
     public void restore(MultipartFile multipartFile) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -96,6 +90,43 @@ public class TeamService {
             );
         });
 
+    }
+
+    public List<Team> getTeamsByLocationAndContestitemContaining(Boolean isLogin, String locationname, String contestitem) {
+        List<Team> teams = new ArrayList<>();
+        teamRepository.findByLocationAndContestitemContaining(locationname, contestitem.toUpperCase()).forEach(team -> {
+            if (isLogin == Boolean.FALSE) {
+                team.setAccount("*****");
+                team.setPasswd("*****");
+            }
+            team.setDescription(team.getDescription().substring(2));
+
+            teams.add(team);
+        });
+
+        return teams;
+
+    }
+
+    public List<Team> getTeamsByLocation() {
+        List<Team> teams = new ArrayList<>();
+        teamRepository.findAll(Sort.by("location").and(Sort.by("description")).and(Sort.by("contestitem").and(Sort.by("schoolname")))).forEach(team -> {
+            team.setAccount("");
+            team.setPasswd("");
+            teams.add(team);
+        });
+        return teams;
+    }
+
+    public List<Team> getTeamsByPlayer() {
+        List<Team> teams = new ArrayList<>();
+        teamRepository.findAll(Sort.by("location").and(Sort.by("schoolname")).and(Sort.by("description").and(Sort.by("contestitem")))).forEach(team -> {
+            team.setAccount("");
+            team.setPasswd("");
+            team.setDescription(team.getDescription().substring(2));
+            teams.add(team);
+        });
+        return teams;
     }
 
 }

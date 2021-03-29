@@ -61,8 +61,8 @@ public class PocketlistApiController {
     @Autowired
     ReportScoresSummaryRepository reportScoresSummaryRepository;
 
-    @Autowired
-    SchoolTeamRepository schoolTeamRepository;
+//    @Autowired
+//    SchoolTeamRepository schoolTeamRepository;
 
     @Autowired
     InformService informService;
@@ -84,18 +84,18 @@ public class PocketlistApiController {
 //    String contestHeader = "臺中市110年度中小學資訊網路應用競賽決賽";
 
     @PostMapping(value = "/api/pocketlist")
-    public String postReport(@RequestBody String payload) throws IOException {
+    public String updatePocketlist(@RequestBody String payload) throws IOException {
 
-        Report report = new Report();
-        report.setUuid("1");
-        report.setReport(payload);
-        report.setScores(1.0);
-        reportRepository.save(report);
+//        Report report = new Report();
+//        report.setUuid("1");
+//        report.setReport(payload);
+//        report.setScores(1.0);
+//        reportRepository.save(report);
 
-        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
-        reportScoresSummary.setUuid("1");
-        reportScoresSummary.setScores(1.0);
-        reportScoresSummaryRepository.save(reportScoresSummary);
+//        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
+//        reportScoresSummary.setUuid("1");
+//        reportScoresSummary.setScores(1.0);
+//        reportScoresSummaryRepository.save(reportScoresSummary);
 
         pocketlistService.updatePocketlist(payload);
 
@@ -108,7 +108,7 @@ public class PocketlistApiController {
 
     @DeleteMapping(value = "/api/pocketlist")
     public String deletePacketlist(@RequestBody String payload) {
-        logger.info(payload);
+//        logger.info(payload);
         ZonedDateTime dateTime = ZonedDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -183,7 +183,7 @@ public class PocketlistApiController {
         });
 
         ObjectMapper mapper = new ObjectMapper();
-        logger.info(mapper.writeValueAsString(locationMp));
+//        logger.info(mapper.writeValueAsString(locationMp));
 
         return locationMp;
     }
@@ -297,7 +297,6 @@ public class PocketlistApiController {
         baseDir.mkdir();
         File informDir = new File("/tmp/contest/inform");
         if (informDir.exists()) {
-            logger.info("delete anyway");
             FileUtils.forceDelete(informDir);
         }
         informDir.mkdir();

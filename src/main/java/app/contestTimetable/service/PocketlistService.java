@@ -1,21 +1,19 @@
 package app.contestTimetable.service;
 
 
+import app.contestTimetable.model.Report;
+import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.school.Contestid;
 import app.contestTimetable.model.school.Location;
-import app.contestTimetable.repository.ContestconfigRepository;
-import app.contestTimetable.repository.LocationRepository;
-import app.contestTimetable.repository.PocketlistRepository;
-import app.contestTimetable.repository.TeamRepository;
+import app.contestTimetable.repository.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -33,12 +31,20 @@ public class PocketlistService {
     TeamRepository teamRepository;
 
     @Autowired
+    TeamService teamService;
+
+    @Autowired
     ContestconfigRepository contestconfigRepository;
 
 
     @Autowired
     LocationRepository locationRepository;
 
+    @Autowired
+    ReportRepository reportRepository;
+
+    @Autowired
+    ReportScoresSummaryRepository reportScoresSummaryRepository;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
     ObjectMapper mapper = new ObjectMapper();
@@ -74,8 +80,19 @@ public class PocketlistService {
     }
 
     public void updatePocketlist(String payload) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
 
+        Report report = new Report();
+        report.setUuid("1");
+        report.setReport(payload);
+        report.setScores(1.0);
+        reportRepository.save(report);
+
+        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
+        reportScoresSummary.setUuid("1");
+        reportScoresSummary.setScores(1.0);
+        reportScoresSummaryRepository.save(reportScoresSummary);
+
+        ObjectMapper mapper = new ObjectMapper();
 
         logger.info(payload);
 
@@ -114,7 +131,6 @@ public class PocketlistService {
                     contestid.setMembers(contest.get("members").asInt());
                     pocketlist.getTeamcontestids().add(contestid);
 
-//                    logger.info(contest.get("contestid").asText()+":"+contest.get("members").asInt());
                 });
                 pocketlistRepository.save(pocketlist);
 
@@ -163,29 +179,29 @@ public class PocketlistService {
     }
 
     public List<Team> getPocketlistByPlayer() {
-        List<Team> teams = new ArrayList<>();
-        teamRepository.findAll(Sort.by("location").and(Sort.by("schoolname")).and(Sort.by("description").and(Sort.by("contestitem")))).forEach(team -> {
-            team.setAccount("");
-            team.setPasswd("");
-//            team.setDescription(team.getDescription().split("-")[1]);
-            team.setDescription(team.getDescription().substring(2));
-            teams.add(team);
-        });
+//        List<Team> teams = new ArrayList<>();
+//        teamRepository.findAll(Sort.by("location").and(Sort.by("schoolname")).and(Sort.by("description").and(Sort.by("contestitem")))).forEach(team -> {
+//            team.setAccount("");
+//            team.setPasswd("");
+////            team.setDescription(team.getDescription().split("-")[1]);
+//            team.setDescription(team.getDescription().substring(2));
+//            teams.add(team);
+//        });
 
-        return teams;
+        return teamService.getTeamsByPlayer();
     }
 
 
     public List<Team> getPocketlistByLocation() {
-        List<Team> teams = new ArrayList<>();
-        teamRepository.findAll(Sort.by("location").and(Sort.by("description")).and(Sort.by("contestitem").and(Sort.by("schoolname")))).forEach(team -> {
-                    team.setAccount("");
-                    team.setPasswd("");
-                    teams.add(team);
-        });
+//        List<Team> teams = new ArrayList<>();
+//        teamRepository.findAll(Sort.by("location").and(Sort.by("description")).and(Sort.by("contestitem").and(Sort.by("schoolname")))).forEach(team -> {
+//                    team.setAccount("");
+//                    team.setPasswd("");
+//                    teams.add(team);
+//        });
 
 
-        return teams;
+        return teamService.getTeamsByLocation();
     }
 
 

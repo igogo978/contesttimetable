@@ -30,10 +30,13 @@ public class InformService {
     PocketlistService pocketlistService;
 
     @Autowired
-    PocketlistRepository pocketlistRepository;
+    TeamService teamService;
 
     @Autowired
-    TeamRepository teamRepository;
+    PocketlistRepository pocketlistRepository;
+
+//    @Autowired
+//    TeamRepository teamRepository;
 
     @Autowired
     LocationRepository locationRepository;
@@ -42,7 +45,7 @@ public class InformService {
     XlsxService xlsxService;
 
 
-    public List<Inform> getInformsByLocation(Boolean isPasswdVisible) {
+    public List<Inform> getInformsByLocation(Boolean isLogin) {
         List<Inform> informs = new ArrayList<>();
 
 
@@ -69,8 +72,10 @@ public class InformService {
                 config.getContestgroup().forEach(contestitem -> {
 
 
-                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
+//                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
+                    List<Team> teams = teamService.getTeamsByLocationAndContestitemContaining(isLogin, location.getLocationname(),contestitem.toUpperCase());
                     teams.forEach(team -> {
+                        inform.getTeams().add(team);
                         if (team.getMembername() != null) {
 //                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
                             totalpeople.updateAndGet(v -> v + 2);
@@ -79,15 +84,14 @@ public class InformService {
                         }
                     });
 
-                    teams.forEach(team -> {
-                        team.setDescription(team.getDescription().substring(2));
-                        if (!isPasswdVisible) {
-                            team.setAccount("*****");
-                            team.setPasswd("*****");
-                        }
-
-                        inform.getTeams().add(team);
-                    });
+//                    teams.forEach(team -> {
+//                        team.setDescription(team.getDescription().substring(2));
+//                        if (!isPasswdVisible) {
+//                            team.setAccount("*****");
+//                            team.setPasswd("*****");
+//                        }
+//
+//                    });
                     teamsize.updateAndGet(v -> v + teams.size());
                 });
                 inform.setTeamsize(teamsize.get());
@@ -134,8 +138,10 @@ public class InformService {
 
                 config.getContestgroup().forEach(contestitem -> {
 
-                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
+//                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
+                    List<Team> teams = teamService.getTeamsByLocationAndContestitemContaining(isLogin, location.getLocationname(),contestitem.toUpperCase());
                     teams.forEach(team -> {
+                        inform.getTeams().add(team);
                         if (team.getMembername() != null) {
 //                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
                             totalpeople.updateAndGet(v -> v + 1);
@@ -144,15 +150,15 @@ public class InformService {
                         }
                     });
 //                    inform.getTeams().addAll(teams);
-                    teams.forEach(team -> {
-                        team.setDescription(team.getDescription().substring(1));
-                        if (isLogin == Boolean.FALSE) {
-                            team.setAccount("*****");
-                            team.setPasswd("*****");
-                        }
-
-                        inform.getTeams().add(team);
-                    });
+//                    teams.forEach(team -> {
+//                        team.setDescription(team.getDescription().substring(1));
+//                        if (isLogin == Boolean.FALSE) {
+//                            team.setAccount("*****");
+//                            team.setPasswd("*****");
+//                        }
+//
+//                        inform.getTeams().add(team);
+//                    });
                     teamsize.updateAndGet(v -> v + teams.size());
                 });
                 inform.setTeamsize(teamsize.get());
