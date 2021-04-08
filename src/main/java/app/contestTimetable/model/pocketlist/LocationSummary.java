@@ -3,9 +3,9 @@ package app.contestTimetable.model.pocketlist;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocationSum {
+public class LocationSummary {
 
-    private String location;
+//    private String location;
 
     private Integer contestid;
 
@@ -13,15 +13,8 @@ public class LocationSum {
     private Map<String,Integer> contestitem = new HashMap<>();
 
     private Integer members;
+    private Integer usbFlashDriveNumbers;
 
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public Integer getContestid() {
         return contestid;
@@ -45,5 +38,13 @@ public class LocationSum {
 
     public void setContestitem(Map<String, Integer> contestitem) {
         this.contestitem = contestitem;
+    }
+
+    public Integer getUsbFlashDriveNumbers() {
+        return usbFlashDriveNumbers;
+    }
+
+    public void setUsbFlashDriveNumbers(Integer usbFlashDriveNumbers) {
+        this.usbFlashDriveNumbers = usbFlashDriveNumbers;
     }
 }

@@ -166,17 +166,17 @@
                         <table class="table">
                             <thead>
                                         <!--<td>代码</td>-->
-                                        <td>場地</td>
-                                        <td>尚有電腦数</td>
-                                        <td>參賽隊-人數-距離</td>
-                                        <td>
+                                        <th>場地</th>
+                                        <th>尚有電腦数</th>
+                                        <th>參賽隊-人數-得分</th>
+                                        <th>
                                             <button v-if="checkedOut !=''"
                                                 @click="addPending"
                                                 class="btn
                                                 btn-primary active" role="button"
                                                 aria-pressed="true">移出</button>
 
-                                    </td>
+                                        </th>
                             </thead>
                             <tbody>
                                 <tr v-for="item in items" v-if="item.location.schoolid != 999999">
@@ -333,16 +333,16 @@
                                     <!-- {{item.location.schoolid}} -->
                                     {{item.location.name}}
                                 </td>
-                                <td>
-                                    <!-- {{item.location.contestids[0].contestid}} -->
-                                    <ul class="list-group">
-                                        <li class="list-group-item" v-for="contest in
-                                            item.location.contestids">
-                                            ({{contest.contestid}}){{contest.members}}
-                                        </li>
-                                    </ul>
-
-                                </td>
+                                <!--
+                                    <td>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="contest in
+                                                item.location.contestids">
+                                                ({{contest.contestid}}){{contest.members}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                -->
                                 <td>
                                     <ul class="list-group">
                                         <li class="list-group-item" v-for="team in
@@ -422,13 +422,14 @@
                 },
                 created: function() {
                     let vm = this;
-                    let url =  "/api/report/uuid/" + this.uuid;
+                    //let url =  "/api/report/uuid/" + this.uuid;
+                    let url =  "/api/reportbody/" + this.uuid;
 
                     let schoolteams = 0;
                     this.$http.get(url, config).then((response) => {
 
                         // vm.items = JSON.parse(response.data.report);
-                        let tmpItems = JSON.parse(response.data.report);
+                        let tmpItems = JSON.parse(response.data.body);
 
                         tmpItems.forEach(function(item){
                             item.location.contestids = item.location.contestids.sort(function(a,b){
@@ -448,18 +449,8 @@
                         })
                         console.log("共有队数:"+schoolteams);
 
-                        //tmpItems.forEach(function(item){
-                            // item.location.contestids.forEach(function(contest){
-                            //     console.log(contest.contestid);
-                            // })
-                            // item.teams.contestids.forEach(function(contest){
-                            //     console.log(contest.contestid);
-                            // })
-
-                        //})
-
                         vm.items = tmpItems;
-                        vm.updateUrl = "/report/" + vm.contestid + "/lock/" + vm.uuid;
+                        //vm.updateUrl = "/report/" + vm.contestid + "/lock/" + vm.uuid;
 
                     }, (response) => {
                         // error callback

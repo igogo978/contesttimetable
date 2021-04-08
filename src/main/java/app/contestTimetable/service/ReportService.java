@@ -2,12 +2,13 @@ package app.contestTimetable.service;
 
 
 import app.contestTimetable.model.Contestconfig;
-import app.contestTimetable.model.Report;
-import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.model.Team;
+import app.contestTimetable.model.report.Report;
+import app.contestTimetable.model.report.ReportBody;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -27,10 +29,7 @@ public class ReportService {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    ReportRepository reportrepository;
-
-    @Autowired
-    ReportScoresSummaryRepository reportScoresSummaryRepository;
+    ReportRepository reportRepository;
 
     @Autowired
     TicketRepository ticketrepository;
@@ -42,16 +41,40 @@ public class ReportService {
     TeamRepository teamrepository;
 
     @Autowired
+    ReportBodyRepository reportBodyRepository;
+
+    @Autowired
     TicketService ticketservice;
 
     public Boolean isExistUuid(String uuid) {
 
-        if (reportrepository.countByUuid(uuid) == 0) {
+        if (reportRepository.countByUuid(uuid) == 0) {
             return Boolean.FALSE;
         } else {
             return Boolean.TRUE;
         }
 
+    }
+
+    public ReportBody getReportbody(String uuid) {
+        if (reportBodyRepository.findByUuid(uuid).isPresent()) {
+            return reportBodyRepository.findByUuid(uuid).get();
+        }
+
+        return new ReportBody();
+
+    }
+
+    public Optional<Report> getReport(String uuid) {
+        return reportRepository.findByUuid(uuid);
+    }
+
+    public List<Report> getReports() {
+        return reportRepository.findAllByOrderByScoresAsc();
+    }
+
+    public List<ReportBody> getReportBodies() {
+        return reportBodyRepository.findAll();
     }
 
     public void updateTeamLocationAndTicket(String manualreport) throws IOException, InvalidFormatException {
@@ -187,12 +210,12 @@ public class ReportService {
     }
 
 
-    public void updateTeamLocation(Report report) throws IOException {
+    public void updateTeamLocation(ReportBody reportBody) throws IOException {
         //update team's location
         ArrayList<Team> teams = new ArrayList<>();
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(report.getReport());
+        JsonNode root = mapper.readTree(reportBody.getBody());
 
         root.forEach(node -> {
             String location = node.get("location").get("name").asText();
@@ -211,12 +234,12 @@ public class ReportService {
     }
 
 
-    public HashMap<Integer, Integer> getReportScoresrange(Report report) throws IOException {
+    public HashMap<Integer, Integer> getReportSummary(ReportBody reportBody) throws IOException {
         HashMap<Integer, Integer> scoresrange = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<String> teams = new ArrayList<>();
 
-        JsonNode root = mapper.readTree(report.getReport());
+        JsonNode root = mapper.readTree(reportBody.getBody());
         root.forEach(location -> {
             location.get("teams").forEach(school -> {
                 logger.info(String.valueOf(school.get("scores").asInt()));
@@ -228,13 +251,13 @@ public class ReportService {
     }
 
 
-    public List<String> getReport(Report report) throws IOException {
+    public List<String> getReport(ReportBody reportBody) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
         List<String> teams = new ArrayList<>();
 //        String contestid = String.format("contestid,%s,   ", report.getContestid());
 //        teams.add(contestid);
-        JsonNode root = mapper.readTree(report.getReport());
+        JsonNode root = mapper.readTree(reportBody.getBody());
         root.forEach(location -> {
             String locationname = String.format("%s,%s,%s", location.get("location").get("schoolid").asText(), location.get("location").get("name").asText(), location.get("location").get("capacity").asInt());
             teams.add(String.format("%s", locationname));
@@ -255,19 +278,52 @@ public class ReportService {
     }
 
 
-    public void restoreReportJson(String jsonfile) throws IOException {
+    public void restoreReports(String jsonfile) throws IOException {
         logger.info("reports restore:" + jsonfile);
         ObjectMapper mapper = new ObjectMapper();
-        List<Report> reports = Arrays.asList(mapper.readValue(new File(jsonfile), Report[].class));
+        List<ReportBody> reportBodies = Arrays.asList(mapper.readValue(new File(jsonfile), ReportBody[].class));
 
-        reports.forEach(report -> {
-            ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
-            reportScoresSummary.setUuid(report.getUuid());
-            reportScoresSummary.setScores(report.getScores());
-            reportScoresSummary.setScoresfrequency(report.getScoresfrequency());
-            reportScoresSummaryRepository.save(reportScoresSummary);
-            reportrepository.save(report);
+        reportBodies.forEach(rb -> {
+            Report report = new Report();
+            report.setSummary(rb.getReport().getSummary());
+            report.setUuid(rb.getUuid());
+            report.setScores(rb.getReport().getScores());
+
+            ReportBody reportBody = new ReportBody();
+            reportBody.setReport(report);
+            reportBody.setBody(rb.getBody());
+            updateReport(reportBody);
+
         });
+
     }
 
+    public void updateReport(ReportBody reportBody) {
+        String uuid = reportBody.getReport().getUuid();
+        if (reportRepository.findByUuid(uuid).isPresent()) {
+            reportRepository.deleteById(uuid);
+        }
+        reportBodyRepository.save(reportBody);
+    }
+
+    public void updateReport(String payload) throws JsonProcessingException {
+        Report report = new Report();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(payload);
+        report.setUuid(node.get("uuid").asText());
+
+        DecimalFormat df = new DecimalFormat(".#");
+        report.setScores(Double.valueOf(df.format(node.get("scores").asDouble())));
+        report.setSummary(node.get("summary").asText());
+
+        ReportBody reportBody = new ReportBody();
+        reportBody.setReport(report);
+        reportBody.setBody(mapper.writeValueAsString(node.get("candidateList")));
+        updateReport(reportBody);
+    }
+
+    public void delete() {
+        reportRepository.deleteAll();
+        logger.info("delete jobs done");
+    }
 }

@@ -1,9 +1,8 @@
 package app.contestTimetable.repository;
 
-import app.contestTimetable.model.Report;
+import app.contestTimetable.model.report.Report;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

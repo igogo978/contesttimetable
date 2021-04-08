@@ -161,22 +161,24 @@
                             <td>{{index+1}}</td>
                             <td>{{parseInt(item.scores)}}</td>
                             <td>
-                                <table class="table-sm table-bordered">
-                                    <tr>
+                                <table class="table-sm">
+                                    <thead>
+                                        <tr>
 
-                                        <td v-for="(scores,key) in item.summary">
-                                            {{key}}
-                                        </td>
+                                            <th scope="col" v-for="(scores,key) in item.summary">
+                                                {{key}}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                        
-                                      
-                                    </tr>
 
-                                    <tr>
-                                        <td v-for="(scores,key) in item.summary">
-                                            {{scores}}
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td v-for="(scores,key) in item.summary">
+                                                {{scores}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
                                 </table>
                             </td>
@@ -246,21 +248,20 @@
             },
             created: function() {
                 let vm = this;
-                let url =  "/api/report" ;
+                let url =  "/api/report/v2" ;
 
                 this.$http.get(url, config).then((response) => {
                     // vm.items = response.data;
                     // console.log(response.data);
 
-                    myitems = [];
+                    let myitems = [];
                   
-                    response.data.forEach(item=>{
+                    response.data.forEach(item => {
                         myitem = {};
                         // console.log(item.uuid);
                         myitem.uuid = item.uuid;
                         myitem.scores = item.scores;
-                        // console.log(JSON.parse(item.scoresfrequency));
-                        myitem.summary = JSON.parse(item.scoresfrequency);
+                        myitem.summary = JSON.parse(item.summary);
 
                         myitems.push(myitem);
                     });
@@ -279,8 +280,7 @@
                     let vm = this;
                     if(vm.items.lengh != 0){
                       vm.items.forEach(item => {
-                        //   console.log(JSON.parse(item.scoresfrequency));
-                      });
+                    });
                     }
                 }
             },

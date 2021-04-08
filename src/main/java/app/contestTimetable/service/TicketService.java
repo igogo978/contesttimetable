@@ -1,14 +1,14 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Report;
+import app.contestTimetable.model.report.Report;
 import app.contestTimetable.model.Ticket;
+import app.contestTimetable.model.report.ReportBody;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.SchoolTeamRepository;
 import app.contestTimetable.repository.TicketRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -124,32 +124,32 @@ public class TicketService {
     }
 
 
-    public void updateTicket(Report report) throws IOException {
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(report.getReport());
-
-        root.forEach(candidate -> {
-            String locationid = candidate.get("location").get("schoolid").asText();
-            JsonNode node = candidate.get("teams");
-            node.forEach(school -> {
-                String schoolid = school.get("schoolid").asText();
-
-                if (ticketrepository.countBySchoolid(schoolid) == 0) {
-                    logger.info(String.format("schoolid: %s  update ticket", schoolid));
-                    Ticket ticket = new Ticket();
-                    ticket.setLocationid(locationid);
-                    ticket.setSchoolid(schoolid);
-
-                    ticketrepository.save(ticket);
-
-                }
-
-
-            });
-        });
-
-    }
+//    public void updateTicket(ReportBody reportBody) throws IOException {
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode root = mapper.readTree(reportBody.getBody());
+//
+//        root.forEach(candidate -> {
+//            String locationid = candidate.get("location").get("schoolid").asText();
+//            JsonNode node = candidate.get("teams");
+//            node.forEach(school -> {
+//                String schoolid = school.get("schoolid").asText();
+//
+//                if (ticketrepository.countBySchoolid(schoolid) == 0) {
+//                    logger.info(String.format("schoolid: %s  update ticket", schoolid));
+//                    Ticket ticket = new Ticket();
+//                    ticket.setLocationid(locationid);
+//                    ticket.setSchoolid(schoolid);
+//
+//                    ticketrepository.save(ticket);
+//
+//                }
+//
+//
+//            });
+//        });
+//
+//    }
 
     public void updateTicket(SchoolTeam schoolteam, Location location) throws IOException {
         if (ticketrepository.countBySchoolid(schoolteam.getSchoolid()) == 0) {

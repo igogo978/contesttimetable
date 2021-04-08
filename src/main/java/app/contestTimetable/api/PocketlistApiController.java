@@ -1,13 +1,10 @@
 package app.contestTimetable.api;
 
 
-import app.contestTimetable.model.Report;
-import app.contestTimetable.model.ReportScoresSummary;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
-import app.contestTimetable.model.pocketlist.LocationSum;
+import app.contestTimetable.model.pocketlist.LocationSummary;
 import app.contestTimetable.model.pocketlist.Pocketlist;
-import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.*;
 import app.contestTimetable.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +27,6 @@ import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -55,11 +51,11 @@ public class PocketlistApiController {
     @Autowired
     LocationRepository locationRepository;
 
-    @Autowired
-    ReportRepository reportRepository;
+//    @Autowired
+//    ReportRepository reportRepository;
 
-    @Autowired
-    ReportScoresSummaryRepository reportScoresSummaryRepository;
+//    @Autowired
+//    ReportScoresSummaryRepository reportScoresSummaryRepository;
 
 //    @Autowired
 //    SchoolTeamRepository schoolTeamRepository;
@@ -79,111 +75,32 @@ public class PocketlistApiController {
     @Autowired
     TeamService teamService;
 
-
-    //    String twFont = "/opt/font/TW-Kai-98_1.ttf";
-//    String contestHeader = "臺中市110年度中小學資訊網路應用競賽決賽";
-
     @PostMapping(value = "/api/pocketlist")
     public String updatePocketlist(@RequestBody String payload) throws IOException {
-
-//        Report report = new Report();
-//        report.setUuid("1");
-//        report.setReport(payload);
-//        report.setScores(1.0);
-//        reportRepository.save(report);
-
-//        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
-//        reportScoresSummary.setUuid("1");
-//        reportScoresSummary.setScores(1.0);
-//        reportScoresSummaryRepository.save(reportScoresSummary);
 
         pocketlistService.updatePocketlist(payload);
 
         ZonedDateTime dateTime = ZonedDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-
         return dateTime.format(formatter);
     }
 
     @DeleteMapping(value = "/api/pocketlist")
     public String deletePacketlist(@RequestBody String payload) {
-//        logger.info(payload);
         ZonedDateTime dateTime = ZonedDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        pocketlistRepository.deleteAll();
-        teamRepository.findAllByOrderByLocation().forEach(team -> {
-            team.setLocation("");
-            teamRepository.save(team);
-        });
+        pocketlistService.delete();
 
         return dateTime.format(formatter);
-
-
     }
 
 
     @GetMapping(value = "/api/pocketlist")
-    public Map<String, List<LocationSum>> getLocationSummary() throws IOException {
+    public Map<String, List<LocationSummary>> getLocationSummary() throws IOException {
 
-//        String str = "打字".toUpperCase(); //for usb disk cacluating
-        String str = "-----".toUpperCase();
-
-        String excludeItem = String.format("(.*)%s(.*)", str);
-
-        Map<String, List<LocationSum>> locationMp = new HashMap<>();
-
-
-        List<Location> locations = locationRepository.findBySchoolidNotIn(Arrays.asList("999999"));
-
-
-        locations.forEach(location -> {
-            List<LocationSum> lists = new ArrayList<>();
-
-            AtomicInteger contestid = new AtomicInteger(1);
-
-
-            contestconfigRepository.findAllByOrderByIdAsc().forEach(contestconfig -> {
-                LocationSum locationSum = new LocationSum();
-
-                locationSum.setLocation(location.getLocationname());
-                AtomicInteger contestidMembers = new AtomicInteger();
-                contestidMembers.set(0);
-                contestconfig.getContestgroup().forEach(contestitem -> {
-                    List<Team> teams = new ArrayList<>();
-                    AtomicInteger contestitemMembers = new AtomicInteger(0);
-
-//                    if (!contestitem.matches(excludeItem)) {
-                    teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
-                    teams.forEach(team -> {
-                        contestitemMembers.updateAndGet(n -> n + team.getMembers());
-                    });
-//                        logger.info(String.format("%s, %s,%s", location.getLocationname(), contestitem, contestidMembers.get()));
-                    locationSum.getContestitem().put(contestitem, contestitemMembers.get());
-
-//                    }
-                    contestidMembers.updateAndGet(n -> n + contestitemMembers.get());
-
-                });
-//                logger.info(String.valueOf(contestid.get()));
-                locationSum.setContestid(contestid.get());
-                locationSum.setMembers(contestidMembers.get());
-                contestid.incrementAndGet();
-                lists.add(locationSum);
-
-
-            });
-
-            List<LocationSum> items = new ArrayList<>();
-            locationMp.computeIfAbsent(location.getLocationname(), k -> items);
-            lists.forEach(list -> items.add(list));
-//            lists.clear();
-
-        });
-
-        ObjectMapper mapper = new ObjectMapper();
-//        logger.info(mapper.writeValueAsString(locationMp));
+        Map<String, List<LocationSummary>> locationMp = new HashMap<>();
+        locationMp = pocketlistService.getSummary();
 
         return locationMp;
     }

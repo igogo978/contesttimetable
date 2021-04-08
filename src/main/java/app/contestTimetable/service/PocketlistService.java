@@ -1,8 +1,9 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Report;
-import app.contestTimetable.model.ReportScoresSummary;
+import app.contestTimetable.model.pocketlist.LocationSummary;
+import app.contestTimetable.model.report.Report;
+import app.contestTimetable.model.report.ReportBody;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Pocketlist;
 import app.contestTimetable.model.school.Contestid;
@@ -15,10 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class PocketlistService {
@@ -44,10 +47,76 @@ public class PocketlistService {
     ReportRepository reportRepository;
 
     @Autowired
-    ReportScoresSummaryRepository reportScoresSummaryRepository;
+    ReportBodyRepository reportBodyRepository;
+
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
     ObjectMapper mapper = new ObjectMapper();
+
+
+//    @GetMapping(value = "/api/pocketlist")
+    public Map<String, List<LocationSummary>> getSummary() throws IOException {
+
+        String str = new String("打字");
+        Map<String, List<LocationSummary>> locationMp = new HashMap<>();
+
+        List<Location> locations = locationRepository.findBySchoolidNotIn(Arrays.asList("999999"));
+
+        locations.forEach(location -> {
+            List<LocationSummary> lists = new ArrayList<>();
+
+//            AtomicInteger contestid = new AtomicInteger(1);
+
+            contestconfigRepository.findAllByOrderByIdAsc().forEach(contestconfig -> {
+                LocationSummary locationSummary = new LocationSummary();
+//                locationSum.setLocation(location.getLocationname());
+
+                AtomicInteger contestidMembers = new AtomicInteger();
+                AtomicInteger contestidUsbFlashCount = new AtomicInteger();
+                contestidMembers.set(0);
+                contestidUsbFlashCount.set(0);
+                contestconfig.getContestgroup().forEach(contestitem -> {
+
+
+                    List<Team> teams = new ArrayList<>();
+                    AtomicInteger contestitemMembers = new AtomicInteger(0);
+
+                    teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
+                    teams.forEach(team -> {
+                        contestitemMembers.updateAndGet(n -> n + team.getMembers());
+
+                        //for usb count
+                        if (!contestitem.matches("(.*)"+str+"(.*)")) {
+                            contestidUsbFlashCount.updateAndGet(n->n+team.getMembers());
+                        }
+
+                    });
+
+
+
+                    locationSummary.getContestitem().put(contestitem, contestitemMembers.get());
+
+                    contestidMembers.updateAndGet(n -> n + contestitemMembers.get());
+
+                });
+                locationSummary.setContestid(contestconfig.getId());
+                locationSummary.setMembers(contestidMembers.get());
+                locationSummary.setUsbFlashDriveNumbers(contestidUsbFlashCount.get());
+//                contestid.incrementAndGet();
+                lists.add(locationSummary);
+
+
+            });
+
+            List<LocationSummary> items = new ArrayList<>();
+            locationMp.computeIfAbsent(location.getLocationname(), k -> items);
+            lists.forEach(list -> items.add(list));
+
+        });
+
+        ObjectMapper mapper = new ObjectMapper();
+        return locationMp;
+    }
 
     public void restorePocketlist(String pocketlistfile) throws IOException {
 
@@ -81,20 +150,31 @@ public class PocketlistService {
 
     public void updatePocketlist(String payload) throws IOException {
 
+        String uuid = "1";
         Report report = new Report();
-        report.setUuid("1");
-        report.setReport(payload);
+        report.setUuid(uuid);
+//        report.setReport(payload);
         report.setScores(1.0);
-        reportRepository.save(report);
+//        reportRepository.save(report);
 
-        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
-        reportScoresSummary.setUuid("1");
-        reportScoresSummary.setScores(1.0);
-        reportScoresSummaryRepository.save(reportScoresSummary);
+        ReportBody reportBody = new ReportBody();
+        reportBody.setReport(report);
+        reportBody.setBody(payload);
+        logger.info("delete rport uuid 1");
+        // Primary key can't be modified. it should be deleted then added.
+        if (reportRepository.findByUuid(uuid).isPresent()) {
+            reportRepository.deleteById(uuid);
+        }
+        reportBodyRepository.save(reportBody);
+//
+//        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
+//        reportScoresSummary.setUuid("1");
+//        reportScoresSummary.setScores(1.0);
+//        reportScoresSummaryRepository.save(reportScoresSummary);
 
         ObjectMapper mapper = new ObjectMapper();
 
-        logger.info(payload);
+//        logger.info(payload);
 
         JsonNode items = mapper.readTree(payload);
         pocketlistRepository.deleteAll();
@@ -135,8 +215,6 @@ public class PocketlistService {
                 pocketlistRepository.save(pocketlist);
 
             });
-
-
         });
 
         //            更新team的location 1015
@@ -204,5 +282,12 @@ public class PocketlistService {
         return teamService.getTeamsByLocation();
     }
 
+    public void delete(){
+        pocketlistRepository.deleteAll();
+        teamRepository.findAllByOrderByLocation().forEach(team -> {
+            team.setLocation("");
+            teamRepository.save(team);
+        });
+    }
 
 }

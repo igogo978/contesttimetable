@@ -172,11 +172,12 @@ public class UploadAPIController {
 
         String jsonfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
 
-        reportservice.restoreReportJson(jsonfile);
+        reportservice.restoreReports(jsonfile);
 
         return new RedirectView("/report/");
 
     }
+
 
 
 }

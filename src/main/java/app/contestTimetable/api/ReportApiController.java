@@ -1,15 +1,12 @@
 package app.contestTimetable.api;
 
-import app.contestTimetable.model.Report;
-import app.contestTimetable.model.ReportScoresSummary;
+import app.contestTimetable.model.report.Report;
+import app.contestTimetable.model.report.ReportBody;
 import app.contestTimetable.repository.ReportRepository;
-import app.contestTimetable.repository.ReportScoresSummaryRepository;
-import app.contestTimetable.repository.SelectedreportRepository;
 import app.contestTimetable.repository.TicketRepository;
 import app.contestTimetable.service.ReportService;
 import app.contestTimetable.service.TicketService;
 import app.contestTimetable.service.XlsxService;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -17,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,17 +34,10 @@ public class ReportApiController {
     Logger logger = LoggerFactory.getLogger(ReportApiController.class);
 
     @Autowired
-    ReportRepository reportRepository;
-
-    @Autowired
-    ReportScoresSummaryRepository reportScoresSummaryRepository;
-
-    @Autowired
     TicketRepository ticketrepository;
 
-
     @Autowired
-    ReportService reportservice;
+    ReportService reportService;
 
     @Autowired
     TicketService ticketservice;
@@ -58,44 +46,44 @@ public class ReportApiController {
     XlsxService createxlsx;
 
 
-    @GetMapping(value = "/api/report/{page}")
-    public List<Report> getReportsByPage(@PathVariable Optional<Integer> page) {
-        List<Report> reports = new ArrayList<>();
-//        reportRepository.findAll().forEach(reports::add);
-
-        if (!page.isPresent()) {
-            page.orElse(1);
-        }
-
-        return reportRepository.findAllByOrderByScoresAsc().subList(page.get(),page.get()+300);
-
-    }
-
+//    @GetMapping(value = "/api/report/{page}")
+//    public List<Report> getReportsByPage(@PathVariable Optional<Integer> page) {
+//        List<Report> reports = new ArrayList<>();
+////        reportRepository.findAll().forEach(reports::add);
+//
+//        if (!page.isPresent()) {
+//            page.orElse(1);
+//        }
+//
+//        return reportRepository.findAllByOrderByScoresAsc().subList(page.get(), page.get() + 300);
+//
+//    }
 
 
     @GetMapping(value = "/api/report/size")
     public Integer getReportSize() {
-        return reportRepository.findAllByOrderByScoresAsc().size();
+        return reportService.getReportBodies().size();
     }
 
-    @GetMapping(value = "/api/report")
-    public List<ReportScoresSummary> getReports() {
-        logger.info("reports size: "+ reportScoresSummaryRepository.findAllByOrderByScoresAsc().size());
-        return reportScoresSummaryRepository.findAllByOrderByScoresAsc();
-
-    }
+//    @GetMapping(value = "/api/report")
+//    public List<ReportScoresSummary> getReportsScoresSummary() {
+//        logger.info("reports size: " + reportScoresSummaryRepository.findAllByOrderByScoresAsc().size());
+//        return reportScoresSummaryRepository.findAllByOrderByScoresAsc();
+//
+//    }
 
     @GetMapping(value = "/api/report/download")
     public ResponseEntity<Resource> downloadReport() throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Report> reports = new ArrayList<>();
+//        List<Report> reports = new ArrayList<>();
+//        reportRepository.findAll().forEach(reports::add);
 
-        reportRepository.findAll().forEach(reports::add);
-
+        List<ReportBody> reportBodies = new ArrayList<>();
+        reportBodies = reportService.getReportBodies();
         ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
 //        wb.write(resourceStream);
-        resourceStream.write(mapper.writeValueAsBytes(reports));
+        resourceStream.write(mapper.writeValueAsBytes(reportBodies));
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -109,10 +97,21 @@ public class ReportApiController {
 
     }
 
+    @GetMapping(value = "/api/report/v2")
+    public List<Report> getReportsV2(){
+        return reportService.getReports();
+    }
+
+    @GetMapping(value = "/api/reportbody/{uuid}")
+    public ReportBody getReportBody(@PathVariable("uuid") String uuid) {
+        return reportService.getReportbody(uuid);
+
+    }
+
 
     @GetMapping(value = "/api/report/uuid/{uuid}")
     public Report getReport(@PathVariable("uuid") String uuid) {
-        Optional<Report> report = reportRepository.findByUuid(uuid);
+        Optional<Report> report = reportService.getReport(uuid);
         if (report.isPresent()) {
             return report.get();
         }
@@ -122,35 +121,13 @@ public class ReportApiController {
 
 
     @PostMapping(value = "/api/report/uuid/{uuid}")
-    public String postReport(@RequestBody String payload) throws IOException {
+    public String updateReport(@RequestBody String payload) throws IOException {
 
-        Report report = new Report();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(payload);
-        report.setUuid(node.get("uuid").asText());
-
-        DecimalFormat df = new DecimalFormat(".#");
-        report.setScores(Double.valueOf(df.format(node.get("totalscores").asDouble())));
-        report.setReport(mapper.writeValueAsString(node.get("candidateList")));
-        report.setScoresfrequency(node.get("scoresFrequency").asText());
-
-
-        ReportScoresSummary reportScoresSummary = new ReportScoresSummary();
-        reportScoresSummary.setUuid(node.get("uuid").asText());
-        reportScoresSummary.setScoresfrequency(node.get("scoresFrequency").asText());
-        reportScoresSummary.setScores(Double.valueOf(df.format(node.get("totalscores").asDouble())));
-
-
+        reportService.updateReport(payload);
         ZonedDateTime dateTime = ZonedDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-
-        logger.info("update a new report: " + dateTime.format(formatter) + ", scores: "+ reportScoresSummary.getScores());
-
-        reportRepository.save(report);
-        reportScoresSummaryRepository.save(reportScoresSummary);
-
-        return payload;
+        return formatter.toString();
     }
 
 
@@ -160,12 +137,11 @@ public class ReportApiController {
 //        logger.info("download selected report");
 
 
-        Optional<Report> report = reportRepository.findByUuid(uuid);
 
 //        ObjectMapper mapper = new ObjectMapper();
 //        logger.info(mapper.writeValueAsString(report.getReport()));
 
-        List<String> teams = reportservice.getReport(report.get());
+        List<String> teams = reportService.getReport(reportService.getReportbody(uuid));
         String filename = "report";
         //直接輸出
         XSSFWorkbook wb = createxlsx.create(teams);
@@ -191,8 +167,8 @@ public class ReportApiController {
     @DeleteMapping(value = "/api/report")
     public void deleteReports() {
         logger.info("delete reports");
-        reportRepository.deleteAll();
-        reportScoresSummaryRepository.deleteAll();
+//        reportRepository.deleteAll();
+        reportService.delete();
     }
 
 
