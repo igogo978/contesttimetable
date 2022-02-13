@@ -26,7 +26,7 @@ public class TeamService {
     Logger logger = LoggerFactory.getLogger(TeamService.class);
 
     @Autowired
-    XlsxService readxlsx;
+    XlsxService xlsxService;
 
     @Autowired
     TeamRepository teamRepository;
@@ -65,7 +65,7 @@ public class TeamService {
 
     public void updateTeam() throws IOException {
         List<Team> teams = new ArrayList<>();
-        teams = readxlsx.getTeams(path);
+        teams = xlsxService.getTeams(path);
 
         //empty old records
         teamRepository.deleteAll();
@@ -92,10 +92,10 @@ public class TeamService {
 
     }
 
-    public List<Team> getTeamsByLocationAndContestitemContaining(Boolean isLogin, String locationname, String contestitem) {
+    public List<Team> getTeamsByLocationAndContestitemContaining(Boolean isVisiblePasswd, String locationname, String contestitem) {
         List<Team> teams = new ArrayList<>();
         teamRepository.findByLocationAndContestitemContaining(locationname, contestitem.toUpperCase()).forEach(team -> {
-            if (isLogin == Boolean.FALSE) {
+            if (isVisiblePasswd == false) {
                 team.setAccount("*****");
                 team.setPasswd("*****");
             }

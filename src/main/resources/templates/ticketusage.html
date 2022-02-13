@@ -1,73 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>入場卷</title>
-        <link rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <script
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>入場卷</title>
+    <script
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    </head>
-    <body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
 
-        <div class="container" id="app">
-		  <div th:replace="fragments/common :: header"></div>
-            <br>
-            <nav class="navbar navbar-dark bg-dark">
-                <a class="navbar-brand" href="/ticket">名單</a>
-                <a class="navbar-brand" href="/ticket/usage">usage</a>
-                <div class="form-inline float-right">
-                </div>
-            </nav>
-                <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">場地</th>
-                            <th scope="col">電腦</th>
-                            <th scope="col">尚有電腦</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="(item,index) in items">
-                                <td>{{index+1}}</td>
-                                <td>{{item.locationname}}</td>
-                                <td>{{item.capacity}}</td>
-                                <td>
-                                   <table class="table">
-                                       <tbody>
-                                           <tr v-for="contest in item.contestids">
-                                              <td>{{contest.contestid}}</td>
-                                               <td>{{contest.members}}</td>
-                                           </tr>
-
-                                       </tbody>
-                                   </table>
-
-
-
-                                </td>
-                          </tr>
-                        
-                        </tbody>
-                      </table>
-
+<div class="container" id="app">
+    <div th:replace="fragments/common :: header"></div>
+    <br>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/ticket">名單</a>
+        <a class="navbar-brand" href="/ticket/usage">可排電腦數</a>
+        <div class="form-inline float-right">
         </div>
+    </nav>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">場地</th>
+            <th scope="col">電腦</th>
+            <th scope="col">場次/尚有電腦</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item,index) in items">
+            <td>{{index+1}}</td>
+            <td>{{item.locationName}}</td>
+            <td>{{item.capacity}}</td>
+            <td>
 
-        <footer>
-            <script th:inline="javascript">
+                <ul class="list-group">
+                        <li class="list-group-item" v-for="contest in item.contestids">
+                            <p v-if="contest.members < 6" style="color: red; font-size: 30px;">
+                                {{contest.contestid}}:
+                                {{contest.members}}
+                            </p>
+
+                            <p v-else>
+                                {{contest.contestid}}:
+                                {{contest.members}}
+                            </p>
+
+                        </li>
+                </ul>
+
+
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<footer>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+    <script th:inline="javascript">
             /*<![CDATA[*/
             Vue.prototype.$http = axios;
             let config = {
@@ -99,10 +103,11 @@
             })
     
              /*]]>*/
-            </script>
-        </footer>
 
 
+    </script>
+</footer>
 
-    </body>
+
+</body>
 </html>

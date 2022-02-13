@@ -50,13 +50,11 @@ public class TicketAPIController {
 
     @GetMapping(value = "/api/ticket/download")
     public ResponseEntity<Resource> downloadTickets() throws IOException {
-//        List<Ticket> tickets = new ArrayList<>();
-//        ticketRepository.findAll().forEach(ticket -> tickets.add(ticket));
 
         XSSFWorkbook wb = createxlsx.createTickets(getTickets());
 
-        ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
-        wb.write(resourceStream);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        wb.write(byteArrayOutputStream);
         wb.close();
 
         String filename = "tickets";
@@ -68,7 +66,7 @@ public class TicketAPIController {
         headers.add("charset", "utf-8");
         headers.setContentDispositionFormData("attachment", String.format("%s.xlsx", filename));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        Resource resource = new InputStreamResource(new ByteArrayInputStream(resourceStream.toByteArray()));
+        Resource resource = new InputStreamResource(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
         return ResponseEntity.ok().headers(headers).body(resource);
 
     }

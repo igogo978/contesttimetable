@@ -9,14 +9,10 @@
         <meta name="author" content="">
         <title>參賽隊伍</title>
 
-        <link rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <!-- Bootstrap CSS -->
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -38,7 +34,8 @@
 		  <div th:replace="fragments/common :: header"></div>
           <br>
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <div class="container-fluid">
                 <a class="navbar-brand" href="/team">參賽隊伍</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -46,24 +43,20 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                    <a class="nav-link" href="/team/contestitem">競賽項目統計 <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/team/contestitem">競賽項目統計</a>
                     </li>
 
                 </ul>
                 </div>
 
-                <div class="form-inline float-right">
+                    <div class="d-flex flex-row-reverse bd-highlight">
+                        <div class="p-2 bd-highlight">
 
-                    <a class="btn btn-outline-secondary" href="/api/team/download" role="button">備份</a>
-                    <!--
-                    <a class="btn btn-dark" href="/api/pocketlist/inform/all/download" role="button">列印選手帳密通知單</a>
-                    -->
-
-                    <label for="inputPassword2" class="sr-only">密碼</label>
-                    <input v-model="passwd" type="password" class="form-control" id="inputPassword2" placeholder="Password">
-
-                    <button @click="getSession" role="button" class="btn btn-info">送出</button>
-
+                            <label for="inputPassword2">密碼</label>
+                            <input v-model="passwd" type="password" id="inputPassword2" placeholder="Password">
+                            <button @click="getTeams" role="button" class="btn btn-outline-dark">備份</button>
+                        </div>
+                    </div>
 
                 </div>
             </nav>
@@ -155,29 +148,40 @@
                 }
             },
             methods: {
-             
                 showMsg: function(){
                     console.log("hello");
                 },
-                getSession: function(){
+                getTeams: function() {
+                  console.log("get teams json");
+                  let url = "/api/team/download";
+                  let data = {
+                    passwd: this.passwd
+                  };
+                  let config = {
+                     headers: {
+                       'content-type': 'application/json;CHARSET=UTF-8',
+                       'Accept': 'application/pdf'
+                     },
+
+                        responseType: 'blob'
+                    };
                     let vm = this;
-                    let url = "/api/team"
-                    this.$http.post(url,
-                    {
-                         "passwd": this.passwd
+                    this.$http.post(url,data, config)
+                       .then((response) => {
+                           const url = window.URL.createObjectURL(new Blob([response.data]));
+                           const link = document.createElement('a');
+                           link.href = url;
+                           link.setAttribute('download', 'teams.json');
+                           link.setAttribute('target', '_blank');
+                           document.body.appendChild(link);
+                           link.click();
 
-                    },config)
-                    .then((response) => {
-                        // success callback
-                        console.log(response.data);
-                        vm.items = response.data;
+                           vm.msg= "";
+                           vm.isCounting = false;
+                     });
 
-                    }, (response) => {
-                    // error callback
-                    });
 
                 }
-               
             }
         })
 
@@ -185,6 +189,9 @@
         </script>
     </footer>
 
+        <script crossorigin="anonymous"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>

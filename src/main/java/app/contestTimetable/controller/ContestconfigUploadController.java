@@ -1,5 +1,6 @@
 package app.contestTimetable.controller;
 
+import app.contestTimetable.service.ContestconfigService;
 import app.contestTimetable.storage.StorageProperties;
 import app.contestTimetable.storage.StorageService;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.Base64;
 
 
@@ -22,6 +24,9 @@ public class ContestconfigUploadController {
 
     StorageProperties storageProperties;
 
+    @Autowired
+    ContestconfigService contestconfigService;
+
     private final StorageService storageService;
 
     @Autowired
@@ -31,8 +36,6 @@ public class ContestconfigUploadController {
 
     @GetMapping(value = "/contestconfig/upload")
     public String uploadArea() {
-
-
         return "contestconfigupload";
 
     }
@@ -40,11 +43,11 @@ public class ContestconfigUploadController {
     //user upload page
     @PostMapping("/contestconfig/upload")
     public String handleAreaFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+                                   RedirectAttributes redirectAttributes) throws IOException {
         logger.info("filename:" + file.getOriginalFilename());
-        String filename = file.getOriginalFilename();
-        storageService.store(file);
-        return "redirect:/contestconfig/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
+        contestconfigService.update(file);
+//        storageService.store(file);
+        return "redirect:/contestconfig";
     }
 
 

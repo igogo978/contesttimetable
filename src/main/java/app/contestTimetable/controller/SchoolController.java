@@ -24,13 +24,11 @@ public class SchoolController {
     @Autowired
     SchoolRepository repository;
 
-
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-    ObjectMapper mapper = new ObjectMapper();
+    Logger logger = LoggerFactory.getLogger(SchoolController.class);
 
 
     @GetMapping("/school")
-    public String greeting(Model model) throws JsonProcessingException {
+    public String greeting(Model model) {
 
         List<School> items = new ArrayList<>();
         repository.findAll().forEach(items::add);

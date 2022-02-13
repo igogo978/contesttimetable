@@ -5,9 +5,9 @@ import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.ContestconfigRepository;
+import app.contestTimetable.repository.InformCommentsRepository;
 import app.contestTimetable.repository.LocationRepository;
 import app.contestTimetable.repository.PocketlistRepository;
-import app.contestTimetable.repository.TeamRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -35,8 +36,6 @@ public class InformService {
     @Autowired
     PocketlistRepository pocketlistRepository;
 
-//    @Autowired
-//    TeamRepository teamRepository;
 
     @Autowired
     LocationRepository locationRepository;
@@ -45,7 +44,11 @@ public class InformService {
     XlsxService xlsxService;
 
 
-    public List<Inform> getInformsByLocation(Boolean isLogin) {
+    @Autowired
+    InformCommentsRepository informCommentsRepository;
+
+
+    public List<Inform> getInformsByLocation(Boolean isVisiblePasswd) {
         List<Inform> informs = new ArrayList<>();
 
 
@@ -53,7 +56,7 @@ public class InformService {
 
         List<Location> locations = new ArrayList<>();
         locationRepository.findAll().forEach(locations::add);
-        locations.removeIf(location -> location.getLocationname().equals("未排入"));
+        locations.removeIf(location -> location.getLocationName().equals("未排入"));
 
 
         //4 个场次
@@ -64,7 +67,7 @@ public class InformService {
 
                 inform.setContestItem(String.valueOf(config.getId()));
                 inform.setTeamsize(0);
-                inform.setLocation(location.getLocationname());
+                inform.setLocation(location.getLocationName());
                 inform.setDescription(config.getDescription());
                 AtomicReference<Integer> teamsize = new AtomicReference<>(0);
                 AtomicReference<Integer> totalpeople = new AtomicReference<>(0);
@@ -72,8 +75,7 @@ public class InformService {
                 config.getContestgroup().forEach(contestitem -> {
 
 
-//                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
-                    List<Team> teams = teamService.getTeamsByLocationAndContestitemContaining(isLogin, location.getLocationname(),contestitem.toUpperCase());
+                    List<Team> teams = teamService.getTeamsByLocationAndContestitemContaining(isVisiblePasswd, location.getLocationName(), contestitem.toUpperCase());
                     teams.forEach(team -> {
                         inform.getTeams().add(team);
                         if (team.getMembername() != null) {
@@ -106,14 +108,13 @@ public class InformService {
         return informs;
     }
 
-    public List<Inform> getInformsAll(Boolean isLogin) {
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    public List<Inform> getInformsAll(Boolean isVisiblePasswd) {
 
         //download pdf
         List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
         List<Location> locations = new ArrayList<>();
         locationRepository.findAll().forEach(locations::add);
-        locations.removeIf(location -> location.getLocationname().equals("未排入"));
+        locations.removeIf(location -> location.getLocationName().equals("未排入"));
 
         String filename = "inform-all.pdf";
 
@@ -131,36 +132,26 @@ public class InformService {
 
                 inform.setContestItem(String.join("、", contestgroup));
                 inform.setTeamsize(-1);
-                inform.setLocation(location.getLocationname());
+                inform.setLocation(location.getLocationName());
                 inform.setDescription(config.getDescription());
-                AtomicReference<Integer> teamsize = new AtomicReference<>(-1);
-                AtomicReference<Integer> totalpeople = new AtomicReference<>(-1);
+                AtomicReference<Integer> teamsize = new AtomicReference<>(0);
+                AtomicReference<Integer> totalpeople = new AtomicReference<>(0);
 
                 config.getContestgroup().forEach(contestitem -> {
 
-//                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
-                    List<Team> teams = teamService.getTeamsByLocationAndContestitemContaining(isLogin, location.getLocationname(),contestitem.toUpperCase());
+                    List<Team> teams = teamService.getTeamsByLocationAndContestitemContaining(isVisiblePasswd, location.getLocationName(), contestitem.toUpperCase());
                     teams.forEach(team -> {
                         inform.getTeams().add(team);
                         if (team.getMembername() != null) {
-//                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
-                            totalpeople.updateAndGet(v -> v + 1);
+                            totalpeople.updateAndGet(v -> v + 2);
                         } else {
-                            totalpeople.updateAndGet(v -> v + 0);
+                            totalpeople.updateAndGet(v -> v + 1);
                         }
                     });
-//                    inform.getTeams().addAll(teams);
-//                    teams.forEach(team -> {
-//                        team.setDescription(team.getDescription().substring(1));
-//                        if (isLogin == Boolean.FALSE) {
-//                            team.setAccount("*****");
-//                            team.setPasswd("*****");
-//                        }
-//
-//                        inform.getTeams().add(team);
-//                    });
                     teamsize.updateAndGet(v -> v + teams.size());
+
                 });
+
                 inform.setTeamsize(teamsize.get());
                 inform.setTotalPeople(totalpeople.get());
                 informs.add(inform);
@@ -172,7 +163,5 @@ public class InformService {
 
         return informs;
     }
-
-
 
 }

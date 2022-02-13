@@ -12,9 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class LocationService {
@@ -25,7 +28,7 @@ public class LocationService {
     LocationRepository locationRepository;
 
     @Autowired
-    XlsxService readxlsx;
+    XlsxService xlsxService;
 
     @Autowired
     SchoolRepository schoolRepository;
@@ -33,21 +36,23 @@ public class LocationService {
     @Autowired
     ContestconfigRepository contestconfigRepository;
 
+    public List<Location> getLocations(){
 
-    public void updateLocation(String xlsxfile) throws IOException, InvalidFormatException {
+        return locationRepository.findBySchoolidNotIn(Arrays.asList("999999"));
+    }
+
+    public void update(MultipartFile file) throws IOException, InvalidFormatException {
         //读取场地
         //empty location records
 
         locationRepository.deleteAll();
-        System.out.println("设定场地资料");
-//        String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
+        logger.info("设定场地资料");
 
         ArrayList<Location> locations = new ArrayList<>();
-        locations = readxlsx.getLocations(xlsxfile);
+        locations = xlsxService.getLocations(file);
 
         locations.forEach(location -> {
-            logger.info("location name: " + location.getLocationname());
-            School school = schoolRepository.findBySchoolname(location.getLocationname());
+            School school = schoolRepository.findBySchoolname(location.getLocationName());
             location.setSchoolid(school.getSchoolid());
             contestconfigRepository.findAll().forEach(contestconfig -> {
                 Contestid contestid = new Contestid();
@@ -61,7 +66,7 @@ public class LocationService {
 
         //设定一空试场放无法排入参赛队伍
         Location pending = new Location();
-        pending.setLocationname("未排入");
+        pending.setLocationName("未排入");
         pending.setSchoolid("999999");
         pending.setCapacity(999);
 
@@ -81,4 +86,55 @@ public class LocationService {
             locationRepository.save(location);
         });
     }
+
+//    public void updateLocation(String xlsxfile) throws IOException, InvalidFormatException {
+//        //读取场地
+//        //empty location records
+//
+//        locationRepository.deleteAll();
+//        logger.info("设定场地资料");
+////        String locationfile = String.format("%s/%s", settingPath, "location.xlsx");
+//
+//        ArrayList<Location> locations = new ArrayList<>();
+//        locations = xlsxService.getLocations(xlsxfile);
+//
+//        locations.forEach(location -> {
+//            School school = schoolRepository.findBySchoolname(location.getLocationName());
+//            location.setSchoolid(school.getSchoolid());
+//            contestconfigRepository.findAll().forEach(contestconfig -> {
+//                Contestid contestid = new Contestid();
+//                contestid.setContestid(contestconfig.getId());
+//                contestid.setMembers(location.getCapacity());
+//                location.getContestids().add(contestid);
+//            });
+//
+//        });
+//
+//
+//        //设定一空试场放无法排入参赛队伍
+//        Location pending = new Location();
+//        pending.setLocationName("未排入");
+//        pending.setSchoolid("999999");
+//        pending.setCapacity(999);
+//
+//        contestconfigRepository.findAll().forEach(contestconfig -> {
+//            Contestid contestid = new Contestid();
+//            contestid.setContestid(contestconfig.getId());
+//            contestid.setMembers(999);
+//            pending.getContestids().add(contestid);
+//        });
+//
+//
+//        locations.add(pending);
+//
+//
+//        //存入location
+//        locations.forEach(location -> {
+//            locationRepository.save(location);
+//        });
+//    }
+//
+
+
+
 }

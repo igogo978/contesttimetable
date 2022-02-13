@@ -1,18 +1,15 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.report.Report;
 import app.contestTimetable.model.report.ReportBody;
-import app.contestTimetable.model.school.Location;
+import app.contestTimetable.model.report.ReportFull;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -42,6 +41,9 @@ public class ReportService {
 
     @Autowired
     ReportBodyRepository reportBodyRepository;
+
+//    @Autowired
+//    ReportSerialRepository reportSerialRepository;
 
     @Autowired
     TicketService ticketservice;
@@ -65,6 +67,22 @@ public class ReportService {
 
     }
 
+//    public  ReportSerial getReportserial(String uuid) {
+//        if (reportSerialRepository.findByUuid(uuid).isPresent()) {
+//            return reportSerialRepository.findByUuid(uuid).get();
+//        }
+//        return new ReportSerial();
+//    }
+
+    public Report get1stReport() {
+        if(reportRepository.findAllByOrderByScoresAsc().size() != 0) {
+            return  reportRepository.findAllByOrderByScoresAsc().get(0);
+        }
+        Report report = new Report();
+        report.setScores(999999999);
+        return  report;
+    }
+
     public Optional<Report> getReport(String uuid) {
         return reportRepository.findByUuid(uuid);
     }
@@ -73,141 +91,161 @@ public class ReportService {
         return reportRepository.findAllByOrderByScoresAsc();
     }
 
+    public List<ReportFull> getReportFulls() {
+        List<Report> reports = getReports();
+        List<ReportFull> reportFulls = new ArrayList<>();
+        reports.forEach(report -> {
+            ReportFull reportFull = new ReportFull();
+            ReportBody body = reportBodyRepository.findByUuid(report.getUuid()).get();
+//            ReportSerial serial = reportSerialRepository.findByUuid(report.getUuid()).get();
+            reportFull.setUuid(report.getUuid());
+            reportFull.setSummary(report.getSummary());
+            reportFull.setScores(report.getScores());
+            reportFull.setBody(body);
+//            reportFull.setSerial(serial);
+
+            reportFulls.add(reportFull);
+
+        });
+
+        return reportFulls;
+    }
+
     public List<ReportBody> getReportBodies() {
         return reportBodyRepository.findAll();
     }
 
-    public void updateTeamLocationAndTicket(String manualreport) throws IOException, InvalidFormatException {
-        ArrayList<Team> teams = new ArrayList<>();
-        //read manual report from xlsx
-        Workbook workbook = WorkbookFactory.create(new File(manualreport));
-
-        // Return first sheet from the XLSX  workbook
-        Sheet sheet = workbook.getSheetAt(0);
-
-        // Get iterator to all the rows in current sheet
-        Iterator<Row> rowIterator = sheet.iterator();
-        String contestid = null;
-
-        String level = "";
-
-        Location location = new Location();
-        SchoolTeam schoolteam = new SchoolTeam();
-
-
-        //讀列
-        while (rowIterator.hasNext()) {
-            Row row = rowIterator.next();
-
-            //讀contestid
-            if (row.getRowNum() == 0) {
-                //讀欄 For each row, iterate through each columns
-                Iterator<Cell> cellIterator = row.cellIterator();
-                String value = "";
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
-
-                    switch (cell.getColumnIndex()) {
-
-                        case 1:    //第二個欄位, contestid value
-                            contestid = String.valueOf(cell.getStringCellValue());
-
-                            break;
-
-
-                        default:
-                    }
-                }
-
-            }
-
-            Contestconfig config = contestconfigrepository.findById(Integer.valueOf(contestid)).get();
-
-            List<String> contestgroup = config.getContestgroup();
-            contestgroup.forEach(groupname -> {
-                teamrepository.findByContestitemContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
-            });
-
-
-            //讀schoolteam
-            if (row.getRowNum() > 0) {
-                //讀欄 For each row, iterate through each columns
-                Iterator<Cell> cellIterator = row.cellIterator();
-                String value = "";
-
-                while (cellIterator.hasNext()) {
-
-                    Cell cell = cellIterator.next();
-                    cell.setCellType(CellType.STRING);
-
-                    switch (cell.getColumnIndex()) {
-
-                        case 0:    //第0個欄位,
-                            value = String.valueOf(cell.getStringCellValue());
-                            if (value.length() == 6) {
-                                level = "location";
-//                                logger.info("locationid:" + value);
-                                location.setSchoolid(value);
-                                //declare a new schoolteam
-                                schoolteam = new SchoolTeam();
-                            } else {
-                                level = "schoolteam";
-                            }
-
-                            break;
-
-                        case 1:
-                            value = String.valueOf(cell.getStringCellValue());
-                            if (level.equals("location")) {
-                                location.setLocationname(value);
-                            }
-                            if (level.equals("schoolteam")) {
-                                schoolteam.setSchoolid(value);
-
-
-                            }
-
-                            break;
-
-                        case 2:    //find team schoolname
-                            value = String.valueOf(cell.getStringCellValue());
-                            if (level.equals("schoolteam")) {
-                                schoolteam.setSchoolname(value);
-
-                            }
-                            break;
-
-
-                        default:
-                    }
-
-
-                } //read column end
-
-
-                if (level.equals("schoolteam")) {
-                    for (Team team : teams) {
-                        if (team.getSchoolname().equals(schoolteam.getSchoolname())) {
-                            team.setLocation(location.getLocationname());
-                        }
-                    }
-//                    logger.info(String.format("%s,%s", schoolteam.getSchoolid(), location.getSchoolid()));
-                    ticketservice.updateTicket(schoolteam, location);
-
-                }
-
-
-            }
-
-
-        }
-        logger.info("save upload manual report");
-        teams.forEach(team -> {
-//            logger.info(team.getSchoolname() + "," + team.getLocation());
-            teamrepository.save(team);
-        });
-
-    }
+//    public void updateTeamLocationAndTicket(String manualreport) throws IOException, InvalidFormatException {
+//        ArrayList<Team> teams = new ArrayList<>();
+//        //read manual report from xlsx
+//        Workbook workbook = WorkbookFactory.create(new File(manualreport));
+//
+//        // Return first sheet from the XLSX  workbook
+//        Sheet sheet = workbook.getSheetAt(0);
+//
+//        // Get iterator to all the rows in current sheet
+//        Iterator<Row> rowIterator = sheet.iterator();
+//        String contestid = null;
+//
+//        String level = "";
+//
+//        Location location = new Location();
+//        SchoolTeam schoolteam = new SchoolTeam();
+//
+//
+//        //讀列
+//        while (rowIterator.hasNext()) {
+//            Row row = rowIterator.next();
+//
+//            //讀contestid
+//            if (row.getRowNum() == 0) {
+//                //讀欄 For each row, iterate through each columns
+//                Iterator<Cell> cellIterator = row.cellIterator();
+//                String value = "";
+//                while (cellIterator.hasNext()) {
+//                    Cell cell = cellIterator.next();
+//
+//                    switch (cell.getColumnIndex()) {
+//
+//                        case 1:    //第二個欄位, contestid value
+//                            contestid = String.valueOf(cell.getStringCellValue());
+//
+//                            break;
+//
+//
+//                        default:
+//                    }
+//                }
+//
+//            }
+//
+//            Contestconfig config = contestconfigrepository.findById(Integer.valueOf(contestid)).get();
+//
+//            List<String> contestgroup = config.getContestgroup();
+//            contestgroup.forEach(groupname -> {
+//                teamrepository.findByContestitemContaining(groupname.toUpperCase()).forEach(team -> teams.add(team));
+//            });
+//
+//
+//            //讀schoolteam
+//            if (row.getRowNum() > 0) {
+//                //讀欄 For each row, iterate through each columns
+//                Iterator<Cell> cellIterator = row.cellIterator();
+//                String value = "";
+//
+//                while (cellIterator.hasNext()) {
+//
+//                    Cell cell = cellIterator.next();
+//                    cell.setCellType(CellType.STRING);
+//
+//                    switch (cell.getColumnIndex()) {
+//
+//                        case 0:    //第0個欄位,
+//                            value = String.valueOf(cell.getStringCellValue());
+//                            if (value.length() == 6) {
+//                                level = "location";
+////                                logger.info("locationid:" + value);
+//                                location.setSchoolid(value);
+//                                //declare a new schoolteam
+//                                schoolteam = new SchoolTeam();
+//                            } else {
+//                                level = "schoolteam";
+//                            }
+//
+//                            break;
+//
+//                        case 1:
+//                            value = String.valueOf(cell.getStringCellValue());
+//                            if (level.equals("location")) {
+//                                location.setLocationname(value);
+//                            }
+//                            if (level.equals("schoolteam")) {
+//                                schoolteam.setSchoolid(value);
+//
+//
+//                            }
+//
+//                            break;
+//
+//                        case 2:    //find team schoolname
+//                            value = String.valueOf(cell.getStringCellValue());
+//                            if (level.equals("schoolteam")) {
+//                                schoolteam.setSchoolname(value);
+//
+//                            }
+//                            break;
+//
+//
+//                        default:
+//                    }
+//
+//
+//                } //read column end
+//
+//
+//                if (level.equals("schoolteam")) {
+//                    for (Team team : teams) {
+//                        if (team.getSchoolname().equals(schoolteam.getSchoolname())) {
+//                            team.setLocation(location.getLocationname());
+//                        }
+//                    }
+////                    logger.info(String.format("%s,%s", schoolteam.getSchoolid(), location.getSchoolid()));
+//                    ticketservice.updateTicket(schoolteam, location);
+//
+//                }
+//
+//
+//            }
+//
+//
+//        }
+//        logger.info("save upload manual report");
+//        teams.forEach(team -> {
+////            logger.info(team.getSchoolname() + "," + team.getLocation());
+//            teamrepository.save(team);
+//        });
+//
+//    }
 
 
     public void updateTeamLocation(ReportBody reportBody) throws IOException {
@@ -234,8 +272,8 @@ public class ReportService {
     }
 
 
-    public HashMap<Integer, Integer> getReportSummary(ReportBody reportBody) throws IOException {
-        HashMap<Integer, Integer> scoresrange = new HashMap<>();
+    public Map<Integer, Integer> getReportSummary(ReportBody reportBody) throws IOException {
+        Map<Integer, Integer> scoressummary = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<String> teams = new ArrayList<>();
 
@@ -245,9 +283,7 @@ public class ReportService {
                 logger.info(String.valueOf(school.get("scores").asInt()));
             });
         });
-
-
-        return scoresrange;
+        return scoressummary;
     }
 
 
@@ -281,29 +317,38 @@ public class ReportService {
     public void restoreReports(String jsonfile) throws IOException {
         logger.info("reports restore:" + jsonfile);
         ObjectMapper mapper = new ObjectMapper();
-        List<ReportBody> reportBodies = Arrays.asList(mapper.readValue(new File(jsonfile), ReportBody[].class));
+        List<ReportFull> reportFulls = Arrays.asList(mapper.readValue(new File(jsonfile), ReportFull[].class));
 
-        reportBodies.forEach(rb -> {
+        reportFulls.forEach(reportFull -> {
             Report report = new Report();
-            report.setSummary(rb.getReport().getSummary());
-            report.setUuid(rb.getUuid());
-            report.setScores(rb.getReport().getScores());
+            ReportBody body = reportFull.getBody();
+//            ReportSerial serial = reportFull.getSerial();
 
-            ReportBody reportBody = new ReportBody();
-            reportBody.setReport(report);
-            reportBody.setBody(rb.getBody());
-            updateReport(reportBody);
+            report.setUuid(reportFull.getUuid());
+            report.setScores(reportFull.getScores());
+            report.setSummary(reportFull.getSummary());
+
+            body.setReport(report);
+//            serial.setReport(report);
+            report.setReportBody(body);
+//            report.setReportSerial(serial);
+
+           reportRepository.save(report);
 
         });
 
     }
 
-    public void updateReport(ReportBody reportBody) {
-        String uuid = reportBody.getReport().getUuid();
+    public void updateReport(Report report) {
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        logger.info(dateTime.format(formatter)+ " "+ report.getScores());
+
+        String uuid = report.getUuid();
         if (reportRepository.findByUuid(uuid).isPresent()) {
             reportRepository.deleteById(uuid);
         }
-        reportBodyRepository.save(reportBody);
+        reportRepository.save(report);
     }
 
     public void updateReport(String payload) throws JsonProcessingException {
@@ -316,10 +361,13 @@ public class ReportService {
         report.setScores(Double.valueOf(df.format(node.get("scores").asDouble())));
         report.setSummary(node.get("summary").asText());
 
+
         ReportBody reportBody = new ReportBody();
         reportBody.setReport(report);
         reportBody.setBody(mapper.writeValueAsString(node.get("candidateList")));
-        updateReport(reportBody);
+
+        report.setReportBody(reportBody);
+        updateReport(report);
     }
 
     public void delete() {

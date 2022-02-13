@@ -51,15 +51,14 @@
                                 <div class="input-group">
                                         <label for="inputPassword2" class="sr-only">密碼</label>
                                         <input v-model="passwd" class="form-control" type="password" id="inputPassword2" placeholder="Password">
-                                        <button @click="getSession" role="button" class="btn btn-info">送出</button>
-                                    </div>                       
+                                    </div>
 
                         </td>
                         <td>
                                 <div class="form-inline float-left">
-                                        <a v-if="isVisible" class="btn btn-success" href="/api/pocketlist/inform/all/download" role="button">列印(含密碼)</a>                                           
-                                    
-                                        <a v-else class="btn btn-success" href="/api/pocketlist/inform/all/download" role="button">列印(無密碼)</a> 
+<!--                                        <a class="btn btn-success" href="/api/pocketlist/inform/all/download" role="button">列印</a>-->
+                                    <button @click="getInform" class="btn btn-success" role="button">列印</button>
+
                                 </div>
 
                         </td>                  
@@ -115,26 +114,21 @@
                 contestid: null,
                 items: [],
                 passwd:'',
-                isVisible: false,
                 isCounting: false,
               
             },
             created: function() {
-               
-
-
             },
             methods: {
                 say:function(){
-                    //hello,world
                 },
                 countdown: function(){
                     let counter = 0;
                     let vm = this
                     vm.msg2 = "|";
                     vm.downloadingCountdown = setInterval(function(){
-                        console.log(counter);
-                        console.log(vm.isCounting);
+                        //console.log(counter);
+                        //console.log(vm.isCounting);
                         switch(counter%4){
                             case 1:
                                 vm.msg2 = "/";
@@ -144,7 +138,7 @@
                                 break;
                             case 3:
                                 vm.msg2 = "\\";
-                                break;    
+                                break;
                             default:
                                 vm.msg2 = "|";
                                 break
@@ -157,28 +151,36 @@
                     }, 300);
 
                 },
-                getSession: function(){
+                getInform: function() {
+                    this.msg = "Downloading...";
+                    this.isCounting = true;
+                    this.countdown();
+                    let data = {
+                        passwd: this.passwd
+                    }
+                    let config = {
+                        headers: {
+                            'content-type': 'application/json;CHARSET=UTF-8',
+                            'Accept': 'application/pdf'
+                        },
+
+                        responseType: 'blob'
+                    };
+
+                    let url = "/api/pocketlist/inform/all/download";
                     let vm = this;
-                    let url = "/api/team"
-                    this.$http.post(url,
-                    {
-                         "passwd": this.passwd
+                    this.$http.post(url,data, config)
+                        .then((response) => {
+                            const url = window.URL.createObjectURL(new Blob([response.data]));
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.setAttribute('download', 'informAll.pdf');
+                            document.body.appendChild(link);
+                            link.click();
 
-                    },config)
-                    .then((response) => {
-                        // success callback
-                        
-                        vm.items = response.data;
-                        console.log(vm.items[0].passwd);
-                        if(vm.items[0].passwd != "*****"){
-                            vm.isVisible = true;
-                        } else {
-                            vm.isVisible = false;
-                        }
-
-                    }, (response) => {
-                    // error callback
-                    });
+                            vm.msg= "";
+                            vm.isCounting = false;
+                        });
 
                 },
                 downloadReportByLocation: function(){
@@ -228,7 +230,6 @@
                             vm.isCounting = false;
                         });
 
-
                 },
                 downloadInformLocation: function(){
                     this.msg = "Downloading...";
@@ -247,13 +248,17 @@
                     this.$http.get(url, config)
                         .then((response) => {
                             var blob = new Blob([response.data], { type: 'aapplication/zip' });
-                            saveAs(blob, 'inform-location.zip');
+                            saveAs(blob, 'informComments-location.zip');
                             vm.msg= "";
                            
                             vm.isCounting = false;
-                        });
+                        })
+                        .catch((error) =>{
 
+                            vm.msg = error.message;
+                            vm.isCounting = false;
 
+                        })
 
                 }
 

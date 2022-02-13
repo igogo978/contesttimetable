@@ -1,86 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>VIEW</title>
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>得分</title>
 
-        <link rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <script
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+
+    <!--        <link rel="stylesheet"-->
+    <!--            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+    <!--        <script-->
+    <!--            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <!--        <script-->
+    <!--            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>-->
+    <!--        <script-->
+    <!--            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+    <script
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="/js/FileSaver.min.js"></script>
-      
-    </head>
-    <body>
-      
-        <div class="container" id="app">
-		  <div th:replace="fragments/common :: header"></div>
-		<br>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
 
-            <div class="float-left">
-                <select v-model="selectedA">
-                    <option disabled value="">選擇行政區</option>
-                    <option v-for="option in optionsA" v-bind:value="option.value">
-                        {{ option.text }}
-                    </option>
-                </select>
-                <button v-on:click="getArea" class="btn btn-info">查詢</button>
-              
-            </div> 
+</head>
+<body>
 
-            <div class="float-right"> 
-               {{updateDatetime}} 
-                <button v-on:click="updateAreascores" class="btn btn-info">寫入</button>
-            </div>
-            <div>
-                <table class="table">
-                    <thead>
-                        <td>序</td>
-                        <td>A點</td>
-                        <td>B點(該區有試場)</td>
-                        <td>得分</td>
-                    </thead>
-                    <tbody>
-
-                        <tr v-for="(item, index) in items">
-
-                           
-                            <td>{{index+1}}</td>
-                            <td>{{item.startarea}}</td>
-                            <td>{{item.endarea}}</td>
-                            <td>
-                                <div class="form-group">
-                                    <input v-model="item.scores" class="form-control" placeholder="scores">
-                                </div>
-                            </td>                    
-                 
-                        </tr>
+<div class="container" id="app">
+    <div th:replace="fragments/common :: header"></div>
+    <br>
 
 
+        <div class="d-flex flex-row-start bd-highlight">
+            <select class="form-select" v-model="selectedA">
+                <option disabled value="">選擇行政區</option>
+                <option v-bind:value="option.value" v-for="option in optionsA">
+                    {{ option.text }}
+                </option>
+            </select>
+            <button class="btn btn-outline-info" v-on:click="getArea">查詢</button>
+            <button class="btn btn-outline-dark" v-on:click="updateAreascores">寫入</button>
+        </div>
 
-               
+        {{updateDatetime}}
 
 
-                    </tbody>
-                </table>
-            </div>
+    <div>
+        <table class="table">
+            <thead>
+            <td>序</td>
+            <td>A點</td>
+            <td>B點(試場)</td>
+            <td>得分</td>
+            </thead>
+            <tbody>
 
-            <footer>
+            <tr v-for="(item, index) in items">
 
 
+                <td>{{index+1}}</td>
+                <td>{{item.startarea}}</td>
+                <td>{{item.endarea}}</td>
+                <td>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="scores" v-model="item.scores">
+                    </div>
+                </td>
 
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
 
 
     <script th:inline="javascript">
@@ -192,9 +191,17 @@
         })
 
          /*]]>*/
-        </script>
-            </footer>
 
 
-        </body>
-    </html>
+    </script>
+</footer>
+
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

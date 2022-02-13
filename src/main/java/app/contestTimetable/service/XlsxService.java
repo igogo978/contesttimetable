@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,16 +32,16 @@ import java.util.stream.Stream;
 @Service
 public class XlsxService {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(XlsxService.class);
 
     @Autowired
     SchoolRepository schoolRepository;
 
-    public List<Ticket> getTickets(String xlsxPath) throws IOException, InvalidFormatException {
+    public List<Ticket> getTickets(MultipartFile xlsx) throws IOException, InvalidFormatException {
 
         List<Ticket> tickets = new ArrayList<>();
 
-        Workbook workbook = WorkbookFactory.create(new File(xlsxPath));
+        Workbook workbook = WorkbookFactory.create(xlsx.getInputStream());
 
         // Return first sheet from the XLSX  workbook
         Sheet sheet = workbook.getSheetAt(0);
@@ -430,10 +431,10 @@ public class XlsxService {
     }
 
 
-    public List<Areascore> getAreascore(String xlsx) throws IOException, InvalidFormatException {
+    public List<Areascore> getAreascore(MultipartFile xlsx) throws IOException, InvalidFormatException {
         List<Areascore> areas = new ArrayList<>();
 
-        Workbook workbook = WorkbookFactory.create(new File(xlsx));
+        Workbook workbook = WorkbookFactory.create(xlsx.getInputStream());
         // Return first sheet from the XLSX  workbook
         Sheet sheet = workbook.getSheetAt(0);
 
@@ -457,7 +458,6 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-//                cell.setCellType(CellType.STRING);
                 areascore.setScores(999.999);
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 起
@@ -474,30 +474,23 @@ public class XlsxService {
                         value = formatter.formatCellValue(cell);
                         if (value.length() != 0) {
                             areascore.setScores(Double.valueOf(value));
-
                         }
-
                         break;
-
-
                     default:
                 }
             } //結束讀欄
-
             areas.add(areascore);
 
         }
-
-
         workbook.close();
         return areas;
     }
 
 
-    public ArrayList<Location> getLocations(String docPath) throws IOException, InvalidFormatException {
+    public ArrayList<Location> getLocations(MultipartFile file) throws IOException, InvalidFormatException {
         //讀取檔案內容
         ArrayList<Location> locations = new ArrayList<>();
-        Workbook workbook = WorkbookFactory.create(new File(docPath));
+        Workbook workbook = WorkbookFactory.create(file.getInputStream());
 
         // Return first sheet from the XLSX  workbook
         Sheet sheet = workbook.getSheetAt(0);
@@ -523,7 +516,7 @@ public class XlsxService {
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 场地名
                         value = String.valueOf(cell.getStringCellValue());
-                        location.setLocationname(value);
+                        location.setLocationName(value);
                         break;
                     case 1:    //第二個欄位, 容纳人数
                         // int 29
@@ -547,11 +540,12 @@ public class XlsxService {
     }
 
 
-    public List<School> getSchools(String docPath) throws IOException, InvalidFormatException {
+    public List<School> getSchools(MultipartFile file) throws IOException, InvalidFormatException {
         //讀取檔案內容
         List<School> schools = new ArrayList<>();
+        logger.info("filename:" + file.getOriginalFilename());
 
-        Workbook workbook = WorkbookFactory.create(new File(docPath));
+        Workbook workbook = WorkbookFactory.create(file.getInputStream());
 
         // Return first sheet from the XLSX  workbook
         Sheet sheet = workbook.getSheetAt(0);
@@ -608,6 +602,70 @@ public class XlsxService {
         return schools;
 
     }
+
+
+
+//    public List<School> getSchools(String docPath) throws IOException, InvalidFormatException {
+//        //讀取檔案內容
+//        List<School> schools = new ArrayList<>();
+//
+//        Workbook workbook = WorkbookFactory.create(new File(docPath));
+//
+//        // Return first sheet from the XLSX  workbook
+//        Sheet sheet = workbook.getSheetAt(0);
+//
+//        // Get iterator to all the rows in current sheet
+//        Iterator<Row> rowIterator = sheet.iterator();
+//
+//        DataFormatter formatter = new DataFormatter();
+//        //讀列
+//        while (rowIterator.hasNext()) {
+//            School school = new School();
+//            Row row = rowIterator.next();
+//
+//            if (row.getRowNum() == 0) {  //ommit first row
+//                continue;
+//            }
+//
+//            //讀欄 For each row, iterate through each columns
+//            Iterator<Cell> cellIterator = row.cellIterator();
+//            String value = "";
+//            while (cellIterator.hasNext()) {
+//                Cell cell = cellIterator.next();
+////                cell.setCellType(CellType.STRING);
+//
+//                switch (cell.getColumnIndex()) {
+//                    case 0:    //第一個欄位, 機關代碼
+////                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
+////                            System.out.println(new String(byteArray, "UTF-8"));
+////                        System.out.println(String.valueOf(cell.getStringCellValue()));
+//
+//                        value = formatter.formatCellValue(cell);
+//
+//                        school.setSchoolid(value);
+//                        break;
+//                    case 1:    //第二個欄位, 競賽項目
+//                        value = formatter.formatCellValue(cell);
+//                        school.setSchoolname(value);
+//                        break;
+//                    case 2:    //第三個欄位, 學校
+////                        value = String.valueOf(cell.getStringCellValue());
+////                        school.setPosition(value);
+//                        break;
+//                    case 3:    //第三個欄位, 姓名
+////                        value = String.valueOf(cell.getStringCellValue());
+////                        school.setXyposition(value);
+//                        break;
+//
+//                    default:
+//                }
+//            } //結束讀欄
+//            schools.add(school);
+//        }
+//        workbook.close();
+//        return schools;
+//
+//    }
 
 
     public XSSFWorkbook createSelectedReport(List<Team> teams) {
@@ -870,7 +928,7 @@ public class XlsxService {
 
 
             cell = row.createCell(0);
-            cell.setCellValue(locations.get(i).getLocationname());
+            cell.setCellValue(locations.get(i).getLocationName());
 
             cell = row.createCell(1);
             cell.setCellValue(locations.get(i).getCapacity());

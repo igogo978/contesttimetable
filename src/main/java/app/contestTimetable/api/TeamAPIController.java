@@ -4,9 +4,11 @@ package app.contestTimetable.api;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.repository.TeamRepository;
 import app.contestTimetable.service.ArchiveTeamService;
+import app.contestTimetable.service.TeamService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
@@ -36,11 +41,13 @@ public class TeamAPIController {
     @Autowired
     ArchiveTeamService archiveTeamService;
 
+    @Autowired
+    TeamService teamService;
+
     @GetMapping(value = "/api/team")
-    public List<Team> getTeam(HttpServletRequest request) {
+    public List<Team> getTeam(@RequestParam(defaultValue = "false") String passwd) {
         final List<Team> teams = new ArrayList<>();
-        if (request.getSession(false) == null) {
-            logger.info("session null");
+        if (!passwd.equals("23952340")) {
             teamRepository.findAll(Sort.by("schoolname").and(Sort.by("description"))).forEach(team -> {
                 team.setAccount("*****");
                 team.setPasswd("*****");
@@ -48,7 +55,7 @@ public class TeamAPIController {
 
             });
         } else {
-            logger.info(request.getSession().getAttribute("login").toString());
+            logger.info("get correct passwd");
             return teamRepository.findAll(Sort.by("schoolname").and(Sort.by("description")));
 
         }
@@ -56,10 +63,13 @@ public class TeamAPIController {
         return teams;
     }
 
-    @GetMapping(value = "/api/team/download")
-    public ResponseEntity<Resource> getTeamJson(HttpServletRequest request) throws IOException {
+    @PostMapping(value = "/api/team/download")
+    public ResponseEntity<Resource> getTeamJson(@RequestBody String payload) throws IOException {
 
-        List<Team> teams = getTeam(request);
+        JsonNode root = mapper.readTree(payload);
+        String passwd = root.get("passwd").asText();
+
+        List<Team> teams = getTeam(passwd);
         String filename = "teams.json";
         //直接輸出
         ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
@@ -84,7 +94,6 @@ public class TeamAPIController {
         final List<Team> teams = new ArrayList<>();
         JsonNode root = mapper.readTree(payload);
         if (root.get("passwd").asText().equals("23952340")) {
-            logger.info("get session");
             request.getSession().setAttribute("login", "admin");
             return teamRepository.findAllByOrderBySchoolname();
         } else {
@@ -132,6 +141,9 @@ public class TeamAPIController {
         archiveTeamService.update(year);
         return root.get("data").get("action").asText();
     }
+
+
+
 
 
 }

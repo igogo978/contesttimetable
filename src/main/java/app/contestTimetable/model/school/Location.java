@@ -13,7 +13,7 @@ public class Location {
 
     @Id
     private String schoolid;
-    private String locationname;
+    private String locationName;
     private int capacity;
 
     @ElementCollection
@@ -24,9 +24,9 @@ public class Location {
     public Location() {
     }
 
-    public Location(String schoolid, String locationname, int capacity) {
+    public Location(String schoolid, String locationName, int capacity) {
         this.schoolid = schoolid;
-        this.locationname = locationname;
+        this.locationName = locationName;
         this.capacity = capacity;
     }
 
@@ -38,12 +38,12 @@ public class Location {
         this.schoolid = schoolid;
     }
 
-    public String getLocationname() {
-        return locationname;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public void setLocationname(String locationname) {
-        this.locationname = locationname;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
     public int getCapacity() {

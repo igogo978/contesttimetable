@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class IndexController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
-
+    Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @GetMapping(value = "/")
     public String getId() {

@@ -3,6 +3,7 @@ package app.contestTimetable.api;
 import app.contestTimetable.model.Job;
 import app.contestTimetable.repository.ReportRepository;
 import app.contestTimetable.service.JobService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +28,11 @@ public class JobApiController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
     @Autowired
     JobService jobservice;
 
-    @Autowired
-    ReportRepository reportrepository;
-
     @GetMapping(value = "/job")
-    public Job getId() {
-
+    public Job getId() throws JsonProcessingException {
         return jobservice.getJob();
     }
 

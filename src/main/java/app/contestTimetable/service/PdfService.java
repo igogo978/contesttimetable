@@ -1,10 +1,8 @@
 package app.contestTimetable.service;
 
 
-import app.contestTimetable.model.Contestconfig;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
-import app.contestTimetable.model.school.Location;
 import app.contestTimetable.repository.*;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
@@ -24,15 +22,14 @@ import com.itextpdf.layout.property.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +41,7 @@ public class PdfService {
     ExtHanziRepository extHanziRepository;
 
     @Autowired
-    InformRepository informRepository;
+    InformCommentsRepository informCommentsRepository;
 
     @Autowired
     ContestconfigRepository contestconfigRepository;
@@ -91,6 +88,7 @@ public class PdfService {
         table.addCell(cell);
 
 
+        logger.info("total people:" + inform.getContestItem() + "," + inform.getTotalPeople());
         paragraph = new Paragraph(String.format("決賽選手數量：%s 人", inform.getTotalPeople())).setFont(font);
         paragraph.add("\n");
         paragraph.add(String.format("帳號密碼通知單數量：%s 張", inform.getTeamsize()));
@@ -465,7 +463,7 @@ public class PdfService {
         paragraph = new Paragraph(String.format("決賽注意事項")).setFont(font).setTextAlignment(TextAlignment.CENTER).setBold().setUnderline();
         paragraph.add("\n");
 
-        String text = informRepository.findById(1).get().getComments()
+        String text = informCommentsRepository.findById(1).get().getComments()
                 .stream()
                 .collect(Collectors.joining("\n"));
         Paragraph paragraph2 = new Paragraph(text).setTextAlignment(TextAlignment.LEFT);
@@ -481,80 +479,26 @@ public class PdfService {
         return table;
     }
 
-//    public List<Inform> doInformAll(Boolean isLogin) {
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//
-//        //download pdf
-//        List<Contestconfig> configs = contestconfigRepository.findAllByOrderByIdAsc();
-//        List<Location> locations = new ArrayList<>();
-//        locationRepository.findAll().forEach(locations::add);
-//        locations.removeIf(location -> location.getLocationname().equals("未排入"));
-//
-//        String filename = "inform-all.pdf";
-//
-//        List<Inform> informs = new ArrayList<>();
-//
-//        HashMap<Inform, List<Team>> informAll = new HashMap<>();
-//
-//        //3 个场次
-//        configs.forEach(config -> {
-//
-//            List<String> contestgroup = config.getContestgroup().stream().map(item -> item.toUpperCase() + "組").collect(Collectors.toList());
-//
-//            locations.forEach(location -> {
-//                Inform inform = new Inform();
-//
-//                inform.setContestItem(String.join("、", contestgroup));
-//                inform.setTeamsize(-1);
-//                inform.setLocation(location.getLocationname());
-//                inform.setDescription(config.getDescription());
-//                AtomicReference<Integer> teamsize = new AtomicReference<>(-1);
-//                AtomicReference<Integer> totalpeople = new AtomicReference<>(-1);
-//
-//                config.getContestgroup().forEach(contestitem -> {
-//
-//                    List<Team> teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem.toUpperCase());
-//                    teams.forEach(team -> {
-//                        if (team.getMembername() != null) {
-////                            logger.info(String.format("%s,%s", team.getUsername(), team.getMembername()));
-//                            totalpeople.updateAndGet(v -> v + 1);
-//                        } else {
-//                            totalpeople.updateAndGet(v -> v + 0);
-//                        }
-//                    });
-////                    inform.getTeams().addAll(teams);
-//                    teams.forEach(team -> {
-//                        team.setDescription(team.getDescription().substring(1));
-//                        if (isLogin == Boolean.FALSE) {
-//                            team.setAccount("*****");
-//                            team.setPasswd("*****");
-//                        }
-//
-//                        inform.getTeams().add(team);
-//                    });
-//                    teamsize.updateAndGet(v -> v + teams.size());
-//                });
-//                inform.setTeamsize(teamsize.get());
-//                inform.setTotalPeople(totalpeople.get());
-//                informs.add(inform);
-//
-//            });
-//
-//        });
-//
-//
-//        return informs;
-//    }
 
     public ByteArrayOutputStream doInformCoverAndTeamPDF(List<Inform> informs) throws IOException {
-        String contestHeader = informRepository.findById(1).get().getHeader();
+        String contestHeader = informCommentsRepository.findById(1).get().getHeader();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
         Document document = new Document(pdfDoc);
-        twKaiFont = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
 
-        //handle unicode 第2字面
-        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
+        InputStream inputStream = new ClassPathResource(
+                "data/font/TW-Kai-98_1.ttf").getInputStream();
+
+        twKaiFont = FontProgramFactory.createFont(inputStream.readAllBytes());
+//        twKaiFont = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
+
+        //handle unicode 第2字面o
+        InputStream inputStream2 = new ClassPathResource(
+                "data/font/TW-Kai-Ext-B-98_1.ttf").getInputStream();
+
+        FontProgram twKaiFontExt = FontProgramFactory.createFont(inputStream2.readAllBytes());
+
+//        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
         PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
 
         // Create a PdfFont

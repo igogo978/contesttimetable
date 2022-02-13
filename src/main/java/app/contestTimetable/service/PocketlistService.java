@@ -81,7 +81,7 @@ public class PocketlistService {
                     List<Team> teams = new ArrayList<>();
                     AtomicInteger contestitemMembers = new AtomicInteger(0);
 
-                    teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationname(), contestitem);
+                    teams = teamRepository.findByLocationAndContestitemContaining(location.getLocationName(), contestitem);
                     teams.forEach(team -> {
                         contestitemMembers.updateAndGet(n -> n + team.getMembers());
 
@@ -109,7 +109,7 @@ public class PocketlistService {
             });
 
             List<LocationSummary> items = new ArrayList<>();
-            locationMp.computeIfAbsent(location.getLocationname(), k -> items);
+            locationMp.computeIfAbsent(location.getLocationName(), k -> items);
             lists.forEach(list -> items.add(list));
 
         });
@@ -237,7 +237,7 @@ public class PocketlistService {
                 teams.forEach(team -> {
                     team.setLocation(pocketitem.getLocationname());
 
-                    Location location = locationRepository.findByLocationname(pocketitem.getLocationname());
+                    Location location = locationRepository.findByLocationName(pocketitem.getLocationname());
                     List<Map<String, String>> comments = new ArrayList<>();
                     Map<String, String> comment = new HashMap<>();
                     comment.put("color", location.getColor());

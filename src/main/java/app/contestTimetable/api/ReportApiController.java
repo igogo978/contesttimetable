@@ -2,7 +2,7 @@ package app.contestTimetable.api;
 
 import app.contestTimetable.model.report.Report;
 import app.contestTimetable.model.report.ReportBody;
-import app.contestTimetable.repository.ReportRepository;
+import app.contestTimetable.model.report.ReportFull;
 import app.contestTimetable.repository.TicketRepository;
 import app.contestTimetable.service.ReportService;
 import app.contestTimetable.service.TicketService;
@@ -24,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,25 +64,19 @@ public class ReportApiController {
         return reportService.getReportBodies().size();
     }
 
-//    @GetMapping(value = "/api/report")
-//    public List<ReportScoresSummary> getReportsScoresSummary() {
-//        logger.info("reports size: " + reportScoresSummaryRepository.findAllByOrderByScoresAsc().size());
-//        return reportScoresSummaryRepository.findAllByOrderByScoresAsc();
-//
-//    }
+    @GetMapping(value = "/api/report/scores/1")
+    public Report get1stReport() {
+        return reportService.get1stReport();
+    }
 
     @GetMapping(value = "/api/report/download")
     public ResponseEntity<Resource> downloadReport() throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-//        List<Report> reports = new ArrayList<>();
-//        reportRepository.findAll().forEach(reports::add);
 
-        List<ReportBody> reportBodies = new ArrayList<>();
-        reportBodies = reportService.getReportBodies();
+        List<ReportFull> reportFulls = reportService.getReportFulls();
         ByteArrayOutputStream resourceStream = new ByteArrayOutputStream();
-//        wb.write(resourceStream);
-        resourceStream.write(mapper.writeValueAsBytes(reportBodies));
+        resourceStream.write(mapper.writeValueAsBytes(reportFulls));
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -98,7 +91,7 @@ public class ReportApiController {
     }
 
     @GetMapping(value = "/api/report/v2")
-    public List<Report> getReportsV2(){
+    public List<Report> getReportsV2() {
         return reportService.getReports();
     }
 
@@ -135,7 +128,6 @@ public class ReportApiController {
     public ResponseEntity<Resource> downloadReport(@PathVariable("uuid") String uuid) throws IOException {
 //        public ArrayList<String> downloadReport (@PathVariable("uuid") String uuid) throws IOException {
 //        logger.info("download selected report");
-
 
 
 //        ObjectMapper mapper = new ObjectMapper();

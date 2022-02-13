@@ -5,8 +5,12 @@ import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
 import app.contestTimetable.model.pocketlist.LocationSummary;
 import app.contestTimetable.model.pocketlist.Pocketlist;
-import app.contestTimetable.repository.*;
+import app.contestTimetable.repository.ContestconfigRepository;
+import app.contestTimetable.repository.LocationRepository;
+import app.contestTimetable.repository.PocketlistRepository;
+import app.contestTimetable.repository.TeamRepository;
 import app.contestTimetable.service.*;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -26,7 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -63,8 +70,6 @@ public class PocketlistApiController {
     @Autowired
     InformService informService;
 
-//    @Autowired
-//    LocationRepository locationRepository;
 
     @Autowired
     XlsxService xlsxService;
@@ -74,6 +79,7 @@ public class PocketlistApiController {
 
     @Autowired
     TeamService teamService;
+    ObjectMapper mapper = new ObjectMapper();
 
     @PostMapping(value = "/api/pocketlist")
     public String updatePocketlist(@RequestBody String payload) throws IOException {
@@ -94,7 +100,6 @@ public class PocketlistApiController {
 
         return dateTime.format(formatter);
     }
-
 
     @GetMapping(value = "/api/pocketlist")
     public Map<String, List<LocationSummary>> getLocationSummary() throws IOException {
@@ -131,7 +136,6 @@ public class PocketlistApiController {
         return ResponseEntity.ok().headers(headers).body(resource);
     }
 
-
     @GetMapping(value = "/api/pocketlist/player")
     public List<Team> getPocketListByPlayer() throws IOException {
         List<Team> teams = new ArrayList<>();
@@ -139,7 +143,6 @@ public class PocketlistApiController {
 
         return teams;
     }
-
 
     @GetMapping(value = "/api/pocketlist/player/download")
     public ResponseEntity<Resource> downloadPocketlistReport() throws IOException {
@@ -169,7 +172,6 @@ public class PocketlistApiController {
 
     }
 
-
     @GetMapping(value = "/api/pocket/location")
     public List<Team> getPocketListByLocation() throws IOException {
         List<Team> teams = new ArrayList<>();
@@ -177,7 +179,6 @@ public class PocketlistApiController {
 
         return teams;
     }
-
 
     @GetMapping(value = "/api/pocketlist/location/download")
     public ResponseEntity<Resource> downloadPocketlistReportByLocation() throws IOException {
@@ -205,7 +206,6 @@ public class PocketlistApiController {
 
 
     }
-
 
     @GetMapping(value = "/api/pocketlist/inform/location/download", produces = "application/zip")
     public void doInformLocation(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -270,13 +270,17 @@ public class PocketlistApiController {
 
     }
 
-    @GetMapping(value = "/api/pocketlist/inform/all/download")
-    public ResponseEntity<Resource> doInformAll(HttpServletRequest request) throws IOException {
+    @PostMapping(value = "/api/pocketlist/inform/all/download")
+    public ResponseEntity<Resource> doInformAll(HttpServletRequest request, @RequestBody String payload) throws IOException {
 
-        Boolean isLogin = request.getSession(false) == null ? Boolean.FALSE : Boolean.TRUE;
+        logger.info(mapper.writeValueAsString(payload));
+        JsonNode root = mapper.readTree(payload);
+        Boolean isVisiblePasswd = root.get("passwd").asText().equals("23952340");
+        logger.info(String.valueOf(isVisiblePasswd));
+
         List<Inform> informs = new ArrayList<>();
 //        informs = pdfService.doInformAll(isLogin);
-        informs = informService.getInformsAll(isLogin);
+        informs = informService.getInformsAll(isVisiblePasswd);
 
         String filename = "inform-all.pdf";
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

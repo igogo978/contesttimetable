@@ -12,15 +12,17 @@ public class Report {
 
     private String summary;
 
-    @Column( columnDefinition = "text")
-    private String serial;
-
     private double scores;
-
 
    @OneToOne(mappedBy = "report", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn
    private ReportBody reportBody;
+
+
+//    @OneToOne(mappedBy = "report", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @PrimaryKeyJoinColumn
+//    private ReportSerial reportSerial;
+
 
     public String getUuid() {
         return uuid;
@@ -38,14 +40,6 @@ public class Report {
         this.summary = summary;
     }
 
-    public String getSerial() {
-        return serial;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
     public double getScores() {
         return scores;
     }
@@ -57,4 +51,8 @@ public class Report {
     public void setReportBody(ReportBody reportBody) {
         this.reportBody = reportBody;
     }
+
+//    public void setReportSerial(ReportSerial reportSerial) {
+//        this.reportSerial = reportSerial;
+//    }
 }

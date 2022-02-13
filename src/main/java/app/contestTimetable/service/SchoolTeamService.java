@@ -106,7 +106,7 @@ public class SchoolTeamService {
                         default:
 
                     }
-                    contestidSum.put(0,contestid.getMembers()+contestidSum.get(0));
+                    contestidSum.put(0, contestid.getMembers() + contestidSum.get(0));
                 });
 
             });
@@ -186,8 +186,14 @@ public class SchoolTeamService {
                 SchoolTeam schoolteam = new SchoolTeam();
                 logger.info(team.getSchoolname());
                 School school = schoolRepository.findBySchoolname(team.getSchoolname());
+                if (school == null) {
+
+                    schoolteam.setSchoolid(team.getSchoolname());
+                } else {
+                    schoolteam.setSchoolid(school.getSchoolid());
+                }
+
                 schoolteam.setSchoolname(team.getSchoolname());
-                schoolteam.setSchoolid(school.getSchoolid());
                 schoolTeams.add(schoolteam);
 
             }
@@ -195,6 +201,54 @@ public class SchoolTeamService {
         });
         return schoolTeams;
     }
+
+
+//    public List<SchoolTeam> getSchoolteams(Integer id) {
+//        List<SchoolTeam> schoolteams = new ArrayList<>();
+//
+//        //取出竞赛项目
+//        logger.info("取出竞赛项目 jobid:" + String.valueOf(id));
+//        Contestconfig contestconfig = contestconfigrepository.findById(id).get();
+//
+//        System.out.println("contest groupt" + contestconfig.getContestgroup().toString());
+//        //取出人数 以校为单位
+//        ArrayList<Team> teams = new ArrayList<>();
+//        contestconfig.getContestgroup().forEach(item -> {
+//            teamRepository.findByContestitemContaining(item).forEach(team -> {
+//                teams.add(team);
+//            });
+//        });
+//
+//
+//        teams.forEach(team -> {
+//            String schoolname = team.getSchoolname();
+//
+//            Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolname().equals(schoolname));
+////            logger.info(String.format("%s,%s", schoolname, isExist));
+//            if (isExist) {
+//                schoolteams.forEach(schoolteam -> {
+//
+//                    if (schoolteam.getSchoolname().equals(schoolname)) {
+//                        schoolteam.setMembers(schoolteam.getMembers() + 1);
+//                    }
+//                });
+//
+//            } else {
+//                SchoolTeam schoolteam = new SchoolTeam();
+////                logger.info(team.getSchoolname());
+//                School school = schoolRepository.findBySchoolname(team.getSchoolname());
+////                logger.info(school.getSchoolid());
+//                schoolteam.setSchoolid(school.getSchoolid());
+//                schoolteam.setMembers(1);
+//                schoolteam.setSchoolname(schoolname);
+////                schoolteam.setContestgroup(String.join(",", contestconfig.getContestgroup()));
+//                schoolteams.add(schoolteam);
+//
+//            }
+//
+//        });
+//        return schoolteams;
+//    }
 
 
 }

@@ -10,6 +10,7 @@ public interface AreascoreRepository extends CrudRepository<Areascore, String> {
     List<Areascore> findByOrderByStartarea();
 
     List<Areascore> findByScoresLessThanOrderByStartarea(Double scoresvalues);
+    List<Areascore> findByStartarea(String startarea);
 
     Areascore findByStartareaAndEndarea(String startarea, String endarea);
 

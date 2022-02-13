@@ -11,15 +11,19 @@ import app.contestTimetable.repository.SchoolTeamRepository;
 import app.contestTimetable.repository.TicketRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class TicketService {
@@ -36,6 +40,10 @@ public class TicketService {
     @Autowired
     LocationRepository locationRepository;
 
+
+    @Autowired
+    XlsxService xlsxService;
+
     public List<Ticket> getAll() {
 
         List<Ticket> tickets = new ArrayList<>();
@@ -47,11 +55,10 @@ public class TicketService {
         List<Ticket> tickets = getAll();
         List<Location> locations = new ArrayList<>();
         List<Location> usage = new ArrayList<>();
-        locationRepository.findAll().forEach(location -> {
-            if (!location.getSchoolid().equals("999999")) {
-                locations.add(location);
-            }
-        });
+
+        locations = StreamSupport.stream(locationRepository.findAll().spliterator(),false)
+                .filter(location -> !location.getSchoolid().equals("999999"))
+                .collect(Collectors.toList());
 
         ObjectMapper mapper = new ObjectMapper();
         locations.forEach(location -> {
@@ -63,7 +70,7 @@ public class TicketService {
             contestusers.put(3, 0);
             contestusers.put(4, 0);
             //home users
-            SchoolTeam home = schoolTeamRepository.findBySchoolnameEquals(location.getLocationname());
+            SchoolTeam home = schoolTeamRepository.findBySchoolnameEquals(location.getLocationName());
             if (home != null) {
                 int users1 = home.getContestids().stream().filter(contest -> contest.getContestid() == 1).findFirst().get().getMembers();
                 int users2 = home.getContestids().stream().filter(contest -> contest.getContestid() == 2).findFirst().get().getMembers();
@@ -77,7 +84,7 @@ public class TicketService {
             }
 
             tickets.forEach(ticket -> {
-                if (location.getLocationname().equals(ticket.getLocationname())) {
+                if (location.getLocationName().equals(ticket.getLocationname())) {
                     SchoolTeam school = schoolTeamRepository.findBySchoolnameEquals(ticket.getSchoolname());
                     if (school != null) {
                         int users1 = school.getContestids().stream().filter(contest -> contest.getContestid() == 1).findFirst().get().getMembers();
@@ -122,42 +129,22 @@ public class TicketService {
         });
 
     }
+    public void update(MultipartFile xlsx) throws IOException, InvalidFormatException {
+        List<Ticket> tickets =  xlsxService.getTickets(xlsx);
 
+        ticketrepository.deleteAll();
+        logger.info("update tickets");
+        tickets.forEach(ticket -> {
+            ticketrepository.save(ticket);
+        });
+    }
 
-//    public void updateTicket(ReportBody reportBody) throws IOException {
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        JsonNode root = mapper.readTree(reportBody.getBody());
-//
-//        root.forEach(candidate -> {
-//            String locationid = candidate.get("location").get("schoolid").asText();
-//            JsonNode node = candidate.get("teams");
-//            node.forEach(school -> {
-//                String schoolid = school.get("schoolid").asText();
-//
-//                if (ticketrepository.countBySchoolid(schoolid) == 0) {
-//                    logger.info(String.format("schoolid: %s  update ticket", schoolid));
-//                    Ticket ticket = new Ticket();
-//                    ticket.setLocationid(locationid);
-//                    ticket.setSchoolid(schoolid);
-//
-//                    ticketrepository.save(ticket);
-//
-//                }
-//
-//
-//            });
-//        });
-//
-//    }
 
     public void updateTicket(SchoolTeam schoolteam, Location location) throws IOException {
         if (ticketrepository.countBySchoolid(schoolteam.getSchoolid()) == 0) {
             Ticket ticket = new Ticket();
             ticket.setSchoolid(schoolteam.getSchoolid());
             ticket.setLocationid(location.getSchoolid());
-//            logger.info("update ticket");
-//            logger.info(String.format("%s,%s",schoolteam.getSchoolname(),location.getSchoolid()));
             ticketrepository.save(ticket);
 
         }

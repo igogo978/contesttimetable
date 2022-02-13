@@ -9,15 +9,11 @@ import java.util.List;
 
 public class Job {
 
-//    private List<Integer> jobid;
-
     private String locationorder;
 
     private String priorityorder;
 
     private String group1order;
-
-
     private String group2order;
 
     private Integer prioritysize;
@@ -27,14 +23,6 @@ public class Job {
 
     public Job() {
     }
-
-//    public List<Integer> getJobid() {
-//        return jobid;
-//    }
-//
-//    public void setJobid(List<Integer> jobid) {
-//        this.jobid = jobid;
-//    }
 
     public String getLocationorder() {
         return locationorder;

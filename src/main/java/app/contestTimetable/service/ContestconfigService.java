@@ -9,9 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 @Service
 public class ContestconfigService {
@@ -22,6 +25,22 @@ public class ContestconfigService {
     @Autowired
     ContestconfigRepository contestconfigRepository;
 
+
+    public void update(MultipartFile file) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        String content = new String(file.getBytes(), StandardCharsets.UTF_8);
+
+        Contestconfig[] contestconfigs = mapper.readValue(content, Contestconfig[].class);
+
+        if (contestconfigs.length != 0) {
+            contestconfigRepository.deleteAll();
+            Arrays.asList(contestconfigs).forEach(contestconfig -> contestconfigRepository.save(contestconfig));
+        }
+
+        logger.info("储存设定档");
+
+    }
 
     public void updateContestconfig(String configfile) throws IOException {
 

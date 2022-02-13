@@ -1,10 +1,10 @@
 package app.contestTimetable.service;
 
-import app.contestTimetable.model.*;
+import app.contestTimetable.model.Contestconfig;
+import app.contestTimetable.model.Job;
 import app.contestTimetable.model.school.Location;
 import app.contestTimetable.model.school.SchoolTeam;
 import app.contestTimetable.repository.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class JobService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
     @Autowired
     TeamRepository teamrepository;
@@ -43,12 +41,36 @@ public class JobService {
     @Autowired
     SchoolTeamRepository schoolTeamRepository;
 
+    @Autowired
+    ReportService reportService;
+
+
+//    public Job getFineJob() throws JsonProcessingException {
+//        Job job = new Job();
+//
+//        //find lowest scores report
+//        Report report = reportService.getReports().get(0);
+//        logger.info(String.valueOf(report.getScores()));
+//        ReportSerial serial = reportService.getReportserial(report.getUuid());
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode node = mapper.readTree(serial.getSerial());
+//        job.setLocationorder(node.get("locationorder").asText());
+//        job.setPriorityorder(node.get("priorityorder").asText());
+//        job.setGroup1order(node.get("group1order").asText());
+//        job.setGroup2order(node.get("group2order").asText());
+//        job.setPrioritysize(node.get("priorityorder").asText().split("-").length);
+//        job.setGroup1size(node.get("group1order").asText().split("-").length);
+//        job.setGroup2size(node.get("group2order").asText().split("-").length);
+//
+//        return job;
+//
+//    }
+
     public Job getJob() {
         Contestconfig contestconfig = contestconfigrepository.findById(1).get();
 
         //四个场次一起算
         Job job = new Job();
-
 
         //取出场地
         List<Location> locations = new ArrayList<>();
@@ -69,12 +91,12 @@ public class JobService {
         AtomicInteger prioritysize = new AtomicInteger(0);
         schoolTeams.forEach(schoolTeam -> {
 
-            //if team members > 4 in a day, we view this school as big group
+            //if team members > 4 in a day, this school is viewed as a big group
             int day1 = schoolTeam.getContestids().get(0).getMembers() + schoolTeam.getContestids().get(1).getMembers();
             int day2 = schoolTeam.getContestids().get(2).getMembers() + schoolTeam.getContestids().get(3).getMembers();
 
             if (locationrepository.existsById(schoolTeam.getSchoolid()) || ticketrepository.existsById(schoolTeam.getSchoolid())) {
-                //承办学校,已经拿到ticket的学校优先列入排序
+                //承办学校或已经拿到ticket的学校优先列入排序
                 priorityorder.append(String.format("%s-", schoolTeam.getSchoolid()));
                 prioritysize.set(prioritysize.incrementAndGet());
             } else if (day1 > 4 || day2 > 4) {
@@ -113,55 +135,51 @@ public class JobService {
         return job;
     }
 
-    public ArrayList<SchoolTeam> getSchoolteams(Integer id) {
-        ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
-
-        //取出竞赛项目
-        logger.info("取出竞赛项目 jobid:" + String.valueOf(id));
-        Contestconfig contestconfig = contestconfigrepository.findById(id).get();
-
-        System.out.println("contest groupt" + contestconfig.getContestgroup().toString());
-        //取出人数 以校为单位
-        ArrayList<Team> teams = new ArrayList<>();
-        contestconfig.getContestgroup().forEach(item -> {
-            teamrepository.findByContestitemContaining(item).forEach(team -> {
-                teams.add(team);
-            });
-        });
-
-
-        teams.forEach(team -> {
-            String schoolname = team.getSchoolname();
-
-            Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolname().equals(schoolname));
-//            logger.info(String.format("%s,%s", schoolname, isExist));
-            if (isExist) {
-                schoolteams.forEach(schoolteam -> {
-
-                    if (schoolteam.getSchoolname().equals(schoolname)) {
-                        schoolteam.setMembers(schoolteam.getMembers() + 1);
-                    }
-                });
-
-            } else {
-                SchoolTeam schoolteam = new SchoolTeam();
-//                logger.info(team.getSchoolname());
-                School school = schoolrepository.findBySchoolname(team.getSchoolname());
-//                logger.info(school.getSchoolid());
-                schoolteam.setSchoolid(school.getSchoolid());
-                schoolteam.setMembers(1);
-                schoolteam.setSchoolname(schoolname);
-//                schoolteam.setContestgroup(String.join(",", contestconfig.getContestgroup()));
-                schoolteams.add(schoolteam);
-
-            }
-
-
-        });
-
-        //should sort by team members, the more members the first priority they own
-
-        return schoolteams;
-    }
+//    public ArrayList<SchoolTeam> getSchoolteams(Integer id) {
+//        ArrayList<SchoolTeam> schoolteams = new ArrayList<>();
+//
+//        //取出竞赛项目
+//        logger.info("取出竞赛项目 jobid:" + String.valueOf(id));
+//        Contestconfig contestconfig = contestconfigrepository.findById(id).get();
+//
+//        System.out.println("contest groupt" + contestconfig.getContestgroup().toString());
+//        //取出人数 以校为单位
+//        ArrayList<Team> teams = new ArrayList<>();
+//        contestconfig.getContestgroup().forEach(item -> {
+//            teamrepository.findByContestitemContaining(item).forEach(team -> {
+//                teams.add(team);
+//            });
+//        });
+//
+//
+//        teams.forEach(team -> {
+//            String schoolname = team.getSchoolname();
+//
+//            Boolean isExist = schoolteams.stream().anyMatch(schoolTeam -> schoolTeam.getSchoolname().equals(schoolname));
+////            logger.info(String.format("%s,%s", schoolname, isExist));
+//            if (isExist) {
+//                schoolteams.forEach(schoolteam -> {
+//
+//                    if (schoolteam.getSchoolname().equals(schoolname)) {
+//                        schoolteam.setMembers(schoolteam.getMembers() + 1);
+//                    }
+//                });
+//
+//            } else {
+//                SchoolTeam schoolteam = new SchoolTeam();
+////                logger.info(team.getSchoolname());
+//                School school = schoolrepository.findBySchoolname(team.getSchoolname());
+////                logger.info(school.getSchoolid());
+//                schoolteam.setSchoolid(school.getSchoolid());
+//                schoolteam.setMembers(1);
+//                schoolteam.setSchoolname(schoolname);
+////                schoolteam.setContestgroup(String.join(",", contestconfig.getContestgroup()));
+//                schoolteams.add(schoolteam);
+//
+//            }
+//
+//        });
+//        return schoolteams;
+//    }
 
 }
