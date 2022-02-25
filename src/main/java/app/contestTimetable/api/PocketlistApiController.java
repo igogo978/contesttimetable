@@ -58,15 +58,6 @@ public class PocketlistApiController {
     @Autowired
     LocationRepository locationRepository;
 
-//    @Autowired
-//    ReportRepository reportRepository;
-
-//    @Autowired
-//    ReportScoresSummaryRepository reportScoresSummaryRepository;
-
-//    @Autowired
-//    SchoolTeamRepository schoolTeamRepository;
-
     @Autowired
     InformService informService;
 

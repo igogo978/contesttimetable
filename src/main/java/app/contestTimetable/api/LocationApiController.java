@@ -36,9 +36,7 @@ public class LocationApiController {
     @RequestMapping("/api/location")
     public List<Location> getItems() {
         List<Location> items = new ArrayList<>();
-
         repository.findAll().forEach(items::add);
-
         return items;
 
 

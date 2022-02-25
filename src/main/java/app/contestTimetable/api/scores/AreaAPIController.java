@@ -53,25 +53,11 @@ public class AreaAPIController {
 
     @GetMapping(value = "/api/scores/area/{areaname}")
     public List<Areascore> getOneAreascores(@PathVariable String areaname) throws IOException {
-//        List<Areascore> areascores = new ArrayList<>();
-//
-//        List<Location> locations = locationRepository.findBySchoolidNotIn(Arrays.asList("999999"));
-//        List<String> locationAreas = new ArrayList<>();
-//
-//        locations.forEach(location -> {
-//            locationAreas.add(location.getLocationname().split("(?<=區)")[0]);
-//        });
-//
-//        List<String> areas = new ArrayList<>();
-//        areas.add(areaname);
         return scoresService.getScoresByAreaname(areaname);
-
-
     }
 
     @GetMapping(value = "/api/scores/area")
     public List<Areascore> getScoresByArea() throws IOException {
-
         return scoresService.getAllScoresByArea();
     }
 
@@ -79,7 +65,6 @@ public class AreaAPIController {
     public ResponseEntity<Resource> downloadScoresByArea() throws IOException {
 
         List<Areascore> areascores = new ArrayList<>();
-
         areascores = scoresService.getAllScoresByArea();
         String filename = "area";
         //直接輸出

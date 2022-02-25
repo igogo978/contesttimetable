@@ -37,6 +37,8 @@ public class XlsxService {
     @Autowired
     SchoolRepository schoolRepository;
 
+    DataFormatter dataFormatter = new DataFormatter();
+
     public List<Ticket> getTickets(MultipartFile xlsx) throws IOException, InvalidFormatException {
 
         List<Ticket> tickets = new ArrayList<>();
@@ -69,26 +71,25 @@ public class XlsxService {
                 String locationid = null;
                 School school = new School();
                 Cell cell = cellIterator.next();
-//                cell.setCellType(CellType.STRING);
 
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第0個欄位, 参赛学校
-                        schoolname = String.valueOf(cell.getStringCellValue());
-//                        logger.info(schoolname);
-
+//                        schoolname = String.valueOf(cell.getStringCellValue());
+                        schoolname = dataFormatter.formatCellValue(cell);
                         school = schoolRepository.findBySchoolname(schoolname);
                         ticket.setSchoolname(schoolname);
                         ticket.setSchoolid(school.getSchoolid());
 
                         break;
                     case 1:    //第1個欄位, 场地
-                        locationname = String.valueOf(cell.getStringCellValue());
+//                        locationname = String.valueOf(cell.getStringCellValue());
+
+                        locationname = dataFormatter.formatCellValue(cell);
                         school = schoolRepository.findBySchoolname(locationname);
                         ticket.setLocationid(school.getSchoolid());
                         ticket.setLocationname(locationname);
                         break;
-
 
                     default:
                 }
@@ -96,7 +97,6 @@ public class XlsxService {
 
             tickets.add(ticket);
         }
-
 
         return tickets;
     }
@@ -117,12 +117,12 @@ public class XlsxService {
             String painting = ".*?(電腦繪圖).*";
 
             // Create a Pattern object
-            Pattern presentationregex = Pattern.compile(presentation);
+            Pattern presentationRegex = Pattern.compile(presentation);
 
             Pattern paintingregex = Pattern.compile(painting);
 
             // Now create matcher object.
-            Matcher matchPresentation = presentationregex.matcher(xlsx.toString());
+            Matcher matchPresentation = presentationRegex.matcher(xlsx.toString());
             Matcher matchPainting = paintingregex.matcher(xlsx.toString());
 
             try {
@@ -153,60 +153,6 @@ public class XlsxService {
         return teams;
     }
 
-//
-//    public List<Team> getTeams(String docPath) throws IOException {
-//        List<Team> teams = new ArrayList<>();
-//
-//        List<List<Team>> groupitems = new ArrayList<>();
-//        List<Path> xlsxPaths = new ArrayList<>();
-//        try (Stream<Path> paths = Files.walk(Paths.get(docPath))) {
-//            paths.filter(Files::isRegularFile)
-//                    .filter(p -> p.toString().endsWith(".xlsx"))
-//                    .forEach(xlsxPaths::add);
-//        }
-//
-//        xlsxPaths.forEach(xlsx -> {
-//            // String to be scanned to find the pattern.
-//            String presentation = ".*?(專題簡報).*";
-//            String painting = ".*?(電腦繪圖).*";
-//
-//            // Create a Pattern object
-//            Pattern presentationregex = Pattern.compile(presentation);
-//
-//            Pattern paintingregex = Pattern.compile(painting);
-//
-//            // Now create matcher object.
-//            Matcher matchPresentation = presentationregex.matcher(xlsx.toString());
-//            Matcher matchPainting = paintingregex.matcher(xlsx.toString());
-//
-//            logger.info(xlsx.toString());
-//            try {
-//                if (matchPresentation.find()) {
-//                    logger.info("專題簡報:" + xlsx.toString());
-//                    //簡報多一隊員欄位
-//                    groupitems.add(readPresentationTeams(xlsx.toString()));
-//
-//                } else if (matchPainting.find()) {
-//                    //绘画多一使用软体栏位
-//                    groupitems.add(readPaintingTeams(xlsx.toString()));
-//                } else {
-//                    groupitems.add(readContestItemTeams(xlsx.toString()));
-//
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//            //打散塞進items裡
-//            groupitems.forEach(items -> {
-//                items.forEach(team -> teams.add(team));
-//            });
-//            groupitems.clear();
-//        });
-//        return teams;
-//    }
-//
-
     List<Team> readPaintingTeams(String xlsPath) throws IOException, InvalidFormatException {
         List<Team> teams = new ArrayList<>();
 
@@ -233,38 +179,41 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第0個欄位, 流水號
-
                         break;
                     case 1:    //第1個欄位, 競賽項目
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setContestitem(value);
                         break;
                     case 2:    //第2個欄位, 學校
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setSchoolname(value);
                         break;
                     case 3:    //第三個欄位, 姓名
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setUsername(value);
                         break;
                     case 4:    //第4個欄位, 組員
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setInstructor(value);
                         break;
                     case 5:    //第5個欄位, painting tools
-//                        value = String.valueOf(cell.getStringCellValue());
 //                        team.setDescription(value);
                         break;
                     case 6:    //第6個欄位, 帐号
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setAccount(value);
                         break;
                     case 7:    //第7個欄位, 密码
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setPasswd(value);
                         break;
 
@@ -282,7 +231,6 @@ public class XlsxService {
     List<Team> readPresentationTeams(String xlsPath) throws IOException, InvalidFormatException {
         //讀取檔案內容
         List<Team> teams = new ArrayList<>();
-
 
         Workbook workbook = WorkbookFactory.create(new File(xlsPath));
 
@@ -306,29 +254,28 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-//                cell.setCellType(CellType.STRING);
-
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 流水號
-//                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
-//                            System.out.println(new String(byteArray, "UTF-8"));
-//                        System.out.println(String.valueOf(cell.getStringCellValue()));
                         break;
                     case 1:    //第二個欄位, 競賽項目
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setContestitem(value);
                         break;
                     case 2:    //第三個欄位, 學校
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setSchoolname(value);
                         break;
                     case 3:    //第三個欄位, 姓名
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setUsername(value);
                         break;
                     case 4:    //第4個欄位, 組員
-                        value = String.valueOf(cell.getStringCellValue());
-                        //方便利用资料库计算简报组人数, 空字串不是用notnull
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
+                        //方便利用资料库计算简报组人数, 空字串length=0
                         team.setMembers(2);
 
                         if (value.length() == 0) {
@@ -339,16 +286,18 @@ public class XlsxService {
                         team.setMembername(value);
                         break;
                     case 5:    //第5個欄位, 指導
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setInstructor(value);
                         break;
                     case 6:    //第四個欄位, 帐号
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setAccount(value);
                         break;
                     case 7:    //第四個欄位, 密码
-
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setPasswd(value);
                         break;
 
@@ -388,36 +337,40 @@ public class XlsxService {
             String value = "";
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
-//                cell.setCellType(CellType.STRING);
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 流水號
-//                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
-//                            System.out.println(new String(byteArray, "UTF-8"));
-//                        System.out.println(String.valueOf(cell.getStringCellValue()));
                         break;
                     case 1:    //第二個欄位, 競賽項目
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setContestitem(value);
                         break;
                     case 2:    //第三個欄位, 學校
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setSchoolname(value);
                         break;
                     case 3:    //第三個欄位, 姓名
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setUsername(value);
                         break;
                     case 4:    //第四個欄位, 指導
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+
+                        value = dataFormatter.formatCellValue(cell);
                         team.setInstructor(value);
                         break;
                     case 5:    //第5個欄位, 帐号
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         team.setAccount(value);
                         break;
                     case 6:    //第6個欄位, 密码
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+
+                        value = dataFormatter.formatCellValue(cell);
                         team.setPasswd(value);
                         break;
                     default:
@@ -441,7 +394,6 @@ public class XlsxService {
 
         // Get iterator to all the rows in current sheet
         Iterator<Row> rowIterator = sheet.iterator();
-        DataFormatter formatter = new DataFormatter();
 
 
         //讀列
@@ -471,7 +423,7 @@ public class XlsxService {
 
                     case 2:    //第二個欄位, 得分
 
-                        value = formatter.formatCellValue(cell);
+                        value = dataFormatter.formatCellValue(cell);
                         if (value.length() != 0) {
                             areascore.setScores(Double.valueOf(value));
                         }
@@ -485,7 +437,6 @@ public class XlsxService {
         workbook.close();
         return areas;
     }
-
 
     public ArrayList<Location> getLocations(MultipartFile file) throws IOException, InvalidFormatException {
         //讀取檔案內容
@@ -515,12 +466,14 @@ public class XlsxService {
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 场地名
-                        value = String.valueOf(cell.getStringCellValue());
+//                        value = String.valueOf(cell.getStringCellValue());
+                        value = dataFormatter.formatCellValue(cell);
                         location.setLocationName(value);
                         break;
                     case 1:    //第二個欄位, 容纳人数
                         // int 29
-                        Integer capacity = (int) cell.getNumericCellValue();
+//                        Integer capacity = (int) cell.getNumericCellValue();
+                        Integer capacity = Integer.valueOf(dataFormatter.formatCellValue(cell));
                         location.setCapacity(capacity);
                         break;
                     case 2:    //第3個欄位, color
@@ -553,7 +506,6 @@ public class XlsxService {
         // Get iterator to all the rows in current sheet
         Iterator<Row> rowIterator = sheet.iterator();
 
-        DataFormatter formatter = new DataFormatter();
         //讀列
         while (rowIterator.hasNext()) {
             School school = new School();
@@ -572,16 +524,13 @@ public class XlsxService {
 
                 switch (cell.getColumnIndex()) {
                     case 0:    //第一個欄位, 機關代碼
-//                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
-//                            System.out.println(new String(byteArray, "UTF-8"));
-//                        System.out.println(String.valueOf(cell.getStringCellValue()));
 
-                        value = formatter.formatCellValue(cell);
+                        value = dataFormatter.formatCellValue(cell);
 
                         school.setSchoolid(value);
                         break;
                     case 1:    //第二個欄位, 競賽項目
-                        value = formatter.formatCellValue(cell);
+                        value = dataFormatter.formatCellValue(cell);
                         school.setSchoolname(value);
                         break;
                     case 2:    //第三個欄位, 學校
@@ -604,120 +553,56 @@ public class XlsxService {
     }
 
 
-
-//    public List<School> getSchools(String docPath) throws IOException, InvalidFormatException {
-//        //讀取檔案內容
-//        List<School> schools = new ArrayList<>();
+//    public XSSFWorkbook createSelectedReport(List<Team> teams) {
+//        XSSFWorkbook wb = new XSSFWorkbook();
+//        XSSFSheet sheet = wb.createSheet("Sheet1");
 //
-//        Workbook workbook = WorkbookFactory.create(new File(docPath));
 //
-//        // Return first sheet from the XLSX  workbook
-//        Sheet sheet = workbook.getSheetAt(0);
+//        XSSFRow row = sheet.createRow(0);
+//        XSSFCell cell = row.createCell(0);
+//        cell.setCellValue("序");
 //
-//        // Get iterator to all the rows in current sheet
-//        Iterator<Row> rowIterator = sheet.iterator();
+//        cell = row.createCell(1);
+//        cell.setCellValue("試場 ");
 //
-//        DataFormatter formatter = new DataFormatter();
-//        //讀列
-//        while (rowIterator.hasNext()) {
-//            School school = new School();
-//            Row row = rowIterator.next();
+//        cell = row.createCell(2);
+//        cell.setCellValue("項目類別");
 //
-//            if (row.getRowNum() == 0) {  //ommit first row
-//                continue;
+//        cell = row.createCell(3);
+//        cell.setCellValue("學校");
+//
+//        cell = row.createCell(4);
+//        cell.setCellValue("姓名");
+//
+//        for (int i = 0; i < teams.size(); i++) {
+//            row = sheet.createRow(i + 1);
+//
+//            cell = row.createCell(0);
+//            cell.setCellValue(i + 1);
+//
+//
+//            cell = row.createCell(1);
+//            cell.setCellValue(teams.get(i).getLocation());
+//
+//
+//            cell = row.createCell(2);
+//            cell.setCellValue(teams.get(i).getContestitem());
+//
+//            cell = row.createCell(3);
+//            cell.setCellValue(teams.get(i).getSchoolname());
+//
+//            cell = row.createCell(4);
+//            String members = teams.get(i).getUsername();
+//            if (teams.get(i).getMembername() != null) {
+//                members = String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername());
 //            }
+//            cell.setCellValue(members);
 //
-//            //讀欄 For each row, iterate through each columns
-//            Iterator<Cell> cellIterator = row.cellIterator();
-//            String value = "";
-//            while (cellIterator.hasNext()) {
-//                Cell cell = cellIterator.next();
-////                cell.setCellType(CellType.STRING);
-//
-//                switch (cell.getColumnIndex()) {
-//                    case 0:    //第一個欄位, 機關代碼
-////                            byte[]  byteArray = cell.getStringCellValue().getBytes(Charset.forName("UTF-8"));
-////                            System.out.println(new String(byteArray, "UTF-8"));
-////                        System.out.println(String.valueOf(cell.getStringCellValue()));
-//
-//                        value = formatter.formatCellValue(cell);
-//
-//                        school.setSchoolid(value);
-//                        break;
-//                    case 1:    //第二個欄位, 競賽項目
-//                        value = formatter.formatCellValue(cell);
-//                        school.setSchoolname(value);
-//                        break;
-//                    case 2:    //第三個欄位, 學校
-////                        value = String.valueOf(cell.getStringCellValue());
-////                        school.setPosition(value);
-//                        break;
-//                    case 3:    //第三個欄位, 姓名
-////                        value = String.valueOf(cell.getStringCellValue());
-////                        school.setXyposition(value);
-//                        break;
-//
-//                    default:
-//                }
-//            } //結束讀欄
-//            schools.add(school);
 //        }
-//        workbook.close();
-//        return schools;
 //
+//
+//        return wb;
 //    }
-
-
-    public XSSFWorkbook createSelectedReport(List<Team> teams) {
-        XSSFWorkbook wb = new XSSFWorkbook();
-        XSSFSheet sheet = wb.createSheet("Sheet1");
-
-
-        XSSFRow row = sheet.createRow(0);
-        XSSFCell cell = row.createCell(0);
-        cell.setCellValue("序");
-
-        cell = row.createCell(1);
-        cell.setCellValue("試場 ");
-
-        cell = row.createCell(2);
-        cell.setCellValue("項目類別");
-
-        cell = row.createCell(3);
-        cell.setCellValue("學校");
-
-        cell = row.createCell(4);
-        cell.setCellValue("姓名");
-
-        for (int i = 0; i < teams.size(); i++) {
-            row = sheet.createRow(i + 1);
-
-            cell = row.createCell(0);
-            cell.setCellValue(i + 1);
-
-
-            cell = row.createCell(1);
-            cell.setCellValue(teams.get(i).getLocation());
-
-
-            cell = row.createCell(2);
-            cell.setCellValue(teams.get(i).getContestitem());
-
-            cell = row.createCell(3);
-            cell.setCellValue(teams.get(i).getSchoolname());
-
-            cell = row.createCell(4);
-            String members = teams.get(i).getUsername();
-            if (teams.get(i).getMembername() != null) {
-                members = String.format("%s、%s", teams.get(i).getUsername(), teams.get(i).getMembername());
-            }
-            cell.setCellValue(members);
-
-        }
-
-
-        return wb;
-    }
 
 
     public XSSFWorkbook createPocketlistByLocation(List<Team> teams) {
@@ -850,6 +735,7 @@ public class XlsxService {
 
 
     public XSSFWorkbook createAreascores(List<Areascore> areas) {
+
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet("Sheet1");
 
@@ -869,8 +755,8 @@ public class XlsxService {
         cell = row.createCell(2);
         cell.setCellValue("得分");
 
-        cell = row.createCell(2);
-        cell.setCellValue("兩點互換距離一樣，空值代表该区没有试场");
+//        cell = row.createCell(2);
+//        cell.setCellValue("兩點互換距離一樣，空值代表该区没有试场");
 
         for (int i = 0; i < areas.size(); i++) {
 

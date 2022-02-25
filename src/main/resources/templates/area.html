@@ -35,18 +35,20 @@
     <br>
 
 
-        <div class="d-flex flex-row-start bd-highlight">
-            <select class="form-select" v-model="selectedA">
-                <option disabled value="">選擇行政區</option>
-                <option v-bind:value="option.value" v-for="option in optionsA">
-                    {{ option.text }}
-                </option>
-            </select>
-            <button class="btn btn-outline-info" v-on:click="getArea">查詢</button>
-            <button class="btn btn-outline-dark" v-on:click="updateAreascores">寫入</button>
-        </div>
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <select class="form-select" v-model="selectedA">
+            <option disabled value="">選擇行政區</option>
+            <option v-bind:value="option.value" v-for="option in optionsA">
+                {{ option.text }}
+            </option>
+        </select>
+        <button class="btn btn-outline-info" v-on:click="getArea">查詢</button>
+    </div>
+    <div class="d-flex flex-row-reverse bd-highlight">
+        <button class="btn btn-outline-dark" v-on:click="updateAreascores">寫入</button>
+    </div>
 
-        {{updateDatetime}}
+    {{updateDatetime}}
 
 
     <div>
@@ -126,7 +128,7 @@
                     })
 
                     optiona = {};
-                    optiona.text = 'all';
+                    optiona.text = '所有行政區';
                     optiona.value = 'all' ;
                     vm.optionsA.push(optiona);
 
@@ -191,6 +193,9 @@
         })
 
          /*]]>*/
+
+
+
 
 
     </script>

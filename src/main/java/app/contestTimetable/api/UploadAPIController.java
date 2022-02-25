@@ -97,35 +97,6 @@ public class UploadAPIController {
 
     }
 
-
-    //讀出location上傳檔案內容
-//    @RequestMapping(value = "/location/upload/{filename}", method = RequestMethod.GET)
-//    public RedirectView readUploadLocationFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
-//        String locationxlsx = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
-//        locationService.updateLocation(locationxlsx);
-//        return new RedirectView("/location");
-//
-//    }
-
-
-
-
-
-//    //讀出ticket上傳檔案內容
-//    @RequestMapping(value = "/area/upload/{filename}", method = RequestMethod.GET)
-//    public RedirectView readUploadAreaFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
-//
-//
-//        String areafile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
-//        logger.info(areafile);
-//
-//
-//        scoresService.updateAreaScores(areafile);
-//
-//        return new RedirectView("/scores/area");
-//
-//    }
-
     //讀出contestconfig上傳檔案內容
     @RequestMapping(value = "/contestconfig/upload/{filename}", method = RequestMethod.GET)
     public RedirectView readUploadContestconfigFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
@@ -143,17 +114,17 @@ public class UploadAPIController {
 
 
     //讀出contestconfig上傳檔案內容
-    @RequestMapping(value = "/school/upload/{filename}", method = RequestMethod.GET)
-    public RedirectView readUploadSchoolFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
-
-
-        String csvfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
-
-//        schoolService.updateSchool(csvfile);
-
-        return new RedirectView("/school");
-
-    }
+//    @RequestMapping(value = "/school/upload/{filename}", method = RequestMethod.GET)
+//    public RedirectView readUploadSchoolFile(@PathVariable("filename") String filename, Model model) throws IOException, InvalidFormatException {
+//
+//
+//        String csvfile = String.format("%s/%s", filepath, new String(Base64.getDecoder().decode(filename.getBytes())));
+//
+////        schoolService.updateSchool(csvfile);
+//
+//        return new RedirectView("/school");
+//
+//    }
 
 
     //讀出reportrestore上傳檔案內容
