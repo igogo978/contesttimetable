@@ -106,7 +106,6 @@ public class UploadAPIController {
         logger.info(configfile);
 
         contestconfigService.updateContestconfig(configfile);
-//        scoresService.updateAreaScores(areafile);
 
         return new RedirectView("/contestconfig");
 

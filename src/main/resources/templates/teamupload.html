@@ -27,7 +27,7 @@
     <h3>上傳參賽隊伍(多個xlsx檔案或備分teams.json)</h3>
 
     <form class="row" enctype="multipart/form-data" method="POST"
-          th:action="@{'/team/upload'}">
+          th:action="@{'teamupload'}">
 
         <div class="col-auto">
             <input class="form-control" id="formFile" name="files" type="file" multiple>

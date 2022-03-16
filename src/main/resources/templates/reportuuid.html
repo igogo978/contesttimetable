@@ -151,7 +151,7 @@
                 <div> 
                         <button type="button" @click="updatePocketlist" class="btn
                         btn-success active float-right"
-                        role="button" aria-pressed="true">寫入口袋名单</button>
+                        role="button" aria-pressed="true">寫入口袋名單</button>
 
                 </div>
                 <br>
@@ -201,7 +201,7 @@
                                                 <input type="radio"
                                                     v-bind:value="team.schoolid"
                                                     v-model="checkedOut">
-                                                <a v-bind:href="'/archive/school/' + team.name" target="_blank"> {{team.name}} </a>
+                                                <a v-bind:href="'archive/school/' + team.name" target="_blank"> {{team.name}} </a>
                                                 ({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
                                                 <a v-bind:href="'https://www.google.com/maps/dir/?api=1&origin=' + team.name + '&destination=' + item.location.name + '&travelmode=driving'"  target="_blank">
                                                     ({{item.location.name}})
@@ -422,8 +422,7 @@
                 },
                 created: function() {
                     let vm = this;
-                    //let url =  "/api/report/uuid/" + this.uuid;
-                    let url =  "/api/reportbody/" + this.uuid;
+                    let url =  "../../api/reportbody/" + this.uuid;
 
                     let schoolteams = 0;
                     this.$http.get(url, config).then((response) => {
@@ -463,7 +462,7 @@
                         this.showModal = true;
                         this.counting = 0;
                         let vm = this;
-                        let url = "/api/pocketlist"
+                        let url = "../../api/pocketlist"
 
                         timer = setInterval(() => {
                             vm.counting += 1;

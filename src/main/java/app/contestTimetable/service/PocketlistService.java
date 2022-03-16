@@ -132,7 +132,7 @@ public class PocketlistService {
                 List<Team> teams = teamRepository.findBySchoolname(pocketlistitem.getSchoolname());
                 if (teams.size() != 0) {
                     teams.forEach(team -> {
-                        logger.info("update teams' location");
+                        logger.info("update teams location, pocket list ");
 
                         team.setLocation(pocketlistitem.getLocationname());
                         teamRepository.save(team);

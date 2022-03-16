@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TicketUsageController {
 
-    @GetMapping(value = "/ticket/usage")
+    @GetMapping(value = "/ticketusage")
     public String getTickets()   {
 
         return "ticketusage";

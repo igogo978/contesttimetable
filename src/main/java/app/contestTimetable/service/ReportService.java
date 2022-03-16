@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
@@ -75,12 +76,14 @@ public class ReportService {
 //    }
 
     public Report get1stReport() {
-        if(reportRepository.findAllByOrderByScoresAsc().size() != 0) {
-            return  reportRepository.findAllByOrderByScoresAsc().get(0);
+        if (reportRepository.findAllByOrderByScoresAsc().size() != 0) {
+            return reportRepository.findAllByOrderByScoresAsc().stream()
+                    .filter(report -> report.getScores() > 1)
+                    .collect(Collectors.toList()).get(0);
         }
         Report report = new Report();
         report.setScores(999999999);
-        return  report;
+        return report;
     }
 
     public Optional<Report> getReport(String uuid) {
@@ -333,7 +336,7 @@ public class ReportService {
             report.setReportBody(body);
 //            report.setReportSerial(serial);
 
-           reportRepository.save(report);
+            reportRepository.save(report);
 
         });
 
@@ -342,7 +345,7 @@ public class ReportService {
     public void updateReport(Report report) {
         ZonedDateTime dateTime = ZonedDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        logger.info(dateTime.format(formatter)+ " "+ report.getScores());
+        logger.info(dateTime.format(formatter) + " " + report.getScores());
 
         String uuid = report.getUuid();
         if (reportRepository.findByUuid(uuid).isPresent()) {
@@ -370,8 +373,13 @@ public class ReportService {
         updateReport(report);
     }
 
-    public void delete() {
+    public void deleteAll() {
         reportRepository.deleteAll();
         logger.info("delete jobs done");
     }
+
+    public void delete(Report report) {
+        reportRepository.delete(report);
+    }
+
 }

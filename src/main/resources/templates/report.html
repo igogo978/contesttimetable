@@ -153,7 +153,7 @@
                             <button type="button" class="btn btn-danger"
                                 @click="showAlarm">刪除</button>
                                 
-                            <a class="btn btn-outline-dark" href="/report/restore" role="button" target="_blank">restore</a>
+                            <a class="btn btn-outline-dark" href="report/restore" role="button" target="_blank">restore</a>
                         </td>
                     </thead>
                     <tbody>
@@ -183,7 +183,7 @@
                                 </table>
                             </td>
                             <td>
-                                <a :href="'/report/uuid/'+item.uuid"
+                                <a :href="'report/uuid/'+item.uuid"
                                     target="_blank">詳細資料</a>
 
                             </td>
@@ -248,7 +248,7 @@
             },
             created: function() {
                 let vm = this;
-                let url =  "/api/report/v2" ;
+                let url =  "api/report/v2" ;
 
                 this.$http.get(url, config).then((response) => {
                     // vm.items = response.data;
@@ -310,12 +310,12 @@
                 },
                 dodelete: function() {
                     console.log("delete all");
-                    let url =  "/api/report" ;
+                    let url =  "api/report" ;
 
                     this.$http.delete(url, config).then((response) => {
                        //refresh page
                         console.log("request delete method");
-                        window.location.replace("/report");
+                        window.location.replace("report");
                     }, (response) => {
                         // error callback
                     });

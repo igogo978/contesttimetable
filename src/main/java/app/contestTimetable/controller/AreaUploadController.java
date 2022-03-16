@@ -35,13 +35,13 @@ public class AreaUploadController {
 //        this.storageService = storageService;
 //    }
 
-    @GetMapping(value = "/area/upload")
+    @GetMapping(value = "/areaupload")
     public String uploadArea() {
         return "areaupload";
     }
 
     //user upload page
-    @PostMapping("/area/upload")
+    @PostMapping("/areaupload")
     public String handleAreaFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) throws IOException, InvalidFormatException {
         logger.info("filename:" + file.getOriginalFilename());
@@ -50,7 +50,7 @@ public class AreaUploadController {
         scoresService.updateAreaScores(file);
 
 //        return "redirect:/area/upload/" + new String(Base64.getEncoder().encode(filename.getBytes()));
-        return "redirect:/scores/area";
+        return "redirect:/scoresarea";
     }
 
 

@@ -69,6 +69,14 @@ public class ReportApiController {
         return reportService.get1stReport();
     }
 
+
+    @GetMapping(value = "/api/report/scores/delete/1")
+    public Report delete1stReport() {
+       Report report = reportService.get1stReport();
+       reportService.delete(report);
+       return report;
+    }
+
     @GetMapping(value = "/api/report/download")
     public ResponseEntity<Resource> downloadReport() throws IOException {
 
@@ -160,7 +168,7 @@ public class ReportApiController {
     public void deleteReports() {
         logger.info("delete reports");
 //        reportRepository.deleteAll();
-        reportService.delete();
+        reportService.deleteAll();
     }
 
 

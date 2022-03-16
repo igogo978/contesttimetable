@@ -48,7 +48,7 @@ public class LocationService {
         locationRepository.deleteAll();
         logger.info("设定场地资料");
 
-        ArrayList<Location> locations = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
         locations = xlsxService.getLocations(file);
 
         locations.forEach(location -> {

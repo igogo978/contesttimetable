@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SummaryController {
-    @GetMapping(value = "/team/summary/school")
+    @GetMapping(value = "/teamsummaryschool")
     public String getSchoolTeamPage() {
 
         return "teamsummaryschool";
     }
 
 
-    @GetMapping(value = "/team/summary/area")
+    @GetMapping(value = "/teamsummaryarea")
     public String getSummaryTeamByAreaPage() {
 
         return "teamsummaryarea";

@@ -44,6 +44,11 @@ public class TeamService {
     @Value("${multipart.location}")
     private Path path;
 
+    public void deleteTeamAndSchoolTeam() {
+        teamRepository.deleteAll();
+        schoolTeamService.delete();
+    }
+
     public void restore(MultipartFile multipartFile) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String content = new String(multipartFile.getBytes(), StandardCharsets.UTF_8);
@@ -67,12 +72,27 @@ public class TeamService {
         List<Team> teams = new ArrayList<>();
         teams = xlsxService.getTeams(path);
 
+        teams.forEach(team -> {
+            if (team.getSchoolname().contains("市立光復國中(小)")) {
+                logger.info("get schoolname: " + team.getUsername());
+                team.setSchoolname("霧峰區光復國中小");
+            }
+
+            if (team.getSchoolname().contains("西屯區麗")) {
+                logger.info("get schoolname: " + team.getUsername());
+                team.setSchoolname("西屯區麗喆中小學");
+            }
+
+        });
+
+
         //empty old records
         teamRepository.deleteAll();
-
         teams.forEach(team -> {
             teamRepository.save(team);
         });
+
+
 
         //update contest data in team.description
         contestconfigRepository.findAll().forEach(contestconfig -> {
@@ -89,6 +109,9 @@ public class TeamService {
                     }
             );
         });
+
+
+
 
     }
 

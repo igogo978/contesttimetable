@@ -15,7 +15,7 @@
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="/js/FileSaver.min.js"></script>
+<!--        <script src="/js/FileSaver.min.js"></script>-->
 
 
     </head>
@@ -39,7 +39,18 @@
                 </thead>
                 <tbody>
 
-                    <tr>
+
+                <tr>
+                    <td>刪除參賽隊伍</td>
+                    <td></td>
+                    <td>
+                        <button @click="deleteTeam" role="button" class="btn btn-danger">刪除</button>
+                    </td>
+                </tr>
+
+
+
+                <tr>
                         <td>清除口袋名單</td>
                         <td></td>
                         <td>
@@ -109,7 +120,7 @@
                     let vm = this;
                     if((!/\D/.test(this.year)) && (this.year.length===3)){
                        console.log(this.year);
-                       let url = "/api/team/archive/" + this.year;
+                       let url = "api/team/archive/" + this.year;
                        this.$http.get(url)
                           .then(function (response) {
                             // handle success
@@ -133,7 +144,7 @@
             methods: {
                 addArchive:function(){
 
-                    let url = "/api/team/archive";
+                    let url = "api/team/archive";
                     let vm = this;
                     this.$http.post(url,
                     { data : {
@@ -154,7 +165,7 @@
                 },
                 deletePocketlist:function(){
 
-                    let url = "/api/pocketlist";
+                    let url = "api/pocketlist";
                     let vm = this;
                     vm.msg = "waiting...";
                     this.$http.delete(url,
@@ -172,10 +183,33 @@
                     });
 
                 },
+                deleteTeam: function() {
+                   console.log("delete team");
+                   let url = "api/team";
+                   let vm = this;
+                   vm.msg = "waiting...";
+                   this.$http.delete(url,
+                    { data : {
+                         "action": "delete"
+                    },config})
+                    .then((response) => {
+                        // success callback // console.log(response.data);
+
+                        console.log(response.data);
+                        vm.msg = response.data
+
+                    }, (response) => {
+                    // error callback
+                    });
+
+
+
+
+                },
                 handleThisFile: function(event) {
                     let file = event.target.files[0];
                     let vm = this;
-                    let url = "/api/archive/restore";
+                    let url = "api/archive/restore";
                     let formData = new FormData();
                     formData.append('jsonfile', file);
 

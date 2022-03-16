@@ -35,7 +35,7 @@ public class JobController {
         this.storageService = storageService;
     }
 
-    @GetMapping(value = "/job/run")
+    @GetMapping(value = "/jobrun")
     public String runReport(Model model) {
 
         model.addAttribute("client", new File("/tmp/contest/client.zip").exists());
@@ -59,7 +59,7 @@ public class JobController {
             FileUtils.copyFile(new File(String.format("%s/%s",rootPath, file.getOriginalFilename())), clientZip);
         }
 
-        return "redirect:/job/run";
+        return "redirect:/jobrun";
     }
 
 

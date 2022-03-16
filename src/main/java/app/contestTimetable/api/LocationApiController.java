@@ -39,7 +39,6 @@ public class LocationApiController {
         repository.findAll().forEach(items::add);
         return items;
 
-
     }
 
 

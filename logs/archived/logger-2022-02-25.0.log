@@ -1,0 +1,966 @@
+2022-02-25 09:42:33,697 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.14 on LAPTOP-IGOGO with PID 749 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2022-02-25 09:42:33,715 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2022-02-25 09:42:37,630 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-02-25 09:42:37,746 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 96 ms. Found 14 JPA repository interfaces.
+2022-02-25 09:42:38,464 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-02-25 09:42:38,476 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-25 09:42:38,478 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-02-25 09:42:38,479 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-25 09:42:38,604 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-02-25 09:42:38,605 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 4433 ms
+2022-02-25 09:42:38,807 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-25 09:42:38,874 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.4.Final
+2022-02-25 09:42:39,228 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-25 09:42:39,389 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-02-25 09:42:39,679 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-02-25 09:42:39,709 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2022-02-25 09:42:42,327 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-02-25 09:42:42,395 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 09:42:45,779 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-02-25 09:42:46,575 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2022-02-25 09:42:47,027 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-02-25 09:42:47,106 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-25 09:42:47,148 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 16.682 seconds (JVM running for 18.939)
+2022-02-25 09:42:47,177 INFO app.contestTimetable.ContestTimetableApplication [main] create contest tmp directory /tmp/contest
+2022-02-25 09:42:47,410 INFO app.contestTimetable.service.InformCommentsService [main] get informcomments
+2022-02-25 09:42:47,451 INFO app.contestTimetable.ContestTimetableApplication [main] 系统启动成功
+2022-02-25 09:42:57,245 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-25 09:42:57,247 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-02-25 09:42:57,249 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2022-02-25 09:43:08,182 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-4] filename:2.台中市學校名單tcschool.xlsx
+2022-02-25 09:43:41,308 INFO app.contestTimetable.controller.TeamUploadController [http-nio-8080-exec-9] upload multiple files
+2022-02-25 09:43:41,313 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,315 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,316 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,317 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,317 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,318 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,318 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,319 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,319 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2022-02-25 09:43:41,320 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2022-02-25 09:43:41,324 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2022-02-25 09:43:41,327 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2022-02-25 09:43:41,328 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2022-02-25 09:43:41,328 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2022-02-25 09:43:41,329 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2022-02-25 09:43:41,329 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,329 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,330 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,330 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,331 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,331 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,335 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,336 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,342 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,343 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,344 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,345 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,346 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,347 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,348 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,351 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,351 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,352 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,352 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,353 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,359 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,359 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2022-02-25 09:43:41,360 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2022-02-25 09:43:41,360 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2022-02-25 09:43:41,361 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2022-02-25 09:43:41,363 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2022-02-25 09:43:41,364 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2022-02-25 09:43:41,365 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2022-02-25 09:43:41,366 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2022-02-25 09:43:41,367 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2022-02-25 09:43:41,367 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,368 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,369 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,369 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,369 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,370 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,377 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2022-02-25 09:43:41,378 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2022-02-25 09:43:41,378 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,379 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,380 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,381 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,382 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,383 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,384 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-9] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2022-02-25 09:43:41,929 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-9] 專題簡報:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2022-02-25 09:43:42,053 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-9] 專題簡報:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2022-02-25 09:43:42,116 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-9] 專題簡報:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2022-02-25 09:43:42,401 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-9] 專題簡報:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2022-02-25 09:43:42,547 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-9] 專題簡報:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2022-02-25 09:44:00,207 INFO app.contestTimetable.service.TeamService [http-nio-8080-exec-9] 统计每间学校各项目参赛人数
+2022-02-25 09:44:02,423 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 中區光復國小
+2022-02-25 09:44:02,432 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區中華國小
+2022-02-25 09:44:02,436 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區五權國中
+2022-02-25 09:44:02,439 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區健行國小
+2022-02-25 09:44:02,442 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區太平國小
+2022-02-25 09:44:02,449 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區新民高中
+2022-02-25 09:44:02,455 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區曉明女中
+2022-02-25 09:44:02,458 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區立人國中
+2022-02-25 09:44:02,461 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區立人國小
+2022-02-25 09:44:02,464 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區篤行國小
+2022-02-25 09:44:02,471 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區育仁小學
+2022-02-25 09:44:02,479 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區臺中教大實小
+2022-02-25 09:44:02,492 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區賴厝國小
+2022-02-25 09:44:02,496 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北區雙十國中
+2022-02-25 09:44:02,500 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區三光國中
+2022-02-25 09:44:02,502 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區仁愛國小
+2022-02-25 09:44:02,505 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區仁美國小
+2022-02-25 09:44:02,507 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區僑孝國小
+2022-02-25 09:44:02,515 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區北屯國小
+2022-02-25 09:44:02,518 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區北新國中
+2022-02-25 09:44:02,520 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區四張犁國小
+2022-02-25 09:44:02,523 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區大德國中
+2022-02-25 09:44:02,525 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區崇德國中
+2022-02-25 09:44:02,536 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區建功國小
+2022-02-25 09:44:02,540 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區文心國小
+2022-02-25 09:44:02,555 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區文昌國小
+2022-02-25 09:44:02,558 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區新興國小
+2022-02-25 09:44:02,560 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區明道普霖斯頓小學
+2022-02-25 09:44:02,564 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區東山高中
+2022-02-25 09:44:02,568 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區衛道高中
+2022-02-25 09:44:02,571 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 北屯區軍功國小
+2022-02-25 09:44:02,575 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南區信義國小
+2022-02-25 09:44:02,581 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南區和平國小
+2022-02-25 09:44:02,583 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南區四育國中
+2022-02-25 09:44:02,586 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南區崇倫國中
+2022-02-25 09:44:02,589 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南區樹義國小
+2022-02-25 09:44:02,591 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區南屯國小
+2022-02-25 09:44:02,599 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區大墩國中
+2022-02-25 09:44:02,602 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區大墩國小
+2022-02-25 09:44:02,608 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區大新國小
+2022-02-25 09:44:02,615 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區大業國中
+2022-02-25 09:44:02,625 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區嶺東中學
+2022-02-25 09:44:02,634 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區惠文國小
+2022-02-25 09:44:02,636 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區惠文高中
+2022-02-25 09:44:02,638 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區文山國小
+2022-02-25 09:44:02,643 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區春安國小
+2022-02-25 09:44:02,653 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區東興國小
+2022-02-25 09:44:02,668 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區永春國小
+2022-02-25 09:44:02,670 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區萬和國中
+2022-02-25 09:44:02,676 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區鎮平國小
+2022-02-25 09:44:02,688 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區黎明國中
+2022-02-25 09:44:02,691 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 南屯區黎明國小
+2022-02-25 09:44:02,694 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區七星國小
+2022-02-25 09:44:02,697 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區內埔國小
+2022-02-25 09:44:02,703 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區后綜高中
+2022-02-25 09:44:02,706 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區后里國中
+2022-02-25 09:44:02,708 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區后里國小
+2022-02-25 09:44:02,712 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區月眉國小
+2022-02-25 09:44:02,726 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區泰安國小
+2022-02-25 09:44:02,732 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 后里區育英國小
+2022-02-25 09:44:02,736 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 和平區自由國小
+2022-02-25 09:44:02,740 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 外埔區外埔國中
+2022-02-25 09:44:02,743 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 外埔區外埔國小
+2022-02-25 09:44:02,749 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大安區大安國中
+2022-02-25 09:44:02,751 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大安區大安國小
+2022-02-25 09:44:02,758 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大安區永安國小
+2022-02-25 09:44:02,760 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大安區海墘國小
+2022-02-25 09:44:02,766 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區大甲國中
+2022-02-25 09:44:02,768 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區大甲國小
+2022-02-25 09:44:02,772 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區文昌國小
+2022-02-25 09:44:02,774 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區日南國中
+2022-02-25 09:44:02,779 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區日南國小
+2022-02-25 09:44:02,782 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區東明國小
+2022-02-25 09:44:02,786 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區東陽國小
+2022-02-25 09:44:02,789 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區華龍國小
+2022-02-25 09:44:02,806 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區順天國中
+2022-02-25 09:44:02,808 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大甲區順天國小
+2022-02-25 09:44:02,810 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大肚區大忠國小
+2022-02-25 09:44:02,813 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大肚區大肚國小
+2022-02-25 09:44:02,817 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大肚區大道國中
+2022-02-25 09:44:02,820 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大肚區山陽國小
+2022-02-25 09:44:02,824 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大肚區永順國小
+2022-02-25 09:44:02,829 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大肚區瑞井國小
+2022-02-25 09:44:02,831 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區光榮國中
+2022-02-25 09:44:02,835 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區光正國中
+2022-02-25 09:44:02,839 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區塗城國小
+2022-02-25 09:44:02,842 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區大元國小
+2022-02-25 09:44:02,856 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區大里高中
+2022-02-25 09:44:02,858 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區成功國中
+2022-02-25 09:44:02,861 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區永隆國小
+2022-02-25 09:44:02,865 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區爽文國中
+2022-02-25 09:44:02,868 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區瑞城國小
+2022-02-25 09:44:02,870 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區益民國小
+2022-02-25 09:44:02,875 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區立人高中
+2022-02-25 09:44:02,878 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大里區美群國小
+2022-02-25 09:44:02,881 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區上楓國小
+2022-02-25 09:44:02,885 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區六寶國小
+2022-02-25 09:44:02,888 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區大明國小
+2022-02-25 09:44:02,895 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區大雅國中
+2022-02-25 09:44:02,898 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區大雅國小
+2022-02-25 09:44:02,900 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區文雅國小
+2022-02-25 09:44:02,903 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區汝鎏國小
+2022-02-25 09:44:02,907 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 大雅區陽明國小
+2022-02-25 09:44:02,909 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區中平國中
+2022-02-25 09:44:02,915 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區坪林國小
+2022-02-25 09:44:02,918 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區太平國中
+2022-02-25 09:44:02,922 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區新光國中
+2022-02-25 09:44:02,926 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區新光國小
+2022-02-25 09:44:02,929 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區東平國小
+2022-02-25 09:44:02,932 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區華盛頓中學
+2022-02-25 09:44:02,941 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區長億國小
+2022-02-25 09:44:02,947 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 太平區長億高中
+2022-02-25 09:44:02,949 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 新社區新社國小
+2022-02-25 09:44:02,953 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 新社區新社高中
+2022-02-25 09:44:02,957 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東勢區中山國小
+2022-02-25 09:44:02,959 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東勢區新盛國小
+2022-02-25 09:44:02,964 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東勢區東勢國小
+2022-02-25 09:44:02,968 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東區力行國小
+2022-02-25 09:44:02,976 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東區國立興大附農
+2022-02-25 09:44:02,981 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東區大智國小
+2022-02-25 09:44:02,986 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東區成功國小
+2022-02-25 09:44:02,988 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東區育英國中
+2022-02-25 09:44:02,991 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 東區進德國小
+2022-02-25 09:44:03,015 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 梧棲區中正國小
+2022-02-25 09:44:03,018 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 梧棲區大德國小
+2022-02-25 09:44:03,021 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 梧棲區梧棲國小
+2022-02-25 09:44:03,024 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 梧棲區永寧國小
+2022-02-25 09:44:03,030 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區公明國小
+2022-02-25 09:44:03,040 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區北勢國中
+2022-02-25 09:44:03,047 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區北勢國小
+2022-02-25 09:44:03,049 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區文光國小
+2022-02-25 09:44:03,051 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區沙鹿國中
+2022-02-25 09:44:03,054 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區沙鹿國小
+2022-02-25 09:44:03,057 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區竹林國小
+2022-02-25 09:44:03,061 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區鹿寮國中
+2022-02-25 09:44:03,064 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 沙鹿區鹿峰國小
+2022-02-25 09:44:03,067 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區三田國小
+2022-02-25 09:44:03,071 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區建國國小
+2022-02-25 09:44:03,082 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區槺榔國小
+2022-02-25 09:44:03,084 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區清水國小
+2022-02-25 09:44:03,086 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區清泉國中
+2022-02-25 09:44:03,088 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區甲南國小
+2022-02-25 09:44:03,090 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區西寧國小
+2022-02-25 09:44:03,097 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 清水區高美國小
+2022-02-25 09:44:03,100 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 潭子區弘文高中
+2022-02-25 09:44:03,103 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 潭子區東寶國小
+2022-02-25 09:44:03,106 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 潭子區潭子國中
+2022-02-25 09:44:03,108 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 潭子區潭子國小
+2022-02-25 09:44:03,110 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 潭子區潭秀國中
+2022-02-25 09:44:03,114 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 潭子區潭陽國小
+2022-02-25 09:44:03,116 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 潭子區華盛頓國小
+2022-02-25 09:44:03,126 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區九德國小
+2022-02-25 09:44:03,129 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區僑仁國小
+2022-02-25 09:44:03,143 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區光德國中
+2022-02-25 09:44:03,157 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區喀哩國小
+2022-02-25 09:44:03,169 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區明道中學
+2022-02-25 09:44:03,173 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區東園國小
+2022-02-25 09:44:03,176 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區溪南國中
+2022-02-25 09:44:03,179 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區烏日國中
+2022-02-25 09:44:03,182 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 烏日區烏日國小
+2022-02-25 09:44:03,185 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 石岡區石岡國中
+2022-02-25 09:44:03,188 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 石岡區石岡國小
+2022-02-25 09:44:03,191 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 神岡區圳堵國小
+2022-02-25 09:44:03,194 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 神岡區岸裡國小
+2022-02-25 09:44:03,200 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 神岡區社口國小
+2022-02-25 09:44:03,205 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 神岡區神岡國小
+2022-02-25 09:44:03,207 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區中正國小
+2022-02-25 09:44:03,209 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區光明國中
+2022-02-25 09:44:03,214 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區向上國中
+2022-02-25 09:44:03,216 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區大同國小
+2022-02-25 09:44:03,219 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區居仁國中
+2022-02-25 09:44:03,221 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區忠信國小
+2022-02-25 09:44:03,225 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區忠明國小
+2022-02-25 09:44:03,230 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西區臺中女中
+2022-02-25 09:44:03,236 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區上安國小
+2022-02-25 09:44:03,238 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區上石國小
+2022-02-25 09:44:03,240 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區中山國中
+2022-02-25 09:44:03,251 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區何厝國小
+2022-02-25 09:44:03,256 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區國安國小
+2022-02-25 09:44:03,258 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區大仁國小
+2022-02-25 09:44:03,261 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區安和國中
+2022-02-25 09:44:03,266 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區文華高中
+2022-02-25 09:44:03,269 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區東海國小
+2022-02-25 09:44:03,271 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區泰安國小
+2022-02-25 09:44:03,274 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區漢口國中
+2022-02-25 09:44:03,281 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區福科國中
+2022-02-25 09:44:03,284 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區至善國中
+2022-02-25 09:44:03,294 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區西苑高中
+2022-02-25 09:44:03,297 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區重慶國小
+2022-02-25 09:44:03,299 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 西屯區長安國小
+2022-02-25 09:44:03,301 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區合作國小
+2022-02-25 09:44:03,304 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區福陽國小
+2022-02-25 09:44:03,306 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區翁子國小
+2022-02-25 09:44:03,308 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區葫蘆墩國小
+2022-02-25 09:44:03,310 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區豐南國中
+2022-02-25 09:44:03,319 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區豐原國中
+2022-02-25 09:44:03,322 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區豐村國小
+2022-02-25 09:44:03,335 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 豐原區豐東國中
+2022-02-25 09:44:03,338 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區光復國中小
+2022-02-25 09:44:03,340 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區光正國小
+2022-02-25 09:44:03,343 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區吉峰國小
+2022-02-25 09:44:03,349 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區四德國小
+2022-02-25 09:44:03,354 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區峰谷國小
+2022-02-25 09:44:03,358 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區復興國小
+2022-02-25 09:44:03,367 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區明台高中
+2022-02-25 09:44:03,369 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 霧峰區霧峰國小
+2022-02-25 09:44:03,372 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區四箴國中
+2022-02-25 09:44:03,375 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區龍井國中
+2022-02-25 09:44:03,377 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區龍井國小
+2022-02-25 09:44:03,380 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區龍山國小
+2022-02-25 09:44:03,384 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區龍泉國小
+2022-02-25 09:44:03,387 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區龍津國小
+2022-02-25 09:44:03,405 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區龍津高中
+2022-02-25 09:44:03,407 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-9] 龍井區龍海國小
+2022-02-25 09:50:23,438 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 09:50:23,457 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-02-25 09:50:23,484 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-02-25 10:16:32,820 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.14 on LAPTOP-IGOGO with PID 1131 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2022-02-25 10:16:32,824 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2022-02-25 10:16:34,709 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-02-25 10:16:34,996 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 240 ms. Found 14 JPA repository interfaces.
+2022-02-25 10:16:36,186 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-02-25 10:16:36,200 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-25 10:16:36,212 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-02-25 10:16:36,212 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-25 10:16:36,348 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-02-25 10:16:36,349 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 3343 ms
+2022-02-25 10:16:36,816 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-25 10:16:36,896 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.4.Final
+2022-02-25 10:16:37,024 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-25 10:16:37,135 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-02-25 10:16:37,308 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-02-25 10:16:37,330 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2022-02-25 10:16:39,588 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-02-25 10:16:39,597 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 10:16:40,372 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-02-25 10:16:40,704 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2022-02-25 10:16:40,887 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-02-25 10:16:40,908 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-25 10:16:40,939 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 8.776 seconds (JVM running for 9.282)
+2022-02-25 10:16:41,039 INFO app.contestTimetable.service.InformCommentsService [main] get informcomments
+2022-02-25 10:16:41,065 INFO app.contestTimetable.ContestTimetableApplication [main] 系统启动成功
+2022-02-25 10:19:48,742 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 10:19:48,754 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-02-25 10:19:48,791 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-02-25 10:20:04,344 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.14 on LAPTOP-IGOGO with PID 1223 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2022-02-25 10:20:04,348 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2022-02-25 10:20:05,345 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-02-25 10:20:05,512 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 156 ms. Found 14 JPA repository interfaces.
+2022-02-25 10:20:06,286 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-02-25 10:20:06,302 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-25 10:20:06,303 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-02-25 10:20:06,303 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-25 10:20:06,412 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-02-25 10:20:06,413 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1987 ms
+2022-02-25 10:20:06,642 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-25 10:20:06,737 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.4.Final
+2022-02-25 10:20:07,018 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-25 10:20:07,172 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-02-25 10:20:07,563 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-02-25 10:20:07,616 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2022-02-25 10:20:09,184 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-02-25 10:20:09,190 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 10:20:09,976 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-02-25 10:20:10,167 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2022-02-25 10:20:10,323 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-02-25 10:20:10,344 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-25 10:20:10,357 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 6.749 seconds (JVM running for 7.213)
+2022-02-25 10:20:10,404 INFO app.contestTimetable.service.InformCommentsService [main] get informcomments
+2022-02-25 10:20:10,410 INFO app.contestTimetable.ContestTimetableApplication [main] 系统启动成功
+2022-02-25 10:20:45,886 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-25 10:20:45,888 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-02-25 10:20:45,891 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2022-02-25 10:20:58,170 INFO app.contestTimetable.controller.TeamUploadController [http-nio-8080-exec-5] upload multiple files
+2022-02-25 10:20:58,184 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,186 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,197 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,198 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,199 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,199 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,200 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,201 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,202 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2022-02-25 10:20:58,203 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2022-02-25 10:20:58,211 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2022-02-25 10:20:58,212 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2022-02-25 10:20:58,214 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2022-02-25 10:20:58,214 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2022-02-25 10:20:58,215 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2022-02-25 10:20:58,216 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,217 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,218 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,219 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,219 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,220 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,232 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,234 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,235 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,240 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,249 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,250 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,251 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,252 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,253 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,256 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小乙組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,257 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小乙組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,258 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小甲組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,266 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國小甲組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,267 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中乙組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,268 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中乙組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,269 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中甲組動畫設計組決賽名冊.xlsx
+2022-02-25 10:20:58,270 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/SCRATCH應用競賽國中甲組程式設計組決賽名冊.xlsx
+2022-02-25 10:20:58,271 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2022-02-25 10:20:58,272 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2022-02-25 10:20:58,272 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2022-02-25 10:20:58,273 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2022-02-25 10:20:58,273 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2022-02-25 10:20:58,274 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字高中職中文組決賽名冊.xlsx
+2022-02-25 10:20:58,278 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字高中職英文組決賽名冊.xlsx
+2022-02-25 10:20:58,279 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小中文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,280 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小中文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,280 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小英文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,281 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國小英文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,281 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中中文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,282 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中中文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,282 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中英文乙組決賽名冊.xlsx
+2022-02-25 10:20:58,283 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦打字國中英文甲組決賽名冊.xlsx
+2022-02-25 10:20:58,284 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖高中職組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,285 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小中年級乙組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,285 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小中年級甲組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,287 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小高年級乙組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,288 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國小高年級甲組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,289 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國中乙組靜態類決賽名冊.xlsx
+2022-02-25 10:20:58,291 INFO app.contestTimetable.service.FileSystemStorageService [http-nio-8080-exec-5] save to:/tmp/contest/電腦繪圖國中甲組靜態類決賽名冊.xlsx
+2022-02-25 10:20:59,382 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-5] 專題簡報:/tmp/contest/專題簡報國中甲組決賽名冊.xlsx
+2022-02-25 10:20:59,546 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-5] 專題簡報:/tmp/contest/專題簡報高中職組決賽名冊.xlsx
+2022-02-25 10:20:59,586 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-5] 專題簡報:/tmp/contest/專題簡報國小甲組決賽名冊.xlsx
+2022-02-25 10:20:59,968 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-5] 專題簡報:/tmp/contest/專題簡報國中乙組決賽名冊.xlsx
+2022-02-25 10:21:00,139 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-5] 專題簡報:/tmp/contest/專題簡報國小乙組決賽名冊.xlsx
+2022-02-25 10:21:19,435 INFO app.contestTimetable.service.TeamService [http-nio-8080-exec-5] 统计每间学校各项目参赛人数
+2022-02-25 10:21:22,696 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 中區光復國小
+2022-02-25 10:21:22,701 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區中華國小
+2022-02-25 10:21:22,704 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區五權國中
+2022-02-25 10:21:22,706 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區健行國小
+2022-02-25 10:21:22,708 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區太平國小
+2022-02-25 10:21:22,710 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區新民高中
+2022-02-25 10:21:22,712 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區曉明女中
+2022-02-25 10:21:22,720 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區立人國中
+2022-02-25 10:21:22,728 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區立人國小
+2022-02-25 10:21:22,740 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區篤行國小
+2022-02-25 10:21:22,743 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區育仁小學
+2022-02-25 10:21:22,746 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區臺中教大實小
+2022-02-25 10:21:22,750 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區賴厝國小
+2022-02-25 10:21:22,752 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北區雙十國中
+2022-02-25 10:21:22,754 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區三光國中
+2022-02-25 10:21:22,758 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區仁愛國小
+2022-02-25 10:21:22,763 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區仁美國小
+2022-02-25 10:21:22,767 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區僑孝國小
+2022-02-25 10:21:22,773 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區北屯國小
+2022-02-25 10:21:22,776 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區北新國中
+2022-02-25 10:21:22,779 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區四張犁國小
+2022-02-25 10:21:22,783 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區大德國中
+2022-02-25 10:21:22,786 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區崇德國中
+2022-02-25 10:21:22,789 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區建功國小
+2022-02-25 10:21:22,792 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區文心國小
+2022-02-25 10:21:22,796 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區文昌國小
+2022-02-25 10:21:22,806 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區新興國小
+2022-02-25 10:21:22,808 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區明道普霖斯頓小學
+2022-02-25 10:21:22,811 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區東山高中
+2022-02-25 10:21:22,817 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區衛道高中
+2022-02-25 10:21:22,820 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 北屯區軍功國小
+2022-02-25 10:21:22,823 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南區信義國小
+2022-02-25 10:21:22,826 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南區和平國小
+2022-02-25 10:21:22,829 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南區四育國中
+2022-02-25 10:21:22,834 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南區崇倫國中
+2022-02-25 10:21:22,836 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南區樹義國小
+2022-02-25 10:21:22,839 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區南屯國小
+2022-02-25 10:21:22,842 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區大墩國中
+2022-02-25 10:21:22,845 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區大墩國小
+2022-02-25 10:21:22,853 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區大新國小
+2022-02-25 10:21:22,856 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區大業國中
+2022-02-25 10:21:22,858 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區嶺東中學
+2022-02-25 10:21:22,862 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區惠文國小
+2022-02-25 10:21:22,864 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區惠文高中
+2022-02-25 10:21:22,869 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區文山國小
+2022-02-25 10:21:22,872 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區春安國小
+2022-02-25 10:21:22,875 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區東興國小
+2022-02-25 10:21:22,878 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區永春國小
+2022-02-25 10:21:22,881 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區萬和國中
+2022-02-25 10:21:22,885 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區鎮平國小
+2022-02-25 10:21:22,894 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區黎明國中
+2022-02-25 10:21:22,900 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 南屯區黎明國小
+2022-02-25 10:21:22,904 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區七星國小
+2022-02-25 10:21:22,907 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區內埔國小
+2022-02-25 10:21:22,909 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區后綜高中
+2022-02-25 10:21:22,911 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區后里國中
+2022-02-25 10:21:22,914 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區后里國小
+2022-02-25 10:21:22,921 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區月眉國小
+2022-02-25 10:21:22,926 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區泰安國小
+2022-02-25 10:21:22,929 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 后里區育英國小
+2022-02-25 10:21:22,937 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 和平區自由國小
+2022-02-25 10:21:22,940 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 外埔區外埔國中
+2022-02-25 10:21:22,943 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 外埔區外埔國小
+2022-02-25 10:21:22,952 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大安區大安國中
+2022-02-25 10:21:22,955 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大安區大安國小
+2022-02-25 10:21:22,959 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大安區永安國小
+2022-02-25 10:21:22,962 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大安區海墘國小
+2022-02-25 10:21:22,966 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區大甲國中
+2022-02-25 10:21:22,969 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區大甲國小
+2022-02-25 10:21:22,972 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區文昌國小
+2022-02-25 10:21:22,974 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區日南國中
+2022-02-25 10:21:22,976 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區日南國小
+2022-02-25 10:21:22,978 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區東明國小
+2022-02-25 10:21:22,982 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區東陽國小
+2022-02-25 10:21:22,987 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區華龍國小
+2022-02-25 10:21:22,989 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區順天國中
+2022-02-25 10:21:22,991 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大甲區順天國小
+2022-02-25 10:21:22,993 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大肚區大忠國小
+2022-02-25 10:21:22,998 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大肚區大肚國小
+2022-02-25 10:21:23,005 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大肚區大道國中
+2022-02-25 10:21:23,010 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大肚區山陽國小
+2022-02-25 10:21:23,015 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大肚區永順國小
+2022-02-25 10:21:23,018 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大肚區瑞井國小
+2022-02-25 10:21:23,020 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區光榮國中
+2022-02-25 10:21:23,023 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區光正國中
+2022-02-25 10:21:23,026 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區塗城國小
+2022-02-25 10:21:23,028 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區大元國小
+2022-02-25 10:21:23,031 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區大里高中
+2022-02-25 10:21:23,034 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區成功國中
+2022-02-25 10:21:23,036 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區永隆國小
+2022-02-25 10:21:23,039 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區爽文國中
+2022-02-25 10:21:23,046 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區瑞城國小
+2022-02-25 10:21:23,049 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區益民國小
+2022-02-25 10:21:23,056 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區立人高中
+2022-02-25 10:21:23,059 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大里區美群國小
+2022-02-25 10:21:23,061 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區上楓國小
+2022-02-25 10:21:23,067 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區六寶國小
+2022-02-25 10:21:23,072 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區大明國小
+2022-02-25 10:21:23,075 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區大雅國中
+2022-02-25 10:21:23,078 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區大雅國小
+2022-02-25 10:21:23,093 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區文雅國小
+2022-02-25 10:21:23,096 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區汝鎏國小
+2022-02-25 10:21:23,099 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 大雅區陽明國小
+2022-02-25 10:21:23,103 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區中平國中
+2022-02-25 10:21:23,105 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區坪林國小
+2022-02-25 10:21:23,109 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區太平國中
+2022-02-25 10:21:23,116 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區新光國中
+2022-02-25 10:21:23,118 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區新光國小
+2022-02-25 10:21:23,123 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區東平國小
+2022-02-25 10:21:23,126 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區華盛頓中學
+2022-02-25 10:21:23,134 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區長億國小
+2022-02-25 10:21:23,136 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 太平區長億高中
+2022-02-25 10:21:23,139 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 新社區新社國小
+2022-02-25 10:21:23,145 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 新社區新社高中
+2022-02-25 10:21:23,148 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東勢區中山國小
+2022-02-25 10:21:23,153 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東勢區新盛國小
+2022-02-25 10:21:23,158 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東勢區東勢國小
+2022-02-25 10:21:23,168 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東區力行國小
+2022-02-25 10:21:23,170 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東區國立興大附農
+2022-02-25 10:21:23,173 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東區大智國小
+2022-02-25 10:21:23,178 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東區成功國小
+2022-02-25 10:21:23,184 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東區育英國中
+2022-02-25 10:21:23,187 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 東區進德國小
+2022-02-25 10:21:23,202 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 梧棲區中正國小
+2022-02-25 10:21:23,209 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 梧棲區大德國小
+2022-02-25 10:21:23,212 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 梧棲區梧棲國小
+2022-02-25 10:21:23,215 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 梧棲區永寧國小
+2022-02-25 10:21:23,218 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區公明國小
+2022-02-25 10:21:23,221 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區北勢國中
+2022-02-25 10:21:23,224 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區北勢國小
+2022-02-25 10:21:23,228 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區文光國小
+2022-02-25 10:21:23,245 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區沙鹿國中
+2022-02-25 10:21:23,262 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區沙鹿國小
+2022-02-25 10:21:23,270 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區竹林國小
+2022-02-25 10:21:23,272 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區鹿寮國中
+2022-02-25 10:21:23,275 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 沙鹿區鹿峰國小
+2022-02-25 10:21:23,277 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區三田國小
+2022-02-25 10:21:23,288 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區建國國小
+2022-02-25 10:21:23,290 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區槺榔國小
+2022-02-25 10:21:23,293 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區清水國小
+2022-02-25 10:21:23,296 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區清泉國中
+2022-02-25 10:21:23,300 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區甲南國小
+2022-02-25 10:21:23,304 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區西寧國小
+2022-02-25 10:21:23,307 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 清水區高美國小
+2022-02-25 10:21:23,310 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 潭子區弘文高中
+2022-02-25 10:21:23,312 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 潭子區東寶國小
+2022-02-25 10:21:23,316 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 潭子區潭子國中
+2022-02-25 10:21:23,318 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 潭子區潭子國小
+2022-02-25 10:21:23,321 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 潭子區潭秀國中
+2022-02-25 10:21:23,327 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 潭子區潭陽國小
+2022-02-25 10:21:23,336 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 潭子區華盛頓國小
+2022-02-25 10:21:23,338 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區九德國小
+2022-02-25 10:21:23,344 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區僑仁國小
+2022-02-25 10:21:23,350 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區光德國中
+2022-02-25 10:21:23,352 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區喀哩國小
+2022-02-25 10:21:23,354 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區明道中學
+2022-02-25 10:21:23,356 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區東園國小
+2022-02-25 10:21:23,359 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區溪南國中
+2022-02-25 10:21:23,374 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區烏日國中
+2022-02-25 10:21:23,377 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 烏日區烏日國小
+2022-02-25 10:21:23,382 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 石岡區石岡國中
+2022-02-25 10:21:23,385 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 石岡區石岡國小
+2022-02-25 10:21:23,388 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 神岡區圳堵國小
+2022-02-25 10:21:23,391 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 神岡區岸裡國小
+2022-02-25 10:21:23,393 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 神岡區社口國小
+2022-02-25 10:21:23,395 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 神岡區神岡國小
+2022-02-25 10:21:23,402 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區中正國小
+2022-02-25 10:21:23,408 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區光明國中
+2022-02-25 10:21:23,411 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區向上國中
+2022-02-25 10:21:23,414 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區大同國小
+2022-02-25 10:21:23,420 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區居仁國中
+2022-02-25 10:21:23,423 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區忠信國小
+2022-02-25 10:21:23,425 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區忠明國小
+2022-02-25 10:21:23,428 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西區臺中女中
+2022-02-25 10:21:23,433 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區上安國小
+2022-02-25 10:21:23,435 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區上石國小
+2022-02-25 10:21:23,437 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區中山國中
+2022-02-25 10:21:23,439 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區何厝國小
+2022-02-25 10:21:23,441 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區國安國小
+2022-02-25 10:21:23,444 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區大仁國小
+2022-02-25 10:21:23,448 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區安和國中
+2022-02-25 10:21:23,455 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區文華高中
+2022-02-25 10:21:23,457 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區東海國小
+2022-02-25 10:21:23,459 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區泰安國小
+2022-02-25 10:21:23,465 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區漢口國中
+2022-02-25 10:21:23,468 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區福科國中
+2022-02-25 10:21:23,471 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區至善國中
+2022-02-25 10:21:23,473 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區西苑高中
+2022-02-25 10:21:23,475 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區重慶國小
+2022-02-25 10:21:23,477 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 西屯區長安國小
+2022-02-25 10:21:23,480 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區合作國小
+2022-02-25 10:21:23,483 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區福陽國小
+2022-02-25 10:21:23,487 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區翁子國小
+2022-02-25 10:21:23,491 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區葫蘆墩國小
+2022-02-25 10:21:23,495 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區豐南國中
+2022-02-25 10:21:23,501 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區豐原國中
+2022-02-25 10:21:23,506 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區豐村國小
+2022-02-25 10:21:23,508 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 豐原區豐東國中
+2022-02-25 10:21:23,511 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區光復國中小
+2022-02-25 10:21:23,516 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區光正國小
+2022-02-25 10:21:23,518 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區吉峰國小
+2022-02-25 10:21:23,519 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區四德國小
+2022-02-25 10:21:23,521 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區峰谷國小
+2022-02-25 10:21:23,523 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區復興國小
+2022-02-25 10:21:23,527 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區明台高中
+2022-02-25 10:21:23,530 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 霧峰區霧峰國小
+2022-02-25 10:21:23,533 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區四箴國中
+2022-02-25 10:21:23,539 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區龍井國中
+2022-02-25 10:21:23,555 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區龍井國小
+2022-02-25 10:21:23,557 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區龍山國小
+2022-02-25 10:21:23,560 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區龍泉國小
+2022-02-25 10:21:23,565 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區龍津國小
+2022-02-25 10:21:23,567 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區龍津高中
+2022-02-25 10:21:23,578 INFO app.contestTimetable.service.SchoolTeamService [http-nio-8080-exec-5] 龍井區龍海國小
+2022-02-25 10:21:56,211 INFO app.contestTimetable.api.TeamAPIController [http-nio-8080-exec-9] get correct passwd
+2022-02-25 10:22:50,546 INFO app.contestTimetable.service.XlsxService [http-nio-8080-exec-3] filename:2.台中市學校名單tcschool.xlsx
+2022-02-25 10:23:17,176 INFO app.contestTimetable.controller.LocationUploadController [http-nio-8080-exec-8] filename:3.試場.xlsx
+2022-02-25 10:23:17,242 INFO app.contestTimetable.service.LocationService [http-nio-8080-exec-8] 设定场地资料
+2022-02-25 10:24:08,667 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 10:24:08,669 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-02-25 10:24:08,700 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-02-25 14:03:54,781 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.14 on LAPTOP-IGOGO with PID 3375 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2022-02-25 14:03:54,787 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2022-02-25 14:03:55,721 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-02-25 14:03:55,866 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 126 ms. Found 14 JPA repository interfaces.
+2022-02-25 14:03:56,620 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-02-25 14:03:56,635 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-25 14:03:56,636 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-02-25 14:03:56,637 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-25 14:03:56,736 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-02-25 14:03:56,738 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1867 ms
+2022-02-25 14:03:56,920 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-25 14:03:56,962 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.4.Final
+2022-02-25 14:03:57,087 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-25 14:03:57,186 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-02-25 14:03:57,368 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-02-25 14:03:57,389 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2022-02-25 14:03:58,318 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-02-25 14:03:58,328 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 14:03:59,283 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-02-25 14:03:59,493 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2022-02-25 14:03:59,688 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-02-25 14:03:59,699 WARN org.springframework.context.support.AbstractApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2022-02-25 14:03:59,711 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 14:03:59,717 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Shutdown initiated...
+2022-02-25 14:03:59,749 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Shutdown completed.
+2022-02-25 14:03:59,751 INFO org.apache.juli.logging.DirectJDKLog [main] Pausing ProtocolHandler ["http-nio-8080"]
+2022-02-25 14:03:59,752 INFO org.apache.juli.logging.DirectJDKLog [main] Stopping service [Tomcat]
+2022-02-25 14:03:59,761 INFO org.apache.juli.logging.DirectJDKLog [main] Stopping ProtocolHandler ["http-nio-8080"]
+2022-02-25 14:03:59,762 INFO org.apache.juli.logging.DirectJDKLog [main] Destroying ProtocolHandler ["http-nio-8080"]
+2022-02-25 14:03:59,783 INFO org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [main] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-02-25 14:03:59,808 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [main] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2022-02-25 14:04:24,162 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.14 on LAPTOP-IGOGO with PID 3462 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2022-02-25 14:04:24,166 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2022-02-25 14:04:25,044 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-02-25 14:04:25,141 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 83 ms. Found 14 JPA repository interfaces.
+2022-02-25 14:04:25,814 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-02-25 14:04:25,829 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-25 14:04:25,830 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-02-25 14:04:25,831 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-25 14:04:25,926 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-02-25 14:04:25,927 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1685 ms
+2022-02-25 14:04:26,107 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-25 14:04:26,147 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.4.Final
+2022-02-25 14:04:26,260 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-25 14:04:26,343 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-02-25 14:04:26,489 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-02-25 14:04:26,507 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2022-02-25 14:04:27,377 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-02-25 14:04:27,388 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 14:04:28,121 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-02-25 14:04:28,320 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [main] Adding welcome page template: index
+2022-02-25 14:04:28,464 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-02-25 14:04:28,482 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2022-02-25 14:04:28,495 INFO org.springframework.boot.StartupInfoLogger [main] Started ContestTimetableApplication in 4.969 seconds (JVM running for 5.555)
+2022-02-25 14:04:28,553 INFO app.contestTimetable.service.InformCommentsService [main] get informcomments
+2022-02-25 14:04:28,561 INFO app.contestTimetable.ContestTimetableApplication [main] 系统启动成功
+2022-02-25 14:04:31,458 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-25 14:04:31,460 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-02-25 14:04:31,463 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 2 ms
+2022-02-25 14:14:23,988 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-25 14:14:23,992 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-02-25 14:14:24,022 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-02-25 21:11:04,103 INFO org.springframework.boot.StartupInfoLogger [main] Starting ContestTimetableApplication using Java 11.0.14 on LAPTOP-IGOGO with PID 1185 (/home/igogo/Projects/contesttimetable/target/classes started by igogo in /home/igogo/Projects/contesttimetable)
+2022-02-25 21:11:04,105 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2022-02-25 21:11:04,840 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-02-25 21:11:04,929 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 76 ms. Found 14 JPA repository interfaces.
+2022-02-25 21:11:05,420 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-02-25 21:11:05,431 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-02-25 21:11:05,432 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-02-25 21:11:05,433 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-02-25 21:11:05,515 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-02-25 21:11:05,515 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1341 ms
+2022-02-25 21:11:05,680 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-25 21:11:05,719 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.4.Final
+2022-02-25 21:11:05,837 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-25 21:11:05,921 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-02-25 21:11:07,039 ERROR com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Exception during pool initialization.
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:829)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:449)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:242)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:181)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:414)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at app.contestTimetable.ContestTimetableApplication.main(ContestTimetableApplication.java:45)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:949)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:819)
+	... 49 common frames omitted
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:412)
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:255)
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:237)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.base/java.net.Socket.connect(Socket.java:609)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 52 common frames omitted
+2022-02-25 21:11:07,048 WARN org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator [main] HHH000342: Could not obtain connection to query metadata
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:829)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:449)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:242)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:181)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:414)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at app.contestTimetable.ContestTimetableApplication.main(ContestTimetableApplication.java:45)
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:949)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:819)
+	... 49 common frames omitted
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:412)
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:255)
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:237)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.base/java.net.Socket.connect(Socket.java:609)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 52 common frames omitted
+2022-02-25 21:11:07,057 ERROR org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2022-02-25 21:11:07,062 WARN org.springframework.context.support.AbstractApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2022-02-25 21:11:07,070 INFO org.apache.juli.logging.DirectJDKLog [main] Stopping service [Tomcat]
+2022-02-25 21:11:07,092 INFO org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [main] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-02-25 21:11:07,143 ERROR org.springframework.boot.SpringApplication [main] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:414)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
+	at app.contestTimetable.ContestTimetableApplication.main(ContestTimetableApplication.java:45)
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:275)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	... 16 common frames omitted
+Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo cannot be null when 'hibernate.dialect' not set
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:100)
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:54)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:138)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+	... 33 common frames omitted

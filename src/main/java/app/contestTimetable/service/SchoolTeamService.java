@@ -39,9 +39,13 @@ public class SchoolTeamService {
     @Autowired
     SchoolRepository schoolRepository;
 
+
+    public void delete(){
+        schoolTeamRepository.deleteAll();
+    }
+
+
     public List<SchoolTeam> getSchoolTeams() {
-
-
         return schoolTeamRepository.findAllByOrderByMembersDesc();
     }
 
@@ -190,7 +194,7 @@ public class SchoolTeamService {
 
                     schoolteam.setSchoolid(team.getSchoolname());
                 } else {
-                    schoolteam.setSchoolid(school.getSchoolid());
+                    schoolteam.setSchoolid(school.getSchoolid().trim());
                 }
 
                 schoolteam.setSchoolname(team.getSchoolname());

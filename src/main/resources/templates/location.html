@@ -29,7 +29,7 @@
     <div mb-3>
 
         <form class="row" enctype="multipart/form-data" method="POST"
-              th:action="@{'/location/upload'}">
+              th:action="@{'location/upload'}">
 
             <div class="col-auto">
                 <input class="form-control" id="formFile" name="file" type="file">
@@ -44,6 +44,7 @@
 
             <div class="col-auto">
                 <a class="link-secondary" href="/examples/location.xlsx">範例下載</a>
+                <a class="link-secondary" href="api/location/download">資料庫下載</a>
             </div>
 
         </form>

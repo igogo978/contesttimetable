@@ -11,7 +11,7 @@ public class AreaController {
 //    Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    @GetMapping(value = "/scores/area")
+    @GetMapping(value = "/scoresarea")
     public String getScoresAreaPage() {
 
         return "area";

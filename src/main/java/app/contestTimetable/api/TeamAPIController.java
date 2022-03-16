@@ -8,7 +8,6 @@ import app.contestTimetable.service.TeamService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +17,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RestController
@@ -143,7 +141,16 @@ public class TeamAPIController {
     }
 
 
+    @DeleteMapping(value = "/api/team")
+    public String deleteTeam(@RequestBody String payload) {
+        logger.info("delete teams and schoolteam");
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        teamService.deleteTeamAndSchoolTeam();
+
+        return dateTime.format(formatter) + " 刪除參賽隊伍資料";
+    }
 
 
 }

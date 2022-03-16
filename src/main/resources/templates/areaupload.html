@@ -30,7 +30,7 @@
 
                 <h2>Area page - Upload xlsx</h2>
                 <form method="POST" enctype="multipart/form-data"
-                    th:action="@{'/area/upload'}">
+                    th:action="@{'areaupload'}">
 
                     <div class="input-group mb-1">
 
@@ -52,9 +52,9 @@
             </div>
 
             <div id="app">
-                <a href="/examples/area.xlsx" class="btn btn-primary
+                <a href="examples/area.xlsx" class="btn btn-outline-primary
                     stretched-link">範例下載</a>
-                <button type="button" class="btn btn-success" @click="say">自资料库下载</button>
+                <button type="button" class="btn btn-outline-success" @click="say">資料庫下載</button>
             </div>
             <div th:if="${error}">
                 <div class="alert alert-warning" role="alert">您所選擇的副檔名不正確喔</div>

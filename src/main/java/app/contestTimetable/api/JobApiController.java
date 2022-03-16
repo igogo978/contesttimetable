@@ -33,6 +33,7 @@ public class JobApiController {
 
     @GetMapping(value = "/job")
     public Job getId() throws JsonProcessingException {
+
         return jobservice.getJob();
     }
 

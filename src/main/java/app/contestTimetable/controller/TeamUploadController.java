@@ -37,7 +37,7 @@ public class TeamUploadController {
         this.storageService = storageService;
     }
 
-    @GetMapping(value = "/team/upload")
+    @GetMapping(value = "/teamupload")
     public String uploadTeam() {
 
 
@@ -47,7 +47,7 @@ public class TeamUploadController {
 
 
     //user upload page
-    @PostMapping("/team/upload")
+    @PostMapping("/teamupload")
     public String handleTeamsFilesUpload(@RequestParam("files") MultipartFile[] files,
                                          RedirectAttributes redirectAttributes) throws IOException {
 
@@ -56,8 +56,6 @@ public class TeamUploadController {
             teamService.restore(file);
 
         } else {
-
-
             logger.info("upload multiple files");
             storageService.store(files);
             if (storageService.store(files)) {

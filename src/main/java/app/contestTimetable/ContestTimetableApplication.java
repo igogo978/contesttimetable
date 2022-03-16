@@ -56,7 +56,7 @@ public class ContestTimetableApplication implements CommandLineRunner {
         informCommentsService.getInformComments();
 
 
-        logger.info("系统启动成功");
+        logger.info("服務成功啟動");
     }
 
 }

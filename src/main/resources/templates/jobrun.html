@@ -38,7 +38,7 @@
         <h3>上傳client zip</h3>
 
         <form class="row" enctype="multipart/form-data" method="POST"
-              th:action="@{'/job/client/upload'}">
+              th:action="@{'job/client/upload'}">
 
             <div class="col-auto">
                 <input class="form-control" id="formFile" name="file" type="file">
@@ -62,10 +62,10 @@
 
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a class="link-success" href="/job/client/download" target="_blank">client程式下载</a>
+                        <a class="btn btn-outline-success" href="job/client/download" target="_blank">client程式下载</a>
                     </li>
                     <li class="list-group-item">
-                        <a class="btn btn-link" href="https://www.openlogic.com/openjdk-downloads" target="_blank"
+                        <a class="btn btn-outline-secondary" href="https://docs.microsoft.com/en-us/java/openjdk/download" target="_blank"
                            type="button">OPENJRE</a>
 
                     </li>

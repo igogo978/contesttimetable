@@ -28,9 +28,8 @@ public class JobService {
     @Autowired
     SchoolRepository schoolrepository;
 
-
     @Autowired
-    LocationRepository locationrepository;
+    LocationRepository locationRepository;
 
     @Autowired
     TicketRepository ticketrepository;
@@ -74,7 +73,7 @@ public class JobService {
 
         //取出场地
         List<Location> locations = new ArrayList<>();
-        locationrepository.findAll().forEach(location -> locations.add(location));
+        locationRepository.findAll().forEach(location -> locations.add(location));
 
         //参赛学校
         List<SchoolTeam> schoolTeams = schoolTeamRepository.findAllByOrderByMembersDesc();
@@ -95,9 +94,9 @@ public class JobService {
             int day1 = schoolTeam.getContestids().get(0).getMembers() + schoolTeam.getContestids().get(1).getMembers();
             int day2 = schoolTeam.getContestids().get(2).getMembers() + schoolTeam.getContestids().get(3).getMembers();
 
-            if (locationrepository.existsById(schoolTeam.getSchoolid()) || ticketrepository.existsById(schoolTeam.getSchoolid())) {
+            if (locationRepository.existsById(schoolTeam.getSchoolid()) || ticketrepository.existsById(schoolTeam.getSchoolid())) {
                 //承办学校或已经拿到ticket的学校优先列入排序
-                priorityorder.append(String.format("%s-", schoolTeam.getSchoolid()));
+                priorityorder.append(String.format("%s-", schoolTeam.getSchoolid().trim()));
                 prioritysize.set(prioritysize.incrementAndGet());
             } else if (day1 > 4 || day2 > 4) {
                 teamgroup1.add(schoolTeam);
@@ -112,20 +111,20 @@ public class JobService {
         //打乱场地顺序
         Collections.shuffle(locations);
         locations.forEach(location -> {
-            locationorder.append(String.format("%s-", location.getSchoolid()));
+            locationorder.append(String.format("%s-", location.getSchoolid().trim()));
         });
         job.setLocationorder(locationorder.toString());
 
         //决定群组1的顺序
         Collections.shuffle(teamgroup1);
         teamgroup1.forEach(team -> {
-            group1order.append(String.format("%s-", team.getSchoolid()));
+            group1order.append(String.format("%s-", team.getSchoolid().trim()));
         });
         job.setGroup1order(group1order.toString());
 
         //群组2直接列
         teamgroup2.forEach(team -> {
-            group2order.append(String.format("%s-", team.getSchoolid()));
+            group2order.append(String.format("%s-", team.getSchoolid().trim()));
         });
         job.setGroup2order(group2order.toString());
 

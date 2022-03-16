@@ -34,7 +34,7 @@
             <div mb-3>
 
                 <form class="row" enctype="multipart/form-data" method="POST"
-                      th:action="@{'/ticket/upload'}">
+                      th:action="@{'ticket/upload'}">
 
                     <div class="col-auto">
                         <input class="form-control" id="formFile" name="file" type="file">
@@ -48,25 +48,17 @@
                     </div>
 
                     <div class="col-auto">
-                        <a class="link-secondary" href="/examples/ticket.xlsx">範例下載</a>
-                        <a class="link-secondary" href="/api/ticket/download">資料庫備份</a>
+                        <a class="link-secondary" href="examples/ticket.xlsx">範例下載</a>
+                        <a class="link-secondary" href="api/ticket/download">資料庫備份</a>
                     </div>
 
                 </form>
 
             </div>
 
-
-
-
-
-
-
-
-
             <nav class="navbar navbar-dark bg-dark">
-                <a class="navbar-brand" href="/ticket">名單</a>
-                <a class="navbar-brand" href="/ticket/usage">可排電腦數</a>
+                <a class="navbar-brand" href="ticket">名單</a>
+                <a class="navbar-brand" href="ticketusage">可排電腦數</a>
                 <div class="form-inline float-right">
                 </div>
             </nav>
@@ -109,7 +101,7 @@
                 },
                 created: function() {
                     let vm = this;
-                    let url =  "/api/ticket";
+                    let url =  "api/ticket";
     
                     this.$http.get(url, config).then((response) => {
                         vm.items = response.data;

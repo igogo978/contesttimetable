@@ -167,7 +167,7 @@
                         responseType: 'blob'
                     };
 
-                    let url = "/api/pocketlist/inform/all/download";
+                    let url = "api/pocketlist/inform/all/download";
                     let vm = this;
                     this.$http.post(url,data, config)
                         .then((response) => {
@@ -194,7 +194,7 @@
                         responseType: 'arraybuffer'
                     };
 
-                    let url = "/api/pocketlist/location/download";
+                    let url = "api/pocketlist/location/download";
                     let vm = this;
                     this.$http.get(url, config)
                         .then((response) => {
@@ -219,7 +219,7 @@
                         responseType: 'arraybuffer'
                     };
 
-                    let url = "/api/pocketlist/player/download";
+                    let url = "api/pocketlist/player/download";
                     let vm = this;
                     this.$http.get(url, config)
                         .then((response) => {
@@ -243,7 +243,7 @@
                         responseType: 'arraybuffer'
                     };
 
-                    let url = "/api/pocketlist/inform/location/download";
+                    let url = "api/pocketlist/inform/location/download";
                     let vm = this;
                     this.$http.get(url, config)
                         .then((response) => {

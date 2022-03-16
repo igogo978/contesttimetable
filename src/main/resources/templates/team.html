@@ -16,7 +16,7 @@
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="/js/FileSaver.min.js"></script>
+        <script src="js/FileSaver.min.js"></script>
 
         <style>
         .navbar-custom {
@@ -130,7 +130,7 @@
             },
             created: function() {
                 let vm = this;
-                let url =  "/api/team" ;
+                let url =  "api/team" ;
 
                 this.$http.get(url, config).then((response) => {
                     vm.items = response.data;
@@ -153,7 +153,7 @@
                 },
                 getTeams: function() {
                   console.log("get teams json");
-                  let url = "/api/team/download";
+                  let url = "api/team/download";
                   let data = {
                     passwd: this.passwd
                   };
