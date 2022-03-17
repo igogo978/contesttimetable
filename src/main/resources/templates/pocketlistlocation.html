@@ -92,7 +92,7 @@
             },
             created: function() {
                 let vm = this;
-                let url =  "/api/pocket/location/";
+                let url =  "../api/pocket/location/";
                 
                 this.$http.get(url, config).then((response) => {
                     console.log(response.data);
@@ -118,7 +118,7 @@
                         responseType: 'arraybuffer'
                     };
 
-                    let url = "/api/pocketlist/location/download";
+                    let url = "../api/pocketlist/location/download";
                     let vm = this;
                     this.$http.get(url, config)
                         .then((response) => {

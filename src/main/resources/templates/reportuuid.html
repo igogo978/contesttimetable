@@ -201,7 +201,7 @@
                                                 <input type="radio"
                                                     v-bind:value="team.schoolid"
                                                     v-model="checkedOut">
-                                                <a v-bind:href="'archive/school/' + team.name" target="_blank"> {{team.name}} </a>
+                                                <a v-bind:href="'../../archive/school/' + team.name" target="_blank"> {{team.name}} </a>
                                                 ({{team.members}})&nbsp;&nbsp;得分:{{team.scores.toFixed(1)}}
                                                 <a v-bind:href="'https://www.google.com/maps/dir/?api=1&origin=' + team.name + '&destination=' + item.location.name + '&travelmode=driving'"  target="_blank">
                                                     ({{item.location.name}})

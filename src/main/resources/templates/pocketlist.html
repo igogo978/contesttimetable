@@ -20,7 +20,7 @@
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="/js/FileSaver.min.js"></script>
+        <!-- <script src="/js/FileSaver.min.js"></script> -->
 
 
     </head>
@@ -138,7 +138,7 @@
             },
             created: function() {
                 let vm = this;
-                let url =  "/api/pocketlist/";
+                let url =  "api/pocketlist/";
                 
                 this.$http.get(url, config).then((response) => {
                     vm.items = response.data;

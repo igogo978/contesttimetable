@@ -59,21 +59,21 @@ public class TeamUploadController {
             logger.info("upload multiple files");
             storageService.store(files);
             if (storageService.store(files)) {
-                //update teams
-                teamService.update();
+                //update teams and schoolteams
+                teamService.updateTeamAndSchoolTeam();
             }
         }
         return "redirect:/team";
     }
 
-    //讀出team json 上傳檔案內容
-    @RequestMapping(value = "/team/restore", method = RequestMethod.POST)
-    public RedirectView readUploadTeamFile(@RequestParam("file") MultipartFile file, Model model) throws IOException, InvalidFormatException {
-
-        logger.info("filename: " + file.getOriginalFilename());
-//        teamService.restore(file);
-        return new RedirectView("/team");
-    }
+//    //讀出team json 上傳檔案內容
+//    @RequestMapping(value = "/team/restore", method = RequestMethod.POST)
+//    public RedirectView readUploadTeamFile(@RequestParam("file") MultipartFile file, Model model) throws IOException, InvalidFormatException {
+//
+//        logger.info("filename: " + file.getOriginalFilename());
+////        teamService.restore(file);
+//        return new RedirectView("/team");
+//    }
 
 
 }

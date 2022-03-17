@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class InformCommentsController {
 
-    @GetMapping(value = "/inform/comments")
+    @GetMapping(value = "/informcomments")
     public String getInformComments()   {
 
         return "informcomments";
