@@ -1,9 +1,13 @@
 package app.contestTimetable.service;
 
 
+import app.contestTimetable.model.Hanzi;
 import app.contestTimetable.model.Team;
 import app.contestTimetable.model.pocketlist.Inform;
-import app.contestTimetable.repository.*;
+import app.contestTimetable.repository.ContestconfigRepository;
+import app.contestTimetable.repository.InformCommentsRepository;
+import app.contestTimetable.repository.LocationRepository;
+import app.contestTimetable.repository.TeamRepository;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
@@ -16,9 +20,9 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.AreaBreakType;
-import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.AreaBreakType;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +32,8 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,8 +41,11 @@ public class PdfService {
 
     Logger logger = LoggerFactory.getLogger(PdfService.class);
 
+//    @Autowired
+//    HanziRepository hanziRepository;
+
     @Autowired
-    ExtHanziRepository extHanziRepository;
+    HanziService hanziService;
 
     @Autowired
     InformCommentsRepository informCommentsRepository;
@@ -51,6 +58,7 @@ public class PdfService {
 
     @Autowired
     TeamRepository teamRepository;
+
     private FontProgram twKaiFont = null;
 
 
@@ -88,7 +96,7 @@ public class PdfService {
         table.addCell(cell);
 
 
-        logger.info("total people:" + inform.getContestItem() + "," + inform.getTotalPeople());
+        logger.info("total people:" + inform.getLocation() + "," + inform.getContestItem() + "," + inform.getTotalPeople());
         paragraph = new Paragraph(String.format("決賽選手數量：%s 人", inform.getTotalPeople())).setFont(font);
         paragraph.add("\n");
         paragraph.add(String.format("帳號密碼通知單數量：%s 張", inform.getTeamsize()));
@@ -106,47 +114,52 @@ public class PdfService {
         return table;
     }
 
-    private String containsExtHanzi(List<String> extHanzis, String name) {
-
-        for (String hanzi : extHanzis) {
-            if (name.contains(hanzi)) {
-                return hanzi;
-            }
+    public Hanzi containsExtHanzi(String name) {
+        List<Hanzi> hanziList = hanziService.getAll();
+        Optional<Hanzi> hanzi = hanziList.stream()
+                .filter(extHanzi -> name.contains(extHanzi.getHanzi()))
+                .findFirst();
+        if (hanzi.isPresent()) {
+            return hanzi.get();
         }
 
-        return "";
+        return null;
     }
 
-    private List<Text> getNameTextList(List<String> extHanzis, String name, PdfFont font, PdfFont fontExt) {
+    private List<Text> getNameTextList(String name, PdfFont font) throws IOException {
+
+//        王辰󻼴 length 4
+//        logger.info("name length: "+ name.length());
+//        Arrays.stream(name.split("")).forEach(hanzi->logger.info(hanzi));
 
         List<Text> usernameTextList = new ArrayList<>();
         // ext part for ext hanzi 0527
-        String extHanzi = containsExtHanzi(extHanzis, name);
+        Hanzi hanzi = containsExtHanzi(name);
+        PdfFont extHanziFont = getFont(hanzi);
 
-        Integer hanziPosition = name.indexOf(extHanzi);
+        Integer hanziPosition = name.indexOf(hanzi.getHanzi());
 
         if (hanziPosition == 0) {
 //            logger.info("hanzi is in the beginning of name");
 //            logger.info("rest part:" + name.split(extHanzi)[1]);
-            usernameTextList.add(new Text(extHanzi).setFont(fontExt));
-            usernameTextList.add(new Text(name.split(extHanzi)[1]).setFont(font));
+            usernameTextList.add(new Text(hanzi.getHanzi()).setFont(extHanziFont));
+            usernameTextList.add(new Text(name.replace(hanzi.getHanzi(), "")).setFont(font));
         }
 
-        if (hanziPosition != 0 && (hanziPosition + extHanzi.length()) != name.length()) {
+        if (hanziPosition != 0 && (hanziPosition + hanzi.getHanzi().length()) != name.length()) {
 //            logger.info("hanzi is in the middle of name");
 //
 //                    logger.info("1 part: "+ name.split(extHanzi)[0]);
 //                    logger.info("2 part: "+ extHanzi);
 //                    logger.info("3 part: "+ name.split(extHanzi)[1]);
-            usernameTextList.add(new Text(name.split(extHanzi)[0]).setFont(font));
-            usernameTextList.add(new Text(extHanzi).setFont(fontExt));
-            usernameTextList.add(new Text(name.split(extHanzi)[1]).setFont(font));
+            usernameTextList.add(new Text(name.split(hanzi.getHanzi())[0]).setFont(font));
+            usernameTextList.add(new Text(hanzi.getHanzi()).setFont(extHanziFont));
+            usernameTextList.add(new Text(name.split(hanzi.getHanzi())[1]).setFont(font));
         }
 
-        if ((hanziPosition + extHanzi.length()) == name.length()) {
-//            logger.info("hanzi is in the end of name");
-            usernameTextList.add(new Text(name.split(extHanzi)[0]).setFont(font));
-            usernameTextList.add(new Text(extHanzi).setFont(fontExt));
+        if ((hanziPosition + hanzi.getHanzi().length()) == name.length()) {
+            usernameTextList.add(new Text(name.split(hanzi.getHanzi())[0]).setFont(font));
+            usernameTextList.add(new Text(hanzi.getHanzi()).setFont(extHanziFont));
         }
         return usernameTextList;
     }
@@ -210,12 +223,6 @@ public class PdfService {
                 .add(new Paragraph("姓名"));
         table.addCell(username);
 
-        List<String> extHanzis = new ArrayList<>();
-        extHanziRepository.findAll().forEach(hanzi -> {
-
-            extHanzis.add(hanzi.getCharacters());
-        });
-
 
         for (int i = 0; i < teams.size(); i++) {
 
@@ -224,11 +231,11 @@ public class PdfService {
 
             List<Text> usernameTextList = new ArrayList<>();
             // ext part for ext hanzi 0527
-            String extHanzi = containsExtHanzi(extHanzis, name);
+            Hanzi extHanzi = containsExtHanzi(name);
 
-            if (extHanzi.length() != 0) {
+            if (extHanzi != null) {
 
-                usernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+                usernameTextList = getNameTextList(name, font);
 
             } else {
                 usernameTextList.add(new Text(name).setFont(font));
@@ -237,11 +244,11 @@ public class PdfService {
             List<Text> membernameTextList = new ArrayList<>();
             if (teams.get(i).getMembername() != null) {
                 name = teams.get(i).getMembername();
-                extHanzi = containsExtHanzi(extHanzis, name);
+                extHanzi = containsExtHanzi(name);
 
-                if (extHanzi.length() != 0) {
+                if (extHanzi != null) {
 
-                    membernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+                    membernameTextList = getNameTextList(name, font);
 
                 } else {
                     membernameTextList.add(new Text(name).setFont(font));
@@ -370,11 +377,10 @@ public class PdfService {
 //        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
 //        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
 
-        List<String> extHanzis = new ArrayList<>();
-        extHanziRepository.findAll().forEach(hanzi -> {
-
-            extHanzis.add(hanzi.getCharacters());
-        });
+//        List<String> extHanzis = new ArrayList<>();
+//        hanziRepository.findAll().forEach(hanzi -> {
+//            extHanzis.add(hanzi.getHanzi());
+//        });
 
 
         Table table = new Table(UnitValue.createPercentArray(1)).useAllAvailableWidth();
@@ -399,9 +405,9 @@ public class PdfService {
         String name = team.getUsername();
         List<Text> usernameTextList = new ArrayList<>();
         // ext part for ext hanzi 0527
-        String extHanzi = containsExtHanzi(extHanzis, name);
-        if (extHanzi.length() != 0) {
-            usernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+        Hanzi extHanzi = containsExtHanzi(name);
+        if (extHanzi != null) {
+            usernameTextList = getNameTextList(name, font);
         } else {
             usernameTextList.add(new Text(name).setFont(font));
         }
@@ -409,10 +415,10 @@ public class PdfService {
         List<Text> membernameTextList = new ArrayList<>();
         if (team.getMembername() != null) {
             name = team.getMembername();
-            extHanzi = containsExtHanzi(extHanzis, name);
+            extHanzi = containsExtHanzi(name);
 
-            if (extHanzi.length() != 0) {
-                membernameTextList = getNameTextList(extHanzis, name, font, fontExt);
+            if (extHanzi != null) {
+                membernameTextList = getNameTextList(name, font);
             } else {
                 membernameTextList.add(new Text(name).setFont(font));
             }
@@ -486,23 +492,30 @@ public class PdfService {
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
         Document document = new Document(pdfDoc);
 
-        InputStream inputStream = new ClassPathResource(
+        InputStream twKaiFontInputStream = new ClassPathResource(
                 "data/font/TW-Kai-98_1.ttf").getInputStream();
 
-        twKaiFont = FontProgramFactory.createFont(inputStream.readAllBytes());
+        twKaiFont = FontProgramFactory.createFont(twKaiFontInputStream.readAllBytes());
 //        twKaiFont = FontProgramFactory.createFont("/opt/font/TW-Kai-98_1.ttf");
 
-        //handle unicode 第2字面o
-        InputStream inputStream2 = new ClassPathResource(
+        //handle unicode 第2字面
+        InputStream extFontInputStream = new ClassPathResource(
                 "data/font/TW-Kai-Ext-B-98_1.ttf").getInputStream();
+        FontProgram twKaiExtFontProgram = FontProgramFactory.createFont(extFontInputStream.readAllBytes());
 
-        FontProgram twKaiFontExt = FontProgramFactory.createFont(inputStream2.readAllBytes());
+
+        //handle unicode 第15字面
+        InputStream plusFontInputStream = new ClassPathResource(
+                "data/font/TW-Kai-Plus-98_1.ttf").getInputStream();
+        FontProgram twKaiPlusFontProgram = FontProgramFactory.createFont(plusFontInputStream.readAllBytes());
 
 //        FontProgram twKaiFontExt = FontProgramFactory.createFont("/opt/font/TW-Kai-Ext-B-98_1.ttf");
-        PdfFont fontExt = PdfFontFactory.createFont(twKaiFontExt, PdfEncodings.IDENTITY_H, true);
+
+        PdfFont twKaiExtFont = PdfFontFactory.createFont(twKaiExtFontProgram, PdfEncodings.IDENTITY_H);
+        PdfFont twKaiPlusFont = PdfFontFactory.createFont(twKaiPlusFontProgram, PdfEncodings.IDENTITY_H);
 
         // Create a PdfFont
-        PdfFont font = PdfFontFactory.createFont(twKaiFont, PdfEncodings.IDENTITY_H, true);
+        PdfFont font = PdfFontFactory.createFont(twKaiFont, PdfEncodings.IDENTITY_H);
 
         for (int i = 0; i < informs.size(); i++) {
 
@@ -512,7 +525,6 @@ public class PdfService {
 
             Paragraph header = new Paragraph();
             header.add(String.format("%s選手帳號密碼", contestHeader)).setFont(font).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
-
             document.add(header);
 
             Paragraph blank = new Paragraph("\n");
@@ -527,7 +539,7 @@ public class PdfService {
 
             document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-            table = doCover2TablePage(font, fontExt, informs.get(i).getTeams());
+            table = doCover2TablePage(font, twKaiPlusFont, informs.get(i).getTeams());
             document.add(table);
 
             document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
@@ -539,7 +551,7 @@ public class PdfService {
                 teamHeader.add(String.format("%s選手帳號密碼通知單", contestHeader)).setFont(font).setBold().setFontSize(29).setTextAlignment(TextAlignment.CENTER);
                 document.add(teamHeader);
                 try {
-                    document.add(doTeamTablePage(font, fontExt, team));
+                    document.add(doTeamTablePage(font, twKaiPlusFont, team));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -551,6 +563,37 @@ public class PdfService {
 
         document.close();
         return baos;
+    }
+
+
+    public PdfFont getFont(Hanzi hanzi) throws IOException {
+
+        Map<String, PdfFont> fontMap = new HashMap<>();
+
+
+        InputStream twExtFontInputStream = new ClassPathResource(
+                "data/font/TW-Kai-Ext-B-98_1.ttf").getInputStream();
+        FontProgram twKaiExtFontProgram = FontProgramFactory.createFont(twExtFontInputStream.readAllBytes());
+        PdfFont twKaiExtFont = PdfFontFactory.createFont(twKaiExtFontProgram, PdfEncodings.IDENTITY_H);
+
+        fontMap.put("twKaiExtFont", twKaiExtFont);
+
+        InputStream twKaiPlusFontInputStream = new ClassPathResource(
+                "data/font/TW-Kai-Plus-98_1.ttf").getInputStream();
+
+        FontProgram twKaiPlusFontProgram = FontProgramFactory.createFont(twKaiPlusFontInputStream.readAllBytes());
+        PdfFont twKaiPlusFont = PdfFontFactory.createFont(twKaiPlusFontProgram, PdfEncodings.IDENTITY_H);
+        fontMap.put("twKaiPlusFont", twKaiPlusFont);
+
+
+        InputStream csFontInputStream = new ClassPathResource(
+                "data/font/CS_font_200827.ttf").getInputStream();
+        FontProgram csFontProgram = FontProgramFactory.createFont(csFontInputStream.readAllBytes());
+        PdfFont csFont = PdfFontFactory.createFont(csFontProgram, PdfEncodings.IDENTITY_H);
+        fontMap.put("csFont", csFont);
+
+        return fontMap.get(hanzi.getFont());
+
     }
 
 

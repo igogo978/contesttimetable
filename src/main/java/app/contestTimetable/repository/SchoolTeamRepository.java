@@ -10,7 +10,8 @@ public interface SchoolTeamRepository extends CrudRepository<SchoolTeam, String>
 
     List<SchoolTeam> findAllByOrderByMembersDesc();
 
+    List<SchoolTeam> findAll();
     List<SchoolTeam> findByContestidsContestidAndContestidsMembers(Integer contestid, Integer members);
-    List<SchoolTeam> findBySchoolnameContaining(String area);
+    List<SchoolTeam> findBySchoolnameContains(String area);
     SchoolTeam findBySchoolnameEquals(String schoolname);
 }

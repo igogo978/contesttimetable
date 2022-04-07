@@ -20,6 +20,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
@@ -33,7 +35,6 @@ public class TeamService {
 
     @Autowired
     SchoolTeamService schoolTeamService;
-
 
     @Autowired
     ContestconfigRepository contestconfigRepository;
@@ -58,17 +59,17 @@ public class TeamService {
         Arrays.asList(teams).forEach(team -> teamRepository.save(team));
 
         logger.info("统计每间学校各项目参赛人数");
-        schoolTeamService.updateSchoolTeam();
+        schoolTeamService.updateSchoolTeam(List.of(teams));
     }
 
     public void updateTeamAndSchoolTeam() throws IOException {
-        update();
+        List<Team> teams = update();
         //统计每间学校各项目参赛人数
         logger.info("统计每间学校各项目参赛人数");
-        schoolTeamService.updateSchoolTeam();
+        schoolTeamService.updateSchoolTeam(teams);
     }
 
-    public void update() throws IOException {
+    public List<Team> update() throws IOException {
         List<Team> teams = new ArrayList<>();
         teams = xlsxService.getTeams(path);
 
@@ -87,42 +88,45 @@ public class TeamService {
         teamRepository.deleteAll();
 
         teams.forEach(team -> {
+            team = updateDescription(team);
             teamRepository.save(team);
         });
 
+        return teams;
+    }
 
+    private Team updateDescription(Team team) {
 
         //update contest data in team.description
         contestconfigRepository.findAll().forEach(contestconfig -> {
             contestconfig.getContestgroup().forEach(contestitem -> {
+                if (team.getContestitem().toUpperCase(Locale.ROOT).contains(contestitem.toUpperCase(Locale.ROOT))) {
 
-                        List<Team> contestitemTeams = teamRepository.findByContestitemContaining(contestitem.toUpperCase());
+                    team.setDescription(contestconfig.getId() + "-" + contestconfig.getDescription());
+                }
+            });
 
-                        if (contestitemTeams.size() == 0) {
-                            logger.info(contestitem);
-                        }
-                        contestitemTeams.forEach(team -> {
-                            team.setDescription(contestconfig.getId() + "-" + contestconfig.getDescription());
-                            teamRepository.save(team);
-                        });
-                    }
-            );
         });
 
 
+        return team;
     }
 
     public List<Team> getTeamsByLocationAndContestitemContaining(Boolean isVisiblePasswd, String locationname, String contestitem) {
-        List<Team> teams = new ArrayList<>();
-        teamRepository.findByLocationAndContestitemContaining(locationname, contestitem.toUpperCase()).forEach(team -> {
-            if (isVisiblePasswd == false) {
-                team.setAccount("*****");
-                team.setPasswd("*****");
-            }
-            team.setDescription(team.getDescription().substring(2));
+        List<Team> teams = teamRepository.findAll(Sort.by(Sort.Direction.DESC, "Schoolname")).stream()
+                .filter(team -> team.getLocation().equals(locationname))
+                .filter(team -> team.getContestitem().contains(contestitem))
+                .collect(Collectors.toList());
 
-            teams.add(team);
-        });
+//        teamRepository.findByLocationAndContestitemContaining(locationname, contestitem.toUpperCase()).forEach(team -> {
+//            if (isVisiblePasswd == false) {
+//                team.setAccount("*****");
+//                team.setPasswd("*****");
+//            }
+//            team.setDescription(team.getDescription().substring(2));
+//
+//            teams.add(team);
+//        });
 
         return teams;
 

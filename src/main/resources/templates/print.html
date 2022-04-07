@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>輸出</title>
+
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+
+
+    <!-- <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/FileSaver.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div th:replace="fragments/common :: header"></div>
+
+        <br>
+
+        <h3>各項資料列印</h3>
+
+        <br>
+
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">項目</th>
+                    <th scope="col-3"></th>
+                    <th scope="col">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>選手帳密通知單</td>
+                    <td>
+                        <div class="input-group">
+                            <label for="inputPassword2" class="sr-only">密碼</label>
+                            <input v-model="passwd" class="form-control" type="password" id="inputPassword2"
+                                placeholder="Password">
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="form-inline float-left">
+                            <!--                                        <a class="btn btn-success" href="/api/pocketlist/inform/all/download" role="button">列印</a>-->
+                            <button @click="getInform" class="btn btn-success" role="button">列印</button>
+
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>決賽選手試場分配</td>
+                    <td>
+                    </td>
+
+                    <td>
+                        <div> <a href="api/pocketlist/location/download" class="link-dark"> 決賽試場_選手名單 </a></div>
+                        <div> <a href="api/pocketlist/player/download" class="link-dark"> 決賽選手_試場分配 </a></div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>各試場詳細名單</td>
+                    <td> 試場名稱-競賽場次 </td>
+                    <td>
+                        <div> <button @click="downloadInformLocation" type="button" class="btn btn-outline-secondary">
+                                下載 </button></div>
+
+                    </td>
+                </tr>
+
+
+
+            </tbody>
+        </table>
+        <h3>{{msg}}{{msg2}}</h3>
+
+
+
+    </div>
+
+
+    <footer>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            Vue.prototype.$http = axios;
+            let config = {
+                headers: {
+                    'content-type': 'application/json;CHARSET=UTF-8'
+                }
+            };
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    msg: '',
+                    msg2: '',
+                    contestid: null,
+                    items: [],
+                    passwd: '',
+                    isCounting: false,
+
+                },
+                created: function () {
+                },
+                methods: {
+                    say: function () {
+                    },
+                    countdown: function () {
+                        let counter = 0;
+                        let vm = this
+                        vm.msg2 = "|";
+                        vm.downloadingCountdown = setInterval(function () {
+                            switch (counter % 4) {
+                                case 1:
+                                    vm.msg2 = "/";
+                                    break;
+                                case 2:
+                                    vm.msg2 = "-";
+                                    break;
+                                case 3:
+                                    vm.msg2 = "\\";
+                                    break;
+                                default:
+                                    vm.msg2 = "|";
+                                    break
+                            }
+                            counter++;
+                            if (vm.isCounting == false) {
+                                vm.msg2 = '';
+                                clearInterval(vm.downloadingCountdown);
+                            }
+                        }, 300);
+
+                    },
+                    getInform: function () {
+                        this.msg = "Downloading...";
+                        this.isCounting = true;
+                        this.countdown();
+                        let data = {
+                            passwd: this.passwd
+                        }
+                        let config = {
+                            headers: {
+                                'content-type': 'application/json;CHARSET=UTF-8',
+                                'Accept': 'application/pdf'
+                            },
+
+                            responseType: 'blob'
+                        };
+
+                        let url = "api/pocketlist/inform/all/download";
+                        let vm = this;
+                        this.$http.post(url, data, config)
+                            .then((response) => {
+                                const url = window.URL.createObjectURL(new Blob([response.data]));
+                                const link = document.createElement('a');
+                                link.href = url;
+                                link.setAttribute('download', 'informAll.pdf');
+                                document.body.appendChild(link);
+                                link.click();
+
+                                vm.msg = "";
+                                vm.isCounting = false;
+                            });
+
+                    },
+                    // downloadReportByLocation: function(){
+                    //     this.msg = "Downloading...";
+                    //     this.isCounting = true;
+                    //     this.countdown();
+                    //     let config = {
+                    //         headers: {
+                    //             'content-type': 'application/json;CHARSET=UTF-8'
+                    //         },
+                    //         responseType: 'arraybuffer'
+                    //     };
+
+                    //     let url = "api/pocketlist/location/download";
+                    //     let vm = this;
+                    //     this.$http.get(url, config)
+                    //         .then((response) => {
+                    //             var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    //             saveAs(blob, '決賽試場_選手名單.xlsx');
+                    //             vm.msg= "";
+
+                    //             vm.isCounting = false;
+                    //         });
+
+
+                    // },
+                    // downloadReportByPlayer: function(){
+                    //     this.msg = "Downloading...";
+                    //     this.isCounting = true;
+                    //     this.countdown();
+
+                    //     let config = {
+                    //         headers: {
+                    //             'content-type': 'application/json;CHARSET=UTF-8'
+                    //         },
+                    //         responseType: 'arraybuffer'
+                    //     };
+
+                    //     let url = "api/pocketlist/player/download";
+                    //     let vm = this;
+                    //     this.$http.get(url, config)
+                    //         .then((response) => {
+                    //             var blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    //             saveAs(blob, '決賽選手_試場分配.xlsx');
+                    //             vm.msg= "";
+
+                    //             vm.isCounting = false;
+                    //         });
+
+                    // },
+                    downloadInformLocation: function () {
+                        this.msg = "Downloading...";
+                        this.isCounting = true;
+                        this.countdown();
+
+                        let config = {
+                            headers: {
+                                'content-type': 'application/json;CHARSET=UTF-8'
+                            },
+                            responseType: 'arraybuffer'
+                        };
+
+                        let url = "api/pocketlist/inform/location/download";
+                        let vm = this;
+                        this.$http.get(url, config)
+                            .then((response) => {
+                                var blob = new Blob([response.data], { type: 'aapplication/zip' });
+                                saveAs(blob, 'informComments-location.zip');
+                                vm.msg = "";
+
+                                vm.isCounting = false;
+                            })
+                            .catch((error) => {
+
+                                vm.msg = error.message;
+                                vm.isCounting = false;
+
+                            })
+
+                    }
+
+
+                }
+            })
+
+            /*]]>*/
+        </script>
+    </footer>
+
+    <div th:replace="fragments/common :: footer"></div>
+
+
+</body>
+
+</html>

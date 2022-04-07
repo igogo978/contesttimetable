@@ -1,172 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>罕用字</title>
 
-        <link rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="/js/FileSaver.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>罕用字</title>
 
-        <style>
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+
+
+    <!-- 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+ -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+
+    <style>
         .navbar-custom {
             color: #FFFFFF;
             background-color: #CC3333;
         }
-        
-        
-        </style>
-      
-    </head>
-    <body>
-      
-        <div class="container" id="app">
-		 <div th:replace="fragments/common :: header"></div>
+    </style>
 
-<br>
+</head>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-     
+<body>
 
-            <div class="form-inline float-right">              
-                
-            
-                <input v-model="hanzi" type="text" class="form-control" id="inputPassword2" placeholder="">
-                
-                <button @click="updateHanzi" role="button" class="btn btn-info">新增</button>
+    <div class="container" id="app">
+        <div th:replace="fragments/common :: header"></div>
 
-                    
-            </div>
-        </nav>
+        <br>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">罕見字</label>
+            <input v-model="newHanzi.hanzi" type="text" class="form-control" id="exampleFormControlInput1"
+                placeholder="">
+            <button @click="addHanzi" role="button" class="btn btn-primary">新增</button>
+        </div>
 
 
+        <p class="lead">罕用字說明, 因可能編在第二字面或是暫編字, 需要特別選定字型,
+        <ul class="list-group">
+            <li class="list-group-item">
+                https://data.gov.tw/dataset/5961
+            </li>
+            <li class="list-group-item">
+                https://faq.cloudschool.tw/font-code
+
+            </li>
+        </ul>
+
+
+        <br>
+
+        <table class="table">
+            <thead>
+                <td>序</td>
+                <td>罕用字</td>
+                <td>字型</td>
+                <td></td>
+
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in items">
+                    <td>{{index+1}}</td>
+                    <td>{{item.hanzi}}</td>
+                    <td>
+                        <select class="form-select" v-model="item.font" @change="updateSelect(item)">
+                            <option v-for="font in fontList" v-bind:value="font.value">
+                                {{ font.text }}
+                            </option>
+                        </select>
+
+                    </td>
+                    <td>
+                        <button @click="deleteHanzi(item.hanzi)" role="button" class="btn btn-danger">DELETE</button>
+                        <button @click="preview(item)" role="button" class="btn btn-primary">預覽</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
 
 
 
-            <br>       
-
-                <table class="table">
-                    <thead>
-                        <td>序</td>
-                        <td>罕用字</td>
-                        <td></td>
-                       
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, index) in items">
-                            <td>{{index+1}}</td>
-                            <td>{{item.characters}}</td>
-                            <td><button @click="deleteHanzi(item.characters)" role="button" class="btn btn-danger">DELETE</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <footer>
 
 
+        <script th:inline="javascript">
+            /*<![CDATA[*/
 
-
-
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-
-        Vue.prototype.$http = axios;
-        let config = {
-            headers: {
-                'content-type': 'application/json;CHARSET=UTF-8'
-            }
-        };
-
-      
-        var app = new Vue({
-            el: '#app',
-            data: {
-                msg: 'Hello Vue!',
-            
-                items: [],
-                hanzi:'',
-            },
-            created: function() {
-                let vm = this;
-                let url =  "/api/hanzi" ;
-
-                this.$http.get(url, config).then((response) => {
-                    vm.items = response.data;
-                    console.log(response.data);
-
-                }, (response) => {
-                    // error callback
-                });
-
-
-            },
-            computed: {
-                say: function(){
-                   
+            Vue.prototype.$http = axios;
+            let config = {
+                headers: {
+                    'content-type': 'application/json;CHARSET=UTF-8'
                 }
-            },
-            methods: {
-             
-                showMsg: function(){
-                    console.log("hello");
-                },
-                updateHanzi: function(){
-                    let vm = this;
-                    let url = "/api/hanzi"
-                    this.$http.put(url,
-                    {
-                         "hanzi": this.hanzi
+            };
 
-                    },config)
-                    .then((response) => {
-                        // success callback
-                        console.log(response.data);
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    msg: 'Hello Vue!',
+
+                    items: [],
+                    newHanzi: {
+                        hanzi: '',
+                    },
+                    fontList: [
+                        { text: '全字庫罕用字', value: 'twKaiExtFont' },
+                        { text: '全字庫暫編字', value: 'twKaiPlusFont' },
+                        { text: '雲端校務造字', value: 'csFont' }
+
+                    ],
+                },
+                created: function () {
+                    let vm = this;
+                    let url = "api/hanzi";
+
+                    this.$http.get(url, config).then((response) => {
                         vm.items = response.data;
+                        console.log(response.data);
 
                     }, (response) => {
-                    // error callback
+                        // error callback
                     });
+
 
                 },
-                deleteHanzi: function(hanzi){
-                   //https://stackoverflow.com/questions/51069552/axios-delete-request-with-body-and-headers
-                    let vm = this;
-                    let url = "/api/hanzi"
-                    let data = {data: {"delete": hanzi}};
-                    this.$http.delete(url,data,config)
-                    .then((response) => {
-                        // success callback
-                        console.log(response.data);
-                        vm.items = response.data;
+                computed: {
+                    say: function () {
 
-                    }, (response) => {
-                    // error callback
-                    });
+                    }
+                },
+                methods: {
+
+                    showMsg: function () {
+                        console.log("hello");
+                    },
+                    updateSelect: function (item) {
+                        console.log(item);
+                        this.updateHanzi(item);
+                    },
+                    addHanzi: function () {
+                        let vm = this;
+                        let url = "api/hanzi"
+                        this.newHanzi.font = "twKaiExtFont";
+                        this.$http.put(url,
+                            {
+                                "hanzi": this.newHanzi
+
+                            }, config)
+                            .then((response) => {
+                                // success callback
+                                console.log(response.data);
+                                vm.items = response.data;
+
+                            }, (response) => {
+                                // error callback
+                            });
+
+                    },
+                    updateHanzi: function (hanzi) {
+                        console.log(hanzi);
+
+                        let vm = this;
+                        let url = "api/hanzi"
+
+                        let data = { 'hanzi': hanzi };
+
+                        this.$http.put(url, data, config)
+                            .then((response) => {
+                                // success callback
+                                console.log(response.data);
+
+                                vm.items = response.data;
+
+                            }, (response) => {
+                                // error callback
+                            });
+
+
+
+
+                    },
+                    preview: function (item) {
+                        console.log(item.id);
+                        window.open("public/api/hanzi/print/" + item.id, "_blank");
+                    },
+                    deleteHanzi: function (hanzi) {
+                        console.log(hanzi);
+                        //https://stackoverflow.com/questions/51069552/axios-delete-request-with-body-and-headers
+                        let vm = this;
+                        let url = "api/hanzi"
+                        let data = { data: { "delete": hanzi } };
+                        this.$http.delete(url, data, config)
+                            .then((response) => {
+                                // success callback
+                                console.log(response.data);
+                                vm.items = response.data;
+
+                            }, (response) => {
+                                // error callback
+                            });
+
+                    }
 
                 }
-               
-            }
-        })
+            })
 
-         /*]]>*/
+            /*]]>*/
         </script>
-            </footer>
+
+        <script crossorigin="anonymous"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
-        </body>
-    </html>
+
+
+    </footer>
+
+
+</body>
+
+</html>

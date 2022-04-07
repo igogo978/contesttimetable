@@ -270,7 +270,6 @@ public class PocketlistApiController {
         logger.info(String.valueOf(isVisiblePasswd));
 
         List<Inform> informs = new ArrayList<>();
-//        informs = pdfService.doInformAll(isLogin);
         informs = informService.getInformsAll(isVisiblePasswd);
 
         String filename = "inform-all.pdf";

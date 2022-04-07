@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>報表</title>
 
-        <link rel="stylesheet"
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>報表</title>
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+
+    <!-- <link rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -17,12 +22,14 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="/js/FileSaver.min.js"></script>
+ -->
 
-        <style type="text/css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/FileSaver.min.js"></script>
+
+    <style type="text/css">
         .modal-mask {
             position: fixed;
             z-index: 9998;
@@ -34,10 +41,12 @@
             display: table;
             transition: opacity .3s ease;
         }
+
         .modal-wrapper {
             display: table-cell;
             vertical-align: middle;
         }
+
         .modal-container {
             width: 300px;
             margin: 0px auto;
@@ -48,13 +57,16 @@
             transition: all .3s ease;
             font-family: Helvetica, Arial, sans-serif;
         }
+
         .modal-header h3 {
             margin-top: 0;
             color: #42b983;
         }
+
         .modal-body {
             margin: 20px 0;
         }
+
         .modal-default-button {
             float: right;
             border: 4px solid #26759E;
@@ -81,6 +93,7 @@
             background-image: linear-gradient(to bottom, #3093C7, #1C5A85);
             filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#3093C7, endColorstr=#1C5A85);
         }
+
         /*
                  * The following styles are auto-applied to elements with
                  * transition="modal" when their visibility is toggled
@@ -92,19 +105,22 @@
         .modal-enter {
             opacity: 0;
         }
+
         .modal-leave-active {
             opacity: 0;
         }
+
         .modal-enter .modal-container,
         .modal-leave-active .modal-container {
             -webkit-transform: scale(1.1);
             transform: scale(1.1);
         }
     </style>
-    </head>
-    <body>
-        <!-- template for the modal component -->
-        <script type="text/x-template" id="modal-template">
+</head>
+
+<body>
+    <!-- template for the modal component -->
+    <script type="text/x-template" id="modal-template">
             <transition name="modal">
                 <div class="modal-mask">
                     <div class="modal-wrapper">
@@ -137,197 +153,196 @@
             </transition>
         </script>
 
-        <div class="container" id="app">
-		  <div th:replace="fragments/common :: header"></div>
-            {{getScoresFrequency}}
+    <div class="container" id="app">
+        <div th:replace="fragments/common :: header"></div>
+        {{getScoresFrequency}}
 
-            <div>
-                <table class="table">
-                    <thead>
-                        <td> </td>
-                        <td>得分</td>
-                        <td>分數統計</td>
+        <div>
+            <table class="table">
+                <thead>
+                    <td> </td>
+                    <td>得分</td>
+                    <td>分數統計</td>
+                    <td>
+                        <button type="button" class="btn btn-success" @click="downloadReport">備份</button>
+                        <button type="button" class="btn btn-danger" @click="showAlarm">刪除</button>
+
+                        <a class="btn btn-outline-dark" href="report/restore" role="button" target="_blank">restore</a>
+                    </td>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in items">
+                        <td>{{index+1}}</td>
+                        <td>{{parseInt(item.scores)}}</td>
                         <td>
-                            <button type="button" class="btn btn-success"
-                                @click="downloadReport">備份</button>
-                            <button type="button" class="btn btn-danger"
-                                @click="showAlarm">刪除</button>
-                                
-                            <a class="btn btn-outline-dark" href="report/restore" role="button" target="_blank">restore</a>
+                            <table class="table-sm">
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col" v-for="(scores,key) in item.summary">
+                                            {{key}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    <tr>
+                                        <td v-for="(scores,key) in item.summary">
+                                            {{scores}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
                         </td>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, index) in items">
-                            <td>{{index+1}}</td>
-                            <td>{{parseInt(item.scores)}}</td>
-                            <td>
-                                <table class="table-sm">
-                                    <thead>
-                                        <tr>
+                        <td>
+                            <a :href="'report/uuid/'+item.uuid" target="_blank">詳細資料</a>
 
-                                            <th scope="col" v-for="(scores,key) in item.summary">
-                                                {{key}}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <modal v-if="showModal" @dodelete="dodelete" @close="showModal = false">
+        </div>
 
-
-                                        <tr>
-                                            <td v-for="(scores,key) in item.summary">
-                                                {{scores}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
-                            </td>
-                            <td>
-                                <a :href="'report/uuid/'+item.uuid"
-                                    target="_blank">詳細資料</a>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <modal v-if="showModal" @dodelete="dodelete" @close="showModal = false">
-            </div>
-
-            <footer>
+        <footer>
 
 
 
 
 
-    <script th:inline="javascript">
-        /*<![CDATA[*/
+            <script th:inline="javascript">
+                /*<![CDATA[*/
 
-        Vue.prototype.$http = axios;
-        let config = {
-            headers: {
-                'content-type': 'application/json;CHARSET=UTF-8'
-            }
-        };
-
-        // register modal component
-        Vue.component('modal', {
-            template: '#modal-template',
-            data: function () {
-                return {
-                    count: 5
-                }
-            },
-            created: function () {
-                if(this.count != 0){
-
-                    let countInterval = setInterval(() => {
-                    this.count -= 1;
-                    //console.log(this.display_seconds);
-                   
-                    if (this.count <= 0) {
-                        clearInterval(countInterval);
+                Vue.prototype.$http = axios;
+                let config = {
+                    headers: {
+                        'content-type': 'application/json;CHARSET=UTF-8'
                     }
-                }, 1000);
+                };
+
+                // register modal component
+                Vue.component('modal', {
+                    template: '#modal-template',
+                    data: function () {
+                        return {
+                            count: 5
+                        }
+                    },
+                    created: function () {
+                        if (this.count != 0) {
+
+                            let countInterval = setInterval(() => {
+                                this.count -= 1;
+                                //console.log(this.display_seconds);
+
+                                if (this.count <= 0) {
+                                    clearInterval(countInterval);
+                                }
+                            }, 1000);
 
 
 
 
 
-                }
-            }
-        })
-
-
-        var app = new Vue({
-            el: '#app',
-            data: {
-                msg: 'Hello Vue!',
-                showModal: false,
-                contestid: /*[[${contestid}]]*/ 'default',
-                items: []
-            },
-            created: function() {
-                let vm = this;
-                let url =  "api/report/v2" ;
-
-                this.$http.get(url, config).then((response) => {
-                    // vm.items = response.data;
-                    // console.log(response.data);
-
-                    let myitems = [];
-                  
-                    response.data.forEach(item => {
-                        myitem = {};
-                        // console.log(item.uuid);
-                        myitem.uuid = item.uuid;
-                        myitem.scores = item.scores;
-                        myitem.summary = JSON.parse(item.summary);
-
-                        myitems.push(myitem);
-                    });
-                    vm.items = myitems;
-                    console.log(myitems);
-                    
-
-                }, (response) => {
-                    // error callback
-                });
-
-
-            },
-            computed: {
-                getScoresFrequency: function(){
-                    let vm = this;
-                    if(vm.items.lengh != 0){
-                      vm.items.forEach(item => {
-                    });
+                        }
                     }
-                }
-            },
-            methods: {
-                downloadReport: function(){
-                    console.log("backup data");
-                    // /api/report/download
+                })
 
-                    let config = {
-                        headers: {
-                            'content-type': 'application/json;CHARSET=UTF-8'
-                        },
-                        responseType: 'arraybuffer'
-                    };
 
-                    let url = "/api/report/download/";
-                    let vm = this;
-                    this.$http.get(url, config)
-                        .then((response) => {
-                            var blob = new Blob([response.data], { type: 'application/json' });
-                            saveAs(blob, 'reports.json');
+                var app = new Vue({
+                    el: '#app',
+                    data: {
+                        msg: 'Hello Vue!',
+                        showModal: false,
+                        contestid: /*[[${contestid}]]*/ 'default',
+                        items: []
+                    },
+                    created: function () {
+                        let vm = this;
+                        let url = "../api/report/v2";
+
+                        this.$http.get(url, config).then((response) => {
+                            // vm.items = response.data;
+                            // console.log(response.data);
+
+                            let myitems = [];
+
+                            response.data.forEach(item => {
+                                myitem = {};
+                                // console.log(item.uuid);
+                                myitem.uuid = item.uuid;
+                                myitem.scores = item.scores;
+                                myitem.summary = JSON.parse(item.summary);
+
+                                myitems.push(myitem);
+                            });
+                            vm.items = myitems;
+                            console.log(myitems);
+
+
+                        }, (response) => {
+                            // error callback
                         });
 
-                },
-                showAlarm: function(){
-                    this.showModal = true;
-                },
-                dodelete: function() {
-                    console.log("delete all");
-                    let url =  "api/report" ;
 
-                    this.$http.delete(url, config).then((response) => {
-                       //refresh page
-                        console.log("request delete method");
-                        window.location.replace("report");
-                    }, (response) => {
-                        // error callback
-                    });
+                    },
+                    computed: {
+                        getScoresFrequency: function () {
+                            let vm = this;
+                            if (vm.items.lengh != 0) {
+                                vm.items.forEach(item => {
+                                });
+                            }
+                        }
+                    },
+                    methods: {
+                        downloadReport: function () {
+                            console.log("backup data");
+                            // /api/report/download
 
-                }
-            }
-        })
+                            let config = {
+                                headers: {
+                                    'content-type': 'application/json;CHARSET=UTF-8'
+                                },
+                                responseType: 'arraybuffer'
+                            };
 
-         /*]]>*/
-        </script>
-            </footer>
+                            let url = "/api/report/download/";
+                            let vm = this;
+                            this.$http.get(url, config)
+                                .then((response) => {
+                                    var blob = new Blob([response.data], { type: 'application/json' });
+                                    saveAs(blob, 'reports.json');
+                                });
 
+                        },
+                        showAlarm: function () {
+                            this.showModal = true;
+                        },
+                        dodelete: function () {
+                            console.log("delete all");
+                            let url = "api/report";
 
-        </body>
-    </html>
+                            this.$http.delete(url, config).then((response) => {
+                                //refresh page
+                                console.log("request delete method");
+                                window.location.replace("report");
+                            }, (response) => {
+                                // error callback
+                            });
+
+                        }
+                    }
+                })
+
+                /*]]>*/
+            </script>
+        </footer>
+
+        <div th:replace="fragments/common :: footer"></div>
+
+</body>
+
+</html>

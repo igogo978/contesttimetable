@@ -12,14 +12,11 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
     List<Team> findAll(Sort sort);
     List<Team> findByContestitemContaining(String contestitem);
 
-
     List<Team> findByContestitemContainingOrderBySchoolnameDesc(String contestgroup);
-//    List<Team> findByContestgroupContainingAndContestgroupContaining(String contestgroup, String level);
 
     List<Team> findByContestitemContainingOrderByLocationDesc(String contestgroup);
 
     List<Team> findByLocationAndContestitemContaining(String location, String contestitem);
-//    List<Team> findByLocationAndContestitemContainingOrderByLocationDesc(String location, String contestitem);
 
     List<Team> findAllByOrderBySchoolname();
 
@@ -36,10 +33,7 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 
     List<Team> findByLocationAndContestitemNotContainingOrderByLocation(String locationname, String contestitem);
 
-
     Integer countByContestitemContainingAndSchoolname(String contestitem, String schoolname);
-
-    //    List<Team> findByContestitemContainingAndSchoolname(String contestitem, String schoolname);
 
     Integer countByMembernameNotNullAndContestitemContainingAndSchoolname(String contestitem, String schoolname);
     Integer countByContestitemContainingAndLocation(String contestitem, String location);

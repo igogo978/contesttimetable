@@ -15,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +37,7 @@ public class SchoolTeamService {
     SchoolRepository schoolRepository;
 
 
-    public void delete(){
+    public void delete() {
         schoolTeamRepository.deleteAll();
     }
 
@@ -68,13 +65,16 @@ public class SchoolTeamService {
         List<String> areas = areas = getAreas();
 
 
-        List<SchoolTeam> schoolTeams = new ArrayList<>();
-//        Map<Integer, Integer> contestidSum = new HashMap<>();
-//        Map<String, Map<Integer, Integer>> areasSummary = new HashMap<>();
+
         List<Map<String, Map<Integer, Integer>>> areasList = new ArrayList<>();
         areas.forEach(area -> {
             Map<String, Map<Integer, Integer>> areaSummary = new HashMap<>();
-            List<SchoolTeam> areaSchools = schoolTeamRepository.findBySchoolnameContaining(area);
+//            List<SchoolTeam> areaSchools = schoolTeamRepository.findBySchoolnameContains(area);
+            List<SchoolTeam> areaSchools = schoolTeamRepository.findAll().stream()
+                    .filter(schoolTeam -> schoolTeam.getSchoolname().contains(area))
+                    .collect(Collectors.toList());
+
+
             Map<Integer, Integer> contestidSum = new HashMap<>();
             contestconfigrepository.findAllByOrderByIdAsc().forEach(contestconfig -> {
                 if (!contestidSum.containsKey(contestconfig.getId())) {
@@ -122,11 +122,11 @@ public class SchoolTeamService {
     }
 
 
-    public void updateSchoolTeam() {
+    public void updateSchoolTeam(List<Team> teams) {
         schoolTeamRepository.deleteAll();
 
         //取出参赛学校
-        List<Team> teams = teamRepository.findAllByOrderBySchoolname();
+//        List<Team> teams = teamRepository.findAllByOrderBySchoolname();
         List<SchoolTeam> schoolTeams = getSchoolTeams(teams);
 
         //取出每一所学校各个竞赛项目的人员数
@@ -139,6 +139,7 @@ public class SchoolTeamService {
         schoolTeams.forEach(schoolTeam -> {
             schoolTeam.setMembers(0);
 
+
             contestconfigs.forEach(contestconfig -> {
                 //计算学校每一场的总人数
                 Contestid contestid = new Contestid();
@@ -147,8 +148,22 @@ public class SchoolTeamService {
 
                 //处理每一场的单一竞赛项目人数
                 contestconfig.getContestgroup().forEach(item -> {
-                    int members = teamRepository.countByContestitemContainingAndSchoolname(item.toUpperCase(), schoolTeam.getSchoolname());
-                    int presentationMembers = teamRepository.countByMembernameNotNullAndContestitemContainingAndSchoolname(item.toUpperCase(), schoolTeam.getSchoolname());
+
+                    int members = teams.stream()
+                            .filter(team -> team.getSchoolname().contains(schoolTeam.getSchoolname()))
+                            .filter(team -> team.getContestitem().toUpperCase(Locale.ROOT).contains(item.toUpperCase(Locale.ROOT)))
+                            .collect(Collectors.toList())
+                            .size();
+                    int presentationMembers =
+                            teams.stream()
+                                    .filter(team -> team.getSchoolname().contains(schoolTeam.getSchoolname()))
+                                    .filter(team -> team.getContestitem().toUpperCase(Locale.ROOT).contains(item.toUpperCase(Locale.ROOT)))
+                                    .filter(team -> team.getMembername() != null)
+                                    .collect(Collectors.toList())
+                                    .size();
+
+//                    int members = teamRepository.countByContestitemContainingAndSchoolname(item.toUpperCase(), schoolTeam.getSchoolname());
+//                    int presentationMembers = teamRepository.countByMembernameNotNullAndContestitemContainingAndSchoolname(item.toUpperCase(), schoolTeam.getSchoolname());
 
 //                    简报可能两人一组
                     if (presentationMembers != 0) {
@@ -170,6 +185,8 @@ public class SchoolTeamService {
                 schoolTeam.setMembers(schoolTeam.getMembers() + contestid.getMembers());
 
             });
+
+
             schoolTeamRepository.save(schoolTeam);
 
         });
@@ -188,7 +205,7 @@ public class SchoolTeamService {
 
             if (!isExist) {
                 SchoolTeam schoolteam = new SchoolTeam();
-                logger.info(team.getSchoolname());
+//                logger.info(team.getSchoolname());
                 School school = schoolRepository.findBySchoolname(team.getSchoolname());
                 if (school == null) {
 
